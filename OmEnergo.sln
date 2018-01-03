@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmEnergo", "OmEnergo\OmEnergo.csproj", "{895C9089-FD37-4057-8DA0-62833E152C16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmEnergo", "OmEnergo\OmEnergo.csproj", "{39391E73-FEBF-4871-BA14-3576D64BFC20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{895C9089-FD37-4057-8DA0-62833E152C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{895C9089-FD37-4057-8DA0-62833E152C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{895C9089-FD37-4057-8DA0-62833E152C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{895C9089-FD37-4057-8DA0-62833E152C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2004631B-99D4-4FAB-B588-82B352063FC0}
+		SolutionGuid = {BA8B2655-BC9B-414F-A632-583FD15EA410}
 	EndGlobalSection
 EndGlobal

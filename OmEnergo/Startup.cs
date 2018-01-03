@@ -1,26 +1,40 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace OmEnergo
 {
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
         {
+            Configuration = configuration;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment environment)
+        public void ConfigureServices(IServiceCollection services)
         {
-            if (environment.IsDevelopment())
+            services.AddMvc();
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
             }
 
-            app.Run(async (context) =>
+            app.UseStaticFiles();
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("This is new OmEnergo website!");
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
