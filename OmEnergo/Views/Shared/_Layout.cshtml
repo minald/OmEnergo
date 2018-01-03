@@ -17,8 +17,20 @@
 </head>
 <body>
     <header>
-        <h1>ООО "ОмЭнерго"</h1>
-        <h4>Электротехническая компания. Официальный представитель ЭТК "Энергия" (РФ) на территории Республики Беларусь</h4>
+        <div class="row">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <h1>ООО "ОмЭнерго"</h1>
+                <h4>Электротехническая компания. Официальный представитель ЭТК "Энергия" (РФ) на территории Республики Беларусь</h4>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <p class="text-right">
+                    Тел/факс: (+375-17) 248-77-45<br>
+                    Velcom:  (+375-29) 341-31-35<br>
+                    МТС: (+375-29) 560-01-79<br>
+                    E-mail: info@omenergo.by
+                </p>
+            </div>
+        </div>
     </header>
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -33,6 +45,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">О компании</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Payment">Оплата</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Delivery">Доставка</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
                 </ul>

@@ -11,6 +11,16 @@ namespace OmEnergo.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Payment()
+        {
+            return View();
+        }
+
         public IActionResult Delivery()
         {
             return View();
