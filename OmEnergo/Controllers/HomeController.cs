@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OmEnergo.Models;
-using System.Diagnostics;
 
 namespace OmEnergo.Controllers
 {
@@ -33,7 +31,7 @@ namespace OmEnergo.Controllers
 
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

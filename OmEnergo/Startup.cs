@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OmEnergo.Models;
 
 namespace OmEnergo
 {
@@ -16,6 +18,8 @@ namespace OmEnergo
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
+            services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
             services.AddMvc();
         }
 
