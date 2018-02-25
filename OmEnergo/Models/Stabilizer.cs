@@ -33,6 +33,9 @@ namespace OmEnergo.Models
 
         public bool ShortCircuitProtection { get; set; }
 
+        public bool VoltageSurgesProtection { get; set; }
+
+
         //Some more properties... 
     }
 }
