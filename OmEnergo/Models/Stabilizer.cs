@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -35,7 +36,20 @@ namespace OmEnergo.Models
 
         public bool VoltageSurgesProtection { get; set; }
 
+        public bool AdjustableDelay { get; set; }
 
-        //Some more properties... 
+        public string BypassMode { get; set; }
+
+        public string WorkingTemperature { get; set; } //Class in the future, e.g. ("-20 - +40°С")
+
+        public string Dimensions { get; set; } //Class in the future, e.g. ("500x100x100 mm")
+
+        public int Weight { get; set; }
+        
+        public List<Booklet> Booklets { get; set; }
+
+        public List<Picture> Pictures { get; set; }
+
+        public double Price { get; set; }
     }
 }
