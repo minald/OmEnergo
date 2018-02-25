@@ -31,6 +31,8 @@ namespace OmEnergo.Models
 
         public string Indication { get; set; } //List<Enum> in the future 
 
+        public bool ShortCircuitProtection { get; set; }
+
         //Some more properties... 
     }
 }
