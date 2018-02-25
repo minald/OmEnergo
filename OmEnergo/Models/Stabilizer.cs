@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
@@ -18,7 +19,7 @@ namespace OmEnergo.Models
 
         public string StabilizationAccuracy { get; set; } //Class in the future, e.g. ("220B +- 5%") 
 
-        public int PhasesAmount { get; set; }
+        public int? PhasesAmount { get; set; }
 
         public string OperatingFrequencyOfNetwork { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
 
@@ -32,11 +33,11 @@ namespace OmEnergo.Models
 
         public string Indication { get; set; } //List<Enum> in the future 
 
-        public bool ShortCircuitProtection { get; set; }
+        public bool? ShortCircuitProtection { get; set; }
 
-        public bool VoltageSurgesProtection { get; set; }
+        public bool? VoltageSurgesProtection { get; set; }
 
-        public bool AdjustableDelay { get; set; }
+        public bool? AdjustableDelay { get; set; }
 
         public string BypassMode { get; set; }
 
@@ -44,12 +45,12 @@ namespace OmEnergo.Models
 
         public string Dimensions { get; set; } //Class in the future, e.g. ("500x100x100 mm")
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
         
         public List<Booklet> Booklets { get; set; }
 
         public List<Picture> Pictures { get; set; }
 
-        public double Price { get; set; }
+        public double? Price { get; set; }
     }
 }
