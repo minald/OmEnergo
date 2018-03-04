@@ -6,7 +6,7 @@ namespace OmEnergo.Controllers
 {
     public class CatalogController : Controller
     {
-        private OmEnergoContext Db { get; }
+        private OmEnergoContext Db;
 
         public CatalogController(OmEnergoContext db)
         {
