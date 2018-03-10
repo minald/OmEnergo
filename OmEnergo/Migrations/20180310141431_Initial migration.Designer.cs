@@ -11,8 +11,8 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    [Migration("20180225211251_Making fields nullable")]
-    partial class Makingfieldsnullable
+    [Migration("20180310141431_Initial migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,8 @@ namespace OmEnergo.Migrations
                     b.Property<string>("InputVoltageRange");
 
                     b.Property<string>("LongDescription");
+
+                    b.Property<string>("MainImageLink");
 
                     b.Property<string>("OperatingFrequencyOfNetwork");
 

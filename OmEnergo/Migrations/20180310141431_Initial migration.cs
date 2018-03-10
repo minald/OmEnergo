@@ -29,7 +29,7 @@ namespace OmEnergo.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdjustableDelay = table.Column<bool>(nullable: false),
+                    AdjustableDelay = table.Column<bool>(nullable: true),
                     AllowableDurableOverload = table.Column<string>(nullable: true),
                     BypassMode = table.Column<string>(nullable: true),
                     Dimensions = table.Column<string>(nullable: true),
@@ -37,17 +37,18 @@ namespace OmEnergo.Migrations
                     Indication = table.Column<string>(nullable: true),
                     InputVoltageRange = table.Column<string>(nullable: true),
                     LongDescription = table.Column<string>(nullable: true),
+                    MainImageLink = table.Column<string>(nullable: true),
                     OperatingFrequencyOfNetwork = table.Column<string>(nullable: true),
-                    PhasesAmount = table.Column<int>(nullable: false),
-                    Price = table.Column<double>(nullable: false),
+                    PhasesAmount = table.Column<int>(nullable: true),
+                    Price = table.Column<double>(nullable: true),
                     Series = table.Column<string>(nullable: true),
-                    ShortCircuitProtection = table.Column<bool>(nullable: false),
+                    ShortCircuitProtection = table.Column<bool>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
                     StabilizationAccuracy = table.Column<string>(nullable: true),
                     StabilizationType = table.Column<string>(nullable: true),
                     SwitchingTime = table.Column<string>(nullable: true),
-                    VoltageSurgesProtection = table.Column<bool>(nullable: false),
-                    Weight = table.Column<int>(nullable: false),
+                    VoltageSurgesProtection = table.Column<bool>(nullable: true),
+                    Weight = table.Column<int>(nullable: true),
                     WorkingTemperature = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

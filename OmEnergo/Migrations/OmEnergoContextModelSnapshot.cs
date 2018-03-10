@@ -87,6 +87,8 @@ namespace OmEnergo.Migrations
 
                     b.Property<string>("LongDescription");
 
+                    b.Property<string>("MainImageLink");
+
                     b.Property<string>("OperatingFrequencyOfNetwork");
 
                     b.Property<int?>("PhasesAmount");

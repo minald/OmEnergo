@@ -1,16 +1,11 @@
-﻿header {
-    padding-left: 30px;
-    padding-right: 30px;
+﻿body {
+    padding: 10px 0px;
 }
 
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+header {
+    padding: 10px 30px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 20px 10px 10px 10px;
 }

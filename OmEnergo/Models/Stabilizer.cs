@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
@@ -9,7 +8,9 @@ namespace OmEnergo.Models
         [Key]
         public int Id { get; set; }
 
-        public string Series { get; set; } //Enum in the future 
+        public string Series { get; set; } //Enum in the future
+
+        public string MainImageLink { get; set; }
 
         public string ShortDescription { get; set; }
 
@@ -25,7 +26,7 @@ namespace OmEnergo.Models
 
         public string AllowableDurableOverload { get; set; } //Int in the future, e.g. ("<= 110%") 
 
-        public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B") 
+        public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
 
         public string Efficiency { get; set; } //Int in the future, e.g. ("98%") 
 
