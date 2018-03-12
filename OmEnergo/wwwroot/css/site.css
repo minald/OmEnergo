@@ -1,5 +1,6 @@
 ﻿body {
     padding: 10px 0px;
+    background-color: #F7FFDD;
 }
 
 header {
@@ -8,4 +9,8 @@ header {
 
 .body-content {
     padding: 20px 10px 10px 10px;
+}
+
+.row > * {
+    padding-bottom: 10px;
 }
