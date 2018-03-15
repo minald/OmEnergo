@@ -38,15 +38,37 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a asp-area="" asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">Каталог</a>
-                <a asp-area="" asp-controller="Home" asp-action="About" class="nav-item nav-link">О компании</a>
-                <a asp-area="" asp-controller="Home" asp-action="Payment" class="nav-item nav-link">Оплата</a>
-                <a asp-area="" asp-controller="Home" asp-action="Delivery" class="nav-item nav-link">Доставка</a>
-                <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Контакты</a>
+                <a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">Каталог</a>
+                <a asp-controller="Home" asp-action="About" class="nav-item nav-link">О компании</a>
+                <a asp-controller="Home" asp-action="Payment" class="nav-item nav-link">Оплата</a>
+                <a asp-controller="Home" asp-action="Delivery" class="nav-item nav-link">Доставка</a>
+                <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Контакты</a>
             </div>
         </div>
     </nav>
     <div class="container body-content">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @{
+                    var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+                    var action = this.ViewContext.RouteData.Values["action"].ToString();
+                    string id = ViewContext.RouteData.Values["id"]?.ToString().Replace("_", " ") ?? "";
+                }
+                @if (controller == "Catalog")
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                }
+                <li class="breadcrumb-item"><a asp-controller="@controller" asp-action="Index">@controller</a></li>
+                @if (action != "Index")
+                {
+                    <li class="breadcrumb-item"><a asp-controller="@controller" asp-action="@action" asp-route-id="">@action</a></li>
+                    @if (!String.IsNullOrEmpty(id))
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">@id</li>
+                    }
+                }
+            </ol>
+        </nav>
         @RenderBody()
         <hr />
         <footer>

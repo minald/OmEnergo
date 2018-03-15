@@ -18,10 +18,18 @@ namespace OmEnergo.Controllers
             return View();
         }
 
-        public IActionResult Stabilizers()
+        public IActionResult Stabilizers(string id)
         {
-            var stabilizers = Db.Stabilizers.ToList();
-            return View(stabilizers);
+            if(id == null)
+            {
+                var stabilizers = Db.Stabilizers.ToList();
+                return View(stabilizers);
+            }
+            else
+            {
+                var stabilizer = Db.Stabilizers.First(x => x.Series.Replace(" ", "_") == id);
+                return View("Stabilizer", stabilizer);
+            }
         }
     }
 }
