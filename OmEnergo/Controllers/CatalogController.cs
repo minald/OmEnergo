@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OmEnergo.Models;
 using System.Linq;
 
@@ -15,19 +16,20 @@ namespace OmEnergo.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var products = Db.Products.ToList();
+            return View(products);
         }
 
-        public IActionResult Stabilizers(string id)
+        public IActionResult HouseholdSinglephaseStabilizers(string id)
         {
             if(id == null)
             {
-                var stabilizers = Db.Stabilizers.ToList();
+                var stabilizers = Db.Stabilizers.Include(x => x.Product).ToList();
                 return View(stabilizers);
             }
             else
             {
-                var stabilizer = Db.Stabilizers.First(x => x.Series.Replace(" ", "_") == id);
+                var stabilizer = Db.Stabilizers.Include(x => x.Product).First(x => x.Series.Replace(" ", "_") == id);
                 return View("Stabilizer", stabilizer);
             }
         }

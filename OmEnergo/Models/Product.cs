@@ -7,7 +7,11 @@ namespace OmEnergo.Models
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string EnglishName { get; set; }
+
+        public string RussianName { get; set; }
+
+        public string MainImageLink { get; set; }
 
         public string Description { get; set; }
     }

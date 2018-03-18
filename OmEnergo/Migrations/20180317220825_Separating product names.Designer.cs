@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180317220825_Separating product names")]
+    partial class Separatingproductnames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,8 +100,6 @@ namespace OmEnergo.Migrations
 
                     b.Property<double?>("Price");
 
-                    b.Property<int?>("ProductId");
-
                     b.Property<string>("Series");
 
                     b.Property<bool?>("ShortCircuitProtection");
@@ -121,8 +120,6 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Stabilizers");
                 });
 
@@ -138,13 +135,6 @@ namespace OmEnergo.Migrations
                     b.HasOne("OmEnergo.Models.Stabilizer")
                         .WithMany("Pictures")
                         .HasForeignKey("StabilizerId");
-                });
-
-            modelBuilder.Entity("OmEnergo.Models.Stabilizer", b =>
-                {
-                    b.HasOne("OmEnergo.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }

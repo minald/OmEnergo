@@ -12,9 +12,6 @@ namespace OmEnergo.Models
 
         public DbSet<Picture> Pictures { get; set; }
 
-        public OmEnergoContext(DbContextOptions<OmEnergoContext> options) : base(options)
-        {
-
-        }
+        public OmEnergoContext(DbContextOptions<OmEnergoContext> options) : base(options) {  }
     }
 }

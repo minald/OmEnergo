@@ -38,7 +38,7 @@ namespace OmEnergo
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Catalog}/{action=Index}/{id?}");
             });
         }
     }

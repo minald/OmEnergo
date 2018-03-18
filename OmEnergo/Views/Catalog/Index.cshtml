@@ -1,21 +1,20 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Каталог";
 }
 
-<table class="table table-responsive table-bordered">
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">Каталог</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <a asp-area="" asp-controller="Catalog" asp-action="Stabilizers">Стабилизаторы</a>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+<div class="container row justify-content-center">
+    @foreach (var product in Model)
+    {
+        <a asp-controller="Catalog" asp-action="@product.EnglishName" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <p class="h3 text-center">@product.RussianName</p>
+                </div>
+                <div class="card-body">
+                    <img class="card-img-top" src="~/images/@product.EnglishName/@product.MainImageLink">
+                </div>
+            </div>
+        </a>
+    }
+</div>
