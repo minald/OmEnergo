@@ -20,9 +20,51 @@ namespace OmEnergo.Controllers
             return View(products);
         }
 
+        public IActionResult IndustrialSinglephaseStabilizers(string id)
+        {
+            if (id == null)
+            {
+                var stabilizers = Db.Stabilizers.Include(x => x.Product).ToList();
+                return View(stabilizers);
+            }
+            else
+            {
+                var stabilizer = Db.Stabilizers.Include(x => x.Product).First(x => x.Series.Replace(" ", "_") == id);
+                return View("Stabilizer", stabilizer);
+            }
+        }
+
+        public IActionResult IndustrialThreephaseStabilizers(string id)
+        {
+            if (id == null)
+            {
+                var stabilizers = Db.Stabilizers.Include(x => x.Product).ToList();
+                return View(stabilizers);
+            }
+            else
+            {
+                var stabilizer = Db.Stabilizers.Include(x => x.Product).First(x => x.Series.Replace(" ", "_") == id);
+                return View("Stabilizer", stabilizer);
+            }
+        }
+
         public IActionResult HouseholdSinglephaseStabilizers(string id)
         {
             if(id == null)
+            {
+                var stabilizers = Db.Stabilizers.Include(x => x.Product).ToList();
+                return View(stabilizers);
+            }
+            else
+            {
+                var stabilizer = Db.Stabilizers.Include(x => x.Product).First(x => x.Series.Replace(" ", "_") == id);
+                return View("Stabilizer", stabilizer);
+            }
+        }
+
+        public IActionResult HouseholdThreephaseStabilizers(string id)
+        {
+            if (id == null)
             {
                 var stabilizers = Db.Stabilizers.Include(x => x.Product).ToList();
                 return View(stabilizers);
