@@ -16,7 +16,9 @@ namespace OmEnergo.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    EnglishName = table.Column<string>(nullable: true),
+                    MainImageLink = table.Column<string>(nullable: true),
+                    RussianName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,6 +43,7 @@ namespace OmEnergo.Migrations
                     OperatingFrequencyOfNetwork = table.Column<string>(nullable: true),
                     PhasesAmount = table.Column<int>(nullable: true),
                     Price = table.Column<double>(nullable: true),
+                    ProductId = table.Column<int>(nullable: true),
                     Series = table.Column<string>(nullable: true),
                     ShortCircuitProtection = table.Column<bool>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
@@ -54,6 +57,12 @@ namespace OmEnergo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stabilizers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stabilizers_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,6 +114,11 @@ namespace OmEnergo.Migrations
                 name: "IX_Pictures_StabilizerId",
                 table: "Pictures",
                 column: "StabilizerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stabilizers_ProductId",
+                table: "Stabilizers",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -116,10 +130,10 @@ namespace OmEnergo.Migrations
                 name: "Pictures");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Stabilizers");
 
             migrationBuilder.DropTable(
-                name: "Stabilizers");
+                name: "Products");
         }
     }
 }

@@ -11,7 +11,7 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    [Migration("20180310141431_Initial migration")]
+    [Migration("20180318223515_Initial migration")]
     partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,11 @@ namespace OmEnergo.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("EnglishName");
+
+                    b.Property<string>("MainImageLink");
+
+                    b.Property<string>("RussianName");
 
                     b.HasKey("Id");
 
@@ -96,6 +100,8 @@ namespace OmEnergo.Migrations
 
                     b.Property<double?>("Price");
 
+                    b.Property<int?>("ProductId");
+
                     b.Property<string>("Series");
 
                     b.Property<bool?>("ShortCircuitProtection");
@@ -116,6 +122,8 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("Stabilizers");
                 });
 
@@ -131,6 +139,13 @@ namespace OmEnergo.Migrations
                     b.HasOne("OmEnergo.Models.Stabilizer")
                         .WithMany("Pictures")
                         .HasForeignKey("StabilizerId");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.Stabilizer", b =>
+                {
+                    b.HasOne("OmEnergo.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }
