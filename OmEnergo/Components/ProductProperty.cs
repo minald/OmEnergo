@@ -6,9 +6,9 @@ namespace OmEnergo.Components
 {
     public class ProductProperty : ViewComponent
     {
-        public IViewComponentResult Invoke(Stabilizer model, string value)
+        public IViewComponentResult Invoke(Stabilizer model, string propertyName)
         {
-            var productProperty = new ProductPropertyVM(model, value);
+            var productProperty = new ProductPropertyVM(model, propertyName);
             return View(productProperty);
         }
     }

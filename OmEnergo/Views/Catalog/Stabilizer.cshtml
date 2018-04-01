@@ -4,15 +4,23 @@
 }
 
 <p class="h3 text-center">@Model.Series</p>
-<p class="text-center">@Model.Product.EnglishName</p>
 <table class="table table-light table-bordered table-hover">
     <tbody>
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.StabilizationType })
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.StabilizationAccuracy })
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.PhasesAmount })
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.OperatingFrequencyOfNetwork })
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.AllowableDurableOverload })
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.InputVoltageRange })
-        @await Component.InvokeAsync("ProductProperty", new { model = Model, value = Model.Efficiency })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "StabilizationType" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "StabilizationAccuracy" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "PhasesAmount" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "OperatingFrequencyOfNetwork" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AllowableDurableOverload" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltageRange" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Efficiency" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "SwitchingTime" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Indication" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "ShortCircuitProtection" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "VoltageSurgesProtection" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AdjustableDelay" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "BypassMode" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "WorkingTemperature" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Dimensions" })
+        @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Weight" })
     </tbody>
 </table>

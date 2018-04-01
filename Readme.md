@@ -12,5 +12,5 @@
 * Create the admin panel (2.0.0)
 
 ## Version history
-02.01.18 - 0.0.0 - Adding initial changes
-05.01.18 - 0.0.1 - Adding all information except the catalog
+*02.01.18 - 0.0.0 - Adding initial changes
+*05.01.18 - 0.0.1 - Adding all information except the catalog
