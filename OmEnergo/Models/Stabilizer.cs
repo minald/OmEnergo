@@ -18,6 +18,7 @@ namespace OmEnergo.Models
 
         public string LongDescription { get; set; }
 
+        [Display(Name = "Тип стабилизации")]
         public string StabilizationType { get; set; } //Enum in the future 
 
         public string StabilizationAccuracy { get; set; } //Class in the future, e.g. ("220B +- 5%") 

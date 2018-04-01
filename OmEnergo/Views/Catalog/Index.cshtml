@@ -3,7 +3,7 @@
     ViewData["Title"] = "Каталог";
 }
 
-<div class="container row justify-content-center">
+<div class="row justify-content-center">
     @foreach (var product in Model)
     {
         <a asp-controller="Catalog" asp-action="@product.EnglishName" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">

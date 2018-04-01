@@ -46,7 +46,7 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="body-content">
         <div class="breadcrumb">
             @{
                 var controller = this.ViewContext.RouteData.Values["controller"].ToString();
@@ -67,7 +67,12 @@
                 }
             }
         </div>
-        @RenderBody()
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                @RenderBody()
+            </div>
+        </div>
         <hr />
         <footer>
             <p>&copy; 2018 - ООО "ОмЭнерго"</p>

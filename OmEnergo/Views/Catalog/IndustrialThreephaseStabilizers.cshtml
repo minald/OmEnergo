@@ -3,10 +3,10 @@
     ViewData["Title"] = "Стабилизаторы";
 }
 
-<div class="container row justify-content-center">
+<div class="row justify-content-center">
     @foreach (var stabilizer in Model)
     {
-        <a asp-controller="Catalog" asp-action="@stabilizer.Product.EnglishName" asp-route-id="@stabilizer.Series.Replace(" ","_")" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <a asp-controller="Catalog" asp-action="@stabilizer.Product.EnglishName" asp-route-series="@stabilizer.Series.Replace(" ","_")" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-header">
                     <p class="h3 text-center">@stabilizer.Series</p>
