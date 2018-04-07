@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180407170249_Adding stabilizer models")]
+    partial class Addingstabilizermodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,7 +120,7 @@ namespace OmEnergo.Migrations
 
             modelBuilder.Entity("OmEnergo.Models.StabilizerModel", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Stabilizer", "Stabilizer")
+                    b.HasOne("OmEnergo.Models.Stabilizer")
                         .WithMany("Models")
                         .HasForeignKey("StabilizerId");
                 });

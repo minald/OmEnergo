@@ -8,9 +8,7 @@ namespace OmEnergo.Models
 
         public DbSet<Stabilizer> Stabilizers { get; set; }
 
-        public DbSet<Booklet> Booklets { get; set; }
-
-        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<StabilizerModel> StabilizerModels { get; set; }
 
         public OmEnergoContext() { }
 

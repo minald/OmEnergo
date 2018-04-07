@@ -65,11 +65,7 @@ namespace OmEnergo.Models
 
         [Display(Name = "Вес")]
         public int? Weight { get; set; }
-        
-        public List<Booklet> Booklets { get; set; }
 
-        public List<Picture> Pictures { get; set; }
-
-        public double? Price { get; set; }
+        public List<StabilizerModel> Models { get; set; }
     }
 }
