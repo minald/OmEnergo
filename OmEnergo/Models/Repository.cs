@@ -25,7 +25,8 @@ namespace OmEnergo.Models
 
         public Stabilizer GetIndustrialSinglephaseStabilizerBySeries(string series)
         {
-            return Db.Stabilizers.Include(x => x.Product).First(x => x.Product.EnglishName == "IndustrialSinglephaseStabilizers" && x.Series.Replace(" ", "_") == series);
+            return Db.Stabilizers.Include(x => x.Product).Include(x => x.Models)
+                .First(x => x.Product.EnglishName == "IndustrialSinglephaseStabilizers" && x.Series.Replace(" ", "_") == series);
         }
 
         public List<Stabilizer> GetIndustrialThreephaseStabilizers()
@@ -35,7 +36,8 @@ namespace OmEnergo.Models
 
         public Stabilizer GetIndustrialThreephaseStabilizerBySeries(string series)
         {
-            return Db.Stabilizers.Include(x => x.Product).First(x => x.Product.EnglishName == "IndustrialThreephaseStabilizers" && x.Series.Replace(" ", "_") == series);
+            return Db.Stabilizers.Include(x => x.Product).Include(x => x.Models)
+                .First(x => x.Product.EnglishName == "IndustrialThreephaseStabilizers" && x.Series.Replace(" ", "_") == series);
         }
 
         public List<Stabilizer> GetHouseholdSinglephaseStabilizers()
@@ -45,7 +47,8 @@ namespace OmEnergo.Models
 
         public Stabilizer GetHouseholdSinglephaseStabilizerBySeries(string series)
         {
-            return Db.Stabilizers.Include(x => x.Product).First(x => x.Product.EnglishName == "HouseholdSinglephaseStabilizers" && x.Series.Replace(" ", "_") == series);
+            return Db.Stabilizers.Include(x => x.Product).Include(x => x.Models)
+                .First(x => x.Product.EnglishName == "HouseholdSinglephaseStabilizers" && x.Series.Replace(" ", "_") == series);
         }
 
         public List<Stabilizer> GetHouseholdThreephaseStabilizers()
@@ -55,7 +58,8 @@ namespace OmEnergo.Models
 
         public Stabilizer GetHouseholdThreephaseStabilizerBySeries(string series)
         {
-            return Db.Stabilizers.Include(x => x.Product).First(x => x.Product.EnglishName == "HouseholdThreephaseStabilizers" && x.Series.Replace(" ", "_") == series);
+            return Db.Stabilizers.Include(x => x.Product).Include(x => x.Models)
+                .First(x => x.Product.EnglishName == "HouseholdThreephaseStabilizers" && x.Series.Replace(" ", "_") == series);
         }
     }
 }

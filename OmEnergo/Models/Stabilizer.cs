@@ -54,6 +54,8 @@ namespace OmEnergo.Models
         [Display(Name = "Регулируемая задержка")]
         public bool? AdjustableDelay { get; set; }
 
+        //TODO: Задержка включения (встроенная)
+
         [Display(Name = "Режим \"Байпас\"")]
         public string BypassMode { get; set; }
 

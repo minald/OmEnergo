@@ -12,7 +12,7 @@
                     <p class="h3 text-center">@product.RussianName</p>
                 </div>
                 <div class="card-body">
-                    <img class="card-img-top" src="~/images/@product.EnglishName/@product.MainImageLink">
+                    <img class="card-img-top" src="@product.GetFullImageLink()">
                 </div>
             </div>
         </a>

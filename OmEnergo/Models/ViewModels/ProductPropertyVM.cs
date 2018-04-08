@@ -15,7 +15,16 @@ namespace OmEnergo.Models.ViewModels
             var propertyInfo = modelType.GetProperty(propertyName);
             var displayAttribute = propertyInfo.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
             DisplayName = displayAttribute?.Name;
-            Value = propertyInfo.GetValue(model)?.ToString();
+
+            if (propertyInfo.PropertyType == typeof(bool?))
+            {
+                bool? boolValue = (bool?)(propertyInfo.GetValue(model));
+                Value = boolValue?.ToStringInRussian();
+            }
+            else
+            {
+                Value = propertyInfo.GetValue(model)?.ToString();
+            }
         }
     }
 }

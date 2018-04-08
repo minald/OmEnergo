@@ -14,5 +14,10 @@ namespace OmEnergo.Models
         public string MainImageLink { get; set; }
 
         public string Description { get; set; }
+
+        public string GetFullImageLink()
+        {
+            return $"/images/{EnglishName}/{MainImageLink}";
+        }
     }
 }
