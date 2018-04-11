@@ -17,6 +17,12 @@
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltageRange" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Efficiency" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "SwitchingTime" })
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <table class="table table-light table-bordered table-hover">
+            <tbody>
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Indication" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "ShortCircuitProtection" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "VoltageSurgesProtection" })
@@ -28,18 +34,22 @@
             </tbody>
         </table>
     </div>
-    <div class="col-6">
-        <table class="table table-light table-bordered table-hover">
-            <tbody>
-                @foreach (var stabilizerModel in Model.Models)
-                {
-                    <tr>
-                        <td>@stabilizerModel.Name</td>
-                        <td>@stabilizerModel.Price</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
 </div>
-
+<div class="row justify-content-center">
+    @foreach (var stabilizerModel in Model.Models)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <p class="h3 text-center">@stabilizerModel.Name</p>
+                </div>
+                <div class="card-body">
+                    <img class="card-img-top" src="@stabilizerModel.GetImageFullLink()">
+                </div>
+                <div class="card-footer">
+                    <h4 class="text-center">@stabilizerModel.Price</h4>
+                </div>
+            </div>
+        </div>
+    }
+</div>
