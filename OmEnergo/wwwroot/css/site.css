@@ -15,6 +15,6 @@ header {
     padding-bottom: 10px;
 }
 
-p {
+.row > a > .card > .card-header > p {
     color: black;
 }
