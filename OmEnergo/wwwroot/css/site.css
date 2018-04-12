@@ -14,3 +14,7 @@ header {
 .body-content .row > * {
     padding-bottom: 10px;
 }
+
+p {
+    color:black;
+}
