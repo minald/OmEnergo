@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180416103024_Relocating weight and dimensions to models")]
+    partial class Relocatingweightanddimensionstomodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +102,7 @@ namespace OmEnergo.Migrations
 
                     b.Property<int?>("StabilizerId");
 
-                    b.Property<float?>("Weight");
+                    b.Property<int?>("Weight");
 
                     b.HasKey("Id");
 

@@ -16,21 +16,19 @@
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AllowableDurableOverload" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltageRange" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Efficiency" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "SwitchingTime" })
             </tbody>
         </table>
     </div>
     <div class="col-6">
         <table class="table table-light table-bordered table-hover">
             <tbody>
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "SwitchingTime" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Indication" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "ShortCircuitProtection" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "VoltageSurgesProtection" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AdjustableDelay" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "BypassMode" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "WorkingTemperature" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Dimensions" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Weight" })
             </tbody>
         </table>
     </div>
@@ -46,6 +44,10 @@
                 <div class="card-body">
                     <img class="card-img-top" src="@stabilizerModel.GetImageFullLink()">
                 </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Габариты: @stabilizerModel.Dimensions</li>
+                    <li class="list-group-item">Вес: @stabilizerModel.Weight кг</li>
+                </ul>
                 <div class="card-footer">
                     <h4 class="text-center">@stabilizerModel.Price</h4>
                 </div>

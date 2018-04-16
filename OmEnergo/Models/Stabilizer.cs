@@ -36,6 +36,10 @@ namespace OmEnergo.Models
         [Display(Name = "Диапазон входного напряжения")]
         public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
 
+        //TODO: Предельный диапазон входного напряжения
+
+        //TODO: Скорость регулирования(не более), В/с
+
         [Display(Name = "КПД")]
         public string Efficiency { get; set; } //Int in the future, e.g. ("98%") 
 
@@ -62,11 +66,7 @@ namespace OmEnergo.Models
         [Display(Name = "Рабочая температура")]
         public string WorkingTemperature { get; set; } //Class in the future, e.g. ("-20 - +40°С")
 
-        [Display(Name = "Габариты")]
-        public string Dimensions { get; set; } //Class in the future, e.g. ("500x100x100 mm")
-
-        [Display(Name = "Вес")]
-        public int? Weight { get; set; }
+        //TODO: Охлаждение
 
         public List<StabilizerModel> Models { get; set; }
     }
