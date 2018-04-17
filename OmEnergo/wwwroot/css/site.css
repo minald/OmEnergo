@@ -13,6 +13,7 @@ header {
 
 .body-content .row > * {
     padding-bottom: 10px;
+    text-decoration-line: none;
 }
 
 .row > a > .card > .card-header > p {
