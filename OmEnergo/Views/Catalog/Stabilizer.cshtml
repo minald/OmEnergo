@@ -45,11 +45,11 @@
                     <img class="card-img-top" src="@stabilizerModel.GetImageFullLink()">
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Габариты: @stabilizerModel.Dimensions</li>
-                    <li class="list-group-item">Вес: @stabilizerModel.Weight кг</li>
+                    <li class="list-group-item">Габариты: @stabilizerModel.Dimensions мм</li>
+                    <li class="list-group-item">Вес: @($"{stabilizerModel.Weight:F1}") кг</li>
                 </ul>
                 <div class="card-footer">
-                    <h4 class="text-center">@stabilizerModel.Price</h4>
+                    <h4 class="text-center">@($"{stabilizerModel.Price:F2}")</h4>
                 </div>
             </div>
         </div>

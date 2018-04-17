@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180417081735_Changing float to double")]
+    partial class Changingfloattodouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

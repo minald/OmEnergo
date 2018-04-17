@@ -15,16 +15,16 @@ namespace OmEnergo.Models
         [Display(Name = "Цена")]
         public double? Price { get; set; }
 
-        [Display(Name = "Габариты")]
+        [Display(Name = "Габариты, мм")]
         public string Dimensions { get; set; } //Class in the future, e.g. ("500x100x100 mm")
 
         [Display(Name = "Вес, кг")]
-        public float? Weight { get; set; } 
+        public double? Weight { get; set; } 
 
         public string GetImageFullLink()
         {
             var stabilizerSeries = Stabilizer.Series.Replace('"', '\'');
-            return $"/images/{Stabilizer.Product.EnglishName}/{stabilizerSeries}/{Name}.jpg";
+            return $"/images/{Stabilizer.Product.EnglishName}/{stabilizerSeries}/{Name.Replace('/', '-')}.jpg";
         }
     }
 }
