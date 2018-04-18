@@ -23,3 +23,7 @@ header {
 .row > a:hover > .card, a:hover > .card > .list-group-flush > .list-group-item {
     background-color: #F6F5F5;
 }
+
+.padding_left {
+    padding-left: 30px;
+}
