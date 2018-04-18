@@ -20,6 +20,6 @@ header {
     color: black;
 }
 
-.row > a:hover > .card {
-    background-color: #D7D7D7;
+.row > a:hover > .card, a:hover > .card > .list-group-flush > .list-group-item {
+    background-color: #F6F5F5;
 }
