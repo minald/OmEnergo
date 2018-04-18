@@ -19,3 +19,7 @@ header {
 .row > a > .card > .card-header > p {
     color: black;
 }
+
+.row > a:hover > .card * {
+    background-color: #F6F5F5;
+}
