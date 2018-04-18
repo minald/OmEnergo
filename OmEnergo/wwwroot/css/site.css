@@ -19,3 +19,7 @@ header {
 .row > a > .card > .card-header > p {
     color: black;
 }
+
+.padding_left {
+    padding-left: 10px;
+}
