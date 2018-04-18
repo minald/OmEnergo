@@ -21,6 +21,6 @@ header {
 }
 
 .row > a:hover > .card,
-.row > a:hover > .card > .list-group-flush > *{
+.row > a:hover > .card > .list-group-flush > * {
     background-color: #F6F5F5;
 }
