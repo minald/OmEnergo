@@ -13,7 +13,7 @@ namespace OmEnergo.Models
         public string Name { get; set; }
 
         [Display(Name = "Цена")]
-        public double? Price { get; set; }
+        public double Price { get; set; }
 
         [Display(Name = "Габариты, мм")]
         public string Dimensions { get; set; } //Class in the future, e.g. ("500x100x100 mm")
@@ -29,16 +29,12 @@ namespace OmEnergo.Models
 
         public int GetPriceIntegerPart() => (int)Price;
 
+        public int GetPriceFractionalPart() => (int)((Price - GetPriceIntegerPart()) * 100);
+
         public string GetStringPriceFractionalPart()
         {
-            if ((Price - GetPriceIntegerPart()) * 100 < 10)
-            {
-                return "0" + ((int)((Price - GetPriceIntegerPart()) * 100)).ToString();
-            }
-            else
-            {
-                return ((int)((Price - GetPriceIntegerPart()) * 100)).ToString();
-            }
+            string prefix = GetPriceFractionalPart() < 10 ? "0" : "";
+            return prefix + GetPriceFractionalPart().ToString();
         }
     }
 }

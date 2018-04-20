@@ -31,12 +31,12 @@ iframe {
     border: 0;
 }
 
-.price-style {
+.price {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 50px;
 }
 
-sup {
+.price > sup {
     font-size: 27px;
     padding-left: 5px;
 }
