@@ -30,3 +30,13 @@ iframe {
     height: 100%;
     border: 0;
 }
+
+.price-style {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 50px;
+}
+
+sup {
+    font-size: 27px;
+    padding-left: 5px;
+}
