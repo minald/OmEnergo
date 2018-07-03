@@ -1,14 +1,14 @@
 ## Current version 0.0.3
 
 # TODO list
-    * Create the catalog (0.1.0)
+* Create user area (1.0.0)
   * Restore all information (0.1.0)
+    * Create the catalog (0.1.0)
   * Create the side navigation panel (0.2.0)
+  * Fix design (0.3.0)
     * Add ready CSS-template (0.2.1)
     * Fix headers sizes (0.2.2)
-  * Fix design (0.3.0)
   * Add feedback page (0.4.0)
-* Create user area (1.0.0)
 * Create the admin panel (2.0.0)
 * Add products comparison (3.0.0)
 * Add multilingualism (4.0.0)
