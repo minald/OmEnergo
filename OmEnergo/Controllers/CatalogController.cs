@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
+using System;
 using System.Linq;
 
 namespace OmEnergo.Controllers
@@ -32,7 +33,7 @@ namespace OmEnergo.Controllers
 
         private IActionResult Stabilizers(string type, string series)
         {
-            if (series == null)
+            if (String.IsNullOrEmpty(series))
             {
                 var stabilizers = Repository.GetStabilizers(type);
                 return View("Stabilizers", stabilizers);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -29,7 +30,7 @@ namespace OmEnergo.Models
 
         public int GetPriceIntegerPart() => (int)Price;
 
-        public int GetPriceFractionalPart() => (int)((Price - GetPriceIntegerPart()) * 100);
+        public int GetPriceFractionalPart() => (int)(Math.Round((Price - GetPriceIntegerPart()) * 100));
 
         public string GetStringPriceFractionalPart()
         {

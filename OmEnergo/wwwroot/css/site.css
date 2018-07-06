@@ -16,12 +16,29 @@ header {
     text-decoration-line: none;
 }
 
-.row > a > .card > .card-header > p {
+.row > * > .card > .card-body {
+    height: 200px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.row > * > .card > .card-header > p {
     color: black;
 }
 
-.row > a:hover > .card * {
-    background-color: #F6F5F5;
+.row > * > .card > .card-body > img {
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
+}
+
+.row > * > .card > .card-footer {
+    padding: 5px;
+}
+
+.row > a:hover > .card *:not(.card-body) {
+    background-color: #E4E4E4;
 }
 
 iframe {
@@ -34,6 +51,7 @@ iframe {
 .price {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 50px;
+    margin: 0px;
 }
 
 .price > sup {
