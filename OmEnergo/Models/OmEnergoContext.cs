@@ -10,6 +10,10 @@ namespace OmEnergo.Models
 
         public DbSet<StabilizerModel> StabilizerModels { get; set; }
 
+        public DbSet<Inverter> Inverters { get; set; }
+
+        public DbSet<InverterModel> InverterModels { get; set; }
+
         public OmEnergoContext() { }
 
         public OmEnergoContext(DbContextOptions<OmEnergoContext> options) : base(options) {  }
