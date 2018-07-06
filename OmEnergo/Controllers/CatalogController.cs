@@ -10,10 +10,10 @@ namespace OmEnergo.Controllers
 
         private Repository Repository { get; set; }
 
-        public CatalogController(OmEnergoContext context)
+        public CatalogController(OmEnergoContext db)
         {
-            Db = context;
-            Repository = new Repository(context);
+            Db = db;
+            Repository = new Repository(db);
         }
 
         public IActionResult Index()
@@ -22,58 +22,24 @@ namespace OmEnergo.Controllers
             return View(products);
         }
 
-        public IActionResult IndustrialSinglephaseStabilizers(string series)
+        public IActionResult IndustrialSinglephaseStabilizers(string series) => Stabilizers("IndustrialSinglephase", series);
+
+        public IActionResult IndustrialThreephaseStabilizers(string series) => Stabilizers("IndustrialThreephase", series);
+
+        public IActionResult HouseholdSinglephaseStabilizers(string series) => Stabilizers("HouseholdSinglephase", series);
+
+        public IActionResult HouseholdThreephaseStabilizers(string series) => Stabilizers("HouseholdThreephase", series);
+
+        private IActionResult Stabilizers(string type, string series)
         {
             if (series == null)
             {
-                var stabilizers = Repository.GetIndustrialSinglephaseStabilizers();
-                return View(stabilizers);
+                var stabilizers = Repository.GetStabilizers(type);
+                return View("Stabilizers", stabilizers);
             }
             else
             {
-                var stabilizer = Repository.GetIndustrialSinglephaseStabilizerBySeries(series);
-                return View("Stabilizer", stabilizer);
-            }
-        }
-
-        public IActionResult IndustrialThreephaseStabilizers(string series)
-        {
-            if (series == null)
-            {
-                var stabilizers = Repository.GetIndustrialThreephaseStabilizers();
-                return View(stabilizers);
-            }
-            else
-            {
-                var stabilizer = Repository.GetIndustrialThreephaseStabilizerBySeries(series);
-                return View("Stabilizer", stabilizer);
-            }
-        }
-
-        public IActionResult HouseholdSinglephaseStabilizers(string series)
-        {
-            if(series == null)
-            {
-                var stabilizers = Repository.GetHouseholdSinglephaseStabilizers();
-                return View(stabilizers);
-            }
-            else
-            {
-                var stabilizer = Repository.GetHouseholdSinglephaseStabilizerBySeries(series);
-                return View("Stabilizer", stabilizer);
-            }
-        }
-
-        public IActionResult HouseholdThreephaseStabilizers(string series)
-        {
-            if (series == null)
-            {
-                var stabilizers = Repository.GetHouseholdThreephaseStabilizers();
-                return View(stabilizers);
-            }
-            else
-            {
-                var stabilizer = Repository.GetHouseholdThreephaseStabilizerBySeries(series);
+                var stabilizer = Repository.GetStabilizerBySeries(type, series);
                 return View("Stabilizer", stabilizer);
             }
         }

@@ -69,5 +69,7 @@ namespace OmEnergo.Models
         //TODO: Охлаждение
 
         public List<StabilizerModel> Models { get; set; }
+
+        public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

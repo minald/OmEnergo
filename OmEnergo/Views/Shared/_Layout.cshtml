@@ -51,7 +51,7 @@
             @{
                 var controller = this.ViewContext.RouteData.Values["controller"].ToString();
                 var action = this.ViewContext.RouteData.Values["action"].ToString();
-                string id = ViewContext.RouteData.Values["id"]?.ToString().Replace("_", " ") ?? "";
+                string series = ViewContext.RouteData.Values["series"]?.ToString().Replace("_", " ") ?? "";
             }
             @if (controller == "Catalog")
             {
@@ -61,9 +61,9 @@
             @if (action != "Index")
             {
                 <a class="breadcrumb-item" asp-controller="@controller" asp-action="@action" asp-route-id="">@action</a>
-                @if (!String.IsNullOrEmpty(id))
+                @if (!String.IsNullOrEmpty(series))
                 {
-                    <span class="breadcrumb-item active" aria-current="page">@id</span>
+                    <span class="breadcrumb-item active" aria-current="page">@series</span>
                 }
             }
         </div>
