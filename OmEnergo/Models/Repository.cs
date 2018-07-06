@@ -23,5 +23,10 @@ namespace OmEnergo.Models
 
         public Inverter GetInverterBySeries(string series) => 
             Db.Inverters.Include(x => x.Product).Include(x => x.Models).First(x => x.Series.Replace(" ", "_") == series);
+
+        public List<Autotransformer> GetAutotransformers() => Db.Autotransformers.Include(x => x.Product).ToList();
+
+        public Autotransformer GetAutotransformerBySeries(string series) =>
+            Db.Autotransformers.Include(x => x.Product).Include(x => x.Models).First(x => x.Series.Replace(" ", "_") == series);
     }
 }

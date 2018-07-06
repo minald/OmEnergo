@@ -54,5 +54,19 @@ namespace OmEnergo.Controllers
                 return View("Inverter", inverter);
             }
         }
+
+        public IActionResult Autotransformers(string series)
+        {
+            if (String.IsNullOrEmpty(series))
+            {
+                var autotransformers = Repository.GetAutotransformers();
+                return View("Autotransformers", autotransformers);
+            }
+            else
+            {
+                var autotransformer = Repository.GetAutotransformerBySeries(series);
+                return View("Autotransformer", autotransformer);
+            }
+        }
     }
 }

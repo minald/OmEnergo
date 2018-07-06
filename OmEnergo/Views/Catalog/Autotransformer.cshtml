@@ -1,0 +1,49 @@
+﻿@model Autotransformer
+@{
+    ViewData["Title"] = Model.Series;
+}
+
+<h3 class="text-center">@Model.Series</h3>
+<p>    @Model.LongDescription</p>
+<div class="row">
+    <div class="col-6">
+        <table class="table table-light table-bordered table-hover">
+            <tbody>
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltageRange" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "OutputVoltageRange" })
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <table class="table table-light table-bordered table-hover">
+            <tbody>
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "PhasesAmount" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "NetworkFrequency" })
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row justify-content-center">
+    @foreach (var autotransformerModel in Model.Models)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <p class="h3 text-center">@autotransformerModel.Name</p>
+                </div>
+                <div class="card-body">
+                    <img class="card-img-top" src="@autotransformerModel.GetImageFullLink()">
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Габариты: @autotransformerModel.Dimensions мм</li>
+                    <li class="list-group-item">Вес: @($"{autotransformerModel.Weight:F1}") кг</li>
+                </ul>
+                <div class="card-footer">
+                    <h4 class="text-center price">
+                        @autotransformerModel.GetPriceIntegerPart()<sup>@autotransformerModel.GetStringPriceFractionalPart()</sup>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    }
+</div>

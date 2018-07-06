@@ -27,6 +27,9 @@ namespace OmEnergo.Models
         [Display(Name = "Количество фаз")]
         public int PhasesAmount { get; set; }
 
+        [Display(Name = "Частота сети")]
+        public string NetworkFrequency { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
+
         public List<AutotransformerModel> Models { get; set; }
 
         public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
