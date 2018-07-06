@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -20,5 +21,21 @@ namespace OmEnergo.Models
 
         [Display(Name = "Вес, кг")]
         public double? Weight { get; set; }
+
+        public string GetImageFullLink()
+        {
+            var stabilizerSeries = Inverter.Series.Replace('"', '\'');
+            return $"/images/{Inverter.Product.EnglishName}/{stabilizerSeries}/{Name.Replace('/', '-')}.jpg";
+        }
+
+        public int GetPriceIntegerPart() => (int)Price;
+
+        public int GetPriceFractionalPart() => (int)(Math.Round((Price - GetPriceIntegerPart()) * 100));
+
+        public string GetStringPriceFractionalPart()
+        {
+            string prefix = GetPriceFractionalPart() < 10 ? "0" : "";
+            return prefix + GetPriceFractionalPart().ToString();
+        }
     }
 }

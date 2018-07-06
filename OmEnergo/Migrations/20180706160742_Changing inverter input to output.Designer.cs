@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180706160742_Changing inverter input to output")]
+    partial class Changinginverterinputtooutput
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +181,7 @@ namespace OmEnergo.Migrations
             modelBuilder.Entity("OmEnergo.Models.InverterModel", b =>
                 {
                     b.HasOne("OmEnergo.Models.Inverter", "Inverter")
-                        .WithMany("Models")
+                        .WithMany()
                         .HasForeignKey("InverterId");
                 });
 

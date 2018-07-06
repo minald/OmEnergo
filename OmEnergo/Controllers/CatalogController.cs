@@ -17,11 +17,7 @@ namespace OmEnergo.Controllers
             Repository = new Repository(db);
         }
 
-        public IActionResult Index()
-        {
-            var products = Db.Products.ToList();
-            return View(products);
-        }
+        public IActionResult Index() => View(Db.Products.ToList());
 
         public IActionResult IndustrialSinglephaseStabilizers(string series) => Stabilizers("IndustrialSinglephase", series);
 
@@ -42,6 +38,20 @@ namespace OmEnergo.Controllers
             {
                 var stabilizer = Repository.GetStabilizerBySeries(type, series);
                 return View("Stabilizer", stabilizer);
+            }
+        }
+
+        public IActionResult Inverters(string series)
+        {
+            if (String.IsNullOrEmpty(series))
+            {
+                var inverters = Repository.GetInverters();
+                return View("Inverters", inverters);
+            }
+            else
+            {
+                var inverter = Repository.GetInverterBySeries(series);
+                return View("Inverter", inverter);
             }
         }
     }

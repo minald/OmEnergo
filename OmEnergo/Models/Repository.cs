@@ -18,5 +18,10 @@ namespace OmEnergo.Models
         public Stabilizer GetStabilizerBySeries(string type, string series) =>
             Db.Stabilizers.Include(x => x.Product).Include(x => x.Models)
                 .First(x => x.Product.EnglishName == type + "Stabilizers" && x.Series.Replace(" ", "_") == series);
+
+        public List<Inverter> GetInverters() => Db.Inverters.Include(x => x.Product).ToList();
+
+        public Inverter GetInverterBySeries(string series) => 
+            Db.Inverters.Include(x => x.Product).Include(x => x.Models).First(x => x.Series.Replace(" ", "_") == series);
     }
 }
