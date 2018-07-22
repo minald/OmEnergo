@@ -1,7 +1,36 @@
-﻿
+﻿@model EmailMessage
 @{
     ViewData["Title"] = "Feedback";
 }
 
-<h2>Feedback</h2>
+<form asp-action="Feedback">
+	<div>
+		<div class="row">
+			<label asp-for="Name">Имя:</label>
+			<input type="text" asp-for="Name" />
+			<span asp-validation-for="Name"></span>
+		</div>
+		<div class="row">
+			<label asp-for="Text">Сообщение:</label>
+			<input type="text" asp-for="Text" />
+			<span asp-validation-for="Text"></span>
+		</div>
+		<div class="row">
+			<label asp-for="Email">Email:</label>
+			<input type="text" asp-for="Email" />
+			<span asp-validation-for="Email"></span>
+		</div>
+		<div class="row">
+			<label asp-for="PhoneNumber">Телефон:</label>
+			<input type="text" asp-for="PhoneNumber" />
+			<span asp-validation-for="PhoneNumber"></span>
+		</div>
+		<div>
+			<input type="submit"/>
+		</div>
+	</div>
+</form>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
