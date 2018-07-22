@@ -14,6 +14,8 @@ namespace OmEnergo.Controllers
 
         public IActionResult Contact() => View();
 
+		public IActionResult Feedback() => View();
+
         public IActionResult Error() => View();
     }
 }
