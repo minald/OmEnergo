@@ -1,13 +1,12 @@
 ## Current version 0.1.0
 
 # TODO list
-* Create user area
-  * Restore all information
-  * Create the side navigation panel
-  * Fix design
-    * Add ready CSS-template
-    * Fix headers sizes
-  * Add feedback page
+* Restore all catalog
+* Add feedback page
+* Create the side navigation panel
+* Fix design
+  * Add ready CSS-template
+  * Fix headers sizes
 * Create the admin panel
 * Add products comparison
 * Add multilingualism
@@ -17,4 +16,4 @@
 * 05.01.18 - 0.0.1 - Adding all information except the catalog
 * 19.04.18 - 0.0.2 - Adding Yandex Map to the contacts page 
 * 21.04.18 - 0.0.3 - Adding price stylization
-* 10.07.18 - 0.1.0 - Filling database
+* 12.07.18 - 0.1.0 - Filling the catalog with stabilizers, inverters and autotransformers
