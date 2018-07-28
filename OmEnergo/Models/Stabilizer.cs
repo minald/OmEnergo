@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
@@ -27,19 +28,20 @@ namespace OmEnergo.Models
         [Display(Name = "Количество фаз")]
         public int? PhasesAmount { get; set; }
 
+        [Obsolete]
         [Display(Name = "Рабочая частота сети")]
         public string OperatingFrequencyOfNetwork { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
-
-        [Display(Name = "Допустимая длительная перегрузка")]
-        public string AllowableDurableOverload { get; set; } //Int in the future, e.g. ("<= 110%") 
 
         [Display(Name = "Диапазон входного напряжения")]
         public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
 
-        //TODO: Предельный диапазон входного напряжения
+        [Display(Name = "Допустимая длительная перегрузка")]
+        public string AllowableDurableOverload { get; set; } //Int in the future, e.g. ("<= 110%") 
 
-        //TODO: Скорость регулирования(не более), В/с
+        [Display(Name = "Тип установки")]
+        public string InstallationType { get; set; } //Int in the future, e.g. ("98%") 
 
+        [Obsolete]
         [Display(Name = "КПД")]
         public string Efficiency { get; set; } //Int in the future, e.g. ("98%") 
 
@@ -49,24 +51,26 @@ namespace OmEnergo.Models
         [Display(Name = "Индикация")]
         public string Indication { get; set; } //List<Enum> in the future 
 
-        [Display(Name = "Защита от короткого замыкания")]
-        public bool? ShortCircuitProtection { get; set; }
-
-        [Display(Name = "Защита от скачков напряжения")]
-        public bool? VoltageSurgesProtection { get; set; }
-
-        [Display(Name = "Регулируемая задержка")]
-        public bool? AdjustableDelay { get; set; }
-
-        //TODO: Задержка включения (встроенная)
-
-        [Display(Name = "Режим \"Байпас\"")]
-        public string BypassMode { get; set; }
-
         [Display(Name = "Рабочая температура")]
         public string WorkingTemperature { get; set; } //Class in the future, e.g. ("-20 - +40°С")
 
-        //TODO: Охлаждение
+        [Display(Name = "Реализованные защиты")]
+        public string ImplementedProtections { get; set; } //Class in the future, e.g. ("-20 - +40°С")
+
+        [Obsolete("Use ImplementedProtections instead")]
+        [Display(Name = "Защита от короткого замыкания")]
+        public bool? ShortCircuitProtection { get; set; }
+
+        [Obsolete("Use ImplementedProtections instead")]
+        [Display(Name = "Защита от скачков напряжения")]
+        public bool? VoltageSurgesProtection { get; set; }
+
+        [Obsolete("Use ImplementedProtections instead")]
+        [Display(Name = "Регулируемая задержка")]
+        public bool? AdjustableDelay { get; set; }
+
+        [Display(Name = "Режим \"Байпас\"")]
+        public string BypassMode { get; set; }
 
         public List<StabilizerModel> Models { get; set; }
 

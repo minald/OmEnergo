@@ -13,6 +13,12 @@ namespace OmEnergo.Models
         [Display(Name = "Название")]
         public string Name { get; set; }
 
+        [Display(Name = "Номинальная мощность")]
+        public string NominalPower { get; set; }
+
+        [Display(Name = "Максимальный рабочий ток")]
+        public string MaximalWorkingAmperage { get; set; }
+
         [Display(Name = "Цена")]
         public double Price { get; set; }
 
@@ -24,8 +30,8 @@ namespace OmEnergo.Models
 
         public string GetImageFullLink()
         {
-            var stabilizerSeries = Autotransformer.Series.Replace('"', '\'');
-            return $"/images/{Autotransformer.Product.EnglishName}/{stabilizerSeries}/{Name.Replace('/', '-')}.jpg";
+            var autotransformerSeries = Autotransformer.Series.Replace('"', '\'');
+            return $"/images/{Autotransformer.Product.EnglishName}/{autotransformerSeries}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;

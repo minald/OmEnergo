@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class Autotransformer
+    public class Autotransformer //Лабораторный автотрансформатор
     {
         [Key]
         public int Id { get; set; }
@@ -18,8 +18,8 @@ namespace OmEnergo.Models
 
         public string LongDescription { get; set; }
 
-        [Display(Name = "Диапазон входного напряжения")]
-        public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
+        [Display(Name = "Входное напряжение")]
+        public string InputVoltage { get; set; } //Class in the future, e.g. ("140 - 260 B")
 
         [Display(Name = "Диапазон выходного напряжения")]
         public string OutputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")

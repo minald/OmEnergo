@@ -13,6 +13,15 @@ namespace OmEnergo.Models
         [Display(Name = "Название")]
         public string Name { get; set; }
 
+        [Display(Name = "Номинальная мощность")]
+        public string NominalPower { get; set; }
+
+        [Display(Name = "Пиковая мощность")]
+        public string PeakPower { get; set; }
+
+        [Display(Name = "Напряжение батареи")]
+        public string BatteryVoltage { get; set; }
+
         [Display(Name = "Цена")]
         public double Price { get; set; }
 
@@ -24,8 +33,8 @@ namespace OmEnergo.Models
 
         public string GetImageFullLink()
         {
-            var stabilizerSeries = Inverter.Series.Replace('"', '\'');
-            return $"/images/{Inverter.Product.EnglishName}/{stabilizerSeries}/{Name.Replace('/', '-')}.jpg";
+            var inverterSeries = Inverter.Series.Replace('"', '\'');
+            return $"/images/{Inverter.Product.EnglishName}/{inverterSeries}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;

@@ -13,6 +13,15 @@ namespace OmEnergo.Models
         [Display(Name = "Название")]
         public string Name { get; set; }
 
+        [Display(Name = "Номинальная мощность")]
+        public string NominalPower { get; set; }
+
+        [Display(Name = "Подключение в сеть")]
+        public string NetworkConnection { get; set; }
+
+        [Display(Name = "Подключение нагрузки")]
+        public string LoadConnection { get; set; }
+
         [Display(Name = "Цена")]
         public double Price { get; set; }
 

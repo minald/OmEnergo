@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class Inverter
+    public class Inverter //Источник бесперебойного питания
     {
         [Key]
         public int Id { get; set; }
@@ -18,8 +18,8 @@ namespace OmEnergo.Models
 
         public string LongDescription { get; set; }
 
-        [Display(Name = "Диапазон выходного напряжения")]
-        public string OutputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
+        [Display(Name = "Диапазон входного напряжения")]
+        public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
 
         [Display(Name = "Количество фаз")]
         public int PhasesAmount { get; set; }
@@ -30,7 +30,7 @@ namespace OmEnergo.Models
         [Display(Name = "КПД")]
         public string Efficiency { get; set; } //Int in the future, e.g. ("98%") 
 
-        [Display(Name = "Время переключения")]
+        [Display(Name = "Время переключения, мс")]
         public string SwitchingTime { get; set; } //Int in the future, e.g. ("4 мс") 
 
         [Display(Name = "Индикация")]
