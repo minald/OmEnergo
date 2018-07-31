@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace OmEnergo.Models.ViewModels
+namespace OmEnergo.Models
 {
-    public class ProductPropertyVM
+    public class ProductProperty
     {
         public string DisplayName { get; set; }
 
         public string Value { get; set; }
 
-        public ProductPropertyVM(object model, string propertyName)
+        public ProductProperty(object model, string propertyName)
         {
             var modelType = model.GetType();
             var propertyInfo = modelType.GetProperty(propertyName);

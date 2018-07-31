@@ -6,22 +6,10 @@
 <h3 class="text-center">@Model.Series</h3>
 <p>@Model.LongDescription</p>
 <div class="row">
-    <div class="col-6">
-        <table class="table table-light table-bordered table-hover">
-            <tbody>
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltage" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "OutputVoltageRange" })
-            </tbody>
-        </table>
-    </div>
-    <div class="col-6">
-        <table class="table table-light table-bordered table-hover">
-            <tbody>
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "PhasesAmount" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "NetworkFrequency" })
-            </tbody>
-        </table>
-    </div>
+    @await Component.InvokeAsync("PropertyTable", new { model = Model, propertyNames = new[]
+        { "InputVoltage", "OutputVoltageRange"} })
+    @await Component.InvokeAsync("PropertyTable", new { model = Model, propertyNames = new[]
+        { "PhasesAmount", "NetworkFrequency" } })
 </div>
 <div class="row justify-content-center">
     @foreach (var autotransformerModel in Model.Models)

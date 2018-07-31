@@ -1,25 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Database\**" />
     <Content Remove="Database\**" />
     <EmbeddedResource Remove="Database\**" />
     <None Remove="Database\**" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
-
 </Project>

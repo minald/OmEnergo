@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ProductProperty>
+
+<div class="col-6">
+    <table class="table table-light table-bordered table-hover">
+        <tbody>
+            @foreach (var property in Model)
+            {
+                <tr>
+                    <td>@property.DisplayName</td>
+                    <td>@property.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
