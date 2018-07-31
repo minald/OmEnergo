@@ -10,6 +10,8 @@ namespace OmEnergo.Models
 
         public Product Product { get; set; }
 
+        public List<AutotransformerModel> Models { get; set; }
+
         public string Series { get; set; } //Enum in the future
 
         public string MainImageLink { get; set; }
@@ -30,9 +32,6 @@ namespace OmEnergo.Models
         [Display(Name = "Частота сети")]
         public string NetworkFrequency { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
 
-        public List<AutotransformerModel> Models { get; set; }
-
         public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
-
     }
 }

@@ -10,6 +10,8 @@ namespace OmEnergo.Models
 
         public Product Product { get; set; }
 
+        public List<InverterModel> Models { get; set; }
+
         public string Series { get; set; } //Enum in the future
 
         public string MainImageLink { get; set; }
@@ -41,8 +43,6 @@ namespace OmEnergo.Models
 
         [Display(Name = "Рабочая температура")]
         public string WorkingTemperature { get; set; } //Class in the future, e.g. ("-20 - +40°С")
-
-        public List<InverterModel> Models { get; set; }
 
         public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }

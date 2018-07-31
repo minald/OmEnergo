@@ -11,6 +11,8 @@ namespace OmEnergo.Models
 
         public Product Product { get; set; }
 
+        public List<StabilizerModel> Models { get; set; }
+
         public string Series { get; set; } //Enum in the future
 
         public string MainImageLink { get; set; }
@@ -28,10 +30,6 @@ namespace OmEnergo.Models
         [Display(Name = "Количество фаз")]
         public int? PhasesAmount { get; set; }
 
-        [Obsolete]
-        [Display(Name = "Рабочая частота сети")]
-        public string OperatingFrequencyOfNetwork { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
-
         [Display(Name = "Диапазон входного напряжения")]
         public string InputVoltageRange { get; set; } //Class in the future, e.g. ("140 - 260 B")
 
@@ -40,10 +38,6 @@ namespace OmEnergo.Models
 
         [Display(Name = "Тип установки")]
         public string InstallationType { get; set; } //Int in the future, e.g. ("98%") 
-
-        [Obsolete]
-        [Display(Name = "КПД")]
-        public string Efficiency { get; set; } //Int in the future, e.g. ("98%") 
 
         [Display(Name = "Время переключения")]
         public string SwitchingTime { get; set; } //Int in the future, e.g. ("4 мс") 
@@ -57,6 +51,20 @@ namespace OmEnergo.Models
         [Display(Name = "Реализованные защиты")]
         public string ImplementedProtections { get; set; } //Class in the future, e.g. ("-20 - +40°С")
 
+        [Display(Name = "Регулируемая задержка")]
+        public bool? AdjustableDelay { get; set; }
+
+        [Display(Name = "Режим \"Байпас\"")]
+        public string BypassMode { get; set; }
+
+        [Obsolete]
+        [Display(Name = "Рабочая частота сети")]
+        public string OperatingFrequencyOfNetwork { get; set; }
+
+        [Obsolete]
+        [Display(Name = "КПД")]
+        public string Efficiency { get; set; }
+
         [Obsolete("Use ImplementedProtections instead")]
         [Display(Name = "Защита от короткого замыкания")]
         public bool? ShortCircuitProtection { get; set; }
@@ -64,15 +72,6 @@ namespace OmEnergo.Models
         [Obsolete("Use ImplementedProtections instead")]
         [Display(Name = "Защита от скачков напряжения")]
         public bool? VoltageSurgesProtection { get; set; }
-
-        [Obsolete("Use ImplementedProtections instead")]
-        [Display(Name = "Регулируемая задержка")]
-        public bool? AdjustableDelay { get; set; }
-
-        [Display(Name = "Режим \"Байпас\"")]
-        public string BypassMode { get; set; }
-
-        public List<StabilizerModel> Models { get; set; }
 
         public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }

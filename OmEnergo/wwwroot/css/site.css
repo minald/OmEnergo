@@ -33,6 +33,7 @@ header {
     max-width: 100%;
 }
 
+.row > * > .card > ul > li,
 .row > * > .card > .card-footer {
     padding: 5px;
 }

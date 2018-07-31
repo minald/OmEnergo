@@ -4,12 +4,12 @@
 }
 
 <h3 class="text-center">@Model.Series</h3>
-<p>    @Model.LongDescription</p>
+<p>@Model.LongDescription</p>
 <div class="row">
     <div class="col-6">
         <table class="table table-light table-bordered table-hover">
             <tbody>
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltageRange" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltage" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "OutputVoltageRange" })
             </tbody>
         </table>
@@ -35,6 +35,8 @@
                     <img class="card-img-top" src="@autotransformerModel.GetImageFullLink()">
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Номинальная мощность: @autotransformerModel.NominalPower</li>
+                    <li class="list-group-item">Максимальный рабочий ток: @autotransformerModel.MaximalWorkingAmperage</li>
                     <li class="list-group-item">Габариты: @autotransformerModel.Dimensions мм</li>
                     <li class="list-group-item">Вес: @($"{autotransformerModel.Weight:F1}") кг</li>
                 </ul>

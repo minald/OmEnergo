@@ -4,7 +4,7 @@
 }
 
 <h3 class="text-center">@Model.Series</h3>
-<p>    @Model.LongDescription</p>
+<p>@Model.LongDescription</p>
 <div class="row">
     <div class="col-6">
         <table class="table table-light table-bordered table-hover">
@@ -12,10 +12,9 @@
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "StabilizationType" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "StabilizationAccuracy" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "PhasesAmount" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "OperatingFrequencyOfNetwork" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AllowableDurableOverload" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InputVoltageRange" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Efficiency" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AllowableDurableOverload" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "InstallationType" })
             </tbody>
         </table>
     </div>
@@ -24,11 +23,10 @@
             <tbody>
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "SwitchingTime" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "Indication" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "ShortCircuitProtection" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "VoltageSurgesProtection" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "WorkingTemperature" })
+                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "ImplementedProtections" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "AdjustableDelay" })
                 @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "BypassMode" })
-                @await Component.InvokeAsync("ProductProperty", new { model = Model, propertyName = "WorkingTemperature" })
             </tbody>
         </table>
     </div>
@@ -45,6 +43,9 @@
                     <img class="card-img-top" src="@stabilizerModel.GetImageFullLink()">
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Номинальная мощность: @stabilizerModel.NominalPower</li>
+                    <li class="list-group-item">Подключение в сеть: @stabilizerModel.NetworkConnection</li>
+                    <li class="list-group-item">Подключение нагрузки: @stabilizerModel.LoadConnection</li>
                     <li class="list-group-item">Габариты: @stabilizerModel.Dimensions мм</li>
                     <li class="list-group-item">Вес: @($"{stabilizerModel.Weight:F1}") кг</li>
                 </ul>
