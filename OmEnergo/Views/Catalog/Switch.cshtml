@@ -1,0 +1,37 @@
+﻿@model Switch
+@{
+    ViewData["Title"] = Model.Series;
+}
+
+<h3 class="text-center">@Model.Series</h3>
+<p>@Model.Description</p>
+<div class="row">
+    @await Component.InvokeAsync("PropertyTable", new { model = Model, propertyNames = new[]
+        { "NominalVoltage", "MaximalAmperage", "ProtectionDegree", "WorkingTemperatureRange" } })
+</div>
+<div class="row justify-content-center">
+    @foreach (var switchModel in Model.Models)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <p class="h3 text-center">@switchModel.Name</p>
+                </div>
+                <div class="card-body">
+                    <img class="card-img-top" src="@switchModel.GetImageFullLink()">
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Доступная длина провода: @switchModel.AvailableWireLength</li>
+                    <li class="list-group-item">Максимальный ток: @switchModel.MaximalAmperage</li>
+                    <li class="list-group-item">Габариты: @switchModel.Dimensions мм</li>
+                    <li class="list-group-item">Вес: @($"{switchModel.Weight:F1}") кг</li>
+                </ul>
+                <div class="card-footer">
+                    <h4 class="text-center price">
+                        @switchModel.GetPriceIntegerPart()<sup>@switchModel.GetStringPriceFractionalPart()</sup>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    }
+</div>

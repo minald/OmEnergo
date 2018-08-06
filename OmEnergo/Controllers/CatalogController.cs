@@ -68,5 +68,19 @@ namespace OmEnergo.Controllers
                 return View("Autotransformer", autotransformer);
             }
         }
+
+        public IActionResult Switches(string series)
+        {
+            if (String.IsNullOrEmpty(series))
+            {
+                var switches = Repository.GetSwitches();
+                return View("Switches", switches);
+            }
+            else
+            {
+                var switch_ = Repository.GetSwitchBySeries(series);
+                return View("Switch", switch_);
+            }
+        }
     }
 }
