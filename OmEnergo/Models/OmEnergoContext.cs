@@ -18,8 +18,12 @@ namespace OmEnergo.Models
 
         public DbSet<AutotransformerModel> AutotransformerModels { get; set; }
 
+        public DbSet<Switch> Switches { get; set; }
+
+        public DbSet<SwitchModel> SwitchModels { get; set; }
+
         public OmEnergoContext() { }
 
-        public OmEnergoContext(DbContextOptions<OmEnergoContext> options) : base(options) {  }
+        public OmEnergoContext(DbContextOptions<OmEnergoContext> options) : base(options) { }
     }
 }
