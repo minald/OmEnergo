@@ -6,7 +6,7 @@
 <div class="row justify-content-center">
     @foreach (var inverter in Model)
     {
-        <a asp-controller="Catalog" asp-action="@inverter.Product.EnglishName" asp-route-series="@inverter.Series.Replace(" ","_")" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <a asp-controller="Catalog" asp-action="@inverter.Section.EnglishName" asp-route-series="@inverter.Series.Replace(" ","_")" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-header">
                     <p class="h3 text-center">@inverter.Series</p>

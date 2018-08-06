@@ -8,7 +8,7 @@ namespace OmEnergo.Models
         [Key]
         public int Id { get; set; }
 
-        public Product Product { get; set; }
+        public Section Section { get; set; }
 
         public List<SwitchModel> Models { get; set; }
 
@@ -30,6 +30,6 @@ namespace OmEnergo.Models
         [Display(Name = "Диапазон рабочих температур")]
         public string WorkingTemperatureRange { get; set; }
 
-        public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
+        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

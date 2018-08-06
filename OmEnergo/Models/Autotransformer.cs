@@ -8,7 +8,7 @@ namespace OmEnergo.Models
         [Key]
         public int Id { get; set; }
 
-        public Product Product { get; set; }
+        public Section Section { get; set; }
 
         public List<AutotransformerModel> Models { get; set; }
 
@@ -32,6 +32,6 @@ namespace OmEnergo.Models
         [Display(Name = "Частота сети")]
         public string NetworkFrequency { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
 
-        public string GetImageFullLink() => $"/images/{Product.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
+        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

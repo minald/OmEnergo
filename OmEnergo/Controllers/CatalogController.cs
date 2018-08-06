@@ -17,7 +17,7 @@ namespace OmEnergo.Controllers
             Repository = new Repository(db);
         }
 
-        public IActionResult Index() => View(Db.Products.ToList());
+        public IActionResult Index() => View(Db.Sections.ToList());
 
         public IActionResult IndustrialSinglephaseStabilizers(string series) => Stabilizers("IndustrialSinglephase", series);
 

@@ -4,7 +4,7 @@ namespace OmEnergo.Models
 {
     public class OmEnergoContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Section> Sections { get; set; }
 
         public DbSet<Stabilizer> Stabilizers { get; set; }
 

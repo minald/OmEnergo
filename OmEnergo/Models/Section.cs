@@ -2,7 +2,7 @@
 
 namespace OmEnergo.Models
 {
-    public class Product
+    public class Section
     {
         [Key]
         public int Id { get; set; }

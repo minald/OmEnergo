@@ -1,18 +1,18 @@
-﻿@model List<Product>
+﻿@model List<Section>
 @{
     ViewData["Title"] = "Каталог";
 }
 
 <div class="row justify-content-center">
-    @foreach (var product in Model)
+    @foreach (var mainSection in Model)
     {
-        <a asp-controller="Catalog" asp-action="@product.EnglishName" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <a asp-controller="Catalog" asp-action="@mainSection.EnglishName" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-header">
-                    <p class="h3 text-center">@product.RussianName</p>
+                    <p class="h3 text-center">@mainSection.RussianName</p>
                 </div>
                 <div class="card-body">
-                    <img class="card-img-top" src="@product.GetImageFullLink()">
+                    <img class="card-img-top" src="@mainSection.GetImageFullLink()">
                 </div>
             </div>
         </a>

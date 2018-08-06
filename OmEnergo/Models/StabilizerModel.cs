@@ -34,7 +34,7 @@ namespace OmEnergo.Models
         public string GetImageFullLink()
         {
             var stabilizerSeries = Stabilizer.Series.Replace('"', '\'');
-            return $"/images/{Stabilizer.Product.EnglishName}/{stabilizerSeries}/{Name.Replace('/', '-')}.jpg";
+            return $"/images/{Stabilizer.Section.EnglishName}/{stabilizerSeries}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;

@@ -31,7 +31,7 @@ namespace OmEnergo.Models
         public string GetImageFullLink()
         {
             var switchSeries = Switch.Series.Replace('"', '\'');
-            return $"/images/{Switch.Product.EnglishName}/{switchSeries}/{Name.Replace('/', '-')}.jpg";
+            return $"/images/{Switch.Section.EnglishName}/{switchSeries}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;

@@ -34,7 +34,7 @@ namespace OmEnergo.Models
         public string GetImageFullLink()
         {
             var inverterSeries = Inverter.Series.Replace('"', '\'');
-            return $"/images/{Inverter.Product.EnglishName}/{inverterSeries}/{Name.Replace('/', '-')}.jpg";
+            return $"/images/{Inverter.Section.EnglishName}/{inverterSeries}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;
