@@ -3,18 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class Switch
+    //Переключатель или выключатель
+    public class Switch : Product
     {
-        [Key]
-        public int Id { get; set; }
-
-        public Section Section { get; set; }
-
         public List<SwitchModel> Models { get; set; }
-
-        public string Series { get; set; } //Enum in the future
-
-        public string MainImageLink { get; set; }
 
         public string Description { get; set; }
 
@@ -29,7 +21,5 @@ namespace OmEnergo.Models
 
         [Display(Name = "Диапазон рабочих температур")]
         public string WorkingTemperatureRange { get; set; }
-
-        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

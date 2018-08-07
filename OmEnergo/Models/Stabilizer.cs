@@ -4,18 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class Stabilizer
+    //Стабилизатор
+    public class Stabilizer : Product
     {
-        [Key]
-        public int Id { get; set; }
-
-        public Section Section { get; set; }
-
         public List<StabilizerModel> Models { get; set; }
-
-        public string Series { get; set; } //Enum in the future
-
-        public string MainImageLink { get; set; }
 
         public string ShortDescription { get; set; }
 
@@ -72,7 +64,5 @@ namespace OmEnergo.Models
         [Obsolete("Use ImplementedProtections instead")]
         [Display(Name = "Защита от скачков напряжения")]
         public bool? VoltageSurgesProtection { get; set; }
-
-        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

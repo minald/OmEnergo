@@ -3,18 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class Inverter //Источник бесперебойного питания
+    //Источник бесперебойного питания
+    public class Inverter : Product 
     {
-        [Key]
-        public int Id { get; set; }
-
-        public Section Section { get; set; }
-
         public List<InverterModel> Models { get; set; }
-
-        public string Series { get; set; } //Enum in the future
-
-        public string MainImageLink { get; set; }
 
         public string ShortDescription { get; set; }
 
@@ -43,7 +35,5 @@ namespace OmEnergo.Models
 
         [Display(Name = "Рабочая температура")]
         public string WorkingTemperature { get; set; } //Class in the future, e.g. ("-20 - +40°С")
-
-        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

@@ -3,18 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class Autotransformer //Лабораторный автотрансформатор
+    //Лабораторный автотрансформатор
+    public class Autotransformer : Product 
     {
-        [Key]
-        public int Id { get; set; }
-
-        public Section Section { get; set; }
-
         public List<AutotransformerModel> Models { get; set; }
-
-        public string Series { get; set; } //Enum in the future
-
-        public string MainImageLink { get; set; }
 
         public string ShortDescription { get; set; }
 
@@ -31,7 +23,5 @@ namespace OmEnergo.Models
 
         [Display(Name = "Частота сети")]
         public string NetworkFrequency { get; set; } //Class in the future, e.g. ("50 (60) Гц") 
-
-        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }
