@@ -7,17 +7,11 @@ namespace OmEnergo.Controllers
 {
     public class CatalogController : Controller
     {
-        private OmEnergoContext Db { get; set; }
-
         private Repository Repository { get; set; }
 
-        public CatalogController(OmEnergoContext db)
-        {
-            Db = db;
-            Repository = new Repository(db);
-        }
+        public CatalogController(OmEnergoContext db) => Repository = new Repository(db);
 
-        public IActionResult Index() => View(Db.Sections.ToList());
+        public IActionResult Index() => View(Repository.GetSections().Where(x => x.IsMainSection()));
 
         public IActionResult IndustrialSinglephaseStabilizers(string series) => Stabilizers("IndustrialSinglephase", series);
 

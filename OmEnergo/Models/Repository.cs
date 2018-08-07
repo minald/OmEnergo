@@ -12,6 +12,8 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
+        public List<Section> GetSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildrenSections).ToList();
+
         public List<Stabilizer> GetStabilizers(string type) =>
             Db.Stabilizers.Where(x => x.Section.EnglishName == type + "Stabilizers").Include(x => x.Section).ToList();
 

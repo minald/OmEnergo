@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -6,6 +7,10 @@ namespace OmEnergo.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public Section ParentSection { get; set; }
+
+        public List<Section> ChildrenSections { get; set; }
 
         public string EnglishName { get; set; }
 
@@ -16,5 +21,7 @@ namespace OmEnergo.Models
         public string Description { get; set; }
 
         public string GetImageFullLink() => $"/images/{EnglishName}/{MainImageLink}";
+
+        public bool IsMainSection() => ParentSection == null;
     }
 }
