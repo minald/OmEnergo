@@ -11,8 +11,8 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    [Migration("20180728143516_Adding new fields into some classes")]
-    partial class Addingnewfieldsintosomeclasses
+    [Migration("20180807000623_Initial migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,7 @@ namespace OmEnergo.Migrations
 
                     b.Property<int>("PhasesAmount");
 
-                    b.Property<int?>("ProductId");
+                    b.Property<int?>("SectionId");
 
                     b.Property<string>("Series");
 
@@ -46,7 +46,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Autotransformers");
                 });
@@ -55,8 +55,6 @@ namespace OmEnergo.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AutotransformerId");
 
                     b.Property<string>("Dimensions");
 
@@ -68,11 +66,13 @@ namespace OmEnergo.Migrations
 
                     b.Property<double>("Price");
 
+                    b.Property<int?>("ProductId");
+
                     b.Property<double?>("Weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutotransformerId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("AutotransformerModels");
                 });
@@ -98,7 +98,7 @@ namespace OmEnergo.Migrations
 
                     b.Property<int>("PhasesAmount");
 
-                    b.Property<int?>("ProductId");
+                    b.Property<int?>("SectionId");
 
                     b.Property<string>("Series");
 
@@ -110,7 +110,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Inverters");
                 });
@@ -124,8 +124,6 @@ namespace OmEnergo.Migrations
 
                     b.Property<string>("Dimensions");
 
-                    b.Property<int?>("InverterId");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("NominalPower");
@@ -134,16 +132,18 @@ namespace OmEnergo.Migrations
 
                     b.Property<double>("Price");
 
+                    b.Property<int?>("ProductId");
+
                     b.Property<double?>("Weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InverterId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("InverterModels");
                 });
 
-            modelBuilder.Entity("OmEnergo.Models.Product", b =>
+            modelBuilder.Entity("OmEnergo.Models.Section", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -158,7 +158,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Stabilizer", b =>
@@ -190,7 +190,7 @@ namespace OmEnergo.Migrations
 
                     b.Property<int?>("PhasesAmount");
 
-                    b.Property<int?>("ProductId");
+                    b.Property<int?>("SectionId");
 
                     b.Property<string>("Series");
 
@@ -210,7 +210,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Stabilizers");
                 });
@@ -232,57 +232,125 @@ namespace OmEnergo.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<int?>("StabilizerId");
+                    b.Property<int?>("ProductId");
 
                     b.Property<double?>("Weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StabilizerId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("StabilizerModels");
                 });
 
+            modelBuilder.Entity("OmEnergo.Models.Switch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("MainImageLink");
+
+                    b.Property<string>("MaximalAmperage");
+
+                    b.Property<string>("NominalVoltage");
+
+                    b.Property<string>("ProtectionDegree");
+
+                    b.Property<int?>("SectionId");
+
+                    b.Property<string>("Series");
+
+                    b.Property<string>("WorkingTemperatureRange");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("Switches");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.SwitchModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("AvailableWireLength");
+
+                    b.Property<string>("Dimensions");
+
+                    b.Property<string>("MaximalAmperage");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("Price");
+
+                    b.Property<int?>("ProductId");
+
+                    b.Property<double?>("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("SwitchModels");
+                });
+
             modelBuilder.Entity("OmEnergo.Models.Autotransformer", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Product", "Product")
+                    b.HasOne("OmEnergo.Models.Section", "Section")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("SectionId");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.AutotransformerModel", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Autotransformer", "Autotransformer")
+                    b.HasOne("OmEnergo.Models.Autotransformer", "Product")
                         .WithMany("Models")
-                        .HasForeignKey("AutotransformerId");
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Inverter", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Product", "Product")
+                    b.HasOne("OmEnergo.Models.Section", "Section")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("SectionId");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.InverterModel", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Inverter", "Inverter")
+                    b.HasOne("OmEnergo.Models.Inverter", "Product")
                         .WithMany("Models")
-                        .HasForeignKey("InverterId");
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Stabilizer", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Product", "Product")
+                    b.HasOne("OmEnergo.Models.Section", "Section")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("SectionId");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.StabilizerModel", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Stabilizer", "Stabilizer")
+                    b.HasOne("OmEnergo.Models.Stabilizer", "Product")
                         .WithMany("Models")
-                        .HasForeignKey("StabilizerId");
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.Switch", b =>
+                {
+                    b.HasOne("OmEnergo.Models.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.SwitchModel", b =>
+                {
+                    b.HasOne("OmEnergo.Models.Switch", "Product")
+                        .WithMany("Models")
+                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }
