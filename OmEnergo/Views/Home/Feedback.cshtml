@@ -5,28 +5,28 @@
 
 <form asp-action="Feedback">
 	<div>
-		<div class="row">
-			<label asp-for="Name">Имя:</label>
-			<input type="text" asp-for="Name" />
+		<div class="row margin-bottom">
+			<label class="col-2 text-right" asp-for="Name">Имя:</label>
+			<input class="col-5"type="text" asp-for="Name" />
 			<span asp-validation-for="Name"></span>
 		</div>
-		<div class="row">
-			<label asp-for="Text">Сообщение:</label>
-			<input type="text" asp-for="Text" />
+		<div class="row margin-bottom">
+			<label class="col-2 text-right" asp-for="Text">Сообщение:</label>
+			<textarea class="col-5" asp-for="Text"></textarea>
 			<span asp-validation-for="Text"></span>
 		</div>
-		<div class="row">
-			<label asp-for="Email">Email:</label>
-			<input type="text" asp-for="Email" />
+		<div class="row margin-bottom">
+			<label class="col-2 text-right" asp-for="Email">Email:</label>
+			<input class="col-5" type="text" asp-for="Email" />
 			<span asp-validation-for="Email"></span>
 		</div>
-		<div class="row">
-			<label asp-for="PhoneNumber">Телефон:</label>
-			<input type="text" asp-for="PhoneNumber" />
+		<div class="row margin-bottom">
+			<label class="col-2 text-right" asp-for="PhoneNumber">Телефон:</label>
+			<input class="col-5" type="text" asp-for="PhoneNumber" />
 			<span asp-validation-for="PhoneNumber"></span>
 		</div>
 		<div>
-			<input type="submit"/>
+			<input class="col-2 offset-2" type="submit"/>
 		</div>
 	</div>
 </form>
