@@ -3,34 +3,64 @@
     ViewData["Title"] = "Feedback";
 }
 
-<form asp-action="Feedback">
-	<div>
-		<div class="row margin-bottom">
-			<label class="col-2 text-right" asp-for="Name">Имя:</label>
-			<input class="col-5"type="text" asp-for="Name" />
-			<span asp-validation-for="Name"></span>
+<div class="offset-3">
+	<h2 class="little-margin-left">Ваше сообщение:</h2>
+</div>
+
+<form asp-action="Feedback" class="needs-validation" novalidate>
+	<div class="row m-2">
+		<label class="col-3 text-right" asp-for="Name">* Имя:</label>
+		<input class="col-4 form-control form-check" type="text" asp-for="Name" required />
+		<div class=" col-1 valid-feedback">
+			Отлично!
 		</div>
-		<div class="row margin-bottom">
-			<label class="col-2 text-right" asp-for="Text">Сообщение:</label>
-			<textarea class="col-5" asp-for="Text"></textarea>
-			<span asp-validation-for="Text"></span>
+		<div class="col-2 invalid-feedback">
+			Не указано имя
 		</div>
-		<div class="row margin-bottom">
-			<label class="col-2 text-right" asp-for="Email">Email:</label>
-			<input class="col-5" type="text" asp-for="Email" />
-			<span asp-validation-for="Email"></span>
+	</div>
+	<div class="row m-2">
+		<label class="col-3 text-right" asp-for="Email">Email:</label>
+		<input class="col-4 form-control" type="email" asp-for="Email" />
+		<div class=" col-1 valid-feedback">
+			Отлично!
 		</div>
-		<div class="row margin-bottom">
-			<label class="col-2 text-right" asp-for="PhoneNumber">Телефон:</label>
-			<input class="col-5" type="text" asp-for="PhoneNumber" />
-			<span asp-validation-for="PhoneNumber"></span>
+	</div>
+	<div class="row m-2">
+		<label class="col-3 text-right" asp-for="PhoneNumber">Телефон:</label>
+		<input class="col-4 form-control" type="text" asp-for="PhoneNumber" />
+		<div class="col-1 valid-feedback">
+			Отлично!
 		</div>
-		<div>
-			<input class="col-2 offset-2" type="submit"/>
+	</div>
+	<div class="row m-2">
+		<label class="col-3 text-right" asp-for="Text">* Сообщение:</label>
+		<textarea class="col-7  form-control" style="height: 150px" asp-for="Text" required></textarea>
+		<div class=" col-1 valid-feedback">
+			Отлично!
 		</div>
+		<div class="col-2 invalid-feedback">
+			Не указан текст
+		</div>
+	</div>
+	<div class="offset-3">
+		<button class="btn btn-primary little-margin-left" type="submit">Отправить</button>
 	</div>
 </form>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script>
+	(function () {
+		'use strict';
+		window.addEventListener('load', function () {
+			var forms = document.getElementsByClassName('needs-validation');
+			var validation = Array.prototype.filter.call(forms, function (form) {
+				form.addEventListener('submit', function (event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>

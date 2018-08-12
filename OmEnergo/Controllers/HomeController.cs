@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Services;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
@@ -25,13 +26,13 @@ namespace OmEnergo.Controllers
 
         public IActionResult Contact() => View();
 
-		public IActionResult Feedback() => View();
+		public IActionResult Feedback() => PartialView();
 
 		[HttpPost]
-		public IActionResult Feedback(string name, string text, string email = "", string phoneNumber = "")
+		public async Task<IActionResult> Feedback(string name, string text, string email = "", string phoneNumber = "")
 		{
-			emailService.SendEmail(name, text, email, phoneNumber);
-			return View();
+			await emailService.SendEmail(name, text, email, phoneNumber);
+			return RedirectToAction("Index", "Catalog");
 		}
 
         public IActionResult Error() => View();
