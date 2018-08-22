@@ -17,13 +17,16 @@
 		</div>
 	</div>
 	<div class="row m-2">
-		<label class="col-3 text-right" asp-for="Email">Email:</label>
-		<input class="col-4 form-control" type="email" asp-for="Email" />
+		<label class="col-3 text-right" asp-for="Email">* Email:</label>
+		<input class="col-4 form-control" type="email" asp-for="Email" required />
 		<div class=" col-1 valid-feedback">&#10004;</div>
+		<div class="col-3 invalid-feedback">
+			Введите верный email
+		</div>
 	</div>
 	<div class="row m-2">
 		<label class="col-3 text-right" asp-for="PhoneNumber">Телефон:</label>
-		<input class="col-4 form-control" type="text" asp-for="PhoneNumber" />
+		<input id="phone" class="col-4 form-control" type="text" asp-for="PhoneNumber" />
 		<div class="col-1 valid-feedback">&#10004;</div>
 	</div>
 	<div class="row m-2">
@@ -39,7 +42,7 @@
 	</div>
 </form>
 
-<script>
+<script type="text/javascript">
 	(function () {
 		'use strict';
 		window.addEventListener('load', function () {
