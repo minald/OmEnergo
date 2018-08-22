@@ -1,10 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using OmEnergo.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() => View();
+		public IConfiguration Configuration { get; set; }
+
+		public HomeController(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
+
+		public IActionResult Index() => View();
 
         public IActionResult About() => View();
 
@@ -13,6 +24,19 @@ namespace OmEnergo.Controllers
         public IActionResult Delivery() => View();
 
         public IActionResult Contact() => View();
+
+		public IActionResult Feedback() => PartialView();
+
+		[HttpPost]
+		public IActionResult Feedback(string name, string text, string email, string phoneNumber = "")
+		{
+			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
+			{
+			    Task.Factory.StartNew(() => new EmailSender(Configuration).SendEmail(name, text, email, phoneNumber));
+			}
+
+			return RedirectToAction("Index", "Catalog");
+		}
 
         public IActionResult Error() => View();
     }
