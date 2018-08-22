@@ -6,17 +6,7 @@ namespace OmEnergo.Controllers
 {
     public class HomeController : Controller
     {
-		EmailService emailService { get; set; }
-
-		public HomeController()
-		{
-			emailService = new EmailService();
-		}
-
-		public IActionResult Index()
-		{
-			return View();
-		}
+		public IActionResult Index() => View();
 
         public IActionResult About() => View();
 
@@ -31,7 +21,7 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Feedback(string name, string text, string email = "", string phoneNumber = "")
 		{
-			await emailService.SendEmail(name, text, email, phoneNumber);
+			await EmailService.SendEmail(name, text, email, phoneNumber);
 			return RedirectToAction("Index", "Catalog");
 		}
 

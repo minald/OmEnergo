@@ -11,34 +11,28 @@ namespace OmEnergo.Services
 {
     public class EmailService
     {
-		IConfiguration Configuration { get; }
-
-		public EmailService()
+		public static async Task SendEmail(string name, string text, string email, string phoneNumber)
 		{
-			Configuration = new ConfigurationBuilder()
-				.SetBasePath(Directory.GetCurrentDirectory())
-				.AddJsonFile("appsettings.json")
-				.Build();
-		}
-
-		public async Task SendEmail(string name, string text, string email, string phoneNumber)
-		{
+			IConfiguration Configuration = new ConfigurationBuilder()
+					.SetBasePath(Directory.GetCurrentDirectory())
+					.AddJsonFile("appsettings.json")
+					.Build();
 			using (var client = new SmtpClient())
 			{
-				client.EnableSsl = Configuration["EmailConfiguration:EmailEnableSsl"] == "true";
-				client.Host = Configuration["EmailConfiguration:EmailHost"];
-				client.Port = Int32.Parse(Configuration["EmailConfiguration:EmailPort"]);
-				client.Credentials = new NetworkCredential(Configuration["EmailConfiguration:FromEmail"],
-					Configuration["EmailConfiguration:EmailPassword"]);
-				client.Send(CreateMessage(name, text, email, phoneNumber));
+				client.EnableSsl = Configuration["Email:EnableSsl"] == "true";
+				client.Host = Configuration["Email:Host"];
+				client.Port = Int32.Parse(Configuration["Email:Port"]);
+				client.Credentials = new NetworkCredential(Configuration["Email:From"],
+					Configuration["Email:Password"]);
+				client.Send(CreateMessage(name, text, email, phoneNumber, Configuration));
 			}
 		}
 
-		private MailMessage CreateMessage(string name, string text, string email, string phoneNumber)
+		private static MailMessage CreateMessage(string name, string text, string email, string phoneNumber, IConfiguration Configuration)
 		{
 			MailMessage mailMessage = new MailMessage();
-			mailMessage.From = new MailAddress(Configuration["EmailConfiguration:FromEmail"]);
-			mailMessage.To.Add(Configuration["EmailConfiguration:ToEmail"]);
+			mailMessage.From = new MailAddress(Configuration["Email:From"]);
+			mailMessage.To.Add(Configuration["Email:To"]);
 			mailMessage.Body = "Имя: " + name + Environment.NewLine + "Телефон: " + phoneNumber + Environment.NewLine
 				+ "Email: " + email + Environment.NewLine +"Сообщение: " + text;
 			mailMessage.Subject = "Обратная связь";
