@@ -6,6 +6,8 @@ namespace OmEnergo.Models
     {
         public DbSet<Section> Sections { get; set; }
 
+        public DbSet<CommonProduct> CommonProducts { get; set; }
+
         public DbSet<Stabilizer> Stabilizers { get; set; }
 
         public DbSet<StabilizerModel> StabilizerModels { get; set; }
