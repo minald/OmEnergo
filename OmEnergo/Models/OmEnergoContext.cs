@@ -8,6 +8,8 @@ namespace OmEnergo.Models
 
         public DbSet<CommonProduct> CommonProducts { get; set; }
 
+        public DbSet<CommonProductModel> CommonProductModels { get; set; }
+
         public DbSet<Stabilizer> Stabilizers { get; set; }
 
         public DbSet<StabilizerModel> StabilizerModels { get; set; }
