@@ -9,22 +9,10 @@ namespace OmEnergo.Models
 
         public string Value { get; set; }
 
-        public ProductProperty(object model, string propertyName)
+        public ProductProperty(string displayName, string value)
         {
-            var modelType = model.GetType();
-            var propertyInfo = modelType.GetProperty(propertyName);
-            var displayAttribute = propertyInfo.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
-            DisplayName = displayAttribute?.Name;
-
-            if (propertyInfo.PropertyType == typeof(bool?))
-            {
-                bool? boolValue = (bool?)(propertyInfo.GetValue(model));
-                Value = boolValue?.ToStringInRussian();
-            }
-            else
-            {
-                Value = propertyInfo.GetValue(model)?.ToString();
-            }
+            DisplayName = displayName;
+            Value = value;
         }
     }
 }

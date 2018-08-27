@@ -14,26 +14,10 @@ namespace OmEnergo.Models
 
         public List<Section> GetSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildrenSections).ToList();
 
-        public List<Stabilizer> GetStabilizers(string type) =>
-            Db.Stabilizers.Where(x => x.Section.EnglishName == type + "Stabilizers").Include(x => x.Section).ToList();
+        public IEnumerable<CommonProduct> GetProducts(string type) =>
+            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.EnglishName == type).ToList();
 
-        public Stabilizer GetStabilizerBySeries(string type, string series) =>
-            Db.Stabilizers.Include(x => x.Section).Include(x => x.Models)
-                .First(x => x.Section.EnglishName == type + "Stabilizers" && x.Series.Replace(" ", "_") == series);
-
-        public List<Inverter> GetInverters() => Db.Inverters.Include(x => x.Section).ToList();
-
-        public Inverter GetInverterBySeries(string series) => 
-            Db.Inverters.Include(x => x.Section).Include(x => x.Models).First(x => x.Series.Replace(" ", "_") == series);
-
-        public List<Autotransformer> GetAutotransformers() => Db.Autotransformers.Include(x => x.Section).ToList();
-
-        public Autotransformer GetAutotransformerBySeries(string series) =>
-            Db.Autotransformers.Include(x => x.Section).Include(x => x.Models).First(x => x.Series.Replace(" ", "_") == series);
-
-        public List<Switch> GetSwitches() => Db.Switches.Include(x => x.Section).ToList();
-
-        public Switch GetSwitchBySeries(string series) =>
-            Db.Switches.Include(x => x.Section).Include(x => x.Models).First(x => x.Series.Replace(" ", "_") == series);
+        public CommonProduct GetProduct(string name) =>
+            Db.CommonProducts.Include(x => x.Section).First(x => x.Name.Replace(" ", "_") == name);
     }
 }

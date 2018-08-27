@@ -1,17 +1,11 @@
-﻿@model Stabilizer
-@{
-    ViewData["Title"] = Model.Series;
-}
+﻿@model CommonProduct
 
-<h3 class="text-center">@Model.Series</h3>
-<p>@Model.LongDescription</p>
+<h3 class="text-center">@Model.Name</h3>
+<p>@Model.Description</p>
 <div class="row">
-    @await Component.InvokeAsync("PropertyTable", new { model = Model, propertyNames = new[]
-        { "StabilizationType", "StabilizationAccuracy", "PhasesAmount", "InputVoltageRange", "AllowableDurableOverload", "InstallationType" } })
-    @await Component.InvokeAsync("PropertyTable", new { model = Model, propertyNames = new[]
-        { "SwitchingTime", "Indication", "WorkingTemperature", "ImplementedProtections", "AdjustableDelay", "BypassMode" } })
+    @await Component.InvokeAsync("PropertyTable", new { properties = Model.GetProperties() })
 </div>
-<div class="row justify-content-center">
+@*<div class="row justify-content-center">
     @foreach (var stabilizerModel in Model.Models)
     {
         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
@@ -37,4 +31,4 @@
             </div>
         </div>
     }
-</div>
+</div>*@

@@ -13,67 +13,33 @@ namespace OmEnergo.Controllers
 
         public IActionResult Index() => View(Repository.GetSections().Where(x => x.IsMainSection()));
 
-        public IActionResult IndustrialSinglephaseStabilizers(string series) => Stabilizers("IndustrialSinglephase", series);
+        public IActionResult IndustrialSinglephaseStabilizers(string series) => Products("IndustrialSinglephaseStabilizers", series);
 
-        public IActionResult IndustrialThreephaseStabilizers(string series) => Stabilizers("IndustrialThreephase", series);
+        public IActionResult IndustrialThreephaseStabilizers(string series) => Products("IndustrialThreephaseStabilizers", series);
 
-        public IActionResult HouseholdSinglephaseStabilizers(string series) => Stabilizers("HouseholdSinglephase", series);
+        public IActionResult HouseholdSinglephaseStabilizers(string series) => Products("HouseholdSinglephaseStabilizers", series);
 
-        public IActionResult HouseholdThreephaseStabilizers(string series) => Stabilizers("HouseholdThreephase", series);
+        public IActionResult HouseholdThreephaseStabilizers(string series) => Products("HouseholdThreephaseStabilizers", series);
 
-        private IActionResult Stabilizers(string type, string series)
+        public IActionResult Inverters(string series) => Products("Inverters", series);
+
+        public IActionResult Autotransformers(string series) => Products("Autotransformers", series);
+
+        public IActionResult Switches(string series) => Products("Switches", series);
+
+        private IActionResult Products(string type, string series)
         {
             if (String.IsNullOrEmpty(series))
             {
-                var stabilizers = Repository.GetStabilizers(type);
+                var stabilizers = Repository.GetProducts(type);
+                ViewData["Title"] = type;
                 return View("Stabilizers", stabilizers);
             }
             else
             {
-                var stabilizer = Repository.GetStabilizerBySeries(type, series);
+                var stabilizer = Repository.GetProduct(series);
+                ViewData["Title"] = series;
                 return View("Stabilizer", stabilizer);
-            }
-        }
-
-        public IActionResult Inverters(string series)
-        {
-            if (String.IsNullOrEmpty(series))
-            {
-                var inverters = Repository.GetInverters();
-                return View("Inverters", inverters);
-            }
-            else
-            {
-                var inverter = Repository.GetInverterBySeries(series);
-                return View("Inverter", inverter);
-            }
-        }
-
-        public IActionResult Autotransformers(string series)
-        {
-            if (String.IsNullOrEmpty(series))
-            {
-                var autotransformers = Repository.GetAutotransformers();
-                return View("Autotransformers", autotransformers);
-            }
-            else
-            {
-                var autotransformer = Repository.GetAutotransformerBySeries(series);
-                return View("Autotransformer", autotransformer);
-            }
-        }
-
-        public IActionResult Switches(string series)
-        {
-            if (String.IsNullOrEmpty(series))
-            {
-                var switches = Repository.GetSwitches();
-                return View("Switches", switches);
-            }
-            else
-            {
-                var switch_ = Repository.GetSwitchBySeries(series);
-                return View("Switch", switch_);
             }
         }
     }

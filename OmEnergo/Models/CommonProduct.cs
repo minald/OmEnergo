@@ -1,4 +1,7 @@
-﻿namespace OmEnergo.Models
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace OmEnergo.Models
 {
     public class CommonProduct
     {
@@ -13,5 +16,16 @@
         public string Properties { get; set; }
 
         public string MainImageLink { get; set; }
+
+        public IEnumerable<ProductProperty> GetProperties()
+        {
+            var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);
+            foreach(var pair in properties)
+            {
+                yield return new ProductProperty(pair.Key, pair.Value);
+            }
+        }
+
+        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Name.Replace('"', '\'')}/{MainImageLink}";
     }
 }
