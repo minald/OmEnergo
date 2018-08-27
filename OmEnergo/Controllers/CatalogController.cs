@@ -33,13 +33,13 @@ namespace OmEnergo.Controllers
             {
                 var stabilizers = Repository.GetProducts(type);
                 ViewData["Title"] = type;
-                return View("Stabilizers", stabilizers);
+                return View("Products", stabilizers);
             }
             else
             {
                 var stabilizer = Repository.GetProduct(series);
                 ViewData["Title"] = series;
-                return View("Stabilizer", stabilizer);
+                return View("Product", stabilizer);
             }
         }
     }

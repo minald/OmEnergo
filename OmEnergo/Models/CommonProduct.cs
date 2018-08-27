@@ -17,6 +17,8 @@ namespace OmEnergo.Models
 
         public string MainImageLink { get; set; }
 
+        public List<CommonProductModel> Models { get; set; }
+
         public IEnumerable<ProductProperty> GetProperties()
         {
             var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);

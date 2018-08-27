@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180827120510_Creating CommonProductModel")]
+    partial class CreatingCommonProductModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
