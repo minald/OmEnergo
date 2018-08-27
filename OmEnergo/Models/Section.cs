@@ -10,7 +10,7 @@ namespace OmEnergo.Models
 
         public Section ParentSection { get; set; }
 
-        public List<Section> ChildrenSections { get; set; }
+        public List<Section> ChildSections { get; set; }
 
         public string EnglishName { get; set; }
 

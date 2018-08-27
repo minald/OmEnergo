@@ -11,7 +11,7 @@ namespace OmEnergo.Controllers
 
         public CatalogController(OmEnergoContext db) => Repository = new Repository(db);
 
-        public IActionResult Index() => View(Repository.GetSections().Where(x => x.IsMainSection()));
+        public IActionResult Index() => View(Repository.GetMainSections());
 
         public IActionResult IndustrialSinglephaseStabilizers(string series) => Products("IndustrialSinglephaseStabilizers", series);
 

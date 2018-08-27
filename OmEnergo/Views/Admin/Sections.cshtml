@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Section>
+
+<h3 class="text-center">Секции</h3>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th colspan="2">Название</th>
+        <th>Ссылка на фото</th>
+        <th>Описание</th>
+        <th></th>
+    </tr>
+    @foreach (var mainSection in Model)
+    {
+        <tr>
+            <td colspan="2">@mainSection.RussianName (@mainSection.EnglishName)</td>
+            <td>@mainSection.MainImageLink</td>
+            <td>@mainSection.Description</td>
+            <td></td>
+        </tr>
+        @foreach (var childSection in mainSection.ChildSections)
+        {
+            <tr>
+                <td></td>
+                <td>@childSection.RussianName (@childSection.EnglishName)</td>
+                <td>@childSection.MainImageLink</td>
+                <td>@childSection.Description</td>
+                <td></td>
+            </tr>
+        }
+    }
+</table>

@@ -387,7 +387,7 @@ namespace OmEnergo.Migrations
             modelBuilder.Entity("OmEnergo.Models.Section", b =>
                 {
                     b.HasOne("OmEnergo.Models.Section", "ParentSection")
-                        .WithMany("ChildrenSections")
+                        .WithMany("ChildSections")
                         .HasForeignKey("ParentSectionId");
                 });
 

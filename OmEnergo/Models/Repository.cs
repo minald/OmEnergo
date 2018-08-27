@@ -12,13 +12,14 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
-        public List<Section> GetSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildrenSections).ToList();
+        public IEnumerable<Section> GetMainSections() =>
+            Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
         public IEnumerable<CommonProduct> GetProducts(string type) =>
-            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.EnglishName == type).ToList();
+            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.EnglishName == type);
 
-        public CommonProduct GetProduct(string type, string name) =>
+        public CommonProduct GetProduct(string sectionName, string name) =>
             Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
-                .First(x => x.Section.EnglishName == type && x.Name.Replace(" ", "_") == name);
+                .First(x => x.Section.EnglishName == sectionName && x.Name.Replace(" ", "_") == name);
     }
 }
