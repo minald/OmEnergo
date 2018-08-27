@@ -15,6 +15,7 @@ namespace OmEnergo
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMiniProfiler().AddEntityFramework();
             string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
             services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
             services.AddMvc();
@@ -24,6 +25,7 @@ namespace OmEnergo
         {
             if (env.IsDevelopment())
             {
+                app.UseMiniProfiler();
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
