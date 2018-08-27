@@ -11,7 +11,11 @@
     @foreach (var mainSection in Model)
     {
         <tr>
-            <td colspan="2">@mainSection.RussianName (@mainSection.EnglishName)</td>
+            <td colspan="2">
+                <a asp-controller="Admin" asp-action="Products" asp-route-name="@mainSection.EnglishName">
+                    @mainSection.RussianName (@mainSection.EnglishName)
+                </a>
+            </td>
             <td>@mainSection.MainImageLink</td>
             <td>@mainSection.Description</td>
             <td></td>
@@ -20,7 +24,11 @@
         {
             <tr>
                 <td></td>
-                <td>@childSection.RussianName (@childSection.EnglishName)</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="Products" asp-route-name="@childSection.EnglishName">
+                        @childSection.RussianName (@childSection.EnglishName)
+                    </a>
+                </td>
                 <td>@childSection.MainImageLink</td>
                 <td>@childSection.Description</td>
                 <td></td>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CommonProduct>
+
+<h3 class="text-center">Продукты</h3>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Название</th>
+        <th>Ссылка на фото</th>
+        <th>Описание</th>
+        <th></th>
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@product.Name" asp-route-sectionName="@product.Section.EnglishName">
+                    @product.Name
+                </a>
+            </td>
+            <td>@product.MainImageLink</td>
+            <td>@product.Description</td>
+            <td></td>
+        </tr>
+    }
+</table>

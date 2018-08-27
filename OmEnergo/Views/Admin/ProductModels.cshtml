@@ -1,0 +1,18 @@
+﻿@model IEnumerable<CommonProductModel>
+
+<h3 class="text-center">Модели продукта</h3>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Название</th>
+        <th>Цена</th>
+        <th></th>
+    </tr>
+    @foreach (var productModel in Model)
+    {
+        <tr>
+            <td>@productModel.Name</td>
+            <td>@productModel.Price</td>
+            <td></td>
+        </tr>
+    }
+</table>
