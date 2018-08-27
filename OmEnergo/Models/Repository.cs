@@ -17,7 +17,8 @@ namespace OmEnergo.Models
         public IEnumerable<CommonProduct> GetProducts(string type) =>
             Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.EnglishName == type).ToList();
 
-        public CommonProduct GetProduct(string name) =>
-            Db.CommonProducts.Include(x => x.Section).First(x => x.Name.Replace(" ", "_") == name);
+        public CommonProduct GetProduct(string type, string name) =>
+            Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
+                .First(x => x.Section.EnglishName == type && x.Name.Replace(" ", "_") == name);
     }
 }

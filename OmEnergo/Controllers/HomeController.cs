@@ -10,10 +10,7 @@ namespace OmEnergo.Controllers
     {
 		public IConfiguration Configuration { get; set; }
 
-		public HomeController(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+		public HomeController(IConfiguration configuration) => Configuration = configuration;
 
 		public IActionResult Index() => View();
 
@@ -24,8 +21,6 @@ namespace OmEnergo.Controllers
         public IActionResult Delivery() => View();
 
         public IActionResult Contact() => View();
-
-		public IActionResult Feedback() => PartialView();
 
 		[HttpPost]
 		public IActionResult Feedback(string name, string text, string email, string phoneNumber = "")

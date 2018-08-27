@@ -31,15 +31,13 @@ namespace OmEnergo.Controllers
         {
             if (String.IsNullOrEmpty(series))
             {
-                var stabilizers = Repository.GetProducts(type);
                 ViewData["Title"] = type;
-                return View("Products", stabilizers);
+                return View("Products", Repository.GetProducts(type));
             }
             else
             {
-                var stabilizer = Repository.GetProduct(series);
-                ViewData["Title"] = series;
-                return View("Product", stabilizer);
+                ViewData["Title"] = series.Replace("_", " ");
+                return View("Product", Repository.GetProduct(type, series));
             }
         }
     }
