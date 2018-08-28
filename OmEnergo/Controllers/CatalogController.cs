@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
 using System;
-using System.Linq;
 
 namespace OmEnergo.Controllers
 {
@@ -13,25 +12,11 @@ namespace OmEnergo.Controllers
 
         public IActionResult Index() => View(Repository.GetMainSections());
 
-        public IActionResult IndustrialSinglephaseStabilizers(string series) => Products("Промышленные однофазные стабилизаторы", series);
-
-        public IActionResult IndustrialThreephaseStabilizers(string series) => Products("Промышленные трехфазные стабилизаторы", series);
-
-        public IActionResult HouseholdSinglephaseStabilizers(string series) => Products("Бытовые однофазные стабилизаторы", series);
-
-        public IActionResult HouseholdThreephaseStabilizers(string series) => Products("Бытовые трехфазные стабилизаторы", series);
-
-        public IActionResult Inverters(string series) => Products("Источники бесперебойного питания", series);
-
-        public IActionResult Autotransformers(string series) => Products("Лабораторные автотрансформаторы", series);
-
-        public IActionResult Switches(string series) => Products("Выключатели и переключатели", series);
-
-        private IActionResult Products(string productName, string series)
+        public IActionResult Products(string productName, string series)
         {
             if (String.IsNullOrEmpty(series))
             {
-                ViewData["Title"] = productName;
+                ViewData["Title"] = productName.Replace("_", " ");
                 return View("Products", Repository.GetProducts(productName));
             }
             else

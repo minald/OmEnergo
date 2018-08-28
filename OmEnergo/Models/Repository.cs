@@ -16,11 +16,11 @@ namespace OmEnergo.Models
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
         public IEnumerable<CommonProduct> GetProducts(string name) =>
-            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name == name);
+            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name.Replace(" ", "_") == name);
 
         public CommonProduct GetProduct(string sectionName, string name) =>
             Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
-                .First(x => x.Section.Name == sectionName && x.Name.Replace(" ", "_") == name);
+                .First(x => x.Section.Name.Replace(" ", "_") == sectionName && x.Name.Replace(" ", "_") == name);
 
         public IEnumerable<CommonProductModel> GetProductModels(string sectionName, string productName) =>
             Db.CommonProductModels.Include(x => x.CommonProduct).Where(x => x.CommonProduct.Section.Name == sectionName && x.CommonProduct.Name == productName);
