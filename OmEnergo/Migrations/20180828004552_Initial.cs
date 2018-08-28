@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OmEnergo.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,13 +16,19 @@ namespace OmEnergo.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    EnglishName = table.Column<string>(nullable: true),
                     MainImageLink = table.Column<string>(nullable: true),
-                    RussianName = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ParentSectionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sections_Sections_ParentSectionId",
+                        column: x => x.ParentSectionId,
+                        principalTable: "Sections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,6 +52,29 @@ namespace OmEnergo.Migrations
                     table.PrimaryKey("PK_Autotransformers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Autotransformers_Sections_SectionId",
+                        column: x => x.SectionId,
+                        principalTable: "Sections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommonProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    MainImageLink = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Properties = table.Column<string>(nullable: true),
+                    SectionId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommonProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommonProducts_Sections_SectionId",
                         column: x => x.SectionId,
                         principalTable: "Sections",
                         principalColumn: "Id",
@@ -174,6 +203,28 @@ namespace OmEnergo.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CommonProductModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CommonProductId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false),
+                    Properties = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommonProductModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommonProductModels_CommonProducts_CommonProductId",
+                        column: x => x.CommonProductId,
+                        principalTable: "CommonProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InverterModels",
                 columns: table => new
                 {
@@ -261,6 +312,16 @@ namespace OmEnergo.Migrations
                 column: "SectionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CommonProductModels_CommonProductId",
+                table: "CommonProductModels",
+                column: "CommonProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommonProducts_SectionId",
+                table: "CommonProducts",
+                column: "SectionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InverterModels_ProductId",
                 table: "InverterModels",
                 column: "ProductId");
@@ -269,6 +330,11 @@ namespace OmEnergo.Migrations
                 name: "IX_Inverters_SectionId",
                 table: "Inverters",
                 column: "SectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sections_ParentSectionId",
+                table: "Sections",
+                column: "ParentSectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StabilizerModels_ProductId",
@@ -297,6 +363,9 @@ namespace OmEnergo.Migrations
                 name: "AutotransformerModels");
 
             migrationBuilder.DropTable(
+                name: "CommonProductModels");
+
+            migrationBuilder.DropTable(
                 name: "InverterModels");
 
             migrationBuilder.DropTable(
@@ -307,6 +376,9 @@ namespace OmEnergo.Migrations
 
             migrationBuilder.DropTable(
                 name: "Autotransformers");
+
+            migrationBuilder.DropTable(
+                name: "CommonProducts");
 
             migrationBuilder.DropTable(
                 name: "Inverters");
