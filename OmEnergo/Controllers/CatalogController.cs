@@ -13,31 +13,31 @@ namespace OmEnergo.Controllers
 
         public IActionResult Index() => View(Repository.GetMainSections());
 
-        public IActionResult IndustrialSinglephaseStabilizers(string series) => Products("IndustrialSinglephaseStabilizers", series);
+        public IActionResult IndustrialSinglephaseStabilizers(string series) => Products("Промышленные однофазные стабилизаторы", series);
 
-        public IActionResult IndustrialThreephaseStabilizers(string series) => Products("IndustrialThreephaseStabilizers", series);
+        public IActionResult IndustrialThreephaseStabilizers(string series) => Products("Промышленные трехфазные стабилизаторы", series);
 
-        public IActionResult HouseholdSinglephaseStabilizers(string series) => Products("HouseholdSinglephaseStabilizers", series);
+        public IActionResult HouseholdSinglephaseStabilizers(string series) => Products("Бытовые однофазные стабилизаторы", series);
 
-        public IActionResult HouseholdThreephaseStabilizers(string series) => Products("HouseholdThreephaseStabilizers", series);
+        public IActionResult HouseholdThreephaseStabilizers(string series) => Products("Бытовые трехфазные стабилизаторы", series);
 
-        public IActionResult Inverters(string series) => Products("Inverters", series);
+        public IActionResult Inverters(string series) => Products("Источники бесперебойного питания", series);
 
-        public IActionResult Autotransformers(string series) => Products("Autotransformers", series);
+        public IActionResult Autotransformers(string series) => Products("Лабораторные автотрансформаторы", series);
 
-        public IActionResult Switches(string series) => Products("Switches", series);
+        public IActionResult Switches(string series) => Products("Выключатели и переключатели", series);
 
-        private IActionResult Products(string type, string series)
+        private IActionResult Products(string productName, string series)
         {
             if (String.IsNullOrEmpty(series))
             {
-                ViewData["Title"] = type;
-                return View("Products", Repository.GetProducts(type));
+                ViewData["Title"] = productName;
+                return View("Products", Repository.GetProducts(productName));
             }
             else
             {
                 ViewData["Title"] = series.Replace("_", " ");
-                return View("Product", Repository.GetProduct(type, series));
+                return View("Product", Repository.GetProduct(productName, series));
             }
         }
     }

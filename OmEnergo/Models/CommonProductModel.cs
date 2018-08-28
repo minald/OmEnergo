@@ -28,7 +28,7 @@ namespace OmEnergo.Models
         public string GetImageFullLink()
         {
             var productName = CommonProduct.Name.Replace('"', '\'');
-            return $"/images/{CommonProduct.Section.EnglishName}/{productName}/{Name.Replace('/', '-')}.jpg";
+            return $"/images/{CommonProduct.Section.Name}/{productName}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;

@@ -23,8 +23,8 @@ namespace OmEnergo.Models
 
         public string GetImageFullLink()
         {
-            var switchSeries = Product.Series.Replace('"', '\'');
-            return $"/images/{Product.Section.EnglishName}/{switchSeries}/{Name.Replace('/', '-')}.jpg";
+            var series = Product.Series.Replace('"', '\'');
+            return $"/images/{Product.Section.Name}/{series}/{Name.Replace('/', '-')}.jpg";
         }
 
         public int GetPriceIntegerPart() => (int)Price;

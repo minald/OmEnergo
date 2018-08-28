@@ -13,6 +13,6 @@ namespace OmEnergo.Models
 
         public string MainImageLink { get; set; }
 
-        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Series.Replace('"', '\'')}/{MainImageLink}";
+        public string GetImageFullLink() => $"/images/{Section.Name}/{Series.Replace('"', '\'')}/{MainImageLink}";
     }
 }

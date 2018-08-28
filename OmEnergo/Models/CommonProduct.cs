@@ -28,6 +28,6 @@ namespace OmEnergo.Models
             }
         }
 
-        public string GetImageFullLink() => $"/images/{Section.EnglishName}/{Name.Replace('"', '\'')}/{MainImageLink}";
+        public string GetImageFullLink() => $"/images/{Section.Name}/{Name.Replace('"', '\'')}/{MainImageLink}";
     }
 }
