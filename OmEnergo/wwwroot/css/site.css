@@ -60,6 +60,7 @@ iframe {
     padding-left: 5px;
 }
 
-.ml-4px {
-	margin-left: 4px;
+.input-validation-error {
+    border-color: red;
+    background-color: #fee;
 }

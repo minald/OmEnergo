@@ -9,10 +9,7 @@ namespace OmEnergo.Models
     {
 		public IConfiguration Configuration { get; set; }
 
-		public EmailSender(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+		public EmailSender(IConfiguration configuration) => Configuration = configuration;
 
 		public void SendEmail(string name, string text, string email, string phoneNumber)
 		{
@@ -21,8 +18,7 @@ namespace OmEnergo.Models
 			    client.EnableSsl = Configuration["Email:EnableSsl"] == "true";
 				client.Host = Configuration["Email:Host"];
 				client.Port = Int32.Parse(Configuration["Email:Port"]);
-				client.Credentials = new NetworkCredential(Configuration["Email:From"],
-					Configuration["Email:Password"]);
+				client.Credentials = new NetworkCredential(Configuration["Email:From"], Configuration["Email:Password"]);
 			    client.Send(CreateMessage(name, text, email, phoneNumber));
 			}
 		}

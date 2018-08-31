@@ -20,10 +20,10 @@ namespace OmEnergo.Controllers
 
         public IActionResult Delivery() => View();
 
-        public IActionResult Contact() => View();
+        public IActionResult Contacts() => View();
 
 		[HttpPost]
-		public IActionResult Feedback(string name, string text, string email, string phoneNumber = "")
+		public IActionResult Contacts(string name, string text, string email, string phoneNumber = "")
 		{
 			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
 			{

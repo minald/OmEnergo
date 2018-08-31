@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
     public class EmailMessage
     {
-		public string Text { get; set; }
-
+        [Required(ErrorMessage = "Пожалуйста, заполните поле")]
+        [Display(Name = "Имя")]
 		public string Name { get; set; }
 
-		public string Email { get; set; }
+        [Required(ErrorMessage = "Пожалуйста, заполните поле")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Неправильный email")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
-		public string PhoneNumber { get; set; }
+        [Display(Name = "Номер телефона")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Пожалуйста, заполните поле")]
+        [Display(Name = "Сообщение")]
+        public string Text { get; set; }
     }
 }
