@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using OmEnergo.Models;
 using System;
@@ -31,6 +32,23 @@ namespace OmEnergo.Controllers
 			}
 
 			return RedirectToAction("Index", "Catalog");
+		}
+
+		public IActionResult Login() => View();
+
+		[HttpPost]
+		public IActionResult Login(string login, string password)
+		{
+			if (login == "Admin" && password == "123")
+			{
+				HttpContext.Session.SetString("isLogin", "true");
+				return RedirectToAction("Sections", "Admin");
+			}
+			else
+			{
+				TempData["LoginError"] = "Введённые данные неверны";
+			}
+			return RedirectToAction(nameof(Login));
 		}
 
         public IActionResult Error() => View();

@@ -47,38 +47,42 @@
             </div>
         </div>
     </nav>
-    <div class="body-content">
-        <div class="breadcrumb">
-            @{
-                var controller = this.ViewContext.RouteData.Values["controller"].ToString();
-                var action = this.ViewContext.RouteData.Values["action"].ToString();
-                string series = ViewContext.RouteData.Values["series"]?.ToString().Replace("_", " ") ?? "";
-            }
-            @if (controller == "Catalog")
-            {
-                <a class="breadcrumb-item" asp-controller="Home" asp-action="Index">Home</a>
-            }
-            <a class="breadcrumb-item" asp-controller="@controller" asp-action="Index">@controller</a>
-            @if (action != "Index")
-            {
-                <a class="breadcrumb-item" asp-controller="@controller" asp-action="@action" asp-route-id="">@action</a>
-                @if (!String.IsNullOrEmpty(series))
-                {
-                    <span class="breadcrumb-item active" aria-current="page">@series</span>
-                }
-            }
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-10">
-                @RenderBody()
-            </div>
-        </div>
-        <hr />
-        <footer>
-            <p>&copy; 2018 - ООО "ОмЭнерго"</p>
-        </footer>
-    </div>
+	<div class="body-content">
+		<div class="breadcrumb">
+			@{
+				var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+				var action = this.ViewContext.RouteData.Values["action"].ToString();
+				string series = ViewContext.RouteData.Values["series"]?.ToString().Replace("_", " ") ?? "";
+			}
+			@if (controller == "Catalog")
+			{
+				<a class="breadcrumb-item" asp-controller="Home" asp-action="Index">Home</a>
+			}
+			<a class="breadcrumb-item" asp-controller="@controller" asp-action="Index">@controller</a>
+			@if (action != "Index")
+			{
+				<a class="breadcrumb-item" asp-controller="@controller" asp-action="@action" asp-route-id="">@action</a>
+				@if (!String.IsNullOrEmpty(series))
+				{
+					<span class="breadcrumb-item active" aria-current="page">@series</span>
+				}
+			}
+		</div>
+		@if (TempData["LoginError"] != null)
+		{
+			<div class="alert alert-info text-center">@TempData["LoginError"]</div>
+		}
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-10">
+				@RenderBody()
+			</div>
+		</div>
+		<hr />
+		<footer>
+			<p>&copy; 2018 - ООО "ОмЭнерго"</p>
+		</footer>
+	</div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
