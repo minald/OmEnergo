@@ -22,5 +22,14 @@ namespace OmEnergo.Controllers
             ViewData["Title"] = productName;
             return View(Repository.GetProductModels(sectionName, productName));
         }
+
+        public IActionResult EditProductModel(int id) => View(Repository.GetCommonProductModel(id));
+
+        [HttpPost]
+        public IActionResult EditProductModel(CommonProductModel commonProductModel)
+        {
+            Repository.SaveCommonProductModel(commonProductModel);
+            return RedirectToAction("Sections");
+        }
     }
 }

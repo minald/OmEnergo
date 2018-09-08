@@ -12,7 +12,11 @@
         <tr>
             <td>@productModel.Name</td>
             <td>@productModel.Price</td>
-            <td></td>
+            <td>
+                <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@productModel.Id">
+                    Изменить
+                </a>
+            </td>
         </tr>
     }
 </table>

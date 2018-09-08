@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -10,10 +11,13 @@ namespace OmEnergo.Models
 
         public CommonProduct CommonProduct { get; set; }
 
+        [Display(Name = "Имя")]
         public string Name { get; set; }
 
+        [Display(Name = "Цена")]
         public double Price { get; set; }
 
+        [Display(Name = "Свойства")]
         public string Properties { get; set; }
 
         public IEnumerable<ProductProperty> GetProperties()

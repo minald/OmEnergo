@@ -24,5 +24,13 @@ namespace OmEnergo.Models
 
         public IEnumerable<CommonProductModel> GetProductModels(string sectionName, string productName) =>
             Db.CommonProductModels.Include(x => x.CommonProduct).Where(x => x.CommonProduct.Section.Name == sectionName && x.CommonProduct.Name == productName);
+
+        public CommonProductModel GetCommonProductModel(int id) => Db.CommonProductModels.FirstOrDefault(x => x.Id == id);
+
+        public void SaveCommonProductModel(CommonProductModel commonProductModel)
+        {
+            Db.CommonProductModels.Update(commonProductModel);
+            Db.SaveChanges();
+        }
     }
 }
