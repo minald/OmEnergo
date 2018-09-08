@@ -18,6 +18,7 @@ namespace OmEnergo
             services.AddMiniProfiler().AddEntityFramework();
             string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
             services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
+			services.AddSession();
             services.AddMvc();
         }
 
@@ -34,6 +35,7 @@ namespace OmEnergo
                 app.UseExceptionHandler("/Home/Error");
             }
 
+			app.UseSession();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {

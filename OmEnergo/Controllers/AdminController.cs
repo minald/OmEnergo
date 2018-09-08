@@ -3,6 +3,7 @@ using OmEnergo.Models;
 
 namespace OmEnergo.Controllers
 {
+	[AdminFilter]
     public class AdminController : Controller
     {
         private Repository Repository { get; set; }
