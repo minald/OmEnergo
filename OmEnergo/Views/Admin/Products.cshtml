@@ -18,7 +18,11 @@
             </td>
             <td>@product.MainImageLink</td>
             <td>@product.Description</td>
-            <td></td>
+            <td>
+                <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id">
+                    Изменить
+                </a>
+            </td>
         </tr>
     }
 </table>

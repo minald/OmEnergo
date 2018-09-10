@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OmEnergo.Controllers;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 
 namespace OmEnergo.Models
 {

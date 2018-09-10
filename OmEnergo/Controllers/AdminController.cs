@@ -18,6 +18,15 @@ namespace OmEnergo.Controllers
             return View(Repository.GetProducts(name));
         }
 
+        public IActionResult EditProduct(int id) => View(Repository.GetCommonProduct(id));
+
+        [HttpPost]
+        public IActionResult EditProduct(CommonProduct commonProduct)
+        {
+            Repository.SaveCommonProduct(commonProduct);
+            return RedirectToAction("Sections");
+        }
+
         public IActionResult ProductModels(string sectionName, string productName)
         {
             ViewData["Title"] = productName;

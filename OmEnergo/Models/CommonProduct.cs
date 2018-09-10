@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -9,13 +10,17 @@ namespace OmEnergo.Models
 
         public Section Section { get; set; }
 
+        [Display(Name = "Имя")]
         public string Name { get; set; }
 
+        [Display(Name = "Описание")]
         public string Description { get; set; }
 
-        public string Properties { get; set; }
-
+        [Display(Name = "Ссылка на фото")]
         public string MainImageLink { get; set; }
+
+        [Display(Name = "Свойства")]
+        public string Properties { get; set; }
 
         public List<CommonProductModel> Models { get; set; }
 
