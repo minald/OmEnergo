@@ -68,9 +68,9 @@
 				}
 			}
 		</div>
-		@if (TempData["LoginError"] != null)
+		@if (TempData["message"] != null)
 		{
-			<div class="alert alert-info text-center">@TempData["LoginError"]</div>
+			<div class="alert alert-info text-center">@TempData["message"]</div>
 		}
 		<div class="row">
 			<div class="col-2"></div>

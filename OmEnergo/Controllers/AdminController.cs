@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
 
 namespace OmEnergo.Controllers
@@ -21,10 +22,11 @@ namespace OmEnergo.Controllers
             return RedirectToAction("Sections");
         }
 
-        public IActionResult Products(string name)
+        public IActionResult Products(string sectionName)
         {
-            ViewData["Title"] = name;
-            return View(Repository.GetProducts(name));
+            HttpContext.Session.SetString("CurrentSectionName", sectionName);
+            ViewData["Title"] = sectionName;
+            return View(Repository.GetProducts(sectionName));
         }
 
         public IActionResult EditProduct(int id) => View(Repository.GetCommonProduct(id));
@@ -38,15 +40,25 @@ namespace OmEnergo.Controllers
 
         public IActionResult ProductModels(string sectionName, string productName)
         {
+            HttpContext.Session.SetString("CurrentSectionName", sectionName);
+            HttpContext.Session.SetString("CurrentProductName", productName);
             ViewData["Title"] = productName;
             return View(Repository.GetProductModels(sectionName, productName));
         }
+
+        public IActionResult CreateProductModel() => View("EditProductModel");
 
         public IActionResult EditProductModel(int id) => View(Repository.GetCommonProductModel(id));
 
         [HttpPost]
         public IActionResult EditProductModel(CommonProductModel commonProductModel)
         {
+            if(commonProductModel.CommonProduct == null)
+            {
+                commonProductModel.CommonProduct = Repository.GetCommonProduct(
+                    HttpContext.Session.GetString("CurrentSectionName"), HttpContext.Session.GetString("CurrentProductName"));
+            }
+
             Repository.SaveCommonProductModel(commonProductModel);
             return RedirectToAction("Sections");
         }

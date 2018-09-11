@@ -46,9 +46,9 @@ namespace OmEnergo.Controllers
 			}
 			else
 			{
-				TempData["LoginError"] = "Введённые данные неверны";
-			}
-			return RedirectToAction(nameof(Login));
+				TempData["message"] = "Введённые данные неверны";
+                return RedirectToAction(nameof(Login));
+            }
 		}
 
         public IActionResult Error() => View();

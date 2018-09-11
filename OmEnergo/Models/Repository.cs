@@ -15,8 +15,8 @@ namespace OmEnergo.Models
         public IEnumerable<Section> GetMainSections() =>
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
-        public IEnumerable<CommonProduct> GetProducts(string name) =>
-            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name == name.Replace("_", " "));
+        public IEnumerable<CommonProduct> GetProducts(string sectionName) =>
+            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name == sectionName.Replace("_", " "));
 
         public CommonProduct GetProduct(string sectionName, string productName) =>
             Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
@@ -34,6 +34,9 @@ namespace OmEnergo.Models
         }
 
         public CommonProduct GetCommonProduct(int id) => Db.CommonProducts.FirstOrDefault(x => x.Id == id);
+
+        public CommonProduct GetCommonProduct(string sectionName, string productName) => 
+            Db.CommonProducts.Include(x => x.Section).ToList().FirstOrDefault(x => x.Section.Name == sectionName && x.Name == productName);
 
         public void SaveCommonProduct(CommonProduct commonProduct)
         {
