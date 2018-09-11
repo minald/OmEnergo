@@ -18,7 +18,11 @@
             </td>
             <td>@mainSection.MainImageLink</td>
             <td>@mainSection.Description</td>
-            <td></td>
+            <td>
+                <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@mainSection.Id">
+                    Изменить
+                </a>
+            </td>
         </tr>
         @foreach (var childSection in mainSection.ChildSections)
         {
@@ -31,7 +35,11 @@
                 </td>
                 <td>@childSection.MainImageLink</td>
                 <td>@childSection.Description</td>
-                <td></td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@childSection.Id">
+                        Изменить
+                    </a>
+                </td>
             </tr>
         }
     }

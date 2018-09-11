@@ -12,6 +12,15 @@ namespace OmEnergo.Controllers
 
         public IActionResult Sections() => View(Repository.GetMainSections());
 
+        public IActionResult EditSection(int id) => View(Repository.GetSection(id));
+
+        [HttpPost]
+        public IActionResult EditSection(Section section)
+        {
+            Repository.SaveSection(section);
+            return RedirectToAction("Sections");
+        }
+
         public IActionResult Products(string name)
         {
             ViewData["Title"] = name;

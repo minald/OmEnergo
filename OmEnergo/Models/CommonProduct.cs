@@ -10,19 +10,19 @@ namespace OmEnergo.Models
 
         public Section Section { get; set; }
 
+        public List<CommonProductModel> Models { get; set; }
+
         [Display(Name = "Имя")]
         public string Name { get; set; }
-
-        [Display(Name = "Описание")]
-        public string Description { get; set; }
 
         [Display(Name = "Ссылка на фото")]
         public string MainImageLink { get; set; }
 
+        [Display(Name = "Описание")]
+        public string Description { get; set; }
+
         [Display(Name = "Свойства")]
         public string Properties { get; set; }
-
-        public List<CommonProductModel> Models { get; set; }
 
         public IEnumerable<ProductProperty> GetProperties()
         {
