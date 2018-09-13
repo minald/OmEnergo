@@ -13,11 +13,19 @@ namespace OmEnergo.Controllers
 
         public IActionResult Sections() => View(Repository.GetMainSections());
 
-        public IActionResult EditSection(int id) => View(Repository.GetSection(id));
+        public IActionResult CreateSection(string parentName) => View("CreateOrEditSection", 
+            new Section() { ParentSection = Repository.GetSection(parentName) });
+
+        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.GetSection(id));
 
         [HttpPost]
-        public IActionResult EditSection(Section section)
+        public IActionResult CreateOrEditSection(Section section, string parentSectionName)
         {
+            if (parentSectionName != null)
+            {
+                section.ParentSection = Repository.GetSection(parentSectionName);
+            }
+
             Repository.SaveSection(section);
             return RedirectToAction("Sections");
         }
@@ -29,11 +37,19 @@ namespace OmEnergo.Controllers
             return View(Repository.GetProducts(sectionName));
         }
 
-        public IActionResult EditProduct(int id) => View(Repository.GetCommonProduct(id));
+        public IActionResult CreateProduct() => View("CreateOrEditProduct");
+
+        public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.GetCommonProduct(id));
 
         [HttpPost]
-        public IActionResult EditProduct(CommonProduct commonProduct)
+        public IActionResult CreateOrEditProduct(CommonProduct commonProduct)
         {
+            if (commonProduct.Section == null)
+            {
+                commonProduct.Section = Repository.GetSection(
+                    HttpContext.Session.GetString("CurrentSectionName"));
+            }
+
             Repository.SaveCommonProduct(commonProduct);
             return RedirectToAction("Sections");
         }
@@ -46,12 +62,12 @@ namespace OmEnergo.Controllers
             return View(Repository.GetProductModels(sectionName, productName));
         }
 
-        public IActionResult CreateProductModel() => View("EditProductModel");
+        public IActionResult CreateProductModel() => View("CreateOrEditProductModel");
 
-        public IActionResult EditProductModel(int id) => View(Repository.GetCommonProductModel(id));
+        public IActionResult EditProductModel(int id) => View("CreateOrEditProductModel", Repository.GetCommonProductModel(id));
 
         [HttpPost]
-        public IActionResult EditProductModel(CommonProductModel commonProductModel)
+        public IActionResult CreateOrEditProductModel(CommonProductModel commonProductModel)
         {
             if(commonProductModel.CommonProduct == null)
             {

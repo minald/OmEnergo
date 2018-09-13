@@ -19,10 +19,12 @@
             <td>@product.MainImageLink</td>
             <td>@product.Description</td>
             <td>
-                <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id">
-                    Изменить
-                </a>
+                <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id" 
+                    class="btn btn-info">Изменить</a>
             </td>
         </tr>
     }
 </table>
+<div class="text-center">
+    <a asp-controller="Admin" asp-action="CreateProduct" class="btn btn-primary">Создать</a>
+</div>

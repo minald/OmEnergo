@@ -19,9 +19,10 @@
             <td>@mainSection.MainImageLink</td>
             <td>@mainSection.Description</td>
             <td>
-                <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@mainSection.Id">
-                    Изменить
-                </a>
+                <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@mainSection.Id" 
+                    class="btn btn-info">Изменить</a>
+                <a asp-controller="Admin" asp-action="CreateSection" asp-route-parentName="@mainSection.Name" 
+                    class="btn btn-info">Создать подсекцию</a>
             </td>
         </tr>
         @foreach (var childSection in mainSection.ChildSections)
@@ -36,11 +37,13 @@
                 <td>@childSection.MainImageLink</td>
                 <td>@childSection.Description</td>
                 <td>
-                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@childSection.Id">
-                        Изменить
-                    </a>
+                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@childSection.Id" 
+                        class="btn btn-info">Изменить</a>
                 </td>
             </tr>
         }
     }
 </table>
+<div class="text-center">
+    <a asp-controller="Admin" asp-action="CreateSection" class="btn btn-primary">Создать</a>
+</div>

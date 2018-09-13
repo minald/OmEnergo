@@ -27,6 +27,8 @@ namespace OmEnergo.Models
 
         public Section GetSection(int id) => Db.Sections.FirstOrDefault(x => x.Id == id);
 
+        public Section GetSection(string name) => Db.Sections.FirstOrDefault(x => x.Name == name);
+
         public void SaveSection(Section section)
         {
             Db.Sections.Update(section);

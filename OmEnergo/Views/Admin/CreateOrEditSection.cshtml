@@ -1,7 +1,8 @@
-﻿@model CommonProductModel
+﻿@model Section
 
-<form asp-action="EditProductModel" method="post">
+<form asp-action="CreateOrEditSection" method="post">
     <input type="hidden" asp-for="Id">
+    <input type="hidden" name="parentSectionName" value="@(Model.ParentSection?.Name ?? "")">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-10">
@@ -9,15 +10,15 @@
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Properties" class="col-sm-2 col-form-label text-right"></label>
+        <label asp-for="MainImageLink" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-10">
-            <textarea asp-for="Properties" rows="3" class="form-control"></textarea>
+            <input asp-for="MainImageLink" class="form-control">
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Price" class="col-sm-2 col-form-label text-right"></label>
+        <label asp-for="Description" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-10">
-            <input asp-for="Price" class="form-control">
+            <textarea asp-for="Description" rows="3" class="form-control"></textarea>
         </div>
     </div>
     <div class="text-center">
