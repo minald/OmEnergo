@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OmEnergo.Models
 {
@@ -14,6 +15,14 @@ namespace OmEnergo.Models
 
         [Display(Name = "Описание")]
         public string Description { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Свойства продукта")]
+        public string ProductProperties { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Свойства модели продукта")]
+        public string ProductModelProperties { get; set; }
 
         public override string GetImageFullLink() => $"/images/{Name}/{MainImageLink}";
 

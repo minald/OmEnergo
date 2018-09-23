@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
+using System.Linq;
 
 namespace OmEnergo.Controllers
 {
@@ -15,7 +16,13 @@ namespace OmEnergo.Controllers
         public IActionResult CreateSection(string parentName) => View("CreateOrEditSection",
             new Section() { ParentSection = Repository.GetSection(parentName) });
 
-        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(id));
+        public IActionResult EditSection(int id)
+        {
+            var section = Repository.Get<Section>(id);
+            section.ProductProperties = Repository.GetProduct(id).GetPropertyNames();
+            section.ProductModelProperties = Repository.GetProductModel(id).GetPropertyNames();
+            return View("CreateOrEditSection", section);
+        }
 
         [HttpPost]
         public IActionResult CreateOrEditSection(Section section, int? parentSectionId)
@@ -26,6 +33,15 @@ namespace OmEnergo.Controllers
             }
 
             Repository.Update(section);
+
+            var products = Repository.GetProducts(section.Id).ToList();
+            products.ForEach(x => x.UpdateProperties(section.ProductProperties));
+            Repository.UpdateRange(products);
+
+            var productModels = Repository.GetProductModels(section.Id).ToList();
+            productModels.ForEach(x => x.UpdateProperties(section.ProductModelProperties));
+            Repository.UpdateRange(productModels);
+
             return RedirectToAction("Sections");
         }
 

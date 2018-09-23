@@ -27,6 +27,12 @@ namespace OmEnergo.Models
             Db.SaveChanges();
         }
 
+        public void UpdateRange<T>(IEnumerable<T> obj) where T : CommonObject
+        {
+            Db.Set<T>().UpdateRange(obj);
+            Db.SaveChanges();
+        }
+
         public void Delete<T>(int id) where T : CommonObject
         {
             Db.Set<T>().Remove(Db.Set<T>().FirstOrDefault(x => x.Id == id));
@@ -38,12 +44,24 @@ namespace OmEnergo.Models
         public IEnumerable<Section> GetMainSections() =>
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
+        public CommonProduct GetProduct(int sectionId) =>
+            Db.CommonProducts.Include(x => x.Section).Include(x => x.Models).First(x => x.Section.Id == sectionId);
+
         public CommonProduct GetProduct(string sectionName, string productName) =>
             Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
                 .First(x => x.Section.Name == sectionName && x.Name == productName);
 
+        public IEnumerable<CommonProduct> GetProducts(int sectionId) =>
+            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Id == sectionId);
+
         public IEnumerable<CommonProduct> GetProducts(string sectionName) =>
             Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name == sectionName);
+
+        public CommonProductModel GetProductModel(int sectionId) =>
+            Db.CommonProductModels.Include(x => x.CommonProduct).First(x => x.CommonProduct.Section.Id == sectionId);
+
+        public IEnumerable<CommonProductModel> GetProductModels(int sectionId) =>
+            Db.CommonProductModels.Include(x => x.CommonProduct).Where(x => x.CommonProduct.Section.Id == sectionId);
 
         public IEnumerable<CommonProductModel> GetProductModels(string sectionName, string productName) =>
             Db.CommonProductModels.Include(x => x.CommonProduct)
