@@ -13,8 +13,9 @@
             <td>@productModel.Name</td>
             <td>@productModel.Price</td>
             <td>
-                <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@productModel.Id" 
-                    class="btn btn-info">Изменить</a>
+                <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@productModel.Id"
+                   class="btn btn-info">Изменить</a>
+                @Html.Partial("_DeleteButtonWithPopup", productModel)
             </td>
         </tr>
     }

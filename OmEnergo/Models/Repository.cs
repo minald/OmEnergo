@@ -12,6 +12,20 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
+        public T Get<T>(int id) where T : CommonObject => Db.Set<T>().FirstOrDefault(x => x.Id == id);
+
+        public void Update<T>(T obj) where T : CommonObject
+        {
+            Db.Set<T>().Update(obj);
+            Db.SaveChanges();
+        }
+
+        public void Delete<T>(int id) where T : CommonObject
+        {
+            Db.Set<T>().Remove(Db.Set<T>().FirstOrDefault(x => x.Id == id));
+            Db.SaveChanges();
+        }
+
         public IEnumerable<Section> GetMainSections() =>
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
@@ -25,33 +39,9 @@ namespace OmEnergo.Models
         public IEnumerable<CommonProductModel> GetProductModels(string sectionName, string productName) =>
             Db.CommonProductModels.Include(x => x.CommonProduct).Where(x => x.CommonProduct.Section.Name == sectionName && x.CommonProduct.Name == productName);
 
-        public Section GetSection(int id) => Db.Sections.FirstOrDefault(x => x.Id == id);
-
         public Section GetSection(string name) => Db.Sections.FirstOrDefault(x => x.Name == name);
-
-        public void SaveSection(Section section)
-        {
-            Db.Sections.Update(section);
-            Db.SaveChanges();
-        }
-
-        public CommonProduct GetCommonProduct(int id) => Db.CommonProducts.FirstOrDefault(x => x.Id == id);
 
         public CommonProduct GetCommonProduct(string sectionName, string productName) => 
             Db.CommonProducts.Include(x => x.Section).ToList().FirstOrDefault(x => x.Section.Name == sectionName && x.Name == productName);
-
-        public void SaveCommonProduct(CommonProduct commonProduct)
-        {
-            Db.CommonProducts.Update(commonProduct);
-            Db.SaveChanges();
-        }
-
-        public CommonProductModel GetCommonProductModel(int id) => Db.CommonProductModels.FirstOrDefault(x => x.Id == id);
-
-        public void SaveCommonProductModel(CommonProductModel commonProductModel)
-        {
-            Db.CommonProductModels.Update(commonProductModel);
-            Db.SaveChanges();
-        }
     }
 }

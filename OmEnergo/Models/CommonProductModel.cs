@@ -5,14 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class CommonProductModel
+    public class CommonProductModel : CommonObject
     {
-        public int Id { get; set; }
-
         public CommonProduct CommonProduct { get; set; }
-
-        [Display(Name = "Имя")]
-        public string Name { get; set; }
 
         [Display(Name = "Цена")]
         public double Price { get; set; }
@@ -29,7 +24,7 @@ namespace OmEnergo.Models
             }
         }
 
-        public string GetImageFullLink()
+        public override string GetImageFullLink()
         {
             var productName = CommonProduct.Name.Replace('"', '\'');
             return $"/images/{CommonProduct.Section.Name}/{productName}/{Name.Replace('/', '-')}.jpg";

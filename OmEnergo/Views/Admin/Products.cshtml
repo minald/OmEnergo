@@ -20,7 +20,8 @@
             <td>@product.Description</td>
             <td>
                 <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id" 
-                    class="btn btn-info">Изменить</a>
+                   class="btn btn-info">Изменить</a>
+                @Html.Partial("_DeleteButtonWithPopup", product)
             </td>
         </tr>
     }
