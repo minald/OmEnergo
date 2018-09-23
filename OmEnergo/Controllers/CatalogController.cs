@@ -12,21 +12,23 @@ namespace OmEnergo.Controllers
 
 		public IActionResult Index() => View(Repository.GetMainSections());
 
-		public IActionResult Products(string productName, string series)
-		{
-			if (String.IsNullOrEmpty(series))
-			{
-				ViewData["Title"] = productName.Replace("_", " ");
-				return View("Products", Repository.GetProducts(productName));
-			}
-			else
-			{
-				ViewData["Title"] = series.Replace("_", " ");
-				return View("Product", Repository.GetProduct(productName, series));
-			}
-		}
-
 		public IActionResult Search(string searchString) => View(new SearchViewModel(Repository.GetSearchedSections(searchString), 
 				Repository.GetSearchedProducts(searchString), Repository.GetSearchedProductModels(searchString)));
-	}
+        
+        public IActionResult Products(string sectionName, string productName)
+        {
+            sectionName = sectionName.Replace("_", " ");
+            productName = productName.Replace("_", " ");
+            if (String.IsNullOrEmpty(productName))
+            {
+                ViewData["Title"] = sectionName;
+                return View("Products", Repository.GetProducts(sectionName));
+            }
+            else
+            {
+                ViewData["Title"] = productName;
+                return View("Product", Repository.GetProduct(sectionName, productName));
+            }
+        }
+    }
 }

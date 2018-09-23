@@ -4,16 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
-    public class CommonProduct
+    public class CommonProduct : CommonObject
     {
-        public int Id { get; set; }
-
         public Section Section { get; set; }
 
         public List<CommonProductModel> Models { get; set; }
-
-        [Display(Name = "Имя")]
-        public string Name { get; set; }
 
         [Display(Name = "Ссылка на фото")]
         public string MainImageLink { get; set; }
@@ -33,6 +28,6 @@ namespace OmEnergo.Models
             }
         }
 
-        public string GetImageFullLink() => $"/images/{Section.Name}/{Name.Replace('"', '\'')}/{MainImageLink}";
+        public override string GetImageFullLink() => $"/images/{Section.Name}/{Name.Replace('"', '\'')}/{MainImageLink}";
     }
 }

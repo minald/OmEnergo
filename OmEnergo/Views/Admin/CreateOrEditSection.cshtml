@@ -2,7 +2,7 @@
 
 <form asp-action="CreateOrEditSection" method="post">
     <input type="hidden" asp-for="Id">
-    <input type="hidden" name="parentSectionName" value="@(Model.ParentSection?.Name ?? "")">
+    <input type="hidden" name="parentSectionId" value="@(Model.ParentSection?.Id)">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-10">

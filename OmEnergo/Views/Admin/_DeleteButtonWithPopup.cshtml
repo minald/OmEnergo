@@ -1,0 +1,23 @@
+﻿@model CommonObject
+
+<button data-toggle="modal" data-target="#delete@(Model.GetType().Name)@(Model.Id)" 
+        class="btn btn-danger">Удалить</button>
+<div id="delete@(Model.GetType().Name)@(Model.Id)" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Model.Name</h5>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены? Удаление элемента приведёт к удалению всех связанных с ним элементов.</p>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-secondary">Закрыть</button>
+                <form asp-action="Delete@(Model.GetType().Name)" method="post">
+                    <input type="hidden" asp-for="Id">
+                    <button class="btn btn-danger" type="submit">Точно удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

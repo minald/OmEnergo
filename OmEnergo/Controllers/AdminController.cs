@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
 
 namespace OmEnergo.Controllers
 {
-	[AdminFilter]
+    [AdminFilter]
     public class AdminController : Controller
     {
         private Repository Repository { get; set; }
@@ -13,69 +12,87 @@ namespace OmEnergo.Controllers
 
         public IActionResult Sections() => View(Repository.GetMainSections());
 
-        public IActionResult CreateSection(string parentName) => View("CreateOrEditSection", 
+        public IActionResult CreateSection(string parentName) => View("CreateOrEditSection",
             new Section() { ParentSection = Repository.GetSection(parentName) });
 
-        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.GetSection(id));
+        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditSection(Section section, string parentSectionName)
+        public IActionResult CreateOrEditSection(Section section, int? parentSectionId)
         {
-            if (parentSectionName != null)
+            if (parentSectionId != null)
             {
-                section.ParentSection = Repository.GetSection(parentSectionName);
+                section.ParentSection = Repository.Get<Section>(parentSectionId);
             }
 
-            Repository.SaveSection(section);
+            Repository.Update(section);
+            return RedirectToAction("Sections");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSection(int id)
+        {
+            Repository.Delete<Section>(id);
             return RedirectToAction("Sections");
         }
 
         public IActionResult Products(string sectionName)
         {
-            HttpContext.Session.SetString("CurrentSectionName", sectionName);
             ViewData["Title"] = sectionName;
             return View(Repository.GetProducts(sectionName));
         }
 
-        public IActionResult CreateProduct() => View("CreateOrEditProduct");
+        public IActionResult CreateProduct(int sectionId) => 
+            View("CreateOrEditProduct", new CommonProduct() { Section = Repository.Get<Section>(sectionId) });
 
-        public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.GetCommonProduct(id));
+        public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.Get<CommonProduct>(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditProduct(CommonProduct commonProduct)
+        public IActionResult CreateOrEditProduct(CommonProduct commonProduct, int? sectionId)
         {
             if (commonProduct.Section == null)
             {
-                commonProduct.Section = Repository.GetSection(
-                    HttpContext.Session.GetString("CurrentSectionName"));
+                commonProduct.Section = Repository.Get<Section>(sectionId);
             }
 
-            Repository.SaveCommonProduct(commonProduct);
+            Repository.Update(commonProduct);
+            return RedirectToAction("Sections");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProduct(int id)
+        {
+            Repository.Delete<CommonProduct>(id);
             return RedirectToAction("Sections");
         }
 
         public IActionResult ProductModels(string sectionName, string productName)
         {
-            HttpContext.Session.SetString("CurrentSectionName", sectionName);
-            HttpContext.Session.SetString("CurrentProductName", productName);
             ViewData["Title"] = productName;
             return View(Repository.GetProductModels(sectionName, productName));
         }
 
-        public IActionResult CreateProductModel() => View("CreateOrEditProductModel");
+        public IActionResult CreateProductModel(int productId) => View("CreateOrEditProductModel",
+            new CommonProductModel() { CommonProduct = Repository.Get<CommonProduct>(productId) });
 
-        public IActionResult EditProductModel(int id) => View("CreateOrEditProductModel", Repository.GetCommonProductModel(id));
+        public IActionResult EditProductModel(int id) => View("CreateOrEditProductModel", Repository.Get<CommonProductModel>(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditProductModel(CommonProductModel commonProductModel)
+        public IActionResult CreateOrEditProductModel(CommonProductModel commonProductModel, int? productId)
         {
             if(commonProductModel.CommonProduct == null)
             {
-                commonProductModel.CommonProduct = Repository.GetCommonProduct(
-                    HttpContext.Session.GetString("CurrentSectionName"), HttpContext.Session.GetString("CurrentProductName"));
+                commonProductModel.CommonProduct = Repository.Get<CommonProduct>(productId);
             }
 
-            Repository.SaveCommonProductModel(commonProductModel);
+            Repository.Update(commonProductModel);
+            return RedirectToAction("Sections");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProductModel(int id)
+        {
+            Repository.Delete<CommonProductModel>(id);
             return RedirectToAction("Sections");
         }
     }

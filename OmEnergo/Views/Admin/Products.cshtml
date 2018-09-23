@@ -12,19 +12,20 @@
     {
         <tr>
             <td>
-                <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@product.Name" asp-route-sectionName="@product.Section.Name">
-                    @product.Name
-                </a>
+                <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@product.Name"
+                   asp-route-sectionName="@product.Section.Name">@product.Name</a>
             </td>
             <td>@product.MainImageLink</td>
             <td>@product.Description</td>
             <td>
                 <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id" 
-                    class="btn btn-info">Изменить</a>
+                   class="btn btn-info">Изменить</a>
+                @Html.Partial("_DeleteButtonWithPopup", product)
             </td>
         </tr>
     }
 </table>
 <div class="text-center">
-    <a asp-controller="Admin" asp-action="CreateProduct" class="btn btn-primary">Создать</a>
+    <a asp-controller="Admin" asp-action="CreateProduct" asp-route-sectionId="@Model.First().Section.Id"
+       class="btn btn-primary">Создать</a>
 </div>
