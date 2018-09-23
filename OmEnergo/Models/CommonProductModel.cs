@@ -54,6 +54,6 @@ namespace OmEnergo.Models
 
         private int GetPriceFractionalPart() => (int)(Math.Round((Price - GetPriceIntegerPart()) * 100));
 
-        private int GetPriceIntegerPart() => (int)Price;
+        public int GetPriceIntegerPart() => (int)Price;
     }
 }

@@ -16,13 +16,7 @@ namespace OmEnergo.Controllers
         public IActionResult CreateSection(string parentName) => View("CreateOrEditSection",
             new Section() { ParentSection = Repository.GetSection(parentName) });
 
-        public IActionResult EditSection(int id)
-        {
-            var section = Repository.Get<Section>(id);
-            section.ProductProperties = Repository.GetProduct(id).GetPropertyNames();
-            section.ProductModelProperties = Repository.GetProductModel(id).GetPropertyNames();
-            return View("CreateOrEditSection", section);
-        }
+        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(id));
 
         [HttpPost]
         public IActionResult CreateOrEditSection(Section section, int? parentSectionId)
@@ -55,6 +49,7 @@ namespace OmEnergo.Controllers
         public IActionResult Products(string sectionName)
         {
             ViewData["Title"] = sectionName;
+            ViewBag.SectionId = Repository.GetSection(sectionName).Id;
             return View(Repository.GetProducts(sectionName));
         }
 
@@ -85,6 +80,7 @@ namespace OmEnergo.Controllers
         public IActionResult ProductModels(string sectionName, string productName)
         {
             ViewData["Title"] = productName;
+            ViewBag.ProductId = Repository.GetProduct(sectionName, productName).Id;
             return View(Repository.GetProductModels(sectionName, productName));
         }
 

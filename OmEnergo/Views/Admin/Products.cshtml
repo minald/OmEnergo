@@ -26,6 +26,6 @@
     }
 </table>
 <div class="text-center">
-    <a asp-controller="Admin" asp-action="CreateProduct" asp-route-sectionId="@Model.First().Section.Id"
+    <a asp-controller="Admin" asp-action="CreateProduct" asp-route-sectionId="@ViewBag.SectionId"
        class="btn btn-primary">Создать</a>
 </div>

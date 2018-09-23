@@ -21,6 +21,11 @@ namespace OmEnergo.Models
         [Display(Name = "Свойства")]
         public string Properties { get; set; }
 
+        //public CommonProduct()
+        //{
+
+        //}
+
         public IEnumerable<ProductProperty> GetProperties()
         {
             var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);

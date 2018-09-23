@@ -18,7 +18,6 @@ namespace OmEnergo.Controllers
         public IActionResult Products(string sectionName, string productName)
         {
             sectionName = sectionName.Replace("_", " ");
-            productName = productName.Replace("_", " ");
             if (String.IsNullOrEmpty(productName))
             {
                 ViewData["Title"] = sectionName;
@@ -26,6 +25,7 @@ namespace OmEnergo.Controllers
             }
             else
             {
+                productName = productName.Replace("_", " ");
                 ViewData["Title"] = productName;
                 return View("Product", Repository.GetProduct(sectionName, productName));
             }

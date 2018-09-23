@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180923222619_Adding properties related to Section")]
+    partial class AddingpropertiesrelatedtoSection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
