@@ -14,39 +14,48 @@
     </environment>
 </head>
 <body>
-    <mini-profiler />
-    <header>
-        <div class="row">
-            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <h1>ООО "ОмЭнерго"</h1>
-                <h4>Электротехническая компания</h4>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <p class="m-0">
-                    Тел/факс: (+375-17) 248-77-45<br>
-                    Velcom: (+375-29) 341-31-35<br>
-                    МТС: (+375-29) 560-01-79<br>
-                    E-mail: info@omenergo.by<br />
+	<header>
+		<div class="row">
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+				<h1>ООО "ОмЭнерго"</h1>
+				<h4>Электротехническая компания</h4>
+			</div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<p class="m-0">
+					Тел/факс: (+375-17) 248-77-45<br>
+					Velcom: (+375-29) 341-31-35<br>
+					МТС: (+375-29) 560-01-79<br>
+					E-mail: info@omenergo.by<br />
 					<a asp-controller="Home" asp-action="Contacts" asp-fragment="feedback">Обратная связь</a>
-                </p>
-            </div>
-        </div>
-    </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a asp-controller="Home" asp-action="Index" class="navbar-brand">Главная</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">Каталог</a>
-                <a asp-controller="Home" asp-action="About" class="nav-item nav-link">О компании</a>
-                <a asp-controller="Home" asp-action="Payment" class="nav-item nav-link">Оплата</a>
-                <a asp-controller="Home" asp-action="Delivery" class="nav-item nav-link">Доставка</a>
-                <a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link">Контакты</a>
-            </div>
-        </div>
-    </nav>
+
+				</p>
+			</div>
+		</div>
+	</header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div id="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a asp-controller="Home" asp-action="Index" class="navbar-brand">Главная</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">Каталог</a>
+					<a asp-controller="Home" asp-action="About" class="nav-item nav-link">О компании</a>
+					<a asp-controller="Home" asp-action="Payment" class="nav-item nav-link">Оплата</a>
+					<a asp-controller="Home" asp-action="Delivery" class="nav-item nav-link">Доставка</a>
+					<a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link">Контакты</a>
+				</div>
+			</div>
+		</div>
+		<div class="search">
+			<form id="form" asp-controller="Catalog" asp-action="Search" method="get">
+				<input id="search"  name="searchString" placeholder="Искать здесь...">
+				<button type="submit" id="btn"><img class="small-image" src="~/images/search-solid.svg" /></button>
+			</form>
+		</div>
+
+	</nav>
 	<div class="body-content">
 		<div class="breadcrumb">
 			@{
@@ -83,16 +92,34 @@
 			<p>&copy; 2018 - ООО "ОмЭнерго"</p>
 		</footer>
 	</div>
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-    @RenderSection("Scripts", required: false)
+	<environment include="Development">
+		<script src="~/lib/jquery/dist/jquery.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+		<script src="~/js/site.js" asp-append-version="true"></script>
+	</environment>
+	<environment exclude="Development">
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="~/js/site.min.js" asp-append-version="true"></script>
+	</environment>
+	@RenderSection("Scripts", required: false)
+	<script type="text/javascript">
+		$(document).mousedown(function (e) {
+			var input = $("#search");
+			var submit = $("#btn");
+			
+			if (submit.is(e.target)) {
+				document.getElementById("btn").submit();
+			}
+			else if (input.is(e.target)) {
+				document.getElementById("header").style.visibility = "hidden";
+				document.getElementById("btn").style.zIndex = 3;
+			}
+			else if (!input.is(e.target)) {
+				document.getElementById("header").style.visibility = "unset";
+				document.getElementById("btn").style.zIndex = 0;
+			}
+		});
+	</script>
 </body>
 </html>

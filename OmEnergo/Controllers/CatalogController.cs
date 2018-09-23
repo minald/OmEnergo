@@ -4,14 +4,17 @@ using System;
 
 namespace OmEnergo.Controllers
 {
-    public class CatalogController : Controller
-    {
-        private Repository Repository { get; set; }
+	public class CatalogController : Controller
+	{
+		private Repository Repository { get; set; }
 
-        public CatalogController(OmEnergoContext db) => Repository = new Repository(db);
+		public CatalogController(OmEnergoContext db) => Repository = new Repository(db);
 
-        public IActionResult Index() => View(Repository.GetMainSections());
+		public IActionResult Index() => View(Repository.GetMainSections());
 
+		public IActionResult Search(string searchString) => View(new SearchViewModel(Repository.GetSearchedSections(searchString), 
+				Repository.GetSearchedProducts(searchString), Repository.GetSearchedProductModels(searchString)));
+        
         public IActionResult Products(string sectionName, string productName)
         {
             sectionName = sectionName.Replace("_", " ");

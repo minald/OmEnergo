@@ -12,6 +12,13 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
+		public IEnumerable<CommonProduct> GetSearchedProducts(string searchString) =>
+			Db.CommonProducts.Where(x => x.Name.Replace(" ", "_").Contains(searchString));
+
+		public IEnumerable<CommonProductModel> GetSearchedProductModels(string searchString) => Db.CommonProductModels.Where(x => x.Name.Contains(searchString));
+
+		public IEnumerable<Section> GetSearchedSections(string searchString) => Db.Sections.Where(x => x.Name.Contains(searchString));
+
         public T Get<T>(int? id) where T : CommonObject => Db.Set<T>().FirstOrDefault(x => x.Id == id);
 
         public void Update<T>(T obj) where T : CommonObject
