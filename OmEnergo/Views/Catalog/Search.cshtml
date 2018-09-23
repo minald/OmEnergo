@@ -1,0 +1,92 @@
+﻿@model SearchViewModel
+@{
+	ViewData["Title"] = "Search";
+}
+
+@if (Model.Sections.Any() || Model.Products.Any() || Model.ProductModels.Any())
+{
+	@if (Model.Sections.Any())
+	{
+		<h2>Секции <a id="sections-arrow" onclick="changeBlock('sections')" href="javascript::void(0)"><img class="small-image" src="~/images/angle-up-solid.svg" /></a></h2>
+		<div id="sections" class="row justify-content-center">
+			@foreach (var section in Model.Sections)
+			{
+				<a asp-controller="Catalog" asp-action="Products" asp-route-productName="@(section.Name.Replace(" ", "_"))" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+					<div class="card">
+						<div class="card-header">
+							<p class="h3 text-center">@(section.Name)</p>
+						</div>
+						<div class="card-body">
+							<img class="card-img-top" src="@(section.GetImageFullLink())">
+						</div>
+					</div>
+				</a>
+			}
+		</div>
+	}
+	@if (Model.Products.Any())
+	{
+		<h2>Продукты <a id="products-arrow" onclick="changeBlock('products')" href="javascript::void(0)"><img class="small-image" src="~/images/angle-up-solid.svg" /></a></h2>
+		<div id="products" class="row justify-content-center">
+			@foreach (var product in Model.Products)
+			{
+				<a asp-controller="Catalog" asp-action="Products" asp-route-productName="@product.Section.Name.Replace(" ", "_")" asp-route-series="@product.Name.Replace(" ", "_")"
+				   class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+					<div class="card">
+						<div class="card-header">
+							<p class="h3 text-center">@product.Name</p>
+						</div>
+						<div class="card-body">
+							<img class="card-img-top" src="@product.GetImageFullLink()">
+						</div>
+						@*<ul class="list-group list-group-flush">
+								<li class="list-group-item">Тип: @product.StabilizationType</li>
+								<li class="list-group-item">Диапазон: @product.InputVoltageRange</li>
+							</ul>*@
+					</div>
+				</a>
+			}
+		</div>
+	}
+	@if (Model.ProductModels.Any())
+	{
+		<h2>Модели <a id="productModels-arrow" onclick="changeBlock('productModels')" href="javascript::void(0)"><img class="small-image" src="~/images/angle-up-solid.svg" /></a></h2>
+		<div id="productModels" class="row justify-content-center">
+			@foreach (var productModel in Model.ProductModels)
+			{
+				<a asp-controller="Catalog" asp-action="Products" asp-route-productName="@productModel.CommonProduct.Section.Name.Replace(" ", "_")" asp-route-series="@productModel.CommonProduct.Name.Replace(" ", "_")"
+				   asp-fragment="@productModel.Id" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+					<div class="card">
+						<div class="card-header">
+							<p class="h3 text-center">@productModel.Name</p>
+						</div>
+						<div class="card-body">
+							<img class="card-img-top" src="@productModel.GetImageFullLink()">
+						</div>
+					</div>
+				</a>
+			}
+			</div>
+	}
+}
+else
+{
+	<h2>По данному запросу ничего не найдено</h2>
+}
+
+<script type="text/javascript">
+	function changeBlock(id) {
+		var div = document.getElementById(id);
+		if(div.style.display != 'none') {
+			div.style.display = 'none';
+			document.getElementById(id + '-arrow').innerHTML = '<img class="small-image" src="/images/angle-down-solid.svg" />';
+		}
+		else {
+			div.style.display = '';
+			document.getElementById(id + '-arrow').innerHTML = '<img class="small-image" src="/images/angle-up-solid.svg" />';
+		}
+	}
+</script>
+	
+
+

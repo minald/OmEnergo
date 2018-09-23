@@ -18,6 +18,9 @@ namespace OmEnergo.Models
         public IEnumerable<CommonProduct> GetProducts(string sectionName) =>
             Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name == sectionName.Replace("_", " "));
 
+		public IEnumerable<CommonProduct> GetSearchedProducts(string searchString) =>
+			Db.CommonProducts.Where(x => x.Name.Replace(" ", "_").Contains(searchString));
+
         public CommonProduct GetProduct(string sectionName, string productName) =>
             Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
                 .First(x => x.Section.Name.Replace(" ", "_") == sectionName && x.Name.Replace(" ", "_") == productName);
@@ -25,11 +28,15 @@ namespace OmEnergo.Models
         public IEnumerable<CommonProductModel> GetProductModels(string sectionName, string productName) =>
             Db.CommonProductModels.Include(x => x.CommonProduct).Where(x => x.CommonProduct.Section.Name == sectionName && x.CommonProduct.Name == productName);
 
-        public Section GetSection(int id) => Db.Sections.FirstOrDefault(x => x.Id == id);
+		public IEnumerable<CommonProductModel> GetSearchedProductModels(string searchString) => Db.CommonProductModels.Where(x => x.Name.Contains(searchString));
+
+		public Section GetSection(int id) => Db.Sections.FirstOrDefault(x => x.Id == id);
 
         public Section GetSection(string name) => Db.Sections.FirstOrDefault(x => x.Name == name);
 
-        public void SaveSection(Section section)
+		public IEnumerable<Section> GetSearchedSections(string searchString) => Db.Sections.Where(x => x.Name.Contains(searchString));
+
+		public void SaveSection(Section section)
         {
             Db.Sections.Update(section);
             Db.SaveChanges();
