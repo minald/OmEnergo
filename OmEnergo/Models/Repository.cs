@@ -27,6 +27,19 @@ namespace OmEnergo.Models
             Db.SaveChanges();
         }
 
+        public void UpdateSectionAndSynchronizeProperties(Section section)
+        {
+            Update(section);
+
+            var products = GetProducts(section.Id).ToList();
+            products.ForEach(x => x.UpdateProperties(section.GetProductPropertiesList()));
+            UpdateRange(products);
+
+            var productModels = GetProductModels(section.Id).ToList();
+            productModels.ForEach(x => x.UpdateProperties(section.GetProductModelPropertiesList()));
+            UpdateRange(productModels);
+        }
+
         public void UpdateRange<T>(IEnumerable<T> obj) where T : CommonObject
         {
             Db.Set<T>().UpdateRange(obj);

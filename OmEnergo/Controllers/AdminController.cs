@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
-using System.Linq;
 
 namespace OmEnergo.Controllers
 {
@@ -26,16 +25,7 @@ namespace OmEnergo.Controllers
                 section.ParentSection = Repository.Get<Section>(parentSectionId);
             }
 
-            Repository.Update(section);
-
-            var products = Repository.GetProducts(section.Id).ToList();
-            products.ForEach(x => x.UpdateProperties(section.ProductProperties));
-            Repository.UpdateRange(products);
-
-            var productModels = Repository.GetProductModels(section.Id).ToList();
-            productModels.ForEach(x => x.UpdateProperties(section.ProductModelProperties));
-            Repository.UpdateRange(productModels);
-
+            Repository.UpdateSectionAndSynchronizeProperties(section);
             return RedirectToAction("Sections");
         }
 

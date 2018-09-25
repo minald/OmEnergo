@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
@@ -27,6 +28,12 @@ namespace OmEnergo.Models
             ProductProperties = emptyArrayInJson;
             ProductModelProperties = emptyArrayInJson;
         }
+
+        public List<string> GetProductPropertiesList() => 
+            JsonConvert.DeserializeObject<List<string>>(ProductProperties);
+
+        public List<string> GetProductModelPropertiesList() =>
+            JsonConvert.DeserializeObject<List<string>>(ProductModelProperties);
 
         public override string GetImageFullLink() => $"/images/{Name}/{MainImageLink}";
 

@@ -27,11 +27,11 @@ namespace OmEnergo.Models
 
         public string GetPropertyNames() => String.Join(';', GetProperties().Select(x => x.DisplayName));
 
-        public void UpdateProperties(string propertyNames)
+        public void UpdateProperties(List<string> propertyNames)
         {
             var result = new Dictionary<string, string>();
             var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);
-            foreach (var propertyName in propertyNames.Split(';'))
+            foreach (var propertyName in propertyNames)
             {
                 var propertyPair = properties.FirstOrDefault(x => x.Key == propertyName);
                 result.Add(propertyPair.Key ?? propertyName, propertyPair.Value ?? String.Empty);
