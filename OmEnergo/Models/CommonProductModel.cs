@@ -8,6 +8,8 @@ namespace OmEnergo.Models
 {
     public class CommonProductModel : CommonObject
     {
+        public Section Section { get; set; }
+
         public CommonProduct CommonProduct { get; set; }
 
         [Display(Name = "Цена")]

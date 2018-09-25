@@ -10,6 +10,10 @@ namespace OmEnergo.Models
 
         public List<Section> ChildSections { get; set; }
 
+        public List<CommonProduct> Products { get; set; }
+
+        public List<CommonProductModel> ProductModels { get; set; }
+
         [Display(Name = "Ссылка на фото")]
         public string MainImageLink { get; set; }
 
