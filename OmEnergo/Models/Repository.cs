@@ -12,12 +12,14 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
-		public IEnumerable<CommonProduct> GetSearchedProducts(string searchString) =>
-			Db.CommonProducts.Where(x => x.Name.Replace(" ", "_").Contains(searchString));
+		public IEnumerable<Product> GetSearchedProducts(string searchString) =>
+			Db.Products.Where(x => x.Name.Replace(" ", "_").Contains(searchString));
 
-		public IEnumerable<CommonProductModel> GetSearchedProductModels(string searchString) => Db.CommonProductModels.Where(x => x.Name.Contains(searchString));
+		public IEnumerable<ProductModel> GetSearchedProductModels(string searchString) => 
+            Db.ProductModels.Where(x => x.Name.Contains(searchString));
 
-		public IEnumerable<Section> GetSearchedSections(string searchString) => Db.Sections.Where(x => x.Name.Contains(searchString));
+		public IEnumerable<Section> GetSearchedSections(string searchString) => 
+            Db.Sections.Where(x => x.Name.Contains(searchString));
 
         public T Get<T>(int? id) where T : CommonObject => Db.Set<T>().FirstOrDefault(x => x.Id == id);
 
@@ -57,27 +59,27 @@ namespace OmEnergo.Models
         public IEnumerable<Section> GetMainSections() =>
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
-        public CommonProduct GetProduct(int sectionId) =>
-            Db.CommonProducts.Include(x => x.Section).Include(x => x.Models).First(x => x.Section.Id == sectionId);
+        public Product GetProduct(int sectionId) =>
+            Db.Products.Include(x => x.Section).Include(x => x.Models).First(x => x.Section.Id == sectionId);
 
-        public CommonProduct GetProduct(string sectionName, string productName) =>
-            Db.CommonProducts.Include(x => x.Section).Include(x => x.Models)
+        public Product GetProduct(string sectionName, string productName) =>
+            Db.Products.Include(x => x.Section).Include(x => x.Models)
                 .First(x => x.Section.Name == sectionName && x.Name == productName);
 
-        public IEnumerable<CommonProduct> GetProducts(int sectionId) =>
-            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Id == sectionId);
+        public IEnumerable<Product> GetProducts(int sectionId) =>
+            Db.Products.Include(x => x.Section).Where(x => x.Section.Id == sectionId);
 
-        public IEnumerable<CommonProduct> GetProducts(string sectionName) =>
-            Db.CommonProducts.Include(x => x.Section).Where(x => x.Section.Name == sectionName);
+        public IEnumerable<Product> GetProducts(string sectionName) =>
+            Db.Products.Include(x => x.Section).Where(x => x.Section.Name == sectionName);
 
-        public CommonProductModel GetProductModel(int sectionId) =>
-            Db.CommonProductModels.Include(x => x.CommonProduct).First(x => x.CommonProduct.Section.Id == sectionId);
+        public ProductModel GetProductModel(int sectionId) =>
+            Db.ProductModels.Include(x => x.Product).First(x => x.Product.Section.Id == sectionId);
 
-        public IEnumerable<CommonProductModel> GetProductModels(int sectionId) =>
-            Db.CommonProductModels.Include(x => x.CommonProduct).Where(x => x.CommonProduct.Section.Id == sectionId);
+        public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
+            Db.ProductModels.Include(x => x.Product).Where(x => x.Product.Section.Id == sectionId);
 
-        public IEnumerable<CommonProductModel> GetProductModels(string sectionName, string productName) =>
-            Db.CommonProductModels.Include(x => x.CommonProduct)
-                .Where(x => x.CommonProduct.Section.Name == sectionName && x.CommonProduct.Name == productName);
+        public IEnumerable<ProductModel> GetProductModels(string sectionName, string productName) =>
+            Db.ProductModels.Include(x => x.Product)
+                .Where(x => x.Product.Section.Name == sectionName && x.Product.Name == productName);
     }
 }

@@ -1,18 +1,50 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OmEnergo.Models
 {
-    public abstract class Product
+    public class Product : CommonObject
     {
-        [Key]
-        public int Id { get; set; }
-
         public Section Section { get; set; }
 
-        public string Series { get; set; } //Enum in the future
+        public List<ProductModel> Models { get; set; }
 
+        [Display(Name = "Ссылка на фото")]
         public string MainImageLink { get; set; }
 
-        public string GetImageFullLink() => $"/images/{Section.Name}/{Series.Replace('"', '\'')}/{MainImageLink}";
+        [Display(Name = "Описание")]
+        public string Description { get; set; }
+
+        [Display(Name = "Свойства")]
+        public string Properties { get; set; }
+
+        public IEnumerable<ProductProperty> GetProperties()
+        {
+            var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);
+            foreach(var pair in properties)
+            {
+                yield return new ProductProperty(pair.Key, pair.Value);
+            }
+        }
+
+        public string GetPropertyNames() => String.Join(';', GetProperties().Select(x => x.DisplayName));
+
+        public void UpdateProperties(List<string> propertyNames)
+        {
+            var result = new Dictionary<string, string>();
+            var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);
+            foreach (var propertyName in propertyNames)
+            {
+                var propertyPair = properties.FirstOrDefault(x => x.Key == propertyName);
+                result.Add(propertyPair.Key ?? propertyName, propertyPair.Value ?? String.Empty);
+            }
+
+            Properties = JsonConvert.SerializeObject(result);
+        }
+
+        public override string GetImageFullLink() => $"/images/{Section.Name}/{Name.Replace('"', '\'')}/{MainImageLink}";
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180926205406_Rename CommonProduct to Product")]
+    partial class RenameCommonProducttoProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,11 +170,11 @@ namespace OmEnergo.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("CommonProductId");
+
                     b.Property<string>("Name");
 
                     b.Property<double>("Price");
-
-                    b.Property<int?>("ProductId");
 
                     b.Property<string>("Properties");
 
@@ -181,7 +182,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("CommonProductId");
 
                     b.HasIndex("SectionId");
 
@@ -331,9 +332,9 @@ namespace OmEnergo.Migrations
 
             modelBuilder.Entity("OmEnergo.Models.ProductModel", b =>
                 {
-                    b.HasOne("OmEnergo.Models.Product", "Product")
+                    b.HasOne("OmEnergo.Models.Product", "CommonProduct")
                         .WithMany("Models")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("CommonProductId");
 
                     b.HasOne("OmEnergo.Models.Section", "Section")
                         .WithMany("ProductModels")

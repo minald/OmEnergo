@@ -11,9 +11,10 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    partial class OmEnergoContextModelSnapshot : ModelSnapshot
+    [Migration("20180926204841_Rename Product to OldProduct")]
+    partial class RenameProducttoOldProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,6 +75,52 @@ namespace OmEnergo.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("AutotransformerModels");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.CommonProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("MainImageLink");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Properties");
+
+                    b.Property<int?>("SectionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("CommonProducts");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.CommonProductModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CommonProductId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("Properties");
+
+                    b.Property<int?>("SectionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommonProductId");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("CommonProductModels");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Inverter", b =>
@@ -140,52 +187,6 @@ namespace OmEnergo.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("InverterModels");
-                });
-
-            modelBuilder.Entity("OmEnergo.Models.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("MainImageLink");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Properties");
-
-                    b.Property<int?>("SectionId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SectionId");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("OmEnergo.Models.ProductModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.Property<double>("Price");
-
-                    b.Property<int?>("ProductId");
-
-                    b.Property<string>("Properties");
-
-                    b.Property<int?>("SectionId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SectionId");
-
-                    b.ToTable("ProductModels");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Section", b =>
@@ -308,6 +309,24 @@ namespace OmEnergo.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("OmEnergo.Models.CommonProduct", b =>
+                {
+                    b.HasOne("OmEnergo.Models.Section", "Section")
+                        .WithMany("Products")
+                        .HasForeignKey("SectionId");
+                });
+
+            modelBuilder.Entity("OmEnergo.Models.CommonProductModel", b =>
+                {
+                    b.HasOne("OmEnergo.Models.CommonProduct", "CommonProduct")
+                        .WithMany("Models")
+                        .HasForeignKey("CommonProductId");
+
+                    b.HasOne("OmEnergo.Models.Section", "Section")
+                        .WithMany("ProductModels")
+                        .HasForeignKey("SectionId");
+                });
+
             modelBuilder.Entity("OmEnergo.Models.Inverter", b =>
                 {
                     b.HasOne("OmEnergo.Models.Section", "Section")
@@ -320,24 +339,6 @@ namespace OmEnergo.Migrations
                     b.HasOne("OmEnergo.Models.Inverter", "Product")
                         .WithMany("Models")
                         .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("OmEnergo.Models.Product", b =>
-                {
-                    b.HasOne("OmEnergo.Models.Section", "Section")
-                        .WithMany("Products")
-                        .HasForeignKey("SectionId");
-                });
-
-            modelBuilder.Entity("OmEnergo.Models.ProductModel", b =>
-                {
-                    b.HasOne("OmEnergo.Models.Product", "Product")
-                        .WithMany("Models")
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("OmEnergo.Models.Section", "Section")
-                        .WithMany("ProductModels")
-                        .HasForeignKey("SectionId");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Section", b =>

@@ -9,11 +9,11 @@ namespace OmEnergo.Models
     {
 		public IEnumerable<Section> Sections { get; set; }
 
-		public IEnumerable<CommonProduct> Products { get; set; }
+		public IEnumerable<Product> Products { get; set; }
 
-		public IEnumerable<CommonProductModel> ProductModels { get; set; }
+		public IEnumerable<ProductModel> ProductModels { get; set; }
 
-		public SearchViewModel(IEnumerable<Section> sections, IEnumerable<CommonProduct> products, IEnumerable<CommonProductModel> productModels)
+		public SearchViewModel(IEnumerable<Section> sections, IEnumerable<Product> products, IEnumerable<ProductModel> productModels)
 		{
 			Sections = sections;
 			Products = products;

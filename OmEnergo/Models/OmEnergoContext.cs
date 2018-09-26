@@ -6,9 +6,9 @@ namespace OmEnergo.Models
     {
         public DbSet<Section> Sections { get; set; }
 
-        public DbSet<CommonProduct> CommonProducts { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        public DbSet<CommonProductModel> CommonProductModels { get; set; }
+        public DbSet<ProductModel> ProductModels { get; set; }
 
         public DbSet<Stabilizer> Stabilizers { get; set; }
 
@@ -21,10 +21,6 @@ namespace OmEnergo.Models
         public DbSet<Autotransformer> Autotransformers { get; set; }
 
         public DbSet<AutotransformerModel> AutotransformerModels { get; set; }
-
-        public DbSet<Switch> Switches { get; set; }
-
-        public DbSet<SwitchModel> SwitchModels { get; set; }
 
         public OmEnergoContext() { }
 

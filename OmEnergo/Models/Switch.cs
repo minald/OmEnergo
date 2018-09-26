@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OmEnergo.Models
 {
     //Переключатель или выключатель
-    public class Switch : Product
+    public class Switch : OldProduct
     {
         public List<SwitchModel> Models { get; set; }
 

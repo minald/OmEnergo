@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OmEnergo.Models
 {
     //Стабилизатор
-    public class Stabilizer : Product
+    public class Stabilizer : OldProduct
     {
         public List<StabilizerModel> Models { get; set; }
 

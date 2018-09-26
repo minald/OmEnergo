@@ -2,7 +2,7 @@
 
 namespace OmEnergo.Models
 {
-    public class AutotransformerModel : ProductModel<Autotransformer>
+    public class AutotransformerModel : OldProductModel<Autotransformer>
     {
         [Display(Name = "Номинальная мощность")]
         public string NominalPower { get; set; }

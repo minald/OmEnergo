@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OmEnergo.Models
 {
     //Лабораторный автотрансформатор
-    public class Autotransformer : Product 
+    public class Autotransformer : OldProduct 
     {
         public List<AutotransformerModel> Models { get; set; }
 

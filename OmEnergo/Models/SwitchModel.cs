@@ -2,7 +2,7 @@
 
 namespace OmEnergo.Models
 {
-    public class SwitchModel : ProductModel<Switch>
+    public class SwitchModel : OldProductModel<Switch>
     {
         [Display(Name = "Доступная длина провода")]
         public double AvailableWireLength { get; set; }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OmEnergo.Models
 {
     //Источник бесперебойного питания
-    public class Inverter : Product 
+    public class Inverter : OldProduct 
     {
         public List<InverterModel> Models { get; set; }
 
