@@ -16,7 +16,15 @@ namespace OmEnergo.Models
         public double Price { get; set; }
 
         [Display(Name = "Свойства")]
-        public string Properties { get; set; }
+        public string Properties { get; set; } //Json object in DB
+
+        public ProductModel() { }
+
+        public ProductModel(Product product)
+        {
+            Product = product;
+            UpdateProperties(product.Section.GetProductPropertiesList());
+        }
 
         public IEnumerable<ProductProperty> GetProperties()
         {
@@ -32,7 +40,7 @@ namespace OmEnergo.Models
         public void UpdateProperties(List<string> propertyNames)
         {
             var result = new Dictionary<string, string>();
-            var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties);
+            var properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties ?? "{}");
             foreach (var propertyName in propertyNames)
             {
                 var propertyPair = properties.FirstOrDefault(x => x.Key == propertyName);

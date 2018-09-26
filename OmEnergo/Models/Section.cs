@@ -21,16 +21,15 @@ namespace OmEnergo.Models
         public string Description { get; set; }
 
         [Display(Name = "Свойства продукта")]
-        public string ProductProperties { get; set; }
+        public string ProductProperties { get; set; } //Json array in DB
 
         [Display(Name = "Свойства модели продукта")]
-        public string ProductModelProperties { get; set; }
+        public string ProductModelProperties { get; set; } //Json array in DB
 
         public Section()
         {
-            string emptyArrayInJson = "[]";
-            ProductProperties = emptyArrayInJson;
-            ProductModelProperties = emptyArrayInJson;
+            ProductProperties = "[]";
+            ProductModelProperties = "[]";
         }
 
         public List<string> GetProductPropertiesList() => 

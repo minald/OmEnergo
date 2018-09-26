@@ -56,11 +56,14 @@ namespace OmEnergo.Models
 
         public Section GetSection(string name) => Db.Sections.FirstOrDefault(x => x.Name == name);
 
+        public Section GetSectionFull(string name) => Db.Sections.Include(x => x.Products)
+            .Include(x => x.ProductModels).FirstOrDefault(x => x.Name == name);
+
         public IEnumerable<Section> GetMainSections() =>
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());
 
-        public Product GetProduct(int sectionId) =>
-            Db.Products.Include(x => x.Section).Include(x => x.Models).First(x => x.Section.Id == sectionId);
+        public Product GetProduct(int id) => Db.Products.Include(x => x.Section)
+            .Include(x => x.Models).FirstOrDefault(x => x.Id == id);
 
         public Product GetProduct(string sectionName, string productName) =>
             Db.Products.Include(x => x.Section).Include(x => x.Models)
