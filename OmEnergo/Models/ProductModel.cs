@@ -20,10 +20,11 @@ namespace OmEnergo.Models
 
         public ProductModel() { }
 
-        public ProductModel(Product product)
+        public ProductModel(Section section, Product product)
         {
+            Section = section;
             Product = product;
-            UpdateProperties(product.Section.GetProductPropertiesList());
+            UpdateProperties((section ?? product.Section).GetProductPropertiesList());
         }
 
         public IEnumerable<ProductProperty> GetProperties()

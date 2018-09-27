@@ -2,6 +2,7 @@
 
 <form asp-action="CreateOrEditProductModel" method="post">
     <input type="hidden" asp-for="Id">
+    <input type="hidden" name="sectionId" value="@(Model.Section?.Id)">
     <input type="hidden" name="productId" value="@(Model.Product?.Id)">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>

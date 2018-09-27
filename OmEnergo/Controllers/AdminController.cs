@@ -73,15 +73,21 @@ namespace OmEnergo.Controllers
             return View(Repository.GetProductModels(sectionName, productName));
         }
 
-        public IActionResult CreateProductModel(int productId) => View("CreateOrEditProductModel",
-            new ProductModel(Repository.GetProduct(productId)));
+        public IActionResult CreateProductModel(int sectionId, int productId) => View("CreateOrEditProductModel",
+            new ProductModel(Repository.Get<Section>(sectionId), Repository.GetProduct(productId)));
 
-        public IActionResult EditProductModel(int id) => View("CreateOrEditProductModel", Repository.Get<ProductModel>(id));
+        public IActionResult EditProductModel(int id) => 
+            View("CreateOrEditProductModel", Repository.Get<ProductModel>(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditProductModel(ProductModel productModel, int? productId)
+        public IActionResult CreateOrEditProductModel(ProductModel productModel, int? sectionId, int? productId)
         {
-            if(productModel.Product == null)
+            if (productModel.Section == null)
+            {
+                productModel.Section = Repository.Get<Section>(sectionId);
+            }
+
+            if (productModel.Product == null)
             {
                 productModel.Product = Repository.Get<Product>(productId);
             }
