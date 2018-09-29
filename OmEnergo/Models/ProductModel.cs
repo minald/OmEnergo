@@ -24,7 +24,7 @@ namespace OmEnergo.Models
         {
             Section = section;
             Product = product;
-            UpdateProperties((section ?? product.Section).GetProductPropertiesList());
+            UpdateProperties((section ?? product.Section).GetProductModelPropertiesList());
         }
 
         public IEnumerable<ProductProperty> GetProperties()
@@ -51,7 +51,19 @@ namespace OmEnergo.Models
             Properties = JsonConvert.SerializeObject(result);
         }
 
-        public override string GetImageFullLink()
+		public void UpdatePropertiesValue(params string[] propertiesValue)
+		{
+			var result = new Dictionary<string, string>();
+			var propertiesKey = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties ?? "{}").Keys;
+			for(int i = 0; i < propertiesKey.Count; i++)
+			{
+				result.Add(propertiesKey.ElementAt(i), propertiesValue[i] ?? "");
+			}
+
+			Properties = JsonConvert.SerializeObject(result);
+		}
+
+		public override string GetImageFullLink()
         {
             var productName = Product.Name.Replace('"', '\'');
             return $"/images/{Product.Section.Name}/{productName}/{Name.Replace('/', '-')}.jpg";

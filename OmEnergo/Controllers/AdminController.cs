@@ -77,10 +77,10 @@ namespace OmEnergo.Controllers
             new ProductModel(Repository.Get<Section>(sectionId), Repository.GetProduct(productId)));
 
         public IActionResult EditProductModel(int id) => 
-            View("CreateOrEditProductModel", Repository.Get<ProductModel>(id));
+            View("CreateOrEditProductModel", Repository.GetProductModelById(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditProductModel(ProductModel productModel, int? sectionId, int? productId)
+        public IActionResult CreateOrEditProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
         {
             if (productModel.Section == null)
             {
@@ -92,6 +92,7 @@ namespace OmEnergo.Controllers
                 productModel.Product = Repository.Get<Product>(productId);
             }
 
+			productModel.UpdatePropertiesValue(values);
             Repository.Update(productModel);
             return RedirectToAction("Sections");
         }
