@@ -54,10 +54,8 @@ namespace OmEnergo.Models
             Db.SaveChanges();
         }
 
-        public Section GetSection(string name) => Db.Sections.FirstOrDefault(x => x.Name == name);
-
         public Section GetSectionFull(string name) => Db.Sections.Include(x => x.Products)
-            .Include(x => x.ProductModels).FirstOrDefault(x => x.Name == name);
+            .Include(x => x.ProductModels).Include(x => x.ChildSections).FirstOrDefault(x => x.Name == name);
 
         public IEnumerable<Section> GetMainSections() =>
             Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections).ToList().Where(x => x.IsMainSection());

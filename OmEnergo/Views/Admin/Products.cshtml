@@ -4,52 +4,76 @@
 <table class="table table-bordered table-striped table-hover">
     <tr>
         <th>Название</th>
+        <th>Тип</th>
         <th>Ссылка на фото</th>
         <th>Описание</th>
-        <th>Действия</th>
-    </tr>
-    @foreach (var product in Model.Products)
-    {
-        <tr>
-            <td>
-                <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@product.Name"
-                   asp-route-sectionName="@product.Section.Name">@product.Name</a>
-            </td>
-            <td>@product.MainImageLink</td>
-            <td>@product.Description</td>
-            <td>
-                <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id"
-                   class="btn btn-info">Изменить</a>
-                @Html.Partial("_DeleteButtonWithPopup", product)
-            </td>
-        </tr>
-    }
-</table>
-<div class="text-center">
-    <a asp-controller="Admin" asp-action="CreateProduct" asp-route-sectionId="@Model.Id"
-       class="btn btn-primary">Создать</a>
-</div>
-<hr>
-<table class="table table-bordered table-striped table-hover">
-    <tr>
-        <th>Название</th>
         <th>Цена</th>
         <th>Действия</th>
     </tr>
-    @foreach (var productModel in Model.ProductModels)
+    @foreach (var obj in Model.GetNestedObjects())
     {
-        <tr>
-            <td>@productModel.Name</td>
-            <td>@productModel.Price</td>
-            <td>
-                <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@productModel.Id"
-                   class="btn btn-info">Изменить</a>
-                @Html.Partial("_DeleteButtonWithPopup", productModel)
-            </td>
-        </tr>
+        if (obj is Section)
+        {
+            var x = obj as Section;
+            <tr>
+                <td>
+                    <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@x.Name">
+                        @x.Name
+                    </a>
+                </td>
+                <td>Подсекция</td>
+                <td>@x.MainImageLink</td>
+                <td>@x.Description</td>
+                <td class="table-secondary"></td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@x.Id"
+                       class="btn btn-info">Изменить</a>
+                    @Html.Partial("_DeleteButtonWithPopup", x)
+                </td>
+            </tr>
+        }
+        if (obj is Product)
+        {
+            var x = obj as Product;
+            <tr>
+                <td>
+                    <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@x.Name"
+                       asp-route-sectionName="@x.Section.Name">@x.Name</a>
+                </td>
+                <td>Продукт</td>
+                <td>@x.MainImageLink</td>
+                <td>@x.Description</td>
+                <td class="table-secondary"></td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@x.Id"
+                       class="btn btn-info">Изменить</a>
+                    @Html.Partial("_DeleteButtonWithPopup", x)
+                </td>
+            </tr>
+        }
+        if (obj is ProductModel)
+        {
+            var x = obj as ProductModel;
+            <tr>
+                <td>@x.Name</td>
+                <td>Модель</td>
+                <td class="table-secondary"></td>
+                <td class="table-secondary"></td>
+                <td>@x.Price</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@x.Id"
+                       class="btn btn-info">Изменить</a>
+                    @Html.Partial("_DeleteButtonWithPopup", x)
+                </td>
+            </tr>
+        }
     }
 </table>
 <div class="text-center">
+    <a asp-controller="Admin" asp-action="CreateSection" asp-route-parentId="@Model.Id"
+       class="btn btn-primary">Создать подсекцию</a>
+    <a asp-controller="Admin" asp-action="CreateProduct" asp-route-sectionId="@Model.Id"
+       class="btn btn-primary">Создать продукт</a>
     <a asp-controller="Admin" asp-action="CreateProductModel" asp-route-sectionId="@Model.Id"
-       class="btn btn-primary">Создать</a>
+       class="btn btn-primary">Создать модель</a>
 </div>

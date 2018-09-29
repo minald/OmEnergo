@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OmEnergo.Models
 {
@@ -30,6 +31,15 @@ namespace OmEnergo.Models
         {
             ProductProperties = "[]";
             ProductModelProperties = "[]";
+        }
+
+        public IEnumerable<CommonObject> GetNestedObjects()
+        {
+            var list = new List<CommonObject>();
+            list.AddRange(ChildSections ?? new List<Section>());
+            list.AddRange(Products ?? new List<Product>());
+            list.AddRange(ProductModels ?? new List<ProductModel>());
+            return list.OrderBy(x => x.Name);
         }
 
         public List<string> GetProductPropertiesList() => 

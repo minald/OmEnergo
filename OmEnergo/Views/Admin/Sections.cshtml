@@ -3,7 +3,7 @@
 <h3 class="text-center">Секции</h3>
 <table class="table table-bordered table-striped table-hover">
     <tr>
-        <th colspan="2">Название</th>
+        <th>Название</th>
         <th>Ссылка на фото</th>
         <th>Описание</th>
         <th>Действия</th>
@@ -11,7 +11,7 @@
     @foreach (var mainSection in Model)
     {
         <tr>
-            <td colspan="2">
+            <td>
                 <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@mainSection.Name">
                     @mainSection.Name
                 </a>
@@ -21,32 +21,12 @@
             <td>
                 <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@mainSection.Id" 
                    class="btn btn-info">Изменить</a>
-                <a asp-controller="Admin" asp-action="CreateSection" asp-route-parentName="@mainSection.Name" 
-                   class="btn btn-info">Создать подсекцию</a>
                 @if (!mainSection.HasChildSections())
                 {
                     @Html.Partial("_DeleteButtonWithPopup", mainSection)
                 }
             </td>
         </tr>
-        @foreach (var childSection in mainSection.ChildSections)
-        {
-            <tr>
-                <td></td>
-                <td>
-                    <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@childSection.Name">
-                        @childSection.Name
-                    </a>
-                </td>
-                <td>@childSection.MainImageLink</td>
-                <td>@childSection.Description</td>
-                <td>
-                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@childSection.Id"
-                       class="btn btn-info">Изменить</a>
-                    @Html.Partial("_DeleteButtonWithPopup", childSection)
-                </td>
-            </tr>
-        }
     }
 </table>
 <div class="text-center">

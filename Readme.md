@@ -1,13 +1,10 @@
-## Current version 0.1.1
+## Current version 0.1.2
 
 # TODO list
-* Restore all catalog
-* Add feedback page
 * Create the side navigation panel
 * Fix design
   * Add ready CSS-template
   * Fix headers sizes
-* Create the admin panel
 
 ## Version history
 * 02.01.18 - 0.0.0 - Creating project
@@ -16,3 +13,4 @@
 * 21.04.18 - 0.0.3 - Adding price stylization
 * 12.07.18 - 0.1.0 - Filling the catalog with stabilizers, inverters and autotransformers
 * 12.08.18 - 0.1.1 - Improving models and views
+* 28.09.18 - 0.1.2 - Adding feedback page and simplifying database structure

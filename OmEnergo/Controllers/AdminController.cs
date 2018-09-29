@@ -12,8 +12,8 @@ namespace OmEnergo.Controllers
 
         public IActionResult Sections() => View(Repository.GetMainSections());
 
-        public IActionResult CreateSection(string parentName) => View("CreateOrEditSection",
-            new Section() { ParentSection = Repository.GetSection(parentName) });
+        public IActionResult CreateSection(int parentId) => View("CreateOrEditSection",
+            new Section() { ParentSection = Repository.Get<Section>(parentId) });
 
         public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(id));
 
