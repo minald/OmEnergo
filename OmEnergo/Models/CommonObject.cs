@@ -9,6 +9,8 @@ namespace OmEnergo.Models
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
+        public int SequenceNumber { get; set; }
+
         public abstract string GetImageFullLink();
     }
 }

@@ -3,6 +3,7 @@
 <h3 class="text-center">@ViewData["Title"]</h3>
 <table class="table table-bordered table-striped table-hover">
     <tr>
+        <th>#</th>
         <th>Название</th>
         <th>Тип</th>
         <th>Ссылка на фото</th>
@@ -16,6 +17,7 @@
         {
             var x = obj as Section;
             <tr>
+                <td>@obj.SequenceNumber</td>
                 <td>
                     <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@x.Name">
                         @x.Name
@@ -36,6 +38,7 @@
         {
             var x = obj as Product;
             <tr>
+                <td>@obj.SequenceNumber</td>
                 <td>
                     <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@x.Name"
                        asp-route-sectionName="@x.Section.Name">@x.Name</a>
@@ -55,6 +58,7 @@
         {
             var x = obj as ProductModel;
             <tr>
+                <td>@obj.SequenceNumber</td>
                 <td>@x.Name</td>
                 <td>Модель</td>
                 <td class="table-secondary"></td>

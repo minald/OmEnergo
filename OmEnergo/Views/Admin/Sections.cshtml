@@ -3,6 +3,7 @@
 <h3 class="text-center">Секции</h3>
 <table class="table table-bordered table-striped table-hover">
     <tr>
+        <th>#</th>
         <th>Название</th>
         <th>Ссылка на фото</th>
         <th>Описание</th>
@@ -11,6 +12,7 @@
     @foreach (var mainSection in Model)
     {
         <tr>
+            <td>@mainSection.SequenceNumber</td>
             <td>
                 <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@mainSection.Name">
                     @mainSection.Name

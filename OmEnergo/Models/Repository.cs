@@ -34,11 +34,11 @@ namespace OmEnergo.Models
             Update(section);
 
             var products = GetProducts(section.Id).ToList();
-            products.ForEach(x => x.UpdateProperties(section.GetProductPropertiesList()));
+            products.ForEach(x => x.UpdateProperties(section.GetProductPropertyList()));
             UpdateRange(products);
 
             var productModels = GetProductModels(section.Id).ToList();
-            productModels.ForEach(x => x.UpdateProperties(section.GetProductModelPropertiesList()));
+            productModels.ForEach(x => x.UpdateProperties(section.GetProductModelPropertyList()));
             UpdateRange(productModels);
         }
 
@@ -80,7 +80,7 @@ namespace OmEnergo.Models
 			Db.ProductModels.Include(x => x.Product).First(x => x.Product.Section.Id == sectionId);
 
 		public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
-            Db.ProductModels.Include(x => x.Product).Where(x => x.Product.Section.Id == sectionId || x.Section.Id == sectionId && x.Product == null);
+            Db.ProductModels.Include(x => x.Product).Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);
 
         public IEnumerable<ProductModel> GetProductModels(string sectionName, string productName) =>
             Db.ProductModels.Include(x => x.Product)

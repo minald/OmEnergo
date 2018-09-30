@@ -24,7 +24,7 @@ namespace OmEnergo.Models
         {
             Section = section;
             Product = product;
-            UpdateProperties((section ?? product.Section).GetProductModelPropertiesList());
+            UpdateProperties((section ?? product.Section).GetProductModelPropertyList());
         }
 
         public IEnumerable<ProductProperty> GetProperties()

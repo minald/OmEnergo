@@ -42,10 +42,10 @@ namespace OmEnergo.Models
             return list.OrderBy(x => x.Name);
         }
 
-        public List<string> GetProductPropertiesList() => 
+        public List<string> GetProductPropertyList() => 
             JsonConvert.DeserializeObject<List<string>>(ProductProperties);
 
-        public List<string> GetProductModelPropertiesList() =>
+        public List<string> GetProductModelPropertyList() =>
             JsonConvert.DeserializeObject<List<string>>(ProductModelProperties);
 
         public override string GetImageFullLink() => $"/images/{Name}/{MainImageLink}";
