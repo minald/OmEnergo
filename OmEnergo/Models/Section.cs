@@ -39,7 +39,7 @@ namespace OmEnergo.Models
             list.AddRange(ChildSections ?? new List<Section>());
             list.AddRange(Products ?? new List<Product>());
             list.AddRange(ProductModels ?? new List<ProductModel>());
-            return list.OrderBy(x => x.Name);
+            return list.OrderBy(x => x.SequenceNumber);
         }
 
         public List<string> GetProductPropertyList() => 

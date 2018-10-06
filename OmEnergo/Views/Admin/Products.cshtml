@@ -13,61 +13,58 @@
     </tr>
     @foreach (var obj in Model.GetNestedObjects())
     {
-        if (obj is Section)
+        if (obj is Section subsection)
         {
-            var x = obj as Section;
             <tr>
-                <td>@obj.SequenceNumber</td>
+                <td>@subsection.SequenceNumber</td>
                 <td>
-                    <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@x.Name">
-                        @x.Name
+                    <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@subsection.Name">
+                        @subsection.Name
                     </a>
                 </td>
                 <td>Подсекция</td>
-                <td>@x.MainImageLink</td>
-                <td>@x.Description</td>
+                <td>@subsection.MainImageLink</td>
+                <td>@subsection.Description</td>
                 <td class="table-secondary"></td>
                 <td>
-                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@x.Id"
+                    <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@subsection.Id"
                        class="btn btn-info">Изменить</a>
-                    @Html.Partial("_DeleteButtonWithPopup", x)
+                    @Html.Partial("_DeleteButtonWithPopup", subsection)
                 </td>
             </tr>
         }
-        if (obj is Product)
+        if (obj is Product product)
         {
-            var x = obj as Product;
             <tr>
-                <td>@obj.SequenceNumber</td>
+                <td>@product.SequenceNumber</td>
                 <td>
-                    <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@x.Name"
-                       asp-route-sectionName="@x.Section.Name">@x.Name</a>
+                    <a asp-controller="Admin" asp-action="ProductModels" asp-route-productName="@product.Name"
+                       asp-route-sectionName="@product.Section.Name">@product.Name</a>
                 </td>
                 <td>Продукт</td>
-                <td>@x.MainImageLink</td>
-                <td>@x.Description</td>
+                <td>@product.MainImageLink</td>
+                <td>@product.Description</td>
                 <td class="table-secondary"></td>
                 <td>
-                    <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@x.Id"
+                    <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id"
                        class="btn btn-info">Изменить</a>
-                    @Html.Partial("_DeleteButtonWithPopup", x)
+                    @Html.Partial("_DeleteButtonWithPopup", product)
                 </td>
             </tr>
         }
-        if (obj is ProductModel)
+        if (obj is ProductModel productModel)
         {
-            var x = obj as ProductModel;
             <tr>
-                <td>@obj.SequenceNumber</td>
-                <td>@x.Name</td>
+                <td>@productModel.SequenceNumber</td>
+                <td>@productModel.Name</td>
                 <td>Модель</td>
                 <td class="table-secondary"></td>
                 <td class="table-secondary"></td>
-                <td>@x.Price</td>
+                <td>@productModel.Price</td>
                 <td>
-                    <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@x.Id"
+                    <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@productModel.Id"
                        class="btn btn-info">Изменить</a>
-                    @Html.Partial("_DeleteButtonWithPopup", x)
+                    @Html.Partial("_DeleteButtonWithPopup", productModel)
                 </td>
             </tr>
         }

@@ -12,6 +12,9 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
+		public IEnumerable<Section> GetFullCatalog() =>
+			Db.Sections.Include(x => x.ProductModels).Include(x => x.Products).ThenInclude(x => x.Models).ToList().Where(x => x.IsMainSection());
+
 		public IEnumerable<Product> GetSearchedProducts(string searchString) =>
 			Db.Products.Where(x => x.Name.Replace(" ", "_").Contains(searchString));
 
