@@ -1,0 +1,11 @@
+﻿@model MenuProductModelsViewModel
+
+<ul>
+	@foreach (var productModel in Model.ProductModels)
+	{
+		<li>
+			<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@Model.SectionName"
+			   asp-route-productName="@productModel.Product.Name" asp-fragment="productModel=@productModel.Id">@productModel.Name</a>
+		</li>
+	}
+</ul>
