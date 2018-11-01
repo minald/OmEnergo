@@ -1,0 +1,23 @@
+﻿@model ProductModel
+
+<div id="productModel=@Model.Id" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+    <div class="card">
+        <div class="card-header">
+            <p class="h3 text-center">@Model.Name</p>
+        </div>
+        <div class="card-body">
+            <img class="card-img-top" src="@Model.GetImageFullLink()">
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var property in Model.GetProperties())
+            {
+                <li class="list-group-item">@property.DisplayName: @property.Value</li>
+            }
+        </ul>
+        <div class="card-footer">
+            <h4 class="text-center price">
+                @Model.GetPriceIntegerPart()<sup>@Model.GetStringPriceFractionalPart()</sup>
+            </h4>
+        </div>
+    </div>
+</div>

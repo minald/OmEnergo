@@ -20,26 +20,6 @@
 <div class="row justify-content-center">
     @foreach (var productModel in Model.Models)
     {
-        <div id="productModel=@productModel.Id" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
-            <div class="card">
-                <div class="card-header">
-                    <p class="h3 text-center">@productModel.Name</p>
-                </div>
-                <div class="card-body">
-                    <img class="card-img-top" src="@productModel.GetImageFullLink()">
-                </div>
-                <ul class="list-group list-group-flush">
-                    @foreach (var property in productModel.GetProperties())
-                    {
-                        <li class="list-group-item">@property.DisplayName: @property.Value</li>
-                    }
-                </ul>
-                <div class="card-footer">
-                    <h4 class="text-center price">
-                        @productModel.GetPriceIntegerPart()<sup>@productModel.GetStringPriceFractionalPart()</sup>
-                    </h4>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_ProductModelCard", productModel)
     }
 </div>
