@@ -1,0 +1,33 @@
+﻿@model Section
+
+<div class="row justify-content-center">
+    @foreach (var obj in Model.GetNestedObjects())
+    {
+        if (obj is Section subsection)
+        {
+            @Html.Partial("_SectionCard", subsection)
+        }
+        if (obj is Product product)
+        {
+            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@product.Section.Name.Replace(" ","_")" asp-route-productName="@product.Name.Replace(" ","_")"
+               class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="h3 text-center">@product.Name</p>
+                    </div>
+                    <div class="card-body">
+                        <img class="card-img-top" src="@product.GetImageFullLink()">
+                    </div>
+                    @*<ul class="list-group list-group-flush">
+                        <li class="list-group-item">Тип: @product.StabilizationType</li>
+                        <li class="list-group-item">Диапазон: @product.InputVoltageRange</li>
+                    </ul>*@
+                </div>
+            </a>
+        }
+        if (obj is ProductModel productModel)
+        {
+            @Html.Partial("_ProductModelCard", productModel)
+        }
+    }
+</div>

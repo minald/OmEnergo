@@ -21,7 +21,7 @@ namespace OmEnergo.Controllers
             if (String.IsNullOrEmpty(productName))
             {
                 ViewData["Title"] = sectionName;
-                return View("Products", Repository.GetProducts(sectionName));
+                return View("Section", Repository.GetSectionFull(sectionName));
             }
             else
             {

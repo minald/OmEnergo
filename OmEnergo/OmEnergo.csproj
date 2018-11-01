@@ -18,6 +18,7 @@
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.0.133" />
     <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.0.133" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="ShieldUI.AspNetCore.Mvc" Version="1.7.34" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images\" />

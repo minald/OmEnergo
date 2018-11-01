@@ -1,0 +1,59 @@
+﻿<link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light-mint/all.min.css" />
+<script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+@model List<Section>
+@using ShieldUI.AspNetCore.Mvc;
+@Html.ShieldTreeView().Name("treeview").Html(@<text>
+	@foreach (var mainSection in Model)
+	{
+		<li data-expanded="false">
+			<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.Name">@mainSection.Name</a>
+			<ul>
+				@foreach (var commonObject in mainSection.GetNestedObjects())
+				{
+					if (commonObject is Section subsection)
+					{
+						<li data-expanded="false">
+							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.Name">@subsection.Name</a>
+							<ul>
+								@foreach (var subsectionCommonObject in subsection.GetNestedObjects())
+								{
+									if (subsectionCommonObject is Product subsectionProduct)
+									{
+                                        <li>
+										    <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.Name" 
+                                                asp-route-productName="@subsectionProduct.Name">@subsectionProduct.Name</a>
+                                            @Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(subsectionProduct.Models, subsection.Name))
+                                        </li>
+									}
+									else if (subsectionCommonObject is ProductModel subsectionProductModel)
+									{
+										<li>
+											<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.Name" 
+                                                asp-fragment="productModel=@subsectionProductModel.Id">@subsectionProductModel.Name</a>
+										</li>
+									}
+								}
+							</ul>
+						</li>
+					}
+					else if (commonObject is Product product)
+					{
+						<li data-expanded="false">
+							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.Name" 
+                                asp-route-productName="@product.Name">@product.Name</a>
+							@Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(product.Models, mainSection.Name))
+						</li>
+					}
+					else if (commonObject is ProductModel productModel)
+					{
+						<li>
+							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.Name"
+                                asp-fragment="productModel=@productModel.Id">@productModel.Name</a>
+						</li>
+					}
+				}
+			</ul>
+		</li>
+	}
+</text>)
