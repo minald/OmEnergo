@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
+using System.Linq;
 
 namespace OmEnergo.Controllers
 {
@@ -10,7 +11,7 @@ namespace OmEnergo.Controllers
 
         public AdminController(OmEnergoContext db) => Repository = new Repository(db);
 
-        public IActionResult Sections() => View(Repository.GetMainSections());
+        public IActionResult Sections() => View(Repository.GetMainSections().OrderBy(x => x.SequenceNumber));
 
         public IActionResult CreateSection(int parentId) => View("CreateOrEditSection",
             new Section() { ParentSection = Repository.Get<Section>(parentId) });
@@ -18,28 +19,47 @@ namespace OmEnergo.Controllers
         public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditSection(Section section, int? parentSectionId)
+        public IActionResult CreateSection(Section section, int? parentSectionId)
         {
             if (parentSectionId != null)
             {
-                section.ParentSection = Repository.Get<Section>(parentSectionId);
+                section.ParentSection = Repository.GetSection(parentSectionId.Value);
+                section.SequenceNumber = section.ParentSection.GetNestedObjects().Count() + 1;
+            }
+            else
+            {
+                section.SequenceNumber = Repository.GetMainSections().Count() + 1;
+            }
+
+            Repository.Update(section);
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpPost]
+        public IActionResult EditSection(Section section, int? parentSectionId)
+        {
+            if (parentSectionId != null)
+            {
+                section.ParentSection = Repository.GetSection(parentSectionId.Value);
             }
 
             Repository.UpdateSectionAndSynchronizeProperties(section);
-            return RedirectToAction("Sections");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
         public IActionResult DeleteSection(int id)
         {
+            var section = Repository.GetSection(id);
             Repository.Delete<Section>(id);
-            return RedirectToAction("Sections");
+            Repository.UpdateSectionsSequenceNumbers(section.ParentSection?.Id, section.SequenceNumber);
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult Section(string sectionName)
         {
             ViewData["Title"] = sectionName;
-            return View(Repository.GetSectionFull(sectionName));
+            return View(Repository.GetSection(sectionName));
         }
 
         public IActionResult CreateProduct(int sectionId) => 
@@ -48,22 +68,27 @@ namespace OmEnergo.Controllers
         public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.Get<Product>(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditProduct(Product product, int? sectionId)
+        public IActionResult CreateProduct(Product product, int? sectionId)
         {
-            if (product.Section == null)
-            {
-                product.Section = Repository.Get<Section>(sectionId);
-            }
-
+            product.Section = Repository.GetSection(sectionId.Value);
+            product.SequenceNumber = product.Section.GetNestedObjects().Count() + 1;
             Repository.Update(product);
-            return RedirectToAction("Sections");
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(Product product, int? sectionId)
+        {
+            product.Section = Repository.Get<Section>(sectionId);
+            Repository.Update(product);
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
         public IActionResult DeleteProduct(int id)
         {
             Repository.Delete<Product>(id);
-            return RedirectToAction("Sections");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult ProductModels(string sectionName, string productName)
@@ -80,28 +105,32 @@ namespace OmEnergo.Controllers
             View("CreateOrEditProductModel", Repository.GetProductModelById(id));
 
         [HttpPost]
-        public IActionResult CreateOrEditProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
+        public IActionResult CreateProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
         {
-            if (productModel.Section == null)
-            {
-                productModel.Section = Repository.Get<Section>(sectionId);
-            }
-
-            if (productModel.Product == null)
-            {
-                productModel.Product = Repository.Get<Product>(productId);
-            }
-
-			productModel.UpdatePropertiesValue(values);
+            productModel.Section = Repository.GetSection(sectionId.GetValueOrDefault());
+            productModel.Product = Repository.GetProduct(productId.GetValueOrDefault());
+            productModel.SequenceNumber = 
+                (sectionId == null ? productModel.Product.Models : productModel.Section.GetNestedObjects()).Count() + 1;
+            productModel.UpdatePropertiesValue(values);
             Repository.Update(productModel);
-            return RedirectToAction("Sections");
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpPost]
+        public IActionResult EditProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
+        {
+            productModel.Section = Repository.Get<Section>(sectionId);
+            productModel.Product = Repository.Get<Product>(productId);
+            productModel.UpdatePropertiesValue(values);
+            Repository.Update(productModel);
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
         public IActionResult DeleteProductModel(int id)
         {
             Repository.Delete<ProductModel>(id);
-            return RedirectToAction("Sections");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

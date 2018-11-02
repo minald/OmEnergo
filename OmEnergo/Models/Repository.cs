@@ -45,6 +45,15 @@ namespace OmEnergo.Models
             UpdateRange(productModels);
         }
 
+        public void UpdateSectionsSequenceNumbers(int? parentSectionId, int deletedSequenceNumber)
+        {
+            var updatedSections = Db.Sections.OrderBy(x => x.SequenceNumber)
+                .Where(x => x.SequenceNumber > deletedSequenceNumber && x.ParentSection.Id == parentSectionId);
+            updatedSections.ToList().ForEach(x => x.SequenceNumber--);
+            Db.Sections.UpdateRange(updatedSections);
+            Db.SaveChanges();
+        }
+
         public void UpdateRange<T>(IEnumerable<T> obj) where T : CommonObject
         {
             Db.Set<T>().UpdateRange(obj);
@@ -57,7 +66,10 @@ namespace OmEnergo.Models
             Db.SaveChanges();
         }
 
-        public Section GetSectionFull(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
+        public Section GetSection(int id) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
+            .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.Id == id);
+
+        public Section GetSection(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
             .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.Name == name);
 
         public IEnumerable<Section> GetMainSections() =>

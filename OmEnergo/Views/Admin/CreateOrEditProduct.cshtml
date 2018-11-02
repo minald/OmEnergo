@@ -1,8 +1,9 @@
 ﻿@model Product
 
-<form asp-action="CreateOrEditProduct" method="post">
+<form asp-action=@(Model.Id == 0 ? "CreateProduct" : "EditProduct") method="post">
     <input type="hidden" asp-for="Id">
     <input type="hidden" name="sectionId" value="@(Model.Section?.Id)">
+    <input type="hidden" asp-for="SequenceNumber">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-10">
