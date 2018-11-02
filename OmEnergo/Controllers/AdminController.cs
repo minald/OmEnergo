@@ -36,7 +36,7 @@ namespace OmEnergo.Controllers
             return RedirectToAction("Sections");
         }
 
-        public IActionResult Products(string sectionName)
+        public IActionResult Section(string sectionName)
         {
             ViewData["Title"] = sectionName;
             return View(Repository.GetSectionFull(sectionName));

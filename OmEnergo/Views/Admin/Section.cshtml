@@ -18,7 +18,7 @@
             <tr>
                 <td>@subsection.SequenceNumber</td>
                 <td>
-                    <a asp-controller="Admin" asp-action="Products" asp-route-sectionName="@subsection.Name">
+                    <a asp-controller="Admin" asp-action="Section" asp-route-sectionName="@subsection.Name">
                         @subsection.Name
                     </a>
                 </td>
@@ -71,8 +71,11 @@
     }
 </table>
 <div class="text-center">
-    <a asp-controller="Admin" asp-action="CreateSection" asp-route-parentId="@Model.Id"
-       class="btn btn-primary">Создать подсекцию</a>
+    @if (Model.IsMainSection())
+    {
+        <a asp-controller="Admin" asp-action="CreateSection" asp-route-parentId="@Model.Id"
+           class="btn btn-primary">Создать подсекцию</a>
+    }
     <a asp-controller="Admin" asp-action="CreateProduct" asp-route-sectionId="@Model.Id"
        class="btn btn-primary">Создать продукт</a>
     <a asp-controller="Admin" asp-action="CreateProductModel" asp-route-sectionId="@Model.Id"
