@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
+using OmEnergo.Models.ViewModels;
 using System;
 
 namespace OmEnergo.Controllers

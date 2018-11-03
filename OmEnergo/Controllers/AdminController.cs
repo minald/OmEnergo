@@ -68,18 +68,20 @@ namespace OmEnergo.Controllers
         public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.Get<Product>(id));
 
         [HttpPost]
-        public IActionResult CreateProduct(Product product, int? sectionId)
+        public IActionResult CreateProduct(Product product, int? sectionId, params string[] values)
         {
             product.Section = Repository.GetSection(sectionId.Value);
             product.SequenceNumber = product.Section.GetNestedObjects().Count() + 1;
+            product.UpdatePropertyValues(values);
             Repository.Update(product);
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
-        public IActionResult EditProduct(Product product, int? sectionId)
+        public IActionResult EditProduct(Product product, int? sectionId, params string[] values)
         {
             product.Section = Repository.Get<Section>(sectionId);
+            product.UpdatePropertyValues(values);
             Repository.Update(product);
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -111,7 +113,7 @@ namespace OmEnergo.Controllers
             productModel.Product = Repository.GetProduct(productId.GetValueOrDefault());
             productModel.SequenceNumber = 
                 (sectionId == null ? productModel.Product.Models : productModel.Section.GetNestedObjects()).Count() + 1;
-            productModel.UpdatePropertiesValue(values);
+            productModel.UpdatePropertyValues(values);
             Repository.Update(productModel);
             return Redirect(Request.Headers["Referer"].ToString());
         }
@@ -121,7 +123,7 @@ namespace OmEnergo.Controllers
         {
             productModel.Section = Repository.Get<Section>(sectionId);
             productModel.Product = Repository.Get<Product>(productId);
-            productModel.UpdatePropertiesValue(values);
+            productModel.UpdatePropertyValues(values);
             Repository.Update(productModel);
             return Redirect(Request.Headers["Referer"].ToString());
         }

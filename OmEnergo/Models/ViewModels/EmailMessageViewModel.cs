@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OmEnergo.Models
+namespace OmEnergo.Models.ViewModels
 {
-    public class EmailMessage
+    public class EmailMessageViewModel
     {
         [Required(ErrorMessage = "Пожалуйста, заполните поле")]
         [Display(Name = "Имя")]

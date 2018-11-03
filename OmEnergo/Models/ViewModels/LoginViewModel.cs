@@ -1,4 +1,4 @@
-﻿namespace OmEnergo.Models
+﻿namespace OmEnergo.Models.ViewModels
 {
     public class LoginViewModel
     {
