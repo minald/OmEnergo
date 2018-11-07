@@ -11,7 +11,7 @@
         <ul class="list-group list-group-flush">
             @foreach (var property in Model.GetProperties())
             {
-                <li class="list-group-item">@property.DisplayName: @property.Value</li>
+                <li class="list-group-item">@property.Key: @property.Value</li>
             }
         </ul>
         <div class="card-footer">

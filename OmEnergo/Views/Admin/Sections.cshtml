@@ -14,15 +14,12 @@
         <tr>
             <td>@mainSection.SequenceNumber</td>
             <td>
-                <a asp-controller="Admin" asp-action="Section" asp-route-sectionName="@mainSection.Name">
-                    @mainSection.Name
-                </a>
+                <a asp-action="Section" asp-route-id="@mainSection.Id">@mainSection.Name</a>
             </td>
             <td>@mainSection.MainImageLink</td>
             <td>@mainSection.Description</td>
             <td>
-                <a asp-controller="Admin" asp-action="EditSection" asp-route-id="@mainSection.Id" 
-                   class="btn btn-info">Изменить</a>
+                <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
                 @if (!mainSection.HasChildSections())
                 {
                     @Html.Partial("_DeleteButtonWithPopup", mainSection)
@@ -32,5 +29,5 @@
     }
 </table>
 <div class="text-center">
-    <a asp-controller="Admin" asp-action="CreateSection" class="btn btn-primary">Создать</a>
+    <a asp-action="CreateSection" class="btn btn-primary">Создать</a>
 </div>

@@ -1,0 +1,17 @@
+﻿@model Product
+
+<a asp-action="Products" asp-route-sectionName="@Model.Section.Name.Replace(" ", "_")" 
+    asp-route-productName="@Model.Name.Replace(" ", "_")" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+    <div class="card">
+        <div class="card-header">
+            <p class="h3 text-center">@Model.Name</p>
+        </div>
+        <div class="card-body">
+            <img class="card-img-top" src="@Model.GetImageFullLink()">
+        </div>
+        @*<ul class="list-group list-group-flush">
+            <li class="list-group-item">Тип: @product.StabilizationType</li>
+            <li class="list-group-item">Диапазон: @product.InputVoltageRange</li>
+        </ul>*@
+    </div>
+</a>

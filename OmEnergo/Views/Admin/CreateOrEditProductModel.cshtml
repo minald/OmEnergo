@@ -32,6 +32,13 @@
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Сохранить</button>
-        <a asp-action="Sections" class="btn btn-primary">Отмена</a>
+        @if (Model.Section != null)
+        {
+            <a asp-action="Section" asp-route-id="@Model.Section?.Id" class="btn btn-secondary">Отмена</a>
+        }
+        else
+        {
+            <a asp-action="Product" asp-route-id="@Model.Product?.Id" class="btn btn-secondary">Отмена</a>
+        }
     </div>
 </form>

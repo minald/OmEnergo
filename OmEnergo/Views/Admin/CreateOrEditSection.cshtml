@@ -36,6 +36,13 @@
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Сохранить</button>
-        <a asp-action="Sections" class="btn btn-primary">Отмена</a>
+        @if (Model.IsMainSection())
+        {
+            <a asp-action="Sections" class="btn btn-secondary">Отмена</a>
+        }
+        else
+        {
+            <a asp-action="Section" asp-route-id="@Model.ParentSection.Id" class="btn btn-secondary">Отмена</a>
+        }
     </div>
 </form>

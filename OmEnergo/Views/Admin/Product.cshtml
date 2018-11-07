@@ -1,6 +1,6 @@
-﻿@model IEnumerable<ProductModel>
+﻿@model Product
 
-<h3 class="text-center">@ViewData["Title"]</h3>
+<h3 class="text-center">@Model.Name</h3>
 <table class="table table-bordered table-striped table-hover">
     <tr>
         <th>#</th>
@@ -8,21 +8,22 @@
         <th>Цена</th>
         <th>Действия</th>
     </tr>
-    @foreach (var productModel in Model)
+    @foreach (var productModel in Model.Models)
     {
         <tr>
             <td>@productModel.SequenceNumber</td>
             <td>@productModel.Name</td>
             <td>@productModel.Price</td>
             <td>
-                <a asp-controller="Admin" asp-action="EditProductModel" asp-route-id="@productModel.Id"
-                   class="btn btn-info">Изменить</a>
+                <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
                 @Html.Partial("_DeleteButtonWithPopup", productModel)
             </td>
         </tr>
     }
 </table>
 <div class="text-center">
-    <a asp-controller="Admin" asp-action="CreateProductModel" asp-route-productId="@ViewBag.ProductId" 
-       class="btn btn-primary">Создать</a>
+    <a asp-action="CreateProductModel" asp-route-productId="@Model.Id" class="btn btn-primary">Создать модель</a>
+</div>
+<div class="text-right">
+    <a asp-action="Section" asp-route-id="@Model.Section.Id" class="btn btn-secondary">Назад</a>
 </div>

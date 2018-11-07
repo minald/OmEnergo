@@ -56,16 +56,12 @@ namespace OmEnergo.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        public IActionResult Section(string sectionName)
-        {
-            ViewData["Title"] = sectionName;
-            return View(Repository.GetSection(sectionName));
-        }
+        public IActionResult Section(int id) => View(Repository.GetSection(id));
 
         public IActionResult CreateProduct(int sectionId) => 
             View("CreateOrEditProduct", new Product(Repository.Get<Section>(sectionId)));
 
-        public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.Get<Product>(id));
+        public IActionResult EditProduct(int id) => View("CreateOrEditProduct", Repository.GetProduct(id));
 
         [HttpPost]
         public IActionResult CreateProduct(Product product, int? sectionId, params string[] values)
@@ -93,18 +89,13 @@ namespace OmEnergo.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        public IActionResult ProductModels(string sectionName, string productName)
-        {
-            ViewData["Title"] = productName;
-            ViewBag.ProductId = Repository.GetProduct(sectionName, productName).Id;
-            return View(Repository.GetProductModels(sectionName, productName));
-        }
+        public IActionResult Product(int id) => View(Repository.GetProduct(id));
 
         public IActionResult CreateProductModel(int sectionId, int productId) => View("CreateOrEditProductModel",
             new ProductModel(Repository.Get<Section>(sectionId), Repository.GetProduct(productId)));
 
         public IActionResult EditProductModel(int id) => 
-            View("CreateOrEditProductModel", Repository.GetProductModelById(id));
+            View("CreateOrEditProductModel", Repository.GetProductModel(id));
 
         [HttpPost]
         public IActionResult CreateProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)

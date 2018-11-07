@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -22,16 +21,12 @@ namespace OmEnergo.Models
         public string Description { get; set; }
 
         [Display(Name = "Свойства продукта")]
-        public string ProductProperties { get; set; } //Json array in DB
+        public string ProductProperties { get; set; } //Semicolon-separated array
 
         [Display(Name = "Свойства модели продукта")]
-        public string ProductModelProperties { get; set; } //Json array in DB
+        public string ProductModelProperties { get; set; } //Semicolon-separated array
 
-        public Section()
-        {
-            ProductProperties = "[]";
-            ProductModelProperties = "[]";
-        }
+        public Section() {}
 
         public IEnumerable<CommonObject> GetNestedObjects()
         {
@@ -42,11 +37,9 @@ namespace OmEnergo.Models
             return list.OrderBy(x => x.SequenceNumber);
         }
 
-        public List<string> GetProductPropertyList() => 
-            JsonConvert.DeserializeObject<List<string>>(ProductProperties);
+        public List<string> GetProductPropertyList() => ProductProperties.Split(';').ToList();
 
-        public List<string> GetProductModelPropertyList() =>
-            JsonConvert.DeserializeObject<List<string>>(ProductModelProperties);
+        public List<string> GetProductModelPropertyList() => ProductModelProperties.Split(';').ToList();
 
         public override string GetImageFullLink() => $"/images/{Name}/{MainImageLink}";
 

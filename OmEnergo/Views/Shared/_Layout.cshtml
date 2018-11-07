@@ -57,26 +57,6 @@
         </form>
     </nav>
     <div class="body-content">
-        <div class="breadcrumb">
-            @{
-                var controller = this.ViewContext.RouteData.Values["controller"].ToString();
-                var action = this.ViewContext.RouteData.Values["action"].ToString();
-                string series = ViewContext.RouteData.Values["series"]?.ToString().Replace("_", " ") ?? "";
-            }
-            @if (controller == "Catalog")
-            {
-                <a class="breadcrumb-item" asp-controller="Home" asp-action="Index">Home</a>
-            }
-            <a class="breadcrumb-item" asp-controller="@controller" asp-action="Index">@controller</a>
-            @if (action != "Index")
-            {
-                <a class="breadcrumb-item" asp-controller="@controller" asp-action="@action" asp-route-id="">@action</a>
-                @if (!String.IsNullOrEmpty(series))
-                {
-                    <span class="breadcrumb-item active" aria-current="page">@series</span>
-                }
-            }
-        </div>
         @if (TempData["message"] != null)
         {
             <div class="alert alert-info text-center">@TempData["message"]</div>
