@@ -49,13 +49,12 @@
                 </div>
             </div>
         </div>
-        <div class="search">
-            <form id="form" asp-controller="Catalog" asp-action="Search" method="get">
-                <input id="search" name="searchString" placeholder="Искать здесь...">
-                <button type="submit" id="btn"><img class="small-image" src="~/images/search-solid.svg" /></button>
-            </form>
-        </div>
-
+        <form asp-controller="Catalog" asp-action="Search" class="input-group search">
+            <input name="searchString" class="form-control">
+            <div class="input-group-append">
+                <button class="input-group-text" type="submit"><img src="~/images/search-solid.svg"/></button>
+            </div>
+        </form>
     </nav>
     <div class="body-content">
         <div class="breadcrumb">
@@ -84,8 +83,8 @@
         }
         <div class="row">
             <div class="col-3">
-				@(await Component.InvokeAsync("TreeViewMenu"))
-			</div>
+                @(await Component.InvokeAsync("TreeViewMenu"))
+            </div>
             <div class="col-9">
                 @RenderBody()
             </div>
@@ -107,22 +106,22 @@
     </environment>
     @RenderSection("Scripts", required: false)
     <script type="text/javascript">
-		$(document).mousedown(function (e) {
-			var input = $("#search");
-			var submit = $("#btn");
+        $(document).mousedown(function (e) {
+            var input = $("#search");
+            var submit = $("#btn");
 
-			if (submit.is(e.target)) {
-				document.getElementById("btn").submit();
-			}
-			else if (input.is(e.target)) {
-				document.getElementById("header").style.visibility = "hidden";
-				document.getElementById("btn").style.zIndex = 3;
-			}
-			else if (!input.is(e.target)) {
-				document.getElementById("header").style.visibility = "unset";
-				document.getElementById("btn").style.zIndex = 0;
-			}
-		});
+            if (submit.is(e.target)) {
+                document.getElementById("btn").submit();
+            }
+            else if (input.is(e.target)) {
+                document.getElementById("header").style.visibility = "hidden";
+                document.getElementById("btn").style.zIndex = 3;
+            }
+            else if (!input.is(e.target)) {
+                document.getElementById("header").style.visibility = "unset";
+                document.getElementById("btn").style.zIndex = 0;
+            }
+        });
     </script>
 </body>
 </html>

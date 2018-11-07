@@ -65,51 +65,31 @@ iframe {
     background-color: #fee;
 }
 
+fieldset.properties-fieldset {
+    border: 2px groove rgb(192, 192, 192);
+    padding: 0px 10px;
+    margin-bottom: 20px;
+}
+
+fieldset.properties-fieldset > legend {
+    width: auto;
+    padding: 0 10px;
+    margin-bottom: 0px;
+}
+
 .search {
-	margin-top: 15px;
+    width: 320px;
 }
 
-.search form {
-	height: 42px;
+.search > div > button {
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    cursor: pointer;
 }
 
-.search input {
-	margin-top: 15px;
-	height: 42px;
-	width: 0;
-	padding: 0 21px 0 21px;
-	border: none;
-	border-bottom: 2px solid transparent;
-	outline: none;
-	background: transparent;
-	background-color: transparent;
-	transition: .4s cubic-bezier(0, 0.8, 0, 1);
-	position: absolute;
-	top: 0;
-	right: 0;
-	color: white;
-	z-index: 2;
+.search > div > button > img {
+    width: 20px;
 }
 
-.search input:focus {
-	width: 100%;
-	z-index: 1;
-	border-bottom: 2px solid #F9F0DA;
-}
-
-.search #btn {
-	margin-top: 15px;
-	background: #343a40;
-	border: none;
-	height: 42px;
-	width: 42px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	cursor: pointer;
-}
-
-.small-image {
-	width: 20px;
-	height: 42px;
+nav {
+    justify-content: space-between !important;
 }

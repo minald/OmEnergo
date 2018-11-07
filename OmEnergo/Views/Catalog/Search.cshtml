@@ -7,7 +7,7 @@
 {
 	@if (Model.Sections.Any())
 	{
-		<h2>Секции <a id="sections-arrow" onclick="changeBlock('sections')" href="javascript::void(0)"><img class="small-image" src="~/images/angle-up-solid.svg" /></a></h2>
+		<h2>Секции</h2>
 		<div id="sections" class="row justify-content-center">
 			@foreach (var section in Model.Sections)
 			{
@@ -26,7 +26,7 @@
 	}
 	@if (Model.Products.Any())
 	{
-		<h2>Продукты <a id="products-arrow" onclick="changeBlock('products')" href="javascript::void(0)"><img class="small-image" src="~/images/angle-up-solid.svg" /></a></h2>
+		<h2>Продукты</h2>
 		<div id="products" class="row justify-content-center">
 			@foreach (var product in Model.Products)
 			{
@@ -50,7 +50,7 @@
 	}
 	@if (Model.ProductModels.Any())
 	{
-		<h2>Модели <a id="productModels-arrow" onclick="changeBlock('productModels')" href="javascript::void(0)"><img class="small-image" src="~/images/angle-up-solid.svg" /></a></h2>
+		<h2>Модели</h2>
 		<div id="productModels" class="row justify-content-center">
 			@foreach (var productModel in Model.ProductModels)
 			{
@@ -73,17 +73,3 @@ else
 {
 	<h2>По данному запросу ничего не найдено</h2>
 }
-
-<script type="text/javascript">
-	function changeBlock(id) {
-		var div = document.getElementById(id);
-		if(div.style.display !== 'none') {
-			div.style.display = 'none';
-			document.getElementById(id + '-arrow').innerHTML = '<img class="small-image" src="/images/angle-down-solid.svg" />';
-		}
-		else {
-			div.style.display = '';
-			document.getElementById(id + '-arrow').innerHTML = '<img class="small-image" src="/images/angle-up-solid.svg" />';
-		}
-	}
-</script>

@@ -1,9 +1,9 @@
 ﻿@model Section
 
 <form asp-action=@(Model.Id == 0 ? "CreateSection" : "EditSection") method="post">
-    <input type="hidden" asp-for="Id">
-    <input type="hidden" name="parentSectionId" value="@(Model.ParentSection?.Id)">
-    <input type="hidden" asp-for="SequenceNumber">
+    <input hidden asp-for="Id">
+    <input hidden name="parentSectionId" value="@(Model.ParentSection?.Id)">
+    <input hidden asp-for="SequenceNumber">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-10">

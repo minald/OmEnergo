@@ -14,7 +14,7 @@
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-secondary">Закрыть</button>
                 <form asp-action="Delete@(Model.GetType().Name)" method="post">
-                    <input type="hidden" asp-for="Id">
+                    <input hidden asp-for="Id">
                     <button class="btn btn-danger" type="submit">Точно удалить</button>
                 </form>
             </div>
