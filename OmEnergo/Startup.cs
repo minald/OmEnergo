@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OmEnergo.Infrastructure;
 using OmEnergo.Models;
 
 namespace OmEnergo
@@ -24,6 +25,7 @@ namespace OmEnergo
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<DefaultImageMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseMiniProfiler();
