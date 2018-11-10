@@ -85,23 +85,5 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
-    <script type="text/javascript">
-        $(document).mousedown(function (e) {
-            var input = $("#search");
-            var submit = $("#btn");
-
-            if (submit.is(e.target)) {
-                document.getElementById("btn").submit();
-            }
-            else if (input.is(e.target)) {
-                document.getElementById("header").style.visibility = "hidden";
-                document.getElementById("btn").style.zIndex = 3;
-            }
-            else if (!input.is(e.target)) {
-                document.getElementById("header").style.visibility = "unset";
-                document.getElementById("btn").style.zIndex = 0;
-            }
-        });
-    </script>
 </body>
 </html>

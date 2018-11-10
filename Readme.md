@@ -1,10 +1,8 @@
-## Current version 0.1.2
+## Current version 0.2.0
 
 # TODO list
-* Create the side navigation panel
-* Fix design
-  * Add ready CSS-template
-  * Fix headers sizes
+* Fix design (Implement CSS-template)
+* Add images and PDFs support
 
 ## Version history
 * 02.01.18 - 0.0.0 - Creating project
@@ -14,3 +12,4 @@
 * 12.07.18 - 0.1.0 - Filling the catalog with stabilizers, inverters and autotransformers
 * 12.08.18 - 0.1.1 - Improving models and views
 * 28.09.18 - 0.1.2 - Adding feedback page and simplifying database structure
+* 10.11.18 - 0.2.0 - Adding admin area and navigation menu

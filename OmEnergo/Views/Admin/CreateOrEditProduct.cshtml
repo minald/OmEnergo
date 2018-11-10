@@ -1,5 +1,6 @@
 ﻿@model Product
 
+<h4 class="text-center">@Model.Section.Name</h4>
 <form asp-action=@(Model.Id == 0 ? "CreateProduct" : "EditProduct") method="post">
     <input hidden asp-for="Id">
     <input hidden name="sectionId" value="@(Model.Section?.Id)">

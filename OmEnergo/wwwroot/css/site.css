@@ -93,3 +93,10 @@ fieldset.properties-fieldset > legend {
 nav {
     justify-content: space-between !important;
 }
+
+.admin-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}

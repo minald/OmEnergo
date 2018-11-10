@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OmEnergo.Controllers
 {
-    [AdminFilter]
+    //[AdminFilter]
     public class AdminController : Controller
     {
         private Repository Repository { get; set; }

@@ -17,10 +17,10 @@
                 <a asp-action="Section" asp-route-id="@mainSection.Id">@mainSection.Name</a>
             </td>
             <td>@mainSection.MainImageLink</td>
-            <td>@mainSection.Description</td>
+            <td class="admin-description">@mainSection.Description</td>
             <td>
                 <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
-                @if (!mainSection.HasChildSections())
+                @if (!mainSection.GetNestedObjects().Any())
                 {
                     @Html.Partial("_DeleteButtonWithPopup", mainSection)
                 }
