@@ -32,7 +32,9 @@ namespace OmEnergo.Controllers
             }
 
             Repository.Update(section);
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["message"] = $"Секция {section.Name} создана";
+            return section.IsMainSection() ? RedirectToAction(nameof(Sections)) 
+                : RedirectToAction(nameof(Section), new { id = section.ParentSection.Id});
         }
 
         [HttpPost]
@@ -44,7 +46,9 @@ namespace OmEnergo.Controllers
             }
 
             Repository.UpdateSectionAndSynchronizeProperties(section);
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["message"] = $"Секция {section.Name} изменена";
+            return section.IsMainSection() ? RedirectToAction(nameof(Sections))
+                : RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
         }
 
         [HttpPost]
@@ -53,6 +57,7 @@ namespace OmEnergo.Controllers
             var section = Repository.GetSection(id);
             Repository.Delete<Section>(id);
             Repository.UpdateSectionsSequenceNumbers(section.ParentSection?.Id, section.SequenceNumber);
+            TempData["message"] = $"Секция {section.Name} удалена";
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
@@ -70,7 +75,8 @@ namespace OmEnergo.Controllers
             product.SequenceNumber = product.Section.GetNestedObjects().Count() + 1;
             product.UpdatePropertyValues(values);
             Repository.Update(product);
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["message"] = $"Продукт {product.Name} создан";
+            return RedirectToAction(nameof(Section), new { id = product.Section.Id });
         }
 
         [HttpPost]
@@ -79,13 +85,15 @@ namespace OmEnergo.Controllers
             product.Section = Repository.Get<Section>(sectionId);
             product.UpdatePropertyValues(values);
             Repository.Update(product);
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["message"] = $"Продукт {product.Name} изменён";
+            return RedirectToAction(nameof(Section), new { id = product.Section.Id });
         }
 
         [HttpPost]
         public IActionResult DeleteProduct(int id)
         {
             Repository.Delete<Product>(id);
+            TempData["message"] = $"Продукт удалён";
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
@@ -106,7 +114,9 @@ namespace OmEnergo.Controllers
                 (sectionId == null ? productModel.Product.Models : productModel.Section.GetNestedObjects()).Count() + 1;
             productModel.UpdatePropertyValues(values);
             Repository.Update(productModel);
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["message"] = $"Модель {productModel.Name} создана";
+            return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
+                : RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
         }
 
         [HttpPost]
@@ -116,13 +126,16 @@ namespace OmEnergo.Controllers
             productModel.Product = Repository.Get<Product>(productId);
             productModel.UpdatePropertyValues(values);
             Repository.Update(productModel);
-            return Redirect(Request.Headers["Referer"].ToString());
+            TempData["message"] = $"Модель {productModel.Name} изменена";
+            return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
+                : RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
         }
 
         [HttpPost]
         public IActionResult DeleteProductModel(int id)
         {
             Repository.Delete<ProductModel>(id);
+            TempData["message"] = $"Модель удалена";
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }

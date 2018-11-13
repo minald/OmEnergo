@@ -37,9 +37,9 @@ namespace OmEnergo.Models
             return list.OrderBy(x => x.SequenceNumber);
         }
 
-        public List<string> GetProductPropertyList() => ProductProperties.Split(';').ToList();
+        public List<string> GetProductPropertyList() => ProductProperties?.Split(';').ToList() ?? new List<string>();
 
-        public List<string> GetProductModelPropertyList() => ProductModelProperties.Split(';').ToList();
+        public List<string> GetProductModelPropertyList() => ProductModelProperties?.Split(';').ToList() ?? new List<string>();
 
         public override string GetImageFullLink() => $"/images/{Name}/{MainImageLink}";
 
