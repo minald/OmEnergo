@@ -26,7 +26,10 @@
                 <td class="table-secondary"></td>
                 <td>
                     <a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
-                    @Html.Partial("_DeleteButtonWithPopup", subsection)
+                    @if (!subsection.GetNestedObjects().Any())
+                    {
+                        @Html.Partial("_DeleteButtonWithPopup", subsection)
+                    }
                 </td>
             </tr>
         }
@@ -43,7 +46,10 @@
                 <td class="table-secondary"></td>
                 <td>
                     <a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">Изменить</a>
-                    @Html.Partial("_DeleteButtonWithPopup", product)
+                    @if (!product.Models.Any())
+                    {
+                        @Html.Partial("_DeleteButtonWithPopup", product)
+                    }
                 </td>
             </tr>
         }
