@@ -56,7 +56,6 @@ namespace OmEnergo.Controllers
         {
             var section = Repository.GetSection(id);
             Repository.Delete<Section>(id);
-            Repository.UpdateSectionsSequenceNumbers(section.ParentSection?.Id, section.SequenceNumber);
             TempData["message"] = $"Секция {section.Name} удалена";
             return Redirect(Request.Headers["Referer"].ToString());
         }
