@@ -82,7 +82,8 @@ namespace OmEnergo.Models
             Db.Products.Include(x => x.Section).Where(x => x.Section.Name == sectionName);
 
 		public ProductModel GetProductModel(int id) =>
-			Db.ProductModels.Include(x => x.Section).Include(x => x.Product).FirstOrDefault(x => x.Id == id);
+			Db.ProductModels.Include(x => x.Section).Include(x => x.Product)
+                .ThenInclude(x => x.Section).FirstOrDefault(x => x.Id == id);
 
 		public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
             Db.ProductModels.Include(x => x.Product).Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);

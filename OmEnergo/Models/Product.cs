@@ -8,7 +8,7 @@ namespace OmEnergo.Models
         public Section Section { get; set; }
 
         public List<ProductModel> Models { get; set; }
-
+         
         [Display(Name = "Ссылка на фото")]
         public string MainImageLink { get; set; }
 

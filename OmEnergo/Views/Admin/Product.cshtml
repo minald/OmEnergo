@@ -16,6 +16,11 @@
             <td>@productModel.Price</td>
             <td>
                 <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
+                <form asp-action="UploadProductModelPhoto" method="post" enctype="multipart/form-data" class="d-inline-block">
+                    <input hidden name="Id" value="@productModel.Id">
+                    <label for="files" class="btn btn-info m-0">Загрузить фото</label>
+                    <input id="files" type="file" name="uploadedFile" onchange="form.submit()" class="d-none">
+                </form>
                 @Html.Partial("_DeleteButtonWithPopup", productModel)
             </td>
         </tr>
