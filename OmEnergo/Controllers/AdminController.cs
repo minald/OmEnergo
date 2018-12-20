@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
-    //[AdminFilter]
+    //[AdminAuthorizationFilter]
     public class AdminController : Controller
     {
         private Repository Repository { get; set; }
@@ -42,6 +42,7 @@ namespace OmEnergo.Controllers
                 section.SequenceNumber = Repository.GetMainSections().Count() + 1;
             }
 
+            section.SetEnglishNameIfEmpty();
             Repository.Update(section);
             TempData["message"] = $"Секция {section.Name} создана";
             return section.IsMainSection() ? RedirectToAction(nameof(Sections))
@@ -58,6 +59,7 @@ namespace OmEnergo.Controllers
                 section.ParentSection = Repository.GetSection(parentSectionId.Value);
             }
 
+            section.SetEnglishNameIfEmpty();
             Repository.UpdateSectionAndSynchronizeProperties(section);
             TempData["message"] = $"Секция {section.Name} изменена";
             return section.IsMainSection() ? RedirectToAction(nameof(Sections))
@@ -88,6 +90,7 @@ namespace OmEnergo.Controllers
             product.Section = Repository.GetSection(sectionId.Value);
             product.SequenceNumber = product.Section.GetNestedObjects().Count() + 1;
             product.UpdatePropertyValues(values);
+            product.SetEnglishNameIfEmpty();
             Repository.Update(product);
             TempData["message"] = $"Продукт {product.Name} создан";
             return RedirectToAction(nameof(Section), new { id = product.Section.Id });
@@ -100,6 +103,7 @@ namespace OmEnergo.Controllers
         {
             product.Section = Repository.Get<Section>(sectionId);
             product.UpdatePropertyValues(values);
+            product.SetEnglishNameIfEmpty();
             Repository.Update(product);
             TempData["message"] = $"Продукт {product.Name} изменён";
             return RedirectToAction(nameof(Section), new { id = product.Section.Id });
@@ -128,6 +132,7 @@ namespace OmEnergo.Controllers
             productModel.SequenceNumber =
                 (sectionId == null ? productModel.Product.Models : productModel.Section.GetNestedObjects()).Count() + 1;
             productModel.UpdatePropertyValues(values);
+            productModel.SetEnglishNameIfEmpty();
             Repository.Update(productModel);
             TempData["message"] = $"Модель {productModel.Name} создана";
             return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
@@ -143,6 +148,7 @@ namespace OmEnergo.Controllers
             productModel.Section = Repository.Get<Section>(sectionId);
             productModel.Product = Repository.Get<Product>(productId);
             productModel.UpdatePropertyValues(values);
+            productModel.SetEnglishNameIfEmpty();
             Repository.Update(productModel);
             TempData["message"] = $"Модель {productModel.Name} изменена";
             return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })

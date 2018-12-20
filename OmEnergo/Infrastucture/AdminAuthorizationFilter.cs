@@ -5,7 +5,7 @@ using System;
 
 namespace OmEnergo.Models
 {
-    public class AdminFilter : Attribute, IAuthorizationFilter
+    public class AdminAuthorizationFilter : Attribute, IAuthorizationFilter
 	{ 
 		void IAuthorizationFilter.OnAuthorization(AuthorizationFilterContext context)
 		{
