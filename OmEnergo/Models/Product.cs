@@ -23,6 +23,6 @@ namespace OmEnergo.Models
             UpdateProperties(section.GetProductPropertyList());
         }
 
-        public override string GetImageFullLink() => $"/images/{Section.Name}/{Name.Replace('"', '\'')}/{MainImageLink}";
+        public override string GetImageFullLink() => $@"\images\{Section.Id}\{Id}\{MainImageLink}";
     }
 }

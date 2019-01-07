@@ -23,8 +23,8 @@ namespace OmEnergo.Models
 
 		public override string GetImageFullLink()
         {
-            var parentPath = Section?.Name ?? $"{Product.Section.Name}/{Product.Name.Replace('"', '\'')}";
-            return $"/images/{parentPath}/{Name.Replace('/', '-')}.jpg";
+            string parentPath = Section != null ? $"{Section?.Id}" : $@"{Product.Section.Id}\{Product.Id}";
+            return $@"\images\{parentPath}\{EnglishName}.jpg";
         }
 
         public string GetStringPriceFractionalPart()
