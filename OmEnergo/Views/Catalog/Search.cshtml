@@ -7,7 +7,6 @@
 {
     @if (Model.Sections.Any())
     {
-        <h2>Секции</h2>
         <div id="sections" class="row justify-content-center">
             @foreach (var section in Model.Sections)
             {
@@ -17,7 +16,6 @@
     }
     @if (Model.Products.Any())
     {
-        <h2>Продукты</h2>
         <div id="products" class="row justify-content-center">
             @foreach (var product in Model.Products)
             {
@@ -27,13 +25,12 @@
     }
     @if (Model.ProductModels.Any())
     {
-        <h2>Модели</h2>
         <div id="productModels" class="row justify-content-center">
             @foreach (var productModel in Model.ProductModels)
             {
                 <a asp-action="Products" asp-route-sectionName="@productModel.Product.Section.EnglishName" 
                     asp-route-productName="@productModel.Product.EnglishName" 
-                    asp-fragment="productModel=@productModel.Id" class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                    asp-route-productModelName="@productModel.EnglishName" class="w-100">
                     @Html.Partial("_ProductModelCard", productModel)
                 </a>
             }
