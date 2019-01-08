@@ -63,7 +63,7 @@ namespace OmEnergo.Models
             .Include(x => x.ProductModels).Include(x => x.ParentSection).FirstOrDefault(x => x.Id == id);
 
         public Section GetSection(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
-            .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.Name == name);
+            .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.EnglishName == name);
 
         public IEnumerable<Section> GetMainSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections)
             .Include(x => x.Products).Include(x => x.ProductModels).ToList().Where(x => x.IsMainSection());
@@ -73,13 +73,10 @@ namespace OmEnergo.Models
 
         public Product GetProduct(string sectionName, string productName) =>
             Db.Products.Include(x => x.Section).Include(x => x.Models)
-                .First(x => x.Section.Name == sectionName && x.Name == productName);
+                .First(x => x.Section.EnglishName == sectionName && x.EnglishName == productName);
 
         public IEnumerable<Product> GetProducts(int sectionId) =>
             Db.Products.Include(x => x.Section).Where(x => x.Section.Id == sectionId);
-
-        public IEnumerable<Product> GetProducts(string sectionName) =>
-            Db.Products.Include(x => x.Section).Where(x => x.Section.Name == sectionName);
 
 		public ProductModel GetProductModel(int id) =>
 			Db.ProductModels.Include(x => x.Section).Include(x => x.Product)
@@ -87,9 +84,5 @@ namespace OmEnergo.Models
 
 		public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
             Db.ProductModels.Include(x => x.Product).Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);
-
-        public IEnumerable<ProductModel> GetProductModels(string sectionName, string productName) =>
-            Db.ProductModels.Include(x => x.Product)
-                .Where(x => x.Product.Section.Name == sectionName && x.Product.Name == productName);
     }
 }

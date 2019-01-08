@@ -170,6 +170,8 @@ namespace OmEnergo.Controllers
             if (uploadedFile != null)
             {
                 string path = AppEnvironment.WebRootPath + productModel.GetImageFullLink();
+                TempData["message"] = $"Фото {path} загружено";
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);

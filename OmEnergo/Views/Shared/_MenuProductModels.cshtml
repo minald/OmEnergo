@@ -5,7 +5,8 @@
 	{
 		<li>
 			<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@Model.SectionName"
-			   asp-route-productName="@productModel.Product.Name" asp-fragment="productModel=@productModel.Id">@productModel.Name</a>
+                asp-route-productName="@productModel.Product.EnglishName" 
+                asp-route-productModelName="@productModel.EnglishName">@productModel.Name</a>
 		</li>
 	}
 </ul>

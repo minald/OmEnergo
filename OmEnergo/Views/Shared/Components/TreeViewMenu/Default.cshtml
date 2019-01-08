@@ -7,29 +7,29 @@
 	@foreach (var mainSection in Model)
 	{
 		<li data-expanded="false">
-			<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.Name">@mainSection.Name</a>
+			<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.EnglishName">@mainSection.Name</a>
 			<ul>
 				@foreach (var commonObject in mainSection.GetNestedObjects())
 				{
 					if (commonObject is Section subsection)
 					{
 						<li data-expanded="false">
-							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.Name">@subsection.Name</a>
+							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.EnglishName">@subsection.Name</a>
 							<ul>
 								@foreach (var subsectionCommonObject in subsection.GetNestedObjects())
 								{
 									if (subsectionCommonObject is Product subsectionProduct)
 									{
                                         <li>
-										    <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.Name" 
-                                                asp-route-productName="@subsectionProduct.Name">@subsectionProduct.Name</a>
-                                            @Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(subsectionProduct.Models, subsection.Name))
+										    <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.EnglishName" 
+                                                asp-route-productName="@subsectionProduct.EnglishName">@subsectionProduct.Name</a>
+                                            @Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(subsectionProduct.Models, subsection.EnglishName))
                                         </li>
 									}
 									else if (subsectionCommonObject is ProductModel subsectionProductModel)
 									{
 										<li>
-											<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.Name" 
+											<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.EnglishName" 
                                                 asp-fragment="productModel=@subsectionProductModel.Id">@subsectionProductModel.Name</a>
 										</li>
 									}
@@ -40,15 +40,15 @@
 					else if (commonObject is Product product)
 					{
 						<li data-expanded="false">
-							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.Name" 
-                                asp-route-productName="@product.Name">@product.Name</a>
-							@Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(product.Models, mainSection.Name))
+							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.EnglishName" 
+                                asp-route-productName="@product.EnglishName">@product.Name</a>
+							@Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(product.Models, mainSection.EnglishName))
 						</li>
 					}
 					else if (commonObject is ProductModel productModel)
 					{
 						<li>
-							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.Name"
+							<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.EnglishName"
                                 asp-fragment="productModel=@productModel.Id">@productModel.Name</a>
 						</li>
 					}
