@@ -42,7 +42,7 @@ namespace OmEnergo
             app.UseMvc(routes =>
             {
                 routes.MapRoute("search", "poisk/{searchString?}", new { controller = "Catalog", action = "Search"});
-                routes.MapRoute("catalog", "сatalog/{sectionName}/{productName?}/{productModelName?}", new { controller = "Catalog", action = "Products" });
+                routes.MapRoute("catalog", "catalog/{sectionName}/{productName?}/{productModelName?}", new { controller = "Catalog", action = "Products" });
                 routes.MapRoute("default", "{controller=Catalog}/{action=Index}");
             });
         }
