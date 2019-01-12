@@ -6,12 +6,12 @@ namespace OmEnergo.Models
 {
     public class TreeViewMenu : ViewComponent
     {
-		public List<Section> Sections;
-        public Repository Repository;
+		public List<Section> Sections { get; set; }
+        public Repository Repository { get; set; }
 
-		public TreeViewMenu(OmEnergoContext context)
+        public TreeViewMenu(Repository repository)
 		{
-			Repository = new Repository(context);
+			Repository = repository;
 			Sections = Repository.GetFullCatalog().ToList();
 		}
 

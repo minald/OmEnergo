@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
-    //[AdminAuthorizationFilter]
+    //[AdminAuthorization]
     public class AdminController : Controller
     {
         private Repository Repository { get; set; }
-        private IHostingEnvironment AppEnvironment { get; set; }
+        private IHostingEnvironment HostingEnvironment { get; set; }
 
-        public AdminController(OmEnergoContext db, IHostingEnvironment appEnvironment)
+        public AdminController(Repository repository, IHostingEnvironment hostingEnvironment)
         {
-            Repository = new Repository(db);
-            AppEnvironment = appEnvironment;
+            Repository = repository;
+            HostingEnvironment = hostingEnvironment;
         }
 
         #region Sections
@@ -169,7 +169,7 @@ namespace OmEnergo.Controllers
             var productModel = Repository.GetProductModel(id);
             if (uploadedFile != null)
             {
-                string path = AppEnvironment.WebRootPath + productModel.GetImageFullLink();
+                string path = HostingEnvironment.WebRootPath + productModel.GetImageFullLink();
                 TempData["message"] = $"Фото {path} загружено";
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (var fileStream = new FileStream(path, FileMode.Create))

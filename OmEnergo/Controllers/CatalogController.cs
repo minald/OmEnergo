@@ -9,7 +9,7 @@ namespace OmEnergo.Controllers
 	{
 		private Repository Repository { get; set; }
 
-		public CatalogController(OmEnergoContext db) => Repository = new Repository(db);
+		public CatalogController(Repository repository) => Repository = repository;
 
 		public IActionResult Index() => View(Repository.GetMainSections());
 

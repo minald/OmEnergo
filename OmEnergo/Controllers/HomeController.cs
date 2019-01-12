@@ -9,11 +9,16 @@ namespace OmEnergo.Controllers
 {
     public class HomeController : Controller
     {
-		public IConfiguration Configuration { get; set; }
+        private Repository Repository { get; set; }
+        public IConfiguration Configuration { get; set; }
 
-		public HomeController(IConfiguration configuration) => Configuration = configuration;
+        public HomeController(Repository repository, IConfiguration configuration)
+        {
+            Repository = repository;
+            Configuration = configuration;
+        }
 
-		public IActionResult Index() => View();
+        public IActionResult Index() => View();
 
         public IActionResult About() => View();
 
@@ -39,10 +44,12 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult Login(string login, string password)
 		{
-			if (login == "Admin" && password == "123")
+            string correctLogin = Repository.GetConfigurationValue("AdminLogin");
+            string correctPassword = Repository.GetConfigurationValue("AdminPassword");
+            if (login == correctLogin && password == correctPassword)
 			{
 				HttpContext.Session.SetString("isLogin", "true");
-				return RedirectToAction("Sections", "Admin");
+                return RedirectToAction("Sections", "Admin");
 			}
 			else
 			{

@@ -84,5 +84,8 @@ namespace OmEnergo.Models
 
 		public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
             Db.ProductModels.Include(x => x.Product).Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);
+
+        public string GetConfigurationValue(string key) =>
+            Db.ConfigurationKeyValuePairs.FirstOrDefault(x => x.Key.ToLower() == key.ToLower())?.Value ?? "";
     }
 }

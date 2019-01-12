@@ -5,9 +5,9 @@ using System;
 
 namespace OmEnergo.Models
 {
-    public class AdminAuthorizationFilter : Attribute, IAuthorizationFilter
+    public class AdminAuthorizationAttribute : Attribute, IAuthorizationFilter
 	{ 
-		void IAuthorizationFilter.OnAuthorization(AuthorizationFilterContext context)
+		public void OnAuthorization(AuthorizationFilterContext context)
 		{
 			if (context.HttpContext.Session.GetString("isLogin") != "true")
 			{

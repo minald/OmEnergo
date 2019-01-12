@@ -19,6 +19,7 @@ namespace OmEnergo
             services.AddMiniProfiler().AddEntityFramework();
             string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
             services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<Repository>();
 			services.AddSession();
             services.AddMvc();
         }
