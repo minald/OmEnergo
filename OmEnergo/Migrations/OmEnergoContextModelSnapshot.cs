@@ -20,7 +20,7 @@ namespace OmEnergo.Migrations
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OmEnergo.Models.ConfigurationKeyValuePair", b =>
+            modelBuilder.Entity("OmEnergo.Models.ConfigKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -31,7 +31,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ConfigurationKeyValuePairs");
+                    b.ToTable("ConfigKeys");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Product", b =>

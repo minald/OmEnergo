@@ -10,7 +10,7 @@ namespace OmEnergo.Models
 
         public DbSet<ProductModel> ProductModels { get; set; }
 
-        public DbSet<ConfigurationKeyValuePair> ConfigurationKeyValuePairs { get; set; }
+        public DbSet<ConfigKey> ConfigKeys { get; set; }
 
         public OmEnergoContext() { }
 

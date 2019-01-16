@@ -1,6 +1,6 @@
 ﻿namespace OmEnergo.Models
 {
-    public class ConfigurationKeyValuePair
+    public class ConfigKey
     {
         public int Id { get; set; }
 

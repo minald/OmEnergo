@@ -10,7 +10,7 @@ namespace OmEnergo.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ConfigurationKeyValuePairs",
+                name: "ConfigKeys",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,14 +20,14 @@ namespace OmEnergo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConfigurationKeyValuePairs", x => x.Id);
+                    table.PrimaryKey("PK_ConfigKeys", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ConfigurationKeyValuePairs");
+                name: "ConfigKeys");
         }
     }
 }

@@ -44,8 +44,8 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult Login(string login, string password)
 		{
-            string correctLogin = Repository.GetConfigurationValue("AdminLogin");
-            string correctPassword = Repository.GetConfigurationValue("AdminPassword");
+            string correctLogin = Repository.GetConfigValue("AdminLogin");
+            string correctPassword = Repository.GetConfigValue("AdminPassword");
             if (login == correctLogin && password == correctPassword)
 			{
 				HttpContext.Session.SetString("isLogin", "true");

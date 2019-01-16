@@ -11,7 +11,7 @@ using System;
 namespace OmEnergo.Migrations
 {
     [DbContext(typeof(OmEnergoContext))]
-    [Migration("20190112142948_Creating config table")]
+    [Migration("20190115215819_Creating config table")]
     partial class Creatingconfigtable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace OmEnergo.Migrations
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OmEnergo.Models.ConfigurationKeyValuePair", b =>
+            modelBuilder.Entity("OmEnergo.Models.ConfigKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -32,7 +32,7 @@ namespace OmEnergo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ConfigurationKeyValuePairs");
+                    b.ToTable("ConfigKeys");
                 });
 
             modelBuilder.Entity("OmEnergo.Models.Product", b =>

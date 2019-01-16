@@ -1,20 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OmEnergo.Models
 {
     public class TreeViewMenu : ViewComponent
     {
-		public List<Section> Sections { get; set; }
-        public Repository Repository { get; set; }
+		private IEnumerable<Section> Sections { get; set; }
 
-        public TreeViewMenu(Repository repository)
-		{
-			Repository = repository;
-			Sections = Repository.GetFullCatalog().ToList();
-		}
+        public TreeViewMenu(Repository repository) => Sections = repository.GetFullCatalog();
 
-		public IViewComponentResult Invoke() => View(Sections);
+        public IViewComponentResult Invoke() => View(Sections);
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<Section>
+﻿@model IEnumerable<Section>
 @using ShieldUI.AspNetCore.Mvc;
 @Html.ShieldTreeView().Name("treeview").Html(@<text>
     @foreach (var mainSection in Model)
