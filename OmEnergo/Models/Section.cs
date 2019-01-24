@@ -41,7 +41,7 @@ namespace OmEnergo.Models
 
         public List<string> GetProductModelPropertyList() => ProductModelProperties?.Split(';').ToList() ?? new List<string>();
 
-        public override string GetImageFullLink() => $@"\images\{Id}\{MainImageLink}";
+        public override string GetImageFullLink() => $@"\images\{Id}.jpg";
 
         public bool IsMainSection() => ParentSection == null;
 

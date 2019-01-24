@@ -6,7 +6,7 @@
         <th>#</th>
         <th>Название</th>
         <th>Тип</th>
-        <th>Ссылка на фото</th>
+        <th>Фото</th>
         <th>Описание</th>
         <th>Цена</th>
         <th>Действия</th>
@@ -21,11 +21,12 @@
                     <a asp-action="Section" asp-route-id="@subsection.Id">@subsection.Name</a>
                 </td>
                 <td>Подсекция</td>
-                <td>@subsection.MainImageLink</td>
+                <td><img class="card-img-top admin-photo" src="@subsection.GetImageFullLink()"></td>
                 <td class="admin-description">@subsection.Description</td>
                 <td class="table-secondary"></td>
                 <td>
                     <a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
+                    @Html.Partial("_UploadPhotoButton", subsection)
                     @if (!subsection.GetNestedObjects().Any())
                     {
                         @Html.Partial("_DeleteButtonWithPopup", subsection)
@@ -41,11 +42,12 @@
                     <a asp-action="Product" asp-route-id="@product.Id">@product.Name</a>
                 </td>
                 <td>Продукт</td>
-                <td>@product.MainImageLink</td>
+                <td><img class="card-img-top admin-photo" src="@product.GetImageFullLink()"></td>
                 <td class="admin-description">@product.Description</td>
                 <td class="table-secondary"></td>
                 <td>
                     <a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">Изменить</a>
+                    @Html.Partial("_UploadPhotoButton", product)
                     @if (!product.Models.Any())
                     {
                         @Html.Partial("_DeleteButtonWithPopup", product)
@@ -59,11 +61,12 @@
                 <td>@productModel.SequenceNumber</td>
                 <td>@productModel.Name</td>
                 <td>Модель</td>
-                <td class="table-secondary"></td>
+                <td><img class="card-img-top admin-photo" src="@productModel.GetImageFullLink()"></td>
                 <td class="table-secondary"></td>
                 <td>@productModel.Price</td>
                 <td>
                     <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
+                    @Html.Partial("_UploadPhotoButton", productModel)
                     @Html.Partial("_DeleteButtonWithPopup", productModel)
                 </td>
             </tr>

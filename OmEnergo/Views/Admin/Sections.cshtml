@@ -5,7 +5,7 @@
     <tr>
         <th>#</th>
         <th>Название</th>
-        <th>Ссылка на фото</th>
+        <th>Фото</th>
         <th>Описание</th>
         <th>Действия</th>
     </tr>
@@ -16,10 +16,11 @@
             <td>
                 <a asp-action="Section" asp-route-id="@mainSection.Id">@mainSection.Name</a>
             </td>
-            <td>@mainSection.MainImageLink</td>
+            <td><img class="card-img-top admin-photo" src="@mainSection.GetImageFullLink()"></td>
             <td class="admin-description">@mainSection.Description</td>
             <td>
                 <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
+                @Html.Partial("_UploadPhotoButton", mainSection)
                 @if (!mainSection.GetNestedObjects().Any())
                 {
                     @Html.Partial("_DeleteButtonWithPopup", mainSection)

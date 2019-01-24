@@ -164,17 +164,57 @@ namespace OmEnergo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadProductModelPhoto(int id, IFormFile uploadedFile)
+        public async Task<IActionResult> UploadSectionPhoto(int id, IFormFile uploadedPhoto)
         {
-            var productModel = Repository.GetProductModel(id);
-            if (uploadedFile != null)
+            var section = Repository.GetSection(id);
+            if (uploadedPhoto != null)
             {
-                string path = HostingEnvironment.WebRootPath + productModel.GetImageFullLink();
-                TempData["message"] = $"Фото {path} загружено";
+                string sectionImageFullLink = section.GetImageFullLink();
+                string path = HostingEnvironment.WebRootPath + sectionImageFullLink;
+                TempData["message"] = $"Фото {sectionImageFullLink} загружено";
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+                    await uploadedPhoto.CopyToAsync(fileStream);
+                }
+            }
+
+            return section.IsMainSection() ? RedirectToAction(nameof(Sections))
+                : RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProductPhoto(int id, IFormFile uploadedPhoto)
+        {
+            var product = Repository.GetProduct(id);
+            if (uploadedPhoto != null)
+            {
+                string productImageFullLink = product.GetImageFullLink();
+                string path = HostingEnvironment.WebRootPath + productImageFullLink;
+                TempData["message"] = $"Фото {productImageFullLink} загружено";
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await uploadedPhoto.CopyToAsync(fileStream);
+                }
+            }
+
+            return RedirectToAction(nameof(Section), new { id = product.Section.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProductModelPhoto(int id, IFormFile uploadedPhoto)
+        {
+            var productModel = Repository.GetProductModel(id);
+            if (uploadedPhoto != null)
+            {
+                string productModelImageFullLink = productModel.GetImageFullLink();
+                string path = HostingEnvironment.WebRootPath + productModelImageFullLink;
+                TempData["message"] = $"Фото {productModelImageFullLink} загружено";
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await uploadedPhoto.CopyToAsync(fileStream);
                 }
             }
 
