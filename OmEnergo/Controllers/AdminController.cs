@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +21,19 @@ namespace OmEnergo.Controllers
         {
             Repository = repository;
             HostingEnvironment = hostingEnvironment;
+        }
+
+        public IActionResult Index() => View();
+
+        public IActionResult CreateBackup()
+        {
+            var databaseBackuper = HttpContext.RequestServices.GetService(typeof(DatabaseBackuper)) as DatabaseBackuper;
+            string databaseName = "OmEnergoDB";
+            string currentDatetime = DateTime.Now.ToString("G").Replace(':', '-').Replace(' ', '_');
+            string backupName = $@"{databaseName}_{currentDatetime}.bak";
+            string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
+            databaseBackuper.BackupDatabase(databaseName, backupPath);
+            return View(nameof(Index));
         }
 
         #region Sections
