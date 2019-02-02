@@ -29,8 +29,8 @@ namespace OmEnergo.Controllers
         {
             var databaseBackuper = HttpContext.RequestServices.GetService(typeof(DatabaseBackuper)) as DatabaseBackuper;
             string databaseName = "OmEnergoDB";
-            string currentDatetime = DateTime.Now.ToString("G").Replace(':', '-').Replace(' ', '_');
-            string backupName = $@"{databaseName}_{currentDatetime}.bak";
+            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");//DateTime.Now.ToString("G").Replace(':', '-').Replace(' ', '_');
+            string backupName = $@"{databaseName}_{currentDatetime}.xlsx";
             string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
             databaseBackuper.BackupDatabase(databaseName, backupPath);
             return View(nameof(Index));

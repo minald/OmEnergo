@@ -13,9 +13,9 @@
     <None Remove="Database\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.94.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.0.138" />
     <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.0.138" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

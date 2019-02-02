@@ -1,28 +1,28 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using ClosedXML.Excel;
+using System.Linq;
 
 namespace OmEnergo.Models
 {
     public class DatabaseBackuper
     {
-        private IConfiguration Configuration { get; }
+        private Repository Repository { get; }
 
-        public DatabaseBackuper(IConfiguration configuration) => Configuration = configuration;
+        public DatabaseBackuper(Repository repository) => Repository = repository;
 
         public void BackupDatabase(string databaseName, string backupPath)
         {
-            string commandText = $@"BACKUP DATABASE [{databaseName}] TO DISK = N'{backupPath}'";
-            string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var workbook = new XLWorkbook())
             {
-                connection.Open();
-                using (SqlCommand command = connection.CreateCommand())
+                var worksheet = workbook.Worksheets.Add("Sample Sheet");
+
+                var models = Repository.GetAllProductModels();
+                for (int i = 1; i < models.Count(); i++)
                 {
-                    command.CommandText = commandText;
-                    command.CommandType = CommandType.Text;
-                    command.ExecuteNonQuery();
+                    worksheet.Cell($"A{i}").Value = models.ElementAt(i).EnglishName;
+                    worksheet.Cell($"B{i}").Value = models.ElementAt(i).Price;
                 }
+                
+                workbook.SaveAs(backupPath);
             }
         }
     }
