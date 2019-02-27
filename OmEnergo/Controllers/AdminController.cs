@@ -27,12 +27,13 @@ namespace OmEnergo.Controllers
 
         public IActionResult CreateBackup()
         {
-            var databaseBackuper = HttpContext.RequestServices.GetService(typeof(DatabaseBackuper)) as DatabaseBackuper;
+            var databaseBackuper = HttpContext.RequestServices.GetService(typeof(ExcelReportBuilder)) as ExcelReportBuilder;
             string databaseName = "OmEnergoDB";
             string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");//DateTime.Now.ToString("G").Replace(':', '-').Replace(' ', '_');
             string backupName = $@"{databaseName}_{currentDatetime}.xlsx";
             string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
             databaseBackuper.BackupDatabase(databaseName, backupPath);
+            TempData["message"] = $"Бэкап базы успешно сохранён в {backupName}";
             return View(nameof(Index));
         }
 
@@ -43,7 +44,7 @@ namespace OmEnergo.Controllers
         public IActionResult Section(int id) => View(Repository.GetSection(id));
 
         public IActionResult CreateSection(int parentId) => View("CreateOrEditSection",
-            new Section() { ParentSection = Repository.Get<Section>(parentId) });
+            new Section() { ParentSection = Repository.Get<Section>(x => x.Id == parentId) });
 
         [HttpPost]
         public IActionResult CreateSection(Section section, int? parentSectionId)
@@ -65,7 +66,7 @@ namespace OmEnergo.Controllers
                 : RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
         }
 
-        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(id));
+        public IActionResult EditSection(int id) => View("CreateOrEditSection", Repository.Get<Section>(x => x.Id == id));
 
         [HttpPost]
         public IActionResult EditSection(Section section, int? parentSectionId)
@@ -98,7 +99,7 @@ namespace OmEnergo.Controllers
         public IActionResult Product(int id) => View(Repository.GetProduct(id));
 
         public IActionResult CreateProduct(int sectionId) => 
-            View("CreateOrEditProduct", new Product(Repository.Get<Section>(sectionId)));
+            View("CreateOrEditProduct", new Product(Repository.Get<Section>(x => x.Id == sectionId)));
 
         [HttpPost]
         public IActionResult CreateProduct(Product product, int? sectionId, params string[] values)
@@ -117,7 +118,7 @@ namespace OmEnergo.Controllers
         [HttpPost]
         public IActionResult EditProduct(Product product, int? sectionId, params string[] values)
         {
-            product.Section = Repository.Get<Section>(sectionId);
+            product.Section = Repository.Get<Section>(x => x.Id == sectionId);
             product.UpdatePropertyValues(values);
             product.SetEnglishNameIfEmpty();
             Repository.Update(product);
@@ -138,7 +139,7 @@ namespace OmEnergo.Controllers
         #region ProductModels
 
         public IActionResult CreateProductModel(int sectionId, int productId) => View("CreateOrEditProductModel",
-            new ProductModel(Repository.Get<Section>(sectionId), Repository.GetProduct(productId)));
+            new ProductModel(Repository.Get<Section>(x => x.Id == sectionId), Repository.GetProduct(productId)));
 
         [HttpPost]
         public IActionResult CreateProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
@@ -161,8 +162,8 @@ namespace OmEnergo.Controllers
         [HttpPost]
         public IActionResult EditProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
         {
-            productModel.Section = Repository.Get<Section>(sectionId);
-            productModel.Product = Repository.Get<Product>(productId);
+            productModel.Section = Repository.Get<Section>(x => x.Id == sectionId);
+            productModel.Product = Repository.Get<Product>(x => x.Id == productId);
             productModel.UpdatePropertyValues(values);
             productModel.SetEnglishNameIfEmpty();
             Repository.Update(productModel);

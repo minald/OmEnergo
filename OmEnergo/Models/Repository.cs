@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,19 +13,33 @@ namespace OmEnergo.Models
 
         public Repository(OmEnergoContext context) => Db = context;
 
-		public IEnumerable<Section> GetFullCatalog() =>
-			Db.Sections.Include(x => x.ProductModels).Include(x => x.Products).ThenInclude(x => x.Models).ToList().Where(x => x.IsMainSection());
+        #region Methods which must be optimized
 
-		public IEnumerable<Product> GetSearchedProducts(string searchString) =>
-			Db.Products.Where(x => x.Name.Replace(" ", "_").Contains(searchString));
+        public IEnumerable<Section> GetMainSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections)
+            .Include(x => x.Products).Include(x => x.ProductModels).ToList().Where(x => x.IsMainSection());
 
-		public IEnumerable<ProductModel> GetSearchedProductModels(string searchString) => 
+        public Section GetSection(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
+            .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.EnglishName == name);
+
+        public Product GetProduct(string sectionName, string productName) =>
+            Db.Products.Include(x => x.Section).Include(x => x.Models)
+                .First(x => x.Section.EnglishName == sectionName && x.EnglishName == productName);
+
+        public IEnumerable<Section> GetFullCatalog() =>
+            Db.Sections.Include(x => x.ProductModels).Include(x => x.Products).ThenInclude(x => x.Models).ToList().Where(x => x.IsMainSection());
+
+        public IEnumerable<Product> GetSearchedProducts(string searchString) =>
+            Db.Products.Where(x => x.Name.Contains(searchString));
+
+        public IEnumerable<ProductModel> GetSearchedProductModels(string searchString) =>
             Db.ProductModels.Where(x => x.Name.Contains(searchString));
 
-		public IEnumerable<Section> GetSearchedSections(string searchString) => 
+        public IEnumerable<Section> GetSearchedSections(string searchString) =>
             Db.Sections.Where(x => x.Name.Contains(searchString));
 
-        public T Get<T>(int? id) where T : CommonObject => Db.Set<T>().FirstOrDefault(x => x.Id == id);
+        #endregion
+
+        public T Get<T>(Func<T, bool> predicate) where T : CommonObject => Db.Set<T>().FirstOrDefault(predicate);
 
         public void Update<T>(T obj) where T : CommonObject
         {
@@ -57,35 +72,43 @@ namespace OmEnergo.Models
             Db.SaveChanges();
         }
 
-        public Section GetSection(int id) => Db.Sections.Include(x => x.Products).ThenInclude(x => x.Models)
+        #region Sections
+
+        public IEnumerable<Section> GetAllSections() => Db.Sections
+            .Include(x => x.Products).ThenInclude(x => x.Models)
             .Include(x => x.ChildSections).ThenInclude(x => x.Products)
             .Include(x => x.ChildSections).ThenInclude(x => x.ProductModels)
-            .Include(x => x.ProductModels).Include(x => x.ParentSection).FirstOrDefault(x => x.Id == id);
+            .Include(x => x.ProductModels)
+            .Include(x => x.ParentSection);
 
-        public Section GetSection(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
-            .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.EnglishName == name);
+        public IEnumerable<Section> GetSections(Func<Section, bool> predicate) => GetAllSections().Where(predicate);
 
-        public IEnumerable<Section> GetMainSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections)
-            .Include(x => x.Products).Include(x => x.ProductModels).ToList().Where(x => x.IsMainSection());
+        public Section GetSection(int id) => GetAllSections().FirstOrDefault(x => x.Id == id);
 
-        public Product GetProduct(int id) => Db.Products.Include(x => x.Section)
-            .Include(x => x.Models).FirstOrDefault(x => x.Id == id);
+        #endregion
 
-        public Product GetProduct(string sectionName, string productName) =>
-            Db.Products.Include(x => x.Section).Include(x => x.Models)
-                .First(x => x.Section.EnglishName == sectionName && x.EnglishName == productName);
+        #region Products
 
-        public IEnumerable<Product> GetProducts(int sectionId) =>
-            Db.Products.Include(x => x.Section).Where(x => x.Section.Id == sectionId);
+        public IEnumerable<Product> GetAllProducts() => Db.Products.Include(x => x.Section).Include(x => x.Models);
 
-		public ProductModel GetProductModel(int id) =>
-			Db.ProductModels.Include(x => x.Section).Include(x => x.Product)
-                .ThenInclude(x => x.Section).FirstOrDefault(x => x.Id == id);
+        public Product GetProduct(int id) => GetAllProducts().FirstOrDefault(x => x.Id == id);
 
-        public IEnumerable<ProductModel> GetAllProductModels() => Db.ProductModels;
+        public IEnumerable<Product> GetProducts(int sectionId) => GetAllProducts().Where(x => x.Section.Id == sectionId);
+
+        #endregion
+
+        #region ProductModels
+
+        public IEnumerable<ProductModel> GetAllProductModels() => Db.ProductModels
+            .Include(x => x.Section)
+            .Include(x => x.Product).ThenInclude(x => x.Section);
 
         public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
-            Db.ProductModels.Include(x => x.Product).Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);
+            GetAllProductModels().Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);
+
+        public ProductModel GetProductModel(int id) => GetAllProductModels().FirstOrDefault(x => x.Id == id);
+
+        #endregion
 
         public string GetConfigValue(string key) =>
             Db.ConfigKeys.FirstOrDefault(x => x.Key.ToLower() == key.ToLower())?.Value ?? "";
