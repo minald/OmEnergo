@@ -1,4 +1,6 @@
 ﻿using ClosedXML.Excel;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace OmEnergo.Models
@@ -9,36 +11,72 @@ namespace OmEnergo.Models
 
         public ExcelReportBuilder(Repository repository) => Repository = repository;
 
-        public void BackupDatabase(string databaseName, string backupPath)
+        public void CreateDatabaseBackup(string backupPath)
         {
-            using (var workbook = new XLWorkbook())
-            {
-                var worksheet = workbook.Worksheets.Add("Sections");
+            var workbook = new XLWorkbook();
+            workbook.Worksheets.Add(GetSectionsTable());
+            workbook.Worksheets.Add(GetProductsTable());
+            workbook.Worksheets.Add(GetProductModelsTable());
+            workbook.Worksheets.Add(GetConfigKeysTable());
+            workbook.SaveAs(backupPath);
+        }
 
-                worksheet.Cell($"A1").Value = "Id";
-                worksheet.Cell($"B1").Value = "Name";
-                worksheet.Cell($"C1").Value = "EnglishName";
-                worksheet.Cell($"D1").Value = "SequenceNumber";
-                worksheet.Cell($"E1").Value = "Description";
-                worksheet.Cell($"F1").Value = "ParentSectionId";
-                worksheet.Cell($"G1").Value = "ProductProperties";
-                worksheet.Cell($"H1").Value = "ProductModelProperties";
+        private DataTable GetSectionsTable()
+        {
+            DataTable table = new DataTable("Sections");
 
-                var sections = Repository.GetAllSections();
-                for (int i = 1; i < sections.Count(); i++)
-                {
-                    worksheet.Cell($"A{i + 1}").Value = sections.ElementAt(i).Id;
-                    worksheet.Cell($"B{i + 1}").Value = sections.ElementAt(i).Name;
-                    worksheet.Cell($"C{i + 1}").Value = sections.ElementAt(i).EnglishName;
-                    worksheet.Cell($"D{i + 1}").Value = sections.ElementAt(i).SequenceNumber;
-                    worksheet.Cell($"E{i + 1}").Value = sections.ElementAt(i).Description;
-                    worksheet.Cell($"F{i + 1}").Value = sections.ElementAt(i).ParentSection?.Id;
-                    worksheet.Cell($"G{i + 1}").Value = sections.ElementAt(i).ProductProperties;
-                    worksheet.Cell($"H{i + 1}").Value = sections.ElementAt(i).ProductModelProperties;
-                }
-                
-                workbook.SaveAs(backupPath);
-            }
+            var columnNames = new List<string>() { "Id", "Name", "EnglishName", "SequenceNumber", "Description",
+                "ParentSectionId", "ProductProperties", "ProductModelProperties"};
+            columnNames.ForEach(x => table.Columns.Add(x));
+
+            var sections = Repository.GetAllSections().ToList();
+            sections.ForEach(x => table.Rows.Add(x.Id, x.Name, x.EnglishName, x.SequenceNumber,
+                x.Description, x.ParentSection?.Id, x.ProductProperties, x.ProductModelProperties));
+
+            return table;
+        }
+
+        private DataTable GetProductsTable()
+        {
+            DataTable table = new DataTable("Products");
+
+            var columnNames = new List<string>() { "Id", "Name", "EnglishName", "SequenceNumber", "Description",
+                "SectionId", "Properties"};
+            columnNames.ForEach(x => table.Columns.Add(x));
+
+            var products = Repository.GetAllProducts().ToList();
+            products.ForEach(x => table.Rows.Add(x.Id, x.Name, x.EnglishName, x.SequenceNumber,
+                x.Description, x.Section?.Id, x.Properties));
+
+            return table;
+        }
+
+        private DataTable GetProductModelsTable()
+        {
+            DataTable table = new DataTable("ProductModels");
+
+            var columnNames = new List<string>() { "Id", "Name", "EnglishName", "SequenceNumber", "Price",
+                "ParentId", "SectionId", "Properties"};
+            columnNames.ForEach(x => table.Columns.Add(x));
+
+            var productModels = Repository.GetAllProductModels().ToList();
+            productModels.ForEach(x => table.Rows.Add(x.Id, x.Name, x.EnglishName, x.SequenceNumber, 
+                x.Price, x.Product?.Id, x.Section?.Id, x.Properties));
+
+            return table;
+        }
+
+        private DataTable GetConfigKeysTable()
+        {
+            DataTable table = new DataTable("ConfigKeys");
+
+            var columnNames = new List<string>() { "Id", "Key", "Value"};
+            columnNames.ForEach(x => table.Columns.Add(x));
+
+            var configKeys = Repository.GetAllConfigKeys().ToList();
+            configKeys.ForEach(x => table.Rows.Add(x.Id, x.Key, x.Value));
+
+            return table;
         }
     }
 }

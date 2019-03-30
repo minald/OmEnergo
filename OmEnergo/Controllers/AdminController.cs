@@ -28,11 +28,10 @@ namespace OmEnergo.Controllers
         public IActionResult CreateBackup()
         {
             var databaseBackuper = HttpContext.RequestServices.GetService(typeof(ExcelReportBuilder)) as ExcelReportBuilder;
-            string databaseName = "OmEnergoDB";
-            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");//DateTime.Now.ToString("G").Replace(':', '-').Replace(' ', '_');
-            string backupName = $@"{databaseName}_{currentDatetime}.xlsx";
             string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
-            databaseBackuper.BackupDatabase(databaseName, backupPath);
+            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string backupName = $@"OmEnergoDB_{currentDatetime}.xlsx";
+            databaseBackuper.CreateDatabaseBackup(backupPath);
             TempData["message"] = $"Бэкап базы успешно сохранён в {backupName}";
             return View(nameof(Index));
         }

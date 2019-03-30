@@ -110,7 +110,13 @@ namespace OmEnergo.Models
 
         #endregion
 
+        #region ConfigKeys
+
+        public IEnumerable<ConfigKey> GetAllConfigKeys() => Db.ConfigKeys.ToList();
+
         public string GetConfigValue(string key) =>
             Db.ConfigKeys.FirstOrDefault(x => x.Key.ToLower() == key.ToLower())?.Value ?? "";
+
+        #endregion
     }
 }
