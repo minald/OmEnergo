@@ -36,6 +36,17 @@ namespace OmEnergo.Controllers
             return View(nameof(Index));
         }
 
+        public IActionResult GetPricesReport()
+        {
+            var databaseBackuper = HttpContext.RequestServices.GetService(typeof(ExcelReportBuilder)) as ExcelReportBuilder;
+            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string backupName = $@"OmEnergoPrices_{currentDatetime}.xlsx";
+            string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
+            databaseBackuper.CreatePricesReport(backupPath);
+            TempData["message"] = $"Список цен успешно сохранён в {backupName}";
+            return View(nameof(Index));
+        }
+
         #region Sections
 
         public IActionResult Sections() => View(Repository.GetMainSections().OrderBy(x => x.SequenceNumber));

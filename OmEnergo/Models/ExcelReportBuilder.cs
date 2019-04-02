@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 
 namespace OmEnergo.Models
 {
@@ -14,69 +15,47 @@ namespace OmEnergo.Models
         public void CreateDatabaseBackup(string backupPath)
         {
             var workbook = new XLWorkbook();
-            workbook.Worksheets.Add(GetSectionsTable());
-            workbook.Worksheets.Add(GetProductsTable());
-            workbook.Worksheets.Add(GetProductModelsTable());
-            workbook.Worksheets.Add(GetConfigKeysTable());
+            workbook.Worksheets.Add(ToDataTable(Repository.GetAllSections()));
+            workbook.Worksheets.Add(ToDataTable(Repository.GetAllProducts()));
+            workbook.Worksheets.Add(ToDataTable(Repository.GetAllProductModels()));
+            workbook.Worksheets.Add(ToDataTable(Repository.GetAllConfigKeys()));
             workbook.SaveAs(backupPath);
         }
 
-        private DataTable GetSectionsTable()
+        public void CreatePricesReport(string backupPath)
         {
-            DataTable table = new DataTable("Sections");
-
-            var columnNames = new List<string>() { "Id", "Name", "EnglishName", "SequenceNumber", "Description",
-                "ParentSectionId", "ProductProperties", "ProductModelProperties"};
-            columnNames.ForEach(x => table.Columns.Add(x));
-
-            var sections = Repository.GetAllSections().ToList();
-            sections.ForEach(x => table.Rows.Add(x.Id, x.Name, x.EnglishName, x.SequenceNumber,
-                x.Description, x.ParentSection?.Id, x.ProductProperties, x.ProductModelProperties));
-
-            return table;
+            var workbook = new XLWorkbook();
+            workbook.Worksheets.Add(ToDataTable(Repository.GetAllProductModels(), new List<string>() { "Name", "Price" }));
+            workbook.SaveAs(backupPath);
         }
 
-        private DataTable GetProductsTable()
+        public static DataTable ToDataTable<T>(IEnumerable<T> items, List<string> propertyNames = null)
         {
-            DataTable table = new DataTable("Products");
+            var dataTable = new DataTable(typeof(T).Name);
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(x => x.PropertyType.Name != "List`1" && 
+                    (propertyNames == null || propertyNames.Contains(x.Name))).ToList();
+            properties.ForEach(x => dataTable.Columns.Add(x.Name));
 
-            var columnNames = new List<string>() { "Id", "Name", "EnglishName", "SequenceNumber", "Description",
-                "SectionId", "Properties"};
-            columnNames.ForEach(x => table.Columns.Add(x));
+            foreach (T item in items)
+            {
+                var values = new List<object>();
+                foreach (var property in properties)
+                {
+                    var mainObj = property.GetValue(item, null);
+                    var resultObj = mainObj is CommonObject ? GetPropertyValue(mainObj, "Id") : mainObj;
+                    values.Add(resultObj);
+                }
 
-            var products = Repository.GetAllProducts().ToList();
-            products.ForEach(x => table.Rows.Add(x.Id, x.Name, x.EnglishName, x.SequenceNumber,
-                x.Description, x.Section?.Id, x.Properties));
+                dataTable.Rows.Add(values.ToArray());
+            }
 
-            return table;
+            return dataTable;
         }
 
-        private DataTable GetProductModelsTable()
+        public static object GetPropertyValue(object obj, string propertyName)
         {
-            DataTable table = new DataTable("ProductModels");
-
-            var columnNames = new List<string>() { "Id", "Name", "EnglishName", "SequenceNumber", "Price",
-                "ParentId", "SectionId", "Properties"};
-            columnNames.ForEach(x => table.Columns.Add(x));
-
-            var productModels = Repository.GetAllProductModels().ToList();
-            productModels.ForEach(x => table.Rows.Add(x.Id, x.Name, x.EnglishName, x.SequenceNumber, 
-                x.Price, x.Product?.Id, x.Section?.Id, x.Properties));
-
-            return table;
-        }
-
-        private DataTable GetConfigKeysTable()
-        {
-            DataTable table = new DataTable("ConfigKeys");
-
-            var columnNames = new List<string>() { "Id", "Key", "Value"};
-            columnNames.ForEach(x => table.Columns.Add(x));
-
-            var configKeys = Repository.GetAllConfigKeys().ToList();
-            configKeys.ForEach(x => table.Rows.Add(x.Id, x.Key, x.Value));
-
-            return table;
+            return obj?.GetType()?.GetProperty(propertyName)?.GetValue(obj, null) ?? "NULL";
         }
     }
 }
