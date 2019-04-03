@@ -43,8 +43,6 @@ namespace OmEnergo.Migrations
 
                     b.Property<string>("EnglishName");
 
-                    b.Property<string>("MainImageLink");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("Properties");
@@ -96,8 +94,6 @@ namespace OmEnergo.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("EnglishName");
-
-                    b.Property<string>("MainImageLink");
 
                     b.Property<string>("Name");
 

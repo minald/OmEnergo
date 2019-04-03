@@ -14,9 +14,6 @@ namespace OmEnergo.Models
 
         public List<ProductModel> ProductModels { get; set; }
 
-        [Display(Name = "Ссылка на фото")]
-        public string MainImageLink { get; set; }
-
         [Display(Name = "Описание")]
         public string Description { get; set; }
 
