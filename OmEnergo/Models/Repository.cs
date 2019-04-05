@@ -43,7 +43,8 @@ namespace OmEnergo.Models
 
         public void Update<T>(T obj) where T : CommonObject
         {
-            Db.Set<T>().Update(obj);
+            var existingItem = Db.Set<T>().First(x => x.Id == obj.Id);
+            Db.Entry(existingItem).CurrentValues.SetValues(obj);
             Db.SaveChanges();
         }
 
@@ -104,7 +105,7 @@ namespace OmEnergo.Models
             .Include(x => x.Product).ThenInclude(x => x.Section);
 
         public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
-            GetAllProductModels().Where(x => x.Section.Id == sectionId || x.Product.Section.Id == sectionId);
+            GetAllProductModels().Where(x => x.Section?.Id == sectionId || x.Product?.Section?.Id == sectionId);
 
         public ProductModel GetProductModel(int id) => GetAllProductModels().FirstOrDefault(x => x.Id == id);
 
