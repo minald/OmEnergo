@@ -1,8 +1,13 @@
 ﻿@model Product
 
-<h3 class="text-center">@Model.Name</h3>
-<p style="white-space: pre-wrap;">@Model.Description</p>
+<h2 class="text-center">@Model.Name</h2>
 <div class="row">
+    <div class="col-6">
+        <div class="text-center">
+            <img class="card-img-top" style="max-height: 250px; max-width: 250px;" src="@Model.GetImageFullLink()">
+        </div>
+        <p style="white-space: pre-wrap;">@Model.Description</p>
+    </div>
     <div class="col-6">
         <table class="table table-light table-bordered table-hover">
             <tbody>

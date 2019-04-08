@@ -43,8 +43,16 @@ namespace OmEnergo.Models
 
         public void Update<T>(T obj) where T : CommonObject
         {
-            var existingItem = Db.Set<T>().First(x => x.Id == obj.Id);
-            Db.Entry(existingItem).CurrentValues.SetValues(obj);
+            var existingItem = Db.Set<T>().Find(obj.Id);
+            if (existingItem == null)
+            {
+                Db.Add(obj);
+            }
+            else
+            {
+                Db.Entry(existingItem).CurrentValues.SetValues(obj);
+            }
+
             Db.SaveChanges();
         }
 
