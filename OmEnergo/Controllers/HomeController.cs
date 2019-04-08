@@ -49,7 +49,7 @@ namespace OmEnergo.Controllers
             if (login == correctLogin && password == correctPassword)
 			{
 				HttpContext.Session.SetString("isLogin", "true");
-                return RedirectToAction("Sections", "Admin");
+                return RedirectToAction("Index", "Admin");
 			}
 			else
 			{

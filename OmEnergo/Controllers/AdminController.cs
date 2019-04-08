@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,29 +21,30 @@ namespace OmEnergo.Controllers
             HostingEnvironment = hostingEnvironment;
         }
 
+        #region Main page
+
         public IActionResult Index() => View();
 
-        public IActionResult CreateBackup()
+        public IActionResult CreateBackup([FromServices]ExcelReportBuilder excelReportBuilder)
         {
-            var databaseBackuper = HttpContext.RequestServices.GetService(typeof(ExcelReportBuilder)) as ExcelReportBuilder;
-            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            string backupName = $@"OmEnergoDB_{currentDatetime}.xlsx";
-            string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
-            databaseBackuper.CreateDatabaseBackup(backupPath);
-            TempData["message"] = $"Бэкап базы успешно сохранён в {backupName}";
-            return View(nameof(Index));
+            var fileStream = excelReportBuilder.CreateDatabaseBackup();
+            return GetExcelFile(fileStream, "OmEnergoDB");
         }
 
-        public IActionResult GetPricesReport()
+        public IActionResult GetPricesReport([FromServices]ExcelReportBuilder excelReportBuilder)
         {
-            var databaseBackuper = HttpContext.RequestServices.GetService(typeof(ExcelReportBuilder)) as ExcelReportBuilder;
-            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            string backupName = $@"OmEnergoPrices_{currentDatetime}.xlsx";
-            string backupPath = $@"D:\{backupName}"; //HostingEnvironment.ContentRootPath + $@"\Database\{backupName}";
-            databaseBackuper.CreatePricesReport(backupPath);
-            TempData["message"] = $"Список цен успешно сохранён в {backupName}";
-            return View(nameof(Index));
+            var fileStream = excelReportBuilder.CreatePricesReport();
+            return GetExcelFile(fileStream, "OmEnergoPrices");
         }
+
+        private FileStreamResult GetExcelFile(Stream stream, string mainFileNamePart)
+        {
+            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string fullFileName = $"{mainFileNamePart}_{currentDatetime}.xlsx";
+            return File(stream, ExcelReportBuilder.XlsxMimeType, fullFileName);
+        }
+
+        #endregion 
 
         #region Sections
 
@@ -189,6 +188,10 @@ namespace OmEnergo.Controllers
             TempData["message"] = $"Модель удалена";
             return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        #endregion
+
+        #region Uploading photo
 
         [HttpPost]
         public async Task<IActionResult> UploadSectionPhoto(int id, IFormFile uploadedPhoto)

@@ -1,6 +1,8 @@
 ﻿@model Section
 
-<h3 class="text-center">@Model.Name</h3>
+<a asp-action=@(Model.IsMainSection() ? "Sections" : "Section")
+   asp-route-id="@Model?.ParentSection?.Id" class="position-absolute btn btn-secondary">Назад</a>
+<h2 class="text-center">@Model.Name</h2>
 <table class="table table-bordered table-striped table-hover">
     <tr>
         <th>#</th>
@@ -80,14 +82,4 @@
     }
     <a asp-action="CreateProduct" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать продукт</a>
     <a asp-action="CreateProductModel" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать модель</a>
-</div>
-<div class="text-right">
-    @if (Model.IsMainSection())
-    {
-        <a asp-action="Sections" class="btn btn-secondary">Назад</a>
-    }
-    else
-    {
-        <a asp-action="Section" asp-route-id="@Model.ParentSection.Id"  class="btn btn-secondary">Назад</a>
-    }
-</div>
+</div>  
