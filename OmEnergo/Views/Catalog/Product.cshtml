@@ -11,7 +11,7 @@
     <div class="col-6">
         <table class="table table-light table-bordered table-hover">
             <tbody>
-                @foreach (var property in Model.GetProperties())
+                @foreach (var property in Model.GetProperties().Where(p => !String.IsNullOrWhiteSpace(p.Value)))
                 {
                     <tr>
                         <td>@property.Key</td>

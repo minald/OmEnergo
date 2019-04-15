@@ -9,7 +9,7 @@
             <img class="card-img" src="@Model.GetImageFullLink()">
         </div>
         <ul class="list-group list-group-flush">
-            @foreach (var property in Model.GetProperties())
+            @foreach (var property in Model.GetProperties().Where(p => !String.IsNullOrWhiteSpace(p.Value)))
             {
                 <li class="list-group-item">@property.Key: @property.Value</li>
             }
