@@ -16,6 +16,19 @@ header {
     text-decoration-line: none;
 }
 
+nav {
+    justify-content: space-between !important;
+}
+
+.row > * > .card {
+    color: black;
+}
+
+.row > * > .card > ul > li,
+.row > * > .card > .card-footer {
+    padding: 5px;
+}
+
 .row > * > .card > .card-body {
     height: 200px;
     padding: 10px;
@@ -23,19 +36,10 @@ header {
     justify-content: center;
 }
 
-.row > * > .card > .card-header > p {
-    color: black;
-}
-
 .row > * > .card > .card-body > img {
     max-height: 100%;
     width: auto;
     max-width: 100%;
-}
-
-.row > * > .card > ul > li,
-.row > * > .card > .card-footer {
-    padding: 5px;
 }
 
 .row > a:hover > .card *:not(.card-body) {
@@ -88,10 +92,6 @@ fieldset.properties-fieldset > legend {
 
 .search > div > button > img {
     width: 20px;
-}
-
-nav {
-    justify-content: space-between !important;
 }
 
 .admin-description {

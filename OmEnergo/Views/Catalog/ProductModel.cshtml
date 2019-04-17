@@ -1,0 +1,24 @@
+﻿@model ProductModel
+
+<h2 class="text-center">@Model.Name</h2>
+<div class="row">
+    <div class="col-6">
+        <div class="text-center">
+            <img class="card-img-top border border-secondary" style="max-height: 250px; max-width: 250px;" src="@Model.GetImageFullLink()">
+        </div>
+        @*<p style="white-space: pre-wrap;">@Model.Description</p>*@
+    </div>
+    <div class="col-6">
+        <table class="table table-light table-bordered table-hover">
+            <tbody>
+                @foreach (var property in Model.GetProperties().Where(p => !String.IsNullOrWhiteSpace(p.Value)))
+                {
+                    <tr>
+                        <td>@property.Key</td>
+                        <td>@property.Value</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

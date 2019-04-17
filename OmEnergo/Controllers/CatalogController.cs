@@ -24,10 +24,15 @@ namespace OmEnergo.Controllers
                 ViewData["Title"] = sectionName;
                 return View("Section", Repository.GetSection(sectionName));
             }
-            else
+            else if (String.IsNullOrEmpty(productModelName))
             {
                 ViewData["Title"] = productName;
                 return View("Product", Repository.GetProduct(sectionName, productName));
+            }
+            else
+            {
+                ViewData["Title"] = productModelName;
+                return View("ProductModel", Repository.GetProductModel(sectionName, productName, productModelName));
             }
         }
     }

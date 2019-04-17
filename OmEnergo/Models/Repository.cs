@@ -23,7 +23,12 @@ namespace OmEnergo.Models
 
         public Product GetProduct(string sectionName, string productName) =>
             Db.Products.Include(x => x.Section).Include(x => x.Models)
-                .First(x => x.Section.EnglishName == sectionName && x.EnglishName == productName);
+                .FirstOrDefault(x => x.Section.EnglishName == sectionName && x.EnglishName == productName);
+
+        public ProductModel GetProductModel(string sectionName, string productName, string productModelName) =>
+            Db.ProductModels.Include(x => x.Section).Include(x => x.Product).ThenInclude(x => x.Section)
+                .FirstOrDefault(x => x.Product.Section.EnglishName == sectionName && x.Product.EnglishName == productName
+                    && x.EnglishName == productModelName);
 
         public IEnumerable<Section> GetFullCatalog() =>
             Db.Sections.Include(x => x.ProductModels).Include(x => x.Products).ThenInclude(x => x.Models).ToList().Where(x => x.IsMainSection());
