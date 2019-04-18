@@ -21,18 +21,21 @@ namespace OmEnergo.Controllers
         {
             if (String.IsNullOrEmpty(productName))
             {
-                ViewData["Title"] = sectionName;
-                return View("Section", Repository.GetSection(sectionName));
+                var section = Repository.GetSection(sectionName);
+                ViewData["Title"] = section.Name;
+                return View("Section", section);
             }
             else if (String.IsNullOrEmpty(productModelName))
             {
-                ViewData["Title"] = productName;
-                return View("Product", Repository.GetProduct(sectionName, productName));
+                var product = Repository.GetProduct(sectionName, productName);
+                ViewData["Title"] = product.Name;
+                return View("Product", product);
             }
             else
             {
-                ViewData["Title"] = productModelName;
-                return View("ProductModel", Repository.GetProductModel(sectionName, productName, productModelName));
+                var productModel = Repository.GetProductModel(sectionName, productName, productModelName);
+                ViewData["Title"] = productModel.Name;
+                return View("ProductModel", productModel);
             }
         }
     }
