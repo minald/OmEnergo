@@ -4,7 +4,7 @@
 }
 
 <div class="row justify-content-center">
-    @foreach (var mainSection in Model)
+    @foreach (var mainSection in Model.OrderBy(x => x.SequenceNumber))
     {
         @Html.Partial("_SectionCard", mainSection)
     }

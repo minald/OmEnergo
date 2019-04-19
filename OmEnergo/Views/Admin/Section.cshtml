@@ -13,7 +13,7 @@
         <th>Цена</th>
         <th>Действия</th>
     </tr>
-    @foreach (var obj in Model.GetNestedObjects())
+    @foreach (var obj in Model.GetNestedObjects().OrderBy(x => x.SequenceNumber))
     {
         if (obj is Section subsection)
         {

@@ -10,7 +10,7 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    @foreach (var obj in Model.GetNestedObjects())
+    @foreach (var obj in Model.GetNestedObjects().OrderBy(x => x.SequenceNumber))
     {
         if (obj is Section subsection)
         {

@@ -10,7 +10,7 @@
         <th>Цена</th>
         <th>Действия</th>
     </tr>
-    @foreach (var productModel in Model.Models)
+    @foreach (var productModel in Model.Models.OrderBy(x => x.SequenceNumber))
     {
         <tr>
             <td>@productModel.SequenceNumber</td>

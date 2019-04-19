@@ -10,7 +10,7 @@
         <th>Описание</th>
         <th>Действия</th>
     </tr>
-    @foreach (var mainSection in Model)
+    @foreach (var mainSection in Model.OrderBy(x => x.SequenceNumber))
     {
         <tr>
             <td>@mainSection.SequenceNumber</td>
