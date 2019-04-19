@@ -4,30 +4,28 @@
     @foreach (var mainSection in Model)
     {
         <li data-expanded="false">
-            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.EnglishName">@mainSection.Name</a>
+            <a asp-controller="Catalog" asp-action="Products" asp-route-name="@mainSection.EnglishName">@mainSection.Name</a>
             <ul>
                 @foreach (var commonObject in mainSection.GetNestedObjects())
                 {
                     if (commonObject is Section subsection)
                     {
                         <li data-expanded="false">
-                            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.EnglishName">@subsection.Name</a>
+                            <a asp-controller="Catalog" asp-action="Products" asp-route-name="@subsection.EnglishName">@subsection.Name</a>
                             <ul>
                                 @foreach (var subsectionCommonObject in subsection.GetNestedObjects())
                                 {
                                     if (subsectionCommonObject is Product subsectionProduct)
                                     {
                                         <li>
-                                            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.EnglishName"
-                                               asp-route-productName="@subsectionProduct.EnglishName">@subsectionProduct.Name</a>
-                                            @Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(subsectionProduct.Models, subsection.EnglishName))
+                                            <a asp-controller="Catalog" asp-action="Products" asp-route-name="@subsectionProduct.EnglishName">@subsectionProduct.Name</a>
+                                            @Html.Partial("_MenuProductModels", subsectionProduct.Models)
                                         </li>
                                     }
                                     else if (subsectionCommonObject is ProductModel subsectionProductModel)
                                     {
                                         <li>
-                                            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@subsection.EnglishName"
-                                               asp-fragment="productModel=@subsectionProductModel.Id">@subsectionProductModel.Name</a>
+                                            <a asp-controller="Catalog" asp-action="Products" asp-route-name="@subsectionProductModel.EnglishName">@subsectionProductModel.Name</a>
                                         </li>
                                     }
                                 }
@@ -37,16 +35,14 @@
                     else if (commonObject is Product product)
                     {
                         <li data-expanded="false">
-                            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.EnglishName"
-                               asp-route-productName="@product.EnglishName">@product.Name</a>
-                            @Html.Partial("_MenuProductModels", new MenuProductModelsViewModel(product.Models, mainSection.EnglishName))
+                            <a asp-controller="Catalog" asp-action="Products" asp-route-name="@product.EnglishName">@product.Name</a>
+                            @Html.Partial("_MenuProductModels", product.Models)
                         </li>
                     }
                     else if (commonObject is ProductModel productModel)
                     {
                         <li>
-                            <a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@mainSection.EnglishName"
-                               asp-fragment="productModel=@productModel.Id">@productModel.Name</a>
+                            <a asp-controller="Catalog" asp-action="Products" asp-route-name="@productModel.EnglishName">@productModel.Name</a>
                         </li>
                     }
                 }

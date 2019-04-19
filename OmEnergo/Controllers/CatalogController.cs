@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
 using OmEnergo.Models.ViewModels;
-using System;
 
 namespace OmEnergo.Controllers
 {
@@ -17,26 +16,25 @@ namespace OmEnergo.Controllers
             Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
             Repository.GetSearchedProductModels(searchString)));
         
-        public IActionResult Products(string sectionName, string productName, string productModelName)
+        public IActionResult Products(string name)
         {
-            if (String.IsNullOrEmpty(productName))
+            var section = Repository.GetSection(name);
+            if (section != null)
             {
-                var section = Repository.GetSection(sectionName);
                 ViewData["Title"] = section.Name;
                 return View("Section", section);
             }
-            else if (String.IsNullOrEmpty(productModelName))
+
+            var product = Repository.GetProduct(name);
+            if (product != null)
             {
-                var product = Repository.GetProduct(sectionName, productName);
                 ViewData["Title"] = product.Name;
                 return View("Product", product);
             }
-            else
-            {
-                var productModel = Repository.GetProductModel(sectionName, productName, productModelName);
-                ViewData["Title"] = productModel.Name;
-                return View("ProductModel", productModel);
-            }
+
+            var productModel = Repository.GetProductModel(name);
+            ViewData["Title"] = productModel.Name;
+            return View("ProductModel", productModel);
         }
     }
 }

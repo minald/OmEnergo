@@ -28,11 +28,7 @@
         <div id="productModels" class="row justify-content-center">
             @foreach (var productModel in Model.ProductModels)
             {
-                <a asp-action="Products" asp-route-sectionName="@productModel.Product.Section.EnglishName" 
-                    asp-route-productName="@productModel.Product.EnglishName" 
-                    asp-route-productModelName="@productModel.EnglishName" class="w-100">
-                    @Html.Partial("_ProductModelCard", productModel)
-                </a>
+                @Html.Partial("_ProductModelCard", productModel)
             }
         </div>
     }

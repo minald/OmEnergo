@@ -21,26 +21,25 @@ namespace OmEnergo.Models
         public Section GetSection(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
             .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.EnglishName == name);
 
-        public Product GetProduct(string sectionName, string productName) =>
-            Db.Products.Include(x => x.Section).Include(x => x.Models)
-                .FirstOrDefault(x => x.Section.EnglishName == sectionName && x.EnglishName == productName);
+        public Product GetProduct(string name) =>
+            Db.Products.Include(x => x.Section).Include(x => x.Models).FirstOrDefault(x => x.EnglishName == name);
 
-        public ProductModel GetProductModel(string sectionName, string productName, string productModelName) =>
+        public ProductModel GetProductModel(string name) =>
             Db.ProductModels.Include(x => x.Section).Include(x => x.Product).ThenInclude(x => x.Section)
-                .FirstOrDefault(x => x.Product.Section.EnglishName == sectionName && x.Product.EnglishName == productName
-                    && x.EnglishName == productModelName);
+                .FirstOrDefault(x => x.EnglishName == name);
 
         public IEnumerable<Section> GetFullCatalog() =>
             Db.Sections.Include(x => x.ProductModels).Include(x => x.Products).ThenInclude(x => x.Models).ToList().Where(x => x.IsMainSection());
 
-        public IEnumerable<Product> GetSearchedProducts(string searchString) =>
-            Db.Products.Where(x => x.Name.Contains(searchString));
-
-        public IEnumerable<ProductModel> GetSearchedProductModels(string searchString) =>
-            Db.ProductModels.Where(x => x.Name.Contains(searchString));
-
         public IEnumerable<Section> GetSearchedSections(string searchString) =>
             Db.Sections.Where(x => x.Name.Contains(searchString));
+
+        public IEnumerable<Product> GetSearchedProducts(string searchString) =>
+            Db.Products.Include(x => x.Section).Where(x => x.Name.Contains(searchString));
+
+        public IEnumerable<ProductModel> GetSearchedProductModels(string searchString) =>
+            Db.ProductModels.Include(x => x.Section).Include(x => x.Product).ThenInclude(x => x.Section)
+                .Where(x => x.Name.Contains(searchString));
 
         #endregion
 

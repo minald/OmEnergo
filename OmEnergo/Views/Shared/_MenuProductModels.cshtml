@@ -1,12 +1,10 @@
-﻿@model MenuProductModelsViewModel
+﻿@model List<ProductModel>
 
 <ul>
-	@foreach (var productModel in Model.ProductModels)
+	@foreach (var productModel in Model)
 	{
 		<li>
-			<a asp-controller="Catalog" asp-action="Products" asp-route-sectionName="@Model.SectionName"
-                asp-route-productName="@productModel.Product.EnglishName" 
-                asp-route-productModelName="@productModel.EnglishName">@productModel.Name</a>
+			<a asp-controller="Catalog" asp-action="Products" asp-route-name="@productModel.EnglishName">@productModel.Name</a>
 		</li>
 	}
 </ul>
