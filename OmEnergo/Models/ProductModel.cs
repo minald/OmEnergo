@@ -21,11 +21,13 @@ namespace OmEnergo.Models
             UpdateProperties((section ?? product.Section).GetProductModelPropertyList());
         }
 
-		public override string GetImageFullLink()
+        public override string GetDirectoryPath()
         {
             string parentPath = Section != null ? $"{Section?.Id}" : $@"{Product.Section.Id}\{Product.Id}";
-            return $@"\images\{parentPath}\{EnglishName}.jpg";
+            return $@"\images\{parentPath}";
         }
+
+        public override string GetMainImageName() => $"{EnglishName}.jpg";
 
         public string GetStringPriceFractionalPart()
         {
@@ -33,7 +35,7 @@ namespace OmEnergo.Models
             return prefix + GetPriceFractionalPart().ToString();
         }
 
-        private int GetPriceFractionalPart() => (int)(Math.Round((Price - GetPriceIntegerPart()) * 100));
+        private int GetPriceFractionalPart() => (int)Math.Round((Price - GetPriceIntegerPart()) * 100);
 
         public int GetPriceIntegerPart() => (int)Price;
     }

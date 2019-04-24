@@ -13,7 +13,7 @@
         <th>Цена</th>
         <th>Действия</th>
     </tr>
-    @foreach (var obj in Model.GetNestedObjects().OrderBy(x => x.SequenceNumber))
+    @foreach (var obj in Model.GetOrderedNestedObjects())
     {
         if (obj is Section subsection)
         {
@@ -29,7 +29,7 @@
                 <td>
                     <a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
                     @Html.Partial("_UploadPhotoButton", subsection)
-                    @if (!subsection.GetNestedObjects().Any())
+                    @if (!subsection.GetOrderedNestedObjects().Any())
                     {
                         @Html.Partial("_DeleteButtonWithPopup", subsection)
                     }

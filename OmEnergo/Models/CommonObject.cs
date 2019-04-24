@@ -1,6 +1,7 @@
 ﻿using OmEnergo.Infrastucture;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace OmEnergo.Models
 {
@@ -17,7 +18,16 @@ namespace OmEnergo.Models
         [Display(Name = "Порядковый номер")]
         public int SequenceNumber { get; set; }
 
-        public abstract string GetImageFullLink();
+        public abstract string GetDirectoryPath();
+
+        public abstract string GetMainImageName();
+
+        public string GetImageFullLink()
+        {
+            string directoryPath = GetDirectoryPath();
+            string mainImageName = GetMainImageName();
+            return Path.Combine(directoryPath, mainImageName);
+        }
 
         public void SetEnglishNameIfEmpty()
         {

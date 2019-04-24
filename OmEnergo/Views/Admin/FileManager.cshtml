@@ -1,0 +1,14 @@
+﻿@model List<string>
+
+<h2 class="text-center">@ViewBag.CommonObjectName</h2>
+<h3 class="text-center">Фото</h3>
+@foreach (string image in Model.Where(x => !x.EndsWith("pdf")))
+{
+    <p>@image</p>
+}
+
+<h3 class="text-center">Pdf</h3>
+@foreach (string pdf in Model.Where(x => x.EndsWith("pdf")))
+{
+    <p>@pdf</p>
+}

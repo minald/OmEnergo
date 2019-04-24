@@ -6,14 +6,14 @@
         <li data-expanded="false">
             <a asp-controller="Catalog" asp-action="Products" asp-route-name="@mainSection.EnglishName">@mainSection.Name</a>
             <ul>
-                @foreach (var commonObject in mainSection.GetNestedObjects())
+                @foreach (var commonObject in mainSection.GetOrderedNestedObjects())
                 {
                     if (commonObject is Section subsection)
                     {
                         <li data-expanded="false">
                             <a asp-controller="Catalog" asp-action="Products" asp-route-name="@subsection.EnglishName">@subsection.Name</a>
                             <ul>
-                                @foreach (var subsectionCommonObject in subsection.GetNestedObjects())
+                                @foreach (var subsectionCommonObject in subsection.GetOrderedNestedObjects())
                                 {
                                     if (subsectionCommonObject is Product subsectionProduct)
                                     {

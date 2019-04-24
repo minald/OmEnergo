@@ -18,23 +18,9 @@ namespace OmEnergo.Controllers
         
         public IActionResult Products(string name)
         {
-            var section = Repository.GetSection(name);
-            if (section != null)
-            {
-                ViewData["Title"] = section.Name;
-                return View("Section", section);
-            }
-
-            var product = Repository.GetProduct(name);
-            if (product != null)
-            {
-                ViewData["Title"] = product.Name;
-                return View("Product", product);
-            }
-
-            var productModel = Repository.GetProductModel(name);
-            ViewData["Title"] = productModel.Name;
-            return View("ProductModel", productModel);
+            var commonObject = Repository.GetByEnglishName(name);
+            ViewData["Title"] = commonObject.Name;
+            return View(commonObject.GetType().Name, commonObject);
         }
     }
 }

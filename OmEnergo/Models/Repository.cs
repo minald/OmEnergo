@@ -43,6 +43,24 @@ namespace OmEnergo.Models
 
         #endregion
 
+        public CommonObject GetByEnglishName(string englishName)
+        {
+            var section = GetSection(englishName);
+            if (section != null)
+            {
+                return section;
+            }
+
+            var product = GetProduct(englishName);
+            if (product != null)
+            {
+                return product;
+            }
+
+            var productModel = GetProductModel(englishName);
+            return productModel;
+        }
+
         public T Get<T>(Func<T, bool> predicate) where T : CommonObject => Db.Set<T>().FirstOrDefault(predicate);
 
         public void Update<T>(T obj) where T : CommonObject

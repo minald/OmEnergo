@@ -22,7 +22,7 @@
             <td>
                 <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
                 @Html.Partial("_UploadPhotoButton", mainSection)
-                @if (!mainSection.GetNestedObjects().Any())
+                @if (!mainSection.GetOrderedNestedObjects().Any())
                 {
                     @Html.Partial("_DeleteButtonWithPopup", mainSection)
                 }

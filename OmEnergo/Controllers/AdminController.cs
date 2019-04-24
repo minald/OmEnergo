@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace OmEnergo.Controllers
             if (parentSectionId != null)
             {
                 section.ParentSection = Repository.GetSection(parentSectionId.Value);
-                section.SequenceNumber = section.ParentSection.GetNestedObjects().Count() + 1;
+                section.SequenceNumber = section.ParentSection.GetOrderedNestedObjects().Count() + 1;
             }
             else
             {
@@ -114,7 +115,7 @@ namespace OmEnergo.Controllers
         public IActionResult CreateProduct(Product product, int? sectionId, params string[] values)
         {
             product.Section = Repository.GetSection(sectionId.Value);
-            product.SequenceNumber = product.Section.GetNestedObjects().Count() + 1;
+            product.SequenceNumber = product.Section.GetOrderedNestedObjects().Count() + 1;
             product.UpdatePropertyValues(values);
             product.SetEnglishNameIfEmpty();
             Repository.Update(product);
@@ -156,7 +157,7 @@ namespace OmEnergo.Controllers
             productModel.Section = Repository.GetSection(sectionId.GetValueOrDefault());
             productModel.Product = Repository.GetProduct(productId.GetValueOrDefault());
             productModel.SequenceNumber =
-                (sectionId == null ? productModel.Product.Models : productModel.Section.GetNestedObjects()).Count() + 1;
+                (sectionId == null ? productModel.Product.Models : productModel.Section.GetOrderedNestedObjects()).Count() + 1;
             productModel.UpdatePropertyValues(values);
             productModel.SetEnglishNameIfEmpty();
             Repository.Update(productModel);
@@ -192,6 +193,22 @@ namespace OmEnergo.Controllers
         #endregion
 
         #region Uploading photo
+
+        public IActionResult FileManager(string name)
+        {
+            var commonObject = Repository.GetByEnglishName(name);
+            ViewBag.CommonObjectName = commonObject.Name;
+            List<string> filesPaths = GetFilesPaths(commonObject);
+            return View(filesPaths);
+        }
+
+        private List<string> GetFilesPaths(CommonObject commonObject)
+        {
+            string directoryPath = HostingEnvironment.WebRootPath + commonObject.GetDirectoryPath();
+            string[] mainImage = Directory.GetFiles(directoryPath, $"{commonObject.EnglishName}.*");
+            string[] otherFiles = Directory.GetFiles(directoryPath, $"{commonObject.EnglishName}_*");
+            return mainImage.Union(otherFiles).ToList();
+        }
 
         [HttpPost]
         public async Task<IActionResult> UploadSectionPhoto(int id, IFormFile uploadedPhoto)

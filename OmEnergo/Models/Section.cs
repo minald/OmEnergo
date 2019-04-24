@@ -25,7 +25,11 @@ namespace OmEnergo.Models
 
         public Section() {}
 
-        public IEnumerable<CommonObject> GetNestedObjects()
+        public override string GetDirectoryPath() => @"\images";
+
+        public override string GetMainImageName() => $"{Id}.jpg";
+
+        public IEnumerable<CommonObject> GetOrderedNestedObjects()
         {
             var list = new List<CommonObject>();
             list.AddRange(ChildSections ?? new List<Section>());
@@ -37,8 +41,6 @@ namespace OmEnergo.Models
         public List<string> GetProductPropertyList() => ProductProperties?.Split(';').ToList() ?? new List<string>();
 
         public List<string> GetProductModelPropertyList() => ProductModelProperties?.Split(';').ToList() ?? new List<string>();
-
-        public override string GetImageFullLink() => $@"\images\{Id}.jpg";
 
         public bool IsMainSection() => ParentSection == null;
 
