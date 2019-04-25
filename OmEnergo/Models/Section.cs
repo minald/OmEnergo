@@ -27,8 +27,6 @@ namespace OmEnergo.Models
 
         public override string GetDirectoryPath() => @"\images";
 
-        public override string GetMainImageName() => $"{Id}.jpg";
-
         public IEnumerable<CommonObject> GetOrderedNestedObjects()
         {
             var list = new List<CommonObject>();

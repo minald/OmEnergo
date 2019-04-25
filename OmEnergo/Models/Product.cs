@@ -21,7 +21,5 @@ namespace OmEnergo.Models
         }
 
         public override string GetDirectoryPath() => $@"\images\{Section.Id}";
-
-        public override string GetMainImageName() =>  $"{Id}.jpg";
     }
 }
