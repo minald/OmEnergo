@@ -205,8 +205,8 @@ namespace OmEnergo.Controllers
         private List<string> GetFilesPaths(CommonObject commonObject)
         {
             string directoryPath = HostingEnvironment.WebRootPath + commonObject.GetDirectoryPath();
-            string[] mainImage = Directory.GetFiles(directoryPath, $"{commonObject.EnglishName}.*");
-            string[] otherFiles = Directory.GetFiles(directoryPath, $"{commonObject.EnglishName}_*");
+            string[] mainImage = Directory.GetFiles(directoryPath, $"{commonObject.Id}.*");
+            string[] otherFiles = Directory.GetFiles(directoryPath, $"{commonObject.Id}_*");
             return mainImage.Union(otherFiles).ToList();
         }
 
@@ -216,7 +216,7 @@ namespace OmEnergo.Controllers
             var section = Repository.GetSection(id);
             if (uploadedPhoto != null)
             {
-                string sectionImageFullLink = section.GetImageFullLink();
+                string sectionImageFullLink = section.GetMainImageFullLink();
                 string path = HostingEnvironment.WebRootPath + sectionImageFullLink;
                 TempData["message"] = $"Фото {sectionImageFullLink} загружено";
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -236,7 +236,7 @@ namespace OmEnergo.Controllers
             var product = Repository.GetProduct(id);
             if (uploadedPhoto != null)
             {
-                string productImageFullLink = product.GetImageFullLink();
+                string productImageFullLink = product.GetMainImageFullLink();
                 string path = HostingEnvironment.WebRootPath + productImageFullLink;
                 TempData["message"] = $"Фото {productImageFullLink} загружено";
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -255,7 +255,7 @@ namespace OmEnergo.Controllers
             var productModel = Repository.GetProductModel(id);
             if (uploadedPhoto != null)
             {
-                string productModelImageFullLink = productModel.GetImageFullLink();
+                string productModelImageFullLink = productModel.GetMainImageFullLink();
                 string path = HostingEnvironment.WebRootPath + productModelImageFullLink;
                 TempData["message"] = $"Фото {productModelImageFullLink} загружено";
                 Directory.CreateDirectory(Path.GetDirectoryName(path));

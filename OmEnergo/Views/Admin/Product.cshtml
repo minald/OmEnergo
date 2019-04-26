@@ -15,7 +15,7 @@
         <tr>
             <td>@productModel.SequenceNumber</td>
             <td>@productModel.Name</td>
-            <td><img class="card-img admin-photo" src="@productModel.GetImageFullLink()"></td>
+            <td><img class="card-img admin-photo" src="@productModel.GetMainImageFullLink()"></td>
             <td>@productModel.Price</td>
             <td>
                 <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>

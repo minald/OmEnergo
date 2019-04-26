@@ -17,7 +17,7 @@
             <td>
                 <a asp-action="Section" asp-route-id="@mainSection.Id">@mainSection.Name</a>
             </td>
-            <td><img class="card-img admin-photo" src="@mainSection.GetImageFullLink()"></td>
+            <td><img class="card-img admin-photo" src="@mainSection.GetMainImageFullLink()"></td>
             <td class="admin-description">@mainSection.Description</td>
             <td>
                 <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>

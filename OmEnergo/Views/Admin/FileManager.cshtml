@@ -2,13 +2,36 @@
 
 <h2 class="text-center">@ViewBag.CommonObjectName</h2>
 <h3 class="text-center">Фото</h3>
-@foreach (string image in Model.Where(x => !x.EndsWith("pdf")))
-{
-    <p>@image</p>
-}
-
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Путь</th>
+        <th>Фото</th>
+        <th>Действия</th>
+    </tr>
+    @foreach (string image in Model.Where(x => !x.EndsWith("pdf")))
+    {
+        <tr>
+            <td>@image</td>
+            <td><img class="card-img admin-photo" src="@image"></td>
+            <td>
+                <a asp-action="DeleteFile" asp-route-path="@image" class="btn btn-info">Изменить</a>
+            </td>
+        </tr>
+    }
+</table>
 <h3 class="text-center">Pdf</h3>
-@foreach (string pdf in Model.Where(x => x.EndsWith("pdf")))
-{
-    <p>@pdf</p>
-}
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Путь</th>
+        <th>Действия</th>
+    </tr>
+    @foreach (string pdf in Model.Where(x => x.EndsWith("pdf")))
+    {
+        <tr>
+            <td>@pdf</td>
+            <td>
+                <a asp-action="DeleteFile" asp-route-path="@pdf" class="btn btn-info">Изменить</a>
+            </td>
+        </tr>
+    }
+</table>
