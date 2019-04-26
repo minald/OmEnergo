@@ -15,6 +15,9 @@ namespace OmEnergo.Models
         [Display(Name = "Имя для URL")]
         public string EnglishName { get; set; }
 
+        [Display(Name = "Описание")]
+        public string Description { get; set; }
+
         [Display(Name = "Порядковый номер")]
         public int SequenceNumber { get; set; }
 

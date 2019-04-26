@@ -14,9 +14,6 @@ namespace OmEnergo.Models
 
         public List<ProductModel> ProductModels { get; set; }
 
-        [Display(Name = "Описание")]
-        public string Description { get; set; }
-
         [Display(Name = "Свойства продукта")]
         public string ProductProperties { get; set; } //Semicolon-separated array
 

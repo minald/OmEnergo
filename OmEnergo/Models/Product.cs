@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
 {
@@ -8,9 +7,6 @@ namespace OmEnergo.Models
         public Section Section { get; set; }
 
         public List<ProductModel> Models { get; set; }
-
-        [Display(Name = "Описание")]
-        public string Description { get; set; }
 
         public Product() { }
 
