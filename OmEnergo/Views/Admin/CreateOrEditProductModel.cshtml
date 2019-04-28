@@ -1,10 +1,9 @@
 ﻿@model ProductModel
 
 <h4 class="text-center">@(Model.Section?.Name ?? Model.Product.Name)</h4>
-<form asp-action=@(Model.Id == 0 ? "CreateProductModel" : "EditProductModel") method="post">
+<form asp-action=@(Model.Id == 0 ? "CreateProductModel" : "EditProductModel") 
+    asp-route-sectionId="@Model.Section?.Id" asp-route-productId="@Model.Product?.Id" method="post">
     <input hidden asp-for="Id">
-    <input hidden name="sectionId" value="@(Model.Section?.Id)">
-    <input hidden name="productId" value="@(Model.Product?.Id)">
     <input hidden asp-for="Properties">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>

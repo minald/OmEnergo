@@ -10,7 +10,7 @@
         <div id="sections" class="row justify-content-center">
             @foreach (var section in Model.Sections)
             {
-                @Html.Partial("_SectionCard", section)
+                @Html.Partial("_CommonObjectCard", section)
             }
         </div>
     }
@@ -19,7 +19,7 @@
         <div id="products" class="row justify-content-center">
             @foreach (var product in Model.Products)
             {
-                @Html.Partial("_ProductCard", product)
+                @Html.Partial("_CommonObjectCard", product)
             }
         </div>
     }
@@ -28,7 +28,7 @@
         <div id="productModels" class="row justify-content-center">
             @foreach (var productModel in Model.ProductModels)
             {
-                @Html.Partial("_ProductModelCard", productModel)
+                @Html.Partial("_CommonObjectCard", productModel)
             }
         </div>
     }

@@ -1,8 +1,8 @@
 ﻿@model Section
 
-<form asp-action=@(Model.Id == 0 ? "CreateSection" : "EditSection") method="post">
+<form asp-action=@(Model.Id == 0 ? "CreateSection" : "EditSection")
+    asp-route-parentSectionId="@Model.ParentSection?.Id" method="post">
     <input hidden asp-for="Id">
-    <input hidden name="parentSectionId" value="@(Model.ParentSection?.Id)">
     <div class="form-group row">
         <label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>
         <div class="col-sm-5"><input asp-for="Name" class="form-control"></div>

@@ -25,6 +25,6 @@
 <div class="row justify-content-center">
     @foreach (var productModel in Model.Models.OrderBy(x => x.SequenceNumber))
     {
-        @Html.Partial("_ProductModelCard", productModel)
+        @Html.Partial("_CommonObjectCard", productModel)
     }
 </div>

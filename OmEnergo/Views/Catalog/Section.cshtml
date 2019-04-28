@@ -14,15 +14,15 @@
     {
         if (obj is Section subsection)
         {
-            @Html.Partial("_SectionCard", subsection)
+            @Html.Partial("_CommonObjectCard", subsection)
         }
         if (obj is Product product)
         {
-            @Html.Partial("_ProductCard", product)
+            @Html.Partial("_CommonObjectCard", product)
         }
         if (obj is ProductModel productModel)
         {
-            @Html.Partial("_ProductModelCard", productModel)
+            @Html.Partial("_CommonObjectCard", productModel)
         }
     }
 </div>

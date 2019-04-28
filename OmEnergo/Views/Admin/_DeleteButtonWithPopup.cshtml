@@ -9,12 +9,11 @@
                 <h5 class="modal-title">@Model.Name</h5>
             </div>
             <div class="modal-body">
-                <p>Вы уверены? Удаление элемента приведёт к удалению всех связанных с ним элементов.</p>
+                <p>Вы уверены? Удаление элемента может привести к удалению всех связанных с ним элементов.</p>
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-secondary">Закрыть</button>
-                <form asp-action="Delete@(Model.GetType().Name)" method="post">
-                    <input hidden name="Id" value=@Model.Id>
+                <form asp-action="Delete@(Model.GetType().Name)" asp-route-id="@Model.Id" method="post">
                     <button class="btn btn-danger" type="submit">Точно удалить</button>
                 </form>
             </div>
