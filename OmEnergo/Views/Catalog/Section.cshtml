@@ -10,19 +10,8 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    @foreach (var obj in Model.GetOrderedNestedObjects())
+    @foreach (CommonObject obj in Model.GetOrderedNestedObjects())
     {
-        if (obj is Section subsection)
-        {
-            @Html.Partial("_CommonObjectCard", subsection)
-        }
-        if (obj is Product product)
-        {
-            @Html.Partial("_CommonObjectCard", product)
-        }
-        if (obj is ProductModel productModel)
-        {
-            @Html.Partial("_CommonObjectCard", productModel)
-        }
+        @Html.Partial("_CommonObjectCard", obj)
     }
 </div>
