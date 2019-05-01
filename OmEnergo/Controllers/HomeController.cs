@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using OmEnergo.Models;
+using OmEnergo.Models.ViewModels;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
@@ -28,7 +30,9 @@ namespace OmEnergo.Controllers
 
         public IActionResult Contacts() => View();
 
-		[HttpPost]
+        public IActionResult Error() => View();
+
+        [HttpPost]
 		public IActionResult Contacts(string name, string text, string email, string phoneNumber = "")
 		{
 			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
@@ -58,6 +62,14 @@ namespace OmEnergo.Controllers
             }
 		}
 
-        public IActionResult Error() => View();
+        public IActionResult Search(string searchString) => View(new SearchViewModel(searchString,
+            Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
+            Repository.GetSearchedProductModels(searchString)));
+
+        public IActionResult ViewPdf(string path)
+        {
+            var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            return new FileStreamResult(fileStream, "application/pdf");
+        }
     }
 }

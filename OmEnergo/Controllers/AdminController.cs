@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OmEnergo.Infrastucture;
 using OmEnergo.Models;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace OmEnergo.Controllers
     {
         private Repository Repository { get; set; }
         private IHostingEnvironment HostingEnvironment { get; set; }
+        private FileManager _FileManager { get; set; }
 
         public AdminController(Repository repository, IHostingEnvironment hostingEnvironment)
         {
             Repository = repository;
             HostingEnvironment = hostingEnvironment;
+            _FileManager = new FileManager(repository, hostingEnvironment);
         }
 
         #region Main page
@@ -192,81 +195,40 @@ namespace OmEnergo.Controllers
 
         #endregion
 
-        #region Uploading photo
+        #region FileManager
 
-        public IActionResult FileManager(string name)
+        public IActionResult FileManager(string englishName)
         {
-            var commonObject = Repository.GetByEnglishName(name);
-            ViewBag.CommonObjectName = commonObject.Name;
-            List<string> filesPaths = GetFilesPaths(commonObject);
+            var commonObject = Repository.GetObjectByEnglishName(englishName);
+            ViewBag.CommonObject = commonObject;
+            List<string> filesPaths = _FileManager.GetFilesPaths(commonObject);
             return View(filesPaths);
         }
 
-        private List<string> GetFilesPaths(CommonObject commonObject)
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(string englishName, IFormFile uploadedFile)
         {
-            string directoryPath = HostingEnvironment.WebRootPath + commonObject.GetDirectoryPath();
-            string[] mainImage = Directory.GetFiles(directoryPath, $"{commonObject.Id}.*");
-            string[] otherFiles = Directory.GetFiles(directoryPath, $"{commonObject.Id}_*");
-            return mainImage.Union(otherFiles).ToList();
+            bool isFileUploaded = await _FileManager.UploadFileAsync(englishName, uploadedFile);
+            if (!isFileUploaded)
+            {
+                TempData["message"] = $"Файл не загружен: файл с таким именем уже существует";
+            }
+
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadSectionPhoto(int id, IFormFile uploadedPhoto)
+        public IActionResult DeleteFile(string path, string englishName)
         {
-            var section = Repository.GetSection(id);
-            if (uploadedPhoto != null)
-            {
-                string sectionImageFullLink = section.GetMainImageFullLink();
-                string path = HostingEnvironment.WebRootPath + sectionImageFullLink;
-                TempData["message"] = $"Фото {sectionImageFullLink} загружено";
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await uploadedPhoto.CopyToAsync(fileStream);
-                }
-            }
-
-            return section.IsMainSection() ? RedirectToAction(nameof(Sections))
-                : RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
+            _FileManager.DeleteFile(path, englishName);
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadProductPhoto(int id, IFormFile uploadedPhoto)
+        public IActionResult MakeImageMain(string path, string englishName)
         {
-            var product = Repository.GetProduct(id);
-            if (uploadedPhoto != null)
-            {
-                string productImageFullLink = product.GetMainImageFullLink();
-                string path = HostingEnvironment.WebRootPath + productImageFullLink;
-                TempData["message"] = $"Фото {productImageFullLink} загружено";
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await uploadedPhoto.CopyToAsync(fileStream);
-                }
-            }
-
-            return RedirectToAction(nameof(Section), new { id = product.Section.Id });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadProductModelPhoto(int id, IFormFile uploadedPhoto)
-        {
-            var productModel = Repository.GetProductModel(id);
-            if (uploadedPhoto != null)
-            {
-                string productModelImageFullLink = productModel.GetMainImageFullLink();
-                string path = HostingEnvironment.WebRootPath + productModelImageFullLink;
-                TempData["message"] = $"Фото {productModelImageFullLink} загружено";
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await uploadedPhoto.CopyToAsync(fileStream);
-                }
-            }
-
-            return productModel.Section == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
-                : RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
+            _FileManager.MakeImageMain(path, englishName);
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         #endregion

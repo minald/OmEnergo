@@ -19,8 +19,7 @@
             <td>@productModel.Price</td>
             <td>
                 <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
-                @Html.Partial("_UploadPhotoButton", productModel)
-                <a asp-action="FileManager" asp-route-name="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
+                <a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
                 @Html.Partial("_DeleteButtonWithPopup", productModel)
             </td>
         </tr>

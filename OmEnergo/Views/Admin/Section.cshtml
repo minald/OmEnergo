@@ -28,7 +28,7 @@
                 <td class="table-secondary"></td>
                 <td>
                     <a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
-                    @Html.Partial("_UploadPhotoButton", subsection)
+                    <a asp-action="FileManager" asp-route-englishName="@subsection.EnglishName" class="btn btn-info">Файл менеджер</a>
                     @if (!subsection.GetOrderedNestedObjects().Any())
                     {
                         @Html.Partial("_DeleteButtonWithPopup", subsection)
@@ -49,7 +49,7 @@
                 <td class="table-secondary"></td>
                 <td>
                     <a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">Изменить</a>
-                    @Html.Partial("_UploadPhotoButton", product)
+                    <a asp-action="FileManager" asp-route-englishName="@product.EnglishName" class="btn btn-info">Файл менеджер</a>
                     @if (!product.Models.Any())
                     {
                         @Html.Partial("_DeleteButtonWithPopup", product)
@@ -68,7 +68,7 @@
                 <td>@productModel.Price</td>
                 <td>
                     <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
-                    @Html.Partial("_UploadPhotoButton", productModel)
+                    <a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
                     @Html.Partial("_DeleteButtonWithPopup", productModel)
                 </td>
             </tr>

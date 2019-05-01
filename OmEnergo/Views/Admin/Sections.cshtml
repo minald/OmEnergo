@@ -21,7 +21,7 @@
             <td class="admin-description">@mainSection.Description</td>
             <td>
                 <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
-                @Html.Partial("_UploadPhotoButton", mainSection)
+                <a asp-action="FileManager" asp-route-englishName="@mainSection.EnglishName" class="btn btn-info">Файл менеджер</a>
                 @if (!mainSection.GetOrderedNestedObjects().Any())
                 {
                     @Html.Partial("_DeleteButtonWithPopup", mainSection)

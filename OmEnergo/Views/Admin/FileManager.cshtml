@@ -1,37 +1,52 @@
 ﻿@model List<string>
 
-<h2 class="text-center">@ViewBag.CommonObjectName</h2>
-<h3 class="text-center">Фото</h3>
-<table class="table table-bordered table-striped table-hover">
-    <tr>
-        <th>Путь</th>
-        <th>Фото</th>
-        <th>Действия</th>
-    </tr>
-    @foreach (string image in Model.Where(x => !x.EndsWith("pdf")))
+<h2 class="text-center">@ViewBag.CommonObject.Name</h2>
+<div class="row justify-content-center">
+    @foreach (string imagePath in Model.Where(x => !x.ToLower().EndsWith("pdf")))
     {
-        <tr>
-            <td>@image</td>
-            <td><img class="card-img admin-photo" src="@image"></td>
-            <td>
-                <a asp-action="DeleteFile" asp-route-path="@image" class="btn btn-info">Изменить</a>
-            </td>
-        </tr>
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+            <div class="card shadow">
+                <div class="card-body">
+                    <img class="card-img admin-photo"
+                         src="@imagePath.Substring(imagePath.IndexOf(@"\images"))" asp-append-version="true">
+                </div>
+                <div class="card-footer justify-content-center d-flex">
+                    @if (!imagePath.Contains($@"\{ViewBag.CommonObject.Id}."))
+                    {
+                        <form asp-action="MakeImageMain" asp-route-path="@imagePath"
+                              asp-route-englishName="@ViewBag.CommonObject.EnglishName" method="post">
+                            <button class="btn btn-info" type="submit">Сделать главным</button>
+                        </form>
+                    }
+                    <form asp-action="DeleteFile" asp-route-path="@imagePath"
+                          asp-route-englishName="@ViewBag.CommonObject.EnglishName" method="post">
+                        <button class="btn btn-sm btn-danger my-1 ml-2" type="submit">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     }
-</table>
-<h3 class="text-center">Pdf</h3>
-<table class="table table-bordered table-striped table-hover">
-    <tr>
-        <th>Путь</th>
-        <th>Действия</th>
-    </tr>
-    @foreach (string pdf in Model.Where(x => x.EndsWith("pdf")))
+</div>
+<div class="row justify-content-center">
+    @foreach (string pdfPath in Model.Where(x => x.ToLower().EndsWith("pdf")))
     {
-        <tr>
-            <td>@pdf</td>
-            <td>
-                <a asp-action="DeleteFile" asp-route-path="@pdf" class="btn btn-info">Изменить</a>
-            </td>
-        </tr>
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+            <div class="card shadow">
+                <div class="card-header">
+                    <a asp-controller="Home" asp-action="ViewPdf" asp-route-path="@pdfPath">
+                        @pdfPath.Substring(pdfPath.LastIndexOf(@"\") + 1)
+                    </a>
+                </div>
+                <div class="card-footer justify-content-center d-flex">
+                    <form asp-action="DeleteFile" asp-route-path="@pdfPath"
+                          asp-route-englishName="@ViewBag.CommonObject.EnglishName" method="post">
+                        <button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     }
-</table>
+</div>
+<div class="text-center">
+    @Html.Partial("_UploadFileButton", ViewBag.CommonObject.EnglishName as string)
+</div>

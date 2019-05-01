@@ -1,8 +1,0 @@
-﻿@model CommonObject
-
-<form asp-action="Upload@(Model.GetType().Name)Photo" asp-route-id="@Model.Id"
-      method="post" enctype="multipart/form-data" class="d-inline-block">
-    <label for="uploadPhoto@(Model.GetType().Name)@(Model.Id)" class="btn btn-info m-0">Загрузить фото</label>
-    <input id="uploadPhoto@(Model.GetType().Name)@(Model.Id)" class="d-none"
-           type="file" name="uploadedPhoto" onchange="form.submit()">
-</form>

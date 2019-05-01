@@ -43,7 +43,7 @@ namespace OmEnergo.Models
 
         #endregion
 
-        public CommonObject GetByEnglishName(string englishName)
+        public CommonObject GetObjectByEnglishName(string englishName)
         {
             var section = GetSection(englishName);
             if (section != null)

@@ -8,9 +8,12 @@ nav {
     justify-content: space-between !important;
 }
 
-.body-content .row > * {
-    padding-bottom: 10px;
+a:hover {
     text-decoration: none;
+}
+
+.row > * {
+    padding-bottom: 10px;
 }
 
 .row > * > .card {

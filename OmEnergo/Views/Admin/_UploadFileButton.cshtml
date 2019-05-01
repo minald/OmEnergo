@@ -1,0 +1,7 @@
+﻿@model string
+
+<form asp-action="UploadFile" asp-route-englishName="@Model" method="post" 
+      enctype="multipart/form-data" class="d-inline-block">
+    <label for="uploadFile" class="btn btn-info m-0">Загрузить файл</label>
+    <input id="uploadFile" class="d-none" type="file" name="uploadedFile" onchange="form.submit()">
+</form>
