@@ -1,7 +1,12 @@
 ﻿body {
     padding: 6px 0px;
-    background-color: #F7FFDD;
     line-height: 22px;
+    background-image: url(/images/Background.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #DDEEFF;
 }
 
 nav {
