@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Section>
+
+<ul>
+   @foreach (var mainSection in Model)
+    {
+    <li>
+        <a href="#collapse@(mainSection.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+        @Html.Partial("_LinkToCommonObject.cshtml", mainSection)
+        <ul class="collapse" id="collapse@(mainSection.EnglishName)">
+           @foreach (var commonObject in mainSection.GetOrderedNestedObjects())
+            {
+            <li>
+               @if (commonObject is Section subsection)
+                {
+                    <a href="#collapse@(subsection.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+                    @Html.Partial("_LinkToCommonObject.cshtml", subsection)
+                    <ul class="collapse" id="collapse@(subsection.EnglishName)">
+                       @foreach (var subsectionCommonObject in subsection.GetOrderedNestedObjects())
+                        {
+                        <li>
+                           @if (subsectionCommonObject is Product subsectionProduct)
+                            {
+                                <a href="#collapse@(subsectionProduct.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+                                @Html.Partial("_LinkToCommonObject.cshtml", subsectionProduct)
+                                <ul class="collapse" id="collapse@(subsectionProduct.EnglishName)">
+                                   @foreach (var productModel in subsectionProduct.Models)
+                                    {
+                                        <li>
+                                            @Html.Partial("_LinkToCommonObject.cshtml", productModel)
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else if (subsectionCommonObject is ProductModel subsectionProductModel)
+                            {
+                                @Html.Partial("_LinkToCommonObject.cshtml", subsectionProductModel)
+                            }
+                        </li>
+                        }
+                    </ul>
+                }
+                else if (commonObject is Product product)
+                {
+                    <a href="#collapse@(product.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+                    @Html.Partial("_LinkToCommonObject.cshtml", product)
+                    <ul class="collapse" id="collapse@(product.EnglishName)">
+                       @foreach (var productModel in product.Models)
+                        {
+                            <li>
+                                @Html.Partial("_LinkToCommonObject.cshtml", productModel)
+                            </li>
+                        }
+                    </ul>
+                }
+                else if (commonObject is ProductModel productModel)
+                {
+                    @Html.Partial("_LinkToCommonObject.cshtml", productModel)
+                }
+            </li>
+            }
+        </ul>
+    </li>
+    }
+</ul>
+<script>
+    $('.fa-angle-right').click(function () {
+        $(this).toggleClass('fa-angle-right');
+        $(this).toggleClass('fa-angle-down');
+    });
+</script>

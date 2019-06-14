@@ -114,3 +114,8 @@ fieldset.properties-fieldset > legend {
     max-height: 70px;
     max-width: 70px;
 }
+
+.navigation-tree-sidebar ul {
+    list-style: none;
+    padding-inline-start: 10px;
+}

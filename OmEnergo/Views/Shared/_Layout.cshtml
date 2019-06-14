@@ -4,17 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <link rel="stylesheet" href="~/css/shieldui-all.min.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/shieldui-all.min.js"></script>
 </head>
 <body>
     <mini-profiler />
@@ -58,8 +56,8 @@
         </form>
     </nav>
     <div class="body-content row px-2 pt-3 m-0">
-        <div class="col-3 p-0">
-            @await Component.InvokeAsync("TreeViewMenu")
+        <div class="col-3 p-0 navigation-tree-sidebar">
+            @await Component.InvokeAsync("NavigationTreeSidebar")
         </div>
         <div class="col-9">
             @if (TempData["message"] != null)
