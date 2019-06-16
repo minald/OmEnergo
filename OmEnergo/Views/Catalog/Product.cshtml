@@ -1,12 +1,10 @@
 ﻿@model Product
 
 <h2 class="text-center">@Model.Name</h2>
-<div class="row">
+<div class="row common-object-description mb-2">
     <div class="col-6">
-        <div class="text-center">
-            <img class="card-img-top border border-secondary" style="max-height: 250px; max-width: 250px;" src="@Model.GetMainImageFullLink()">
-        </div>
-        <p style="white-space: pre-wrap;">@Model.Description</p>
+        <img class="float-left m-2 card-img border border-secondary" src="@Model.GetMainImageFullLink()">
+        <p>@Model.Description</p>
     </div>
     <div class="col-6">
         <table class="table table-light table-bordered table-hover">

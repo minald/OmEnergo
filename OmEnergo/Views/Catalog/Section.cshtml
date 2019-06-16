@@ -1,13 +1,9 @@
 ﻿@model Section
 
 <h2 class="text-center">@Model.Name</h2>
-<div class="row">
-    <div class="col-3">
-        <img class="card-img border border-secondary" src="@Model.GetMainImageFullLink()">
-    </div>
-    <div class="col-9">
-        <p style="white-space: pre-wrap;">@Model.Description</p>
-    </div>
+<div class="common-object-description mb-2">
+    <img class="float-left m-2 card-img border border-secondary" src="@Model.GetMainImageFullLink()">
+    <p>@Model.Description</p>
 </div>
 <div class="row justify-content-center">
     @foreach (CommonObject obj in Model.GetOrderedNestedObjects())

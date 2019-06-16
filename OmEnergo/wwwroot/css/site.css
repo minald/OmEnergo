@@ -22,38 +22,42 @@ a:hover {
     text-decoration: none;
 }
 
-.row > * {
+.common-object-card {
     padding-bottom: 10px;
 }
 
-.row > * > .card {
+.common-object-card > .card {
     color: black;
 }
 
-.row > * > .card > .card-header {
+.common-object-card > .card > .card-header {
+    height: 40px;
+    background: linear-gradient(rgba(0, 123, 255, 0.2), rgba(255, 255, 255));
+    border-style: none;
     padding: 4px;
 }
 
-.row > * > .card > .card-body {
+.common-object-card > .card > .card-body {
     height: 200px;
     padding: 10px;
     display: flex;
     justify-content: center;
 }
 
-.row > * > .card > .card-body > img {
+.common-object-card > .card > .card-body > img {
     max-height: 100%;
-    width: auto;
     max-width: 100%;
+    height: auto;
+    width: auto;
 }
 
-.row > * > .card > ul > li,
-.row > * > .card > .card-footer {
+.common-object-card > .card > ul > li,
+.common-object-card > .card > .card-footer {
     padding: 2px 6px;
 }
 
-.row > a:hover > .card *:not(.card-body) {
-    background-color: #E4E4E4;
+.common-object-card:hover > .card > .card-header {
+    background: linear-gradient(rgba(0, 123, 255, 0.5), rgba(255, 255, 255));
 }
 
 td {
@@ -122,5 +126,27 @@ fieldset.properties-fieldset > legend {
 
 .navigation-tree-sidebar ul {
     list-style: none;
-    padding-inline-start: 10px;
+    padding-inline-start: 16px;
+}
+
+.description-img {
+    max-height: 250px;
+    max-width: 250px;
+    height: auto;
+    width: auto;
+}
+
+.common-object-description {
+    overflow: auto;
+}
+
+.common-object-description img {
+    max-height: 250px;
+    max-width: 250px;
+    height: auto;
+    width: auto;
+}
+
+.common-object-description p {
+    white-space: pre-wrap;
 }

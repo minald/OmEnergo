@@ -1,9 +1,9 @@
 ﻿@model CommonObject
 
-<a asp-action="Products" asp-route-name="@Model.EnglishName" class="col-sm-6 col-lg-4 col-xl-3">
+<a asp-action="Products" asp-route-name="@Model.EnglishName" class="col-sm-6 col-lg-4 col-xl-3 common-object-card">
     <div class="card shadow">
         <div class="card-header">
-            <h5 class="text-center m-0">@Model.Name</h5>
+            <h6 class="text-center m-0">@Model.Name</h6>
         </div>
         <div class="card-body">
             <img class="card-img" src="@Model.GetMainImageFullLink()">

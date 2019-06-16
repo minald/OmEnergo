@@ -3,7 +3,6 @@
     ViewData["Title"] = "Контакты";
 }
 @section Scripts {
-    <script asp-src-include="lib/jquery/**/jquery.min.js"></script>
     <script asp-src-include="lib/jquery-validation/**/jquery.validate.min.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/**/*.min.js"></script>
 }
@@ -32,9 +31,9 @@
     </div>
 </div>
 <hr />
-<h2 id="feedback" class="text-center">Ваше сообщение:</h2>
+<h2 id="feedback" class="text-center">Обратная связь</h2>
 <form asp-action="Contacts" method="post" class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-5">
         <div class="form-group">
             <div>
                 <label asp-for="Name"></label>
@@ -57,7 +56,7 @@
             <input asp-for="PhoneNumber" class="form-control" />
         </div>
     </div>
-    <div class="form-group col-lg-6 col-12">
+    <div class="form-group col-lg-7 col-12">
         <div>
             <label asp-for="Text"></label>
             <span asp-validation-for="Text" class="text-danger"></span>
