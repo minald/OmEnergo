@@ -36,16 +36,14 @@
     </header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-1">
         <div id="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a asp-controller="Home" asp-action="Index" class="navbar-brand">Главная</a>
+            <a asp-controller="Catalog" asp-action="Index" class="navbar-brand">Каталог</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <div class="navbar-nav">
-                    <a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">Каталог</a>
                     <a asp-controller="Home" asp-action="About" class="nav-item nav-link">О компании</a>
-                    <a asp-controller="Home" asp-action="Payment" class="nav-item nav-link">Оплата</a>
-                    <a asp-controller="Home" asp-action="Delivery" class="nav-item nav-link">Доставка</a>
+                    <a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link">Оплата и доставка</a>
                     <a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link">Контакты</a>
                 </div>
             </div>

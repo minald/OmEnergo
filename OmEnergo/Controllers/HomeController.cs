@@ -20,13 +20,9 @@ namespace OmEnergo.Controllers
             Configuration = configuration;
         }
 
-        public IActionResult Index() => View();
-
         public IActionResult About() => View();
 
-        public IActionResult Payment() => View();
-
-        public IActionResult Delivery() => View();
+        public IActionResult PaymentAndDelivery() => View();
 
         public IActionResult Contacts() => View();
 

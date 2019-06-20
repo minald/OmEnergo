@@ -45,6 +45,7 @@ namespace OmEnergo
             {
                 routes.MapRoute("search", "poisk/{searchString?}", new { controller = "Home", action = "Search"});
                 routes.MapRoute("catalog", "catalog/{name}", new { controller = "Catalog", action = "Products" });
+                routes.MapRoute("home", "Home/{action=About}", new { controller = "Home" });
                 routes.MapRoute("default", "{controller=Catalog}/{action=Index}");
             });
         }
