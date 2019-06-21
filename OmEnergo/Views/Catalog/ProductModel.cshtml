@@ -3,7 +3,7 @@
 <h2 class="text-center">@Model.Name</h2>
 <div class="row common-object-description mb-2">
     <div class="col-6">
-        <img class="float-left m-2 card-img border border-secondary" src="@Model.GetMainImageFullLink()">
+        @Html.Partial("_ImageCarousel", Model)
         <p>@Model.Description</p>
     </div>
     <div class="col-6">

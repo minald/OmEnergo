@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 
-namespace OmEnergo.Models
+namespace OmEnergo.Infrastructure
 {
     public class AdminAuthorizationAttribute : Attribute, IAuthorizationFilter
 	{ 

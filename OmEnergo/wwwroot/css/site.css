@@ -129,18 +129,12 @@ fieldset.properties-fieldset > legend {
     padding-inline-start: 16px;
 }
 
-.description-img {
-    max-height: 250px;
-    max-width: 250px;
-    height: auto;
-    width: auto;
-}
-
 .common-object-description {
     overflow: auto;
 }
 
-.common-object-description img {
+.common-object-description img.card-img,
+.description-img {
     max-height: 250px;
     max-width: 250px;
     height: auto;

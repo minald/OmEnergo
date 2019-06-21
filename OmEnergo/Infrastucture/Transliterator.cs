@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace OmEnergo.Infrastucture
+namespace OmEnergo.Infrastructure
 {
     public static class Transliterator
     {

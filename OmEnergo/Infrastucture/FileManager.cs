@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OmEnergo.Infrastucture
+namespace OmEnergo.Infrastructure
 {
     public class FileManager
     {

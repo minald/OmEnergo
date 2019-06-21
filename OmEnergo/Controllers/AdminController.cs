@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OmEnergo.Infrastucture;
+using OmEnergo.Infrastructure;
 using OmEnergo.Models;
 using System;
 using System.Collections.Generic;

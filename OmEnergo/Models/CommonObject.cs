@@ -1,4 +1,4 @@
-﻿using OmEnergo.Infrastucture;
+﻿using OmEnergo.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;

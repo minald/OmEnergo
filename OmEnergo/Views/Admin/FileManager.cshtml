@@ -1,13 +1,13 @@
 ﻿@model List<string>
 
 <h2 class="text-center">@ViewBag.CommonObject.Name</h2>
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-3">
     @foreach (string imagePath in Model.Where(x => !x.ToLower().EndsWith("pdf")))
     {
         <div class="col-sm-6 col-lg-4 col-xl-3">
             <div class="card shadow">
                 <div class="card-body">
-                    <img class="card-img admin-photo"
+                    <img class="card-img description-img"
                          src="@imagePath.Substring(imagePath.IndexOf(@"\images"))" asp-append-version="true">
                 </div>
                 <div class="card-footer justify-content-center d-flex">
