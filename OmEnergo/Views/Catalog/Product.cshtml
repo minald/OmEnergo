@@ -7,17 +7,7 @@
         <p>@Model.Description</p>
     </div>
     <div class="col-6">
-        <table class="table table-light table-bordered table-hover">
-            <tbody>
-                @foreach (var property in Model.GetProperties().Where(p => !String.IsNullOrWhiteSpace(p.Value)))
-                {
-                    <tr>
-                        <td>@property.Key</td>
-                        <td>@property.Value</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @Html.Partial("_PropertiesTable", Model.GetPropertiesWithValues())
     </div>
 </div>
 <div class="row justify-content-center">

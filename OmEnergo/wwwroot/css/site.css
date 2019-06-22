@@ -126,7 +126,7 @@ fieldset.properties-fieldset > legend {
 
 .navigation-tree-sidebar ul {
     list-style: none;
-    padding-inline-start: 16px;
+    padding-left: 16px;
 }
 
 .common-object-description {
@@ -143,4 +143,8 @@ fieldset.properties-fieldset > legend {
 
 .common-object-description p {
     white-space: pre-wrap;
+}
+
+.h-400px {
+    height: 400px;
 }

@@ -14,22 +14,23 @@
                 </button>
             </div>
             <div class="modal-body bg-secondary">
-                <div id="carouselExampleControls" class="carousel slide" style="height: 400px;" data-ride="carousel">
-                    <div class="carousel-inner h-100">
+                <div id="carouselExampleControls" class="carousel slide" 
+                     data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
                         @foreach (var fullPath in FileManager.GetFilesPaths(Model))
                         {
                             string path = fullPath.Substring(fullPath.IndexOf(@"\images"));
-                            <div class="carousel-item h-100 @(path == Model.GetMainImageFullLink() ? "active" : "")">
-                                <img class="d-block h-100 img-fluid"
+                            <div class="carousel-item @(path == Model.GetMainImageFullLink() ? "active" : "")">
+                                <img class="d-block h-400px m-auto"
                                      src="@path.Substring(path.IndexOf(@"\images"))">
                             </div>
                         }
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
                     </a>
                 </div>
             </div>

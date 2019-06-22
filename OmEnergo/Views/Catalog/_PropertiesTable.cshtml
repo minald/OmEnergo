@@ -1,0 +1,13 @@
+﻿@model IDictionary<string, string>
+
+<table class="table table-sm table-light table-bordered table-hover">
+    <tbody>
+        @foreach (var property in Model)
+        {
+            <tr>
+                <td>@property.Key</td>
+                <td>@property.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
