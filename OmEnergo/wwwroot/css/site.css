@@ -20,6 +20,7 @@ nav {
 
 a:hover {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .common-object-card {
@@ -31,6 +32,7 @@ a:hover {
 }
 
 .common-object-card > .card > .card-header {
+    z-index: 1;
     height: 40px;
     background: linear-gradient(rgba(0, 123, 255, 0.2), rgba(255, 255, 255));
     border-style: none;
@@ -58,10 +60,6 @@ a:hover {
 
 .common-object-card:hover > .card > .card-header {
     background: linear-gradient(rgba(0, 123, 255, 0.5), rgba(255, 255, 255));
-}
-
-td {
-    padding: 6px 6px !important;
 }
 
 iframe {
@@ -147,4 +145,14 @@ fieldset.properties-fieldset > legend {
 
 .h-400px {
     height: 400px;
+}
+
+.mw-50 {
+    max-width: 50%;
+}
+
+.image-carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

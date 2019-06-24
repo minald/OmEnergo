@@ -1,39 +1,50 @@
 ﻿@model CommonObject
 @inject FileManager FileManager
+@{ List<string> paths = FileManager.GetFilesPaths(Model); }
 
-<a data-toggle="modal" data-target="#carousel@(Model.GetType().Name)@(Model.Id)">
-    <img class="float-left m-2 card-img border border-secondary" src="@Model.GetMainImageFullLink()">
-</a>
-<div id="carousel@(Model.GetType().Name)@(Model.Id)" class="modal fade">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">@Model.Name</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body bg-secondary">
-                <div id="carouselExampleControls" class="carousel slide" 
-                     data-ride="carousel" data-interval="false">
-                    <div class="carousel-inner">
-                        @foreach (var fullPath in FileManager.GetFilesPaths(Model))
+@if (paths.Count == 0)
+{
+    <img class="card-img border border-secondary mr-3 mb-3" src="@Model.GetMainImageFullLink()">
+}
+else
+{
+    <a data-toggle="modal" data-target="#carousel@(Model.EnglishName)" class="float-left">
+        <img class="card-img border border-secondary mr-3 mb-3" src="@Model.GetMainImageFullLink()">
+    </a>
+    <div id="carousel@(Model.EnglishName)" class="modal fade">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Model.Name</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-secondary">
+                    <div id="carouselControls@(Model.EnglishName)" class="carousel slide"
+                         data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner">
+                            @foreach (var fullPath in paths)
+                            {
+                                string path = fullPath.Substring(fullPath.IndexOf(@"\images"));
+                                <div class="carousel-item h-400px @(path == Model.GetMainImageFullLink() ? "active" : "")">
+                                    <img class="d-block image-carousel-image"
+                                         src="@path.Substring(path.IndexOf(@"\images"))">
+                                </div>
+                            }
+                        </div>
+                        @if (paths.Count > 1)
                         {
-                            string path = fullPath.Substring(fullPath.IndexOf(@"\images"));
-                            <div class="carousel-item @(path == Model.GetMainImageFullLink() ? "active" : "")">
-                                <img class="d-block h-400px m-auto"
-                                     src="@path.Substring(path.IndexOf(@"\images"))">
-                            </div>
+                            <a class="carousel-control-prev" href="#carouselControls@(Model.EnglishName)" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselControls@(Model.EnglishName)" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
+                            </a>
                         }
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
-                    </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}

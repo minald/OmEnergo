@@ -1,14 +1,10 @@
 ﻿@model Product
 
 <h2 class="text-center">@Model.Name</h2>
-<div class="row common-object-description mb-2">
-    <div class="col-6">
-        @Html.Partial("_ImageCarousel", Model)
-        <p>@Model.Description</p>
-    </div>
-    <div class="col-6">
-        @Html.Partial("_PropertiesTable", Model.GetPropertiesWithValues())
-    </div>
+<div class="common-object-description mb-2">
+    @Html.Partial("_ImageCarousel", Model)
+    @Html.Partial("_PropertiesTable", Model.GetPropertiesWithValues())
+    <p class="text-justify">@Model.Description</p>
 </div>
 <div class="row justify-content-center">
     @foreach (var productModel in Model.Models.OrderBy(x => x.SequenceNumber))

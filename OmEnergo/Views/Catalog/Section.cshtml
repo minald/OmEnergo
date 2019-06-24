@@ -3,7 +3,7 @@
 <h2 class="text-center">@Model.Name</h2>
 <div class="common-object-description mb-2">
     @Html.Partial("_ImageCarousel", Model)
-    <p>@Model.Description</p>
+    <p class="text-justify">@Model.Description</p>
 </div>
 <div class="row justify-content-center">
     @foreach (CommonObject obj in Model.GetOrderedNestedObjects())
