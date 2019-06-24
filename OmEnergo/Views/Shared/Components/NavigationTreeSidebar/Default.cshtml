@@ -4,15 +4,17 @@
    @foreach (var mainSection in Model)
     {
     <li>
-        <a href="#collapse@(mainSection.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+        <a href="#collapse@(mainSection.EnglishName)" data-toggle="collapse"
+           om-children-amount="@mainSection.GetOrderedNestedObjects().Count()"></a>
         @Html.Partial("_LinkToCommonObject.cshtml", mainSection)
         <ul class="collapse" id="collapse@(mainSection.EnglishName)">
            @foreach (var commonObject in mainSection.GetOrderedNestedObjects())
             {
             <li>
                @if (commonObject is Section subsection)
-                {
-                    <a href="#collapse@(subsection.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+               {
+                    <a href="#collapse@(subsection.EnglishName)" data-toggle="collapse" 
+                       om-children-amount="@subsection.GetOrderedNestedObjects().Count()"></a>
                     @Html.Partial("_LinkToCommonObject.cshtml", subsection)
                     <ul class="collapse" id="collapse@(subsection.EnglishName)">
                        @foreach (var subsectionCommonObject in subsection.GetOrderedNestedObjects())
@@ -20,7 +22,8 @@
                         <li>
                            @if (subsectionCommonObject is Product subsectionProduct)
                             {
-                                <a href="#collapse@(subsectionProduct.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+                                <a href="#collapse@(subsectionProduct.EnglishName)" data-toggle="collapse" 
+                                   om-children-amount="@subsectionProduct.Models.Count"></a>
                                 @Html.Partial("_LinkToCommonObject.cshtml", subsectionProduct)
                                 <ul class="collapse" id="collapse@(subsectionProduct.EnglishName)">
                                    @foreach (var productModel in subsectionProduct.Models)
@@ -41,7 +44,8 @@
                 }
                 else if (commonObject is Product product)
                 {
-                    <a href="#collapse@(product.EnglishName)" data-toggle="collapse" class="fas fa-angle-right"></a>
+                    <a href="#collapse@(product.EnglishName)" data-toggle="collapse" 
+                       om-children-amount="@product.Models.Count"></a>
                     @Html.Partial("_LinkToCommonObject.cshtml", product)
                     <ul class="collapse" id="collapse@(product.EnglishName)">
                        @foreach (var productModel in product.Models)
