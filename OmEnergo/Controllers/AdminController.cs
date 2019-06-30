@@ -200,18 +200,19 @@ namespace OmEnergo.Controllers
         public IActionResult FileManager(string englishName)
         {
             var commonObject = Repository.GetObjectByEnglishName(englishName);
-            ViewBag.CommonObject = commonObject;
-            List<string> filesPaths = _FileManager.GetFilesPaths(commonObject);
-            return View(filesPaths);
+            return View(commonObject);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(string englishName, IFormFile uploadedFile)
+        public async Task<IActionResult> UploadFileAsync(string englishName, IFormFile uploadedFile)
         {
-            bool isFileUploaded = await _FileManager.UploadFileAsync(englishName, uploadedFile);
-            if (!isFileUploaded)
+            try
             {
-                TempData["message"] = $"Файл не загружен: файл с таким именем уже существует";
+                await _FileManager.UploadFileAsync(englishName, uploadedFile);
+            }
+            catch (Exception ex)
+            {
+                TempData["message"] = ex.Message;
             }
 
             return Redirect(Request.Headers["Referer"].ToString());

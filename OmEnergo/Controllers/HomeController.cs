@@ -62,10 +62,5 @@ namespace OmEnergo.Controllers
             Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
             Repository.GetSearchedProductModels(searchString)));
 
-        public IActionResult ViewPdf(string path)
-        {
-            var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            return new FileStreamResult(fileStream, "application/pdf");
-        }
     }
 }

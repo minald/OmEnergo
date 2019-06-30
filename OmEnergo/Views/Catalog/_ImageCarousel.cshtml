@@ -1,6 +1,6 @@
 ﻿@model CommonObject
 @inject FileManager FileManager
-@{ List<string> paths = FileManager.GetFilesPaths(Model); }
+@{ List<string> paths = FileManager.GetFullImagePaths(Model); }
 
 @if (paths.Count == 0)
 {
@@ -26,10 +26,9 @@ else
                         <div class="carousel-inner">
                             @foreach (var fullPath in paths)
                             {
-                                string path = fullPath.Substring(fullPath.IndexOf(@"\images"));
+                                string path = FileManager.GetRelativePath(fullPath);
                                 <div class="carousel-item h-400px @(path == Model.GetMainImageFullLink() ? "active" : "")">
-                                    <img class="d-block image-carousel-image"
-                                         src="@path.Substring(path.IndexOf(@"\images"))">
+                                    <img src="@path" class="d-block image-carousel-image">
                                 </div>
                             }
                         </div>
