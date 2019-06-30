@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using OmEnergo.Models;
 using OmEnergo.Models.ViewModels;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
@@ -25,8 +24,6 @@ namespace OmEnergo.Controllers
         public IActionResult PaymentAndDelivery() => View();
 
         public IActionResult Contacts() => View();
-
-        public IActionResult Error() => View();
 
         [HttpPost]
 		public IActionResult Contacts(string name, string text, string email, string phoneNumber = "")
@@ -62,5 +59,6 @@ namespace OmEnergo.Controllers
             Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
             Repository.GetSearchedProductModels(searchString)));
 
+        public IActionResult Error() => View();
     }
 }

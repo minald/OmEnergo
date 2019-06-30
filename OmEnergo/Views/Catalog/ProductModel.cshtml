@@ -1,8 +1,0 @@
-﻿@model ProductModel
-
-<h2 class="text-center">@Model.Name</h2>
-<div class="common-object-description mb-2">
-    @Html.Partial("_ImageCarousel", Model)
-    @Html.Partial("_PropertiesTable", Model.GetPropertiesWithValues())
-    <p class="text-justify">@Model.Description</p>
-</div>

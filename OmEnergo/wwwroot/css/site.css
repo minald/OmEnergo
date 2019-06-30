@@ -51,6 +51,7 @@ a:hover {
     max-width: 100%;
     height: auto;
     width: auto;
+    object-fit: contain;
 }
 
 .common-object-card > .card > ul > li,
@@ -131,12 +132,12 @@ fieldset.properties-fieldset > legend {
     overflow: auto;
 }
 
-.common-object-description img.card-img,
-.description-img {
+.common-object-description img.card-img {
     max-height: 250px;
     max-width: 250px;
-    height: auto;
-    width: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .common-object-description p {
@@ -151,7 +152,7 @@ fieldset.properties-fieldset > legend {
     max-width: 50%;
 }
 
-.image-carousel-image {
+.fit-image {
     width: 100%;
     height: 100%;
     object-fit: contain;

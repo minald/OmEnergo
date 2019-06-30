@@ -123,7 +123,12 @@ namespace OmEnergo.Infrastructure
 
         public static string GetRelativePath(string fullPath) => fullPath.Substring(fullPath.IndexOf(@"\images"));
 
-        public static string GetFileName(string fullPath) => Path.GetFileName(fullPath);
+        public static string GetFileName(string fullPath)
+        {
+            string fileNameWithPrefix = Path.GetFileName(fullPath);
+            int indexOfUnderscore = fileNameWithPrefix.IndexOf('_');
+            return fileNameWithPrefix.Substring(indexOfUnderscore + 1);
+        }
 
         public static List<string> GetFullImagePaths(CommonObject commonObject) => GetFullFilesPaths(commonObject)
             .Where(x => SupportedImageExtensions.Contains(GetExtensionWithoutDot(x))).ToList();

@@ -15,7 +15,7 @@ namespace OmEnergo.Controllers
         public IActionResult Download(string path)
         {
             var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            return File(fileStream, FileManager.GetContentType(path), Path.GetFileName(path));
+            return File(fileStream, FileManager.GetContentType(path), FileManager.GetFileName(path));
         }
     }
 }

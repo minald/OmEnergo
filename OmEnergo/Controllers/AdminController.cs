@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using OmEnergo.Infrastructure;
 using OmEnergo.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +23,12 @@ namespace OmEnergo.Controllers
             Repository = repository;
             HostingEnvironment = hostingEnvironment;
             _FileManager = new FileManager(repository, hostingEnvironment);
+        }
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            ViewData["Title"] = "Административная панель";
+            base.OnActionExecuted(context);
         }
 
         #region Main page

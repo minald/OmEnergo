@@ -1,0 +1,20 @@
+﻿@model CommonObject
+
+<h2 class="text-center">@Model.Name</h2>
+<div class="common-object-description mb-2">
+    @Html.Partial("_ImageCarouselAndDocumentList", Model)
+   @if (Model is ProductObject productObject)
+    {
+        @Html.Partial("_PropertiesTable", productObject.GetPropertiesWithValues())
+    }
+    <p class="text-justify">@Model.Description</p>
+</div>
+
+@if (Model is Section section)
+{
+    @Html.Partial("_PanelWithCards", section.GetOrderedNestedObjects())
+}
+else if (Model is Product product)
+{
+    @Html.Partial("_PanelWithCards", product.Models.OrderBy(x => x.SequenceNumber))
+}

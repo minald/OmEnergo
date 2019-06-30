@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Models;
+using System.Linq;
 
 namespace OmEnergo.Controllers
 {
@@ -9,13 +10,18 @@ namespace OmEnergo.Controllers
 
 		public CatalogController(Repository repository) => Repository = repository;
 
-		public IActionResult Index() => View(Repository.GetMainSections());
-        
+        public IActionResult Index()
+        {
+            var mainSections = Repository.GetMainSections().OrderBy(x => x.SequenceNumber);
+            ViewData["Title"] = "Каталог";
+            return View("_PanelWithCards", mainSections);
+        }
+
         public IActionResult Products(string name)
         {
             var commonObject = Repository.GetObjectByEnglishName(name);
             ViewData["Title"] = commonObject.Name;
-            return View(commonObject.GetType().Name, commonObject);
+            return View(commonObject);
         }
     }
 }

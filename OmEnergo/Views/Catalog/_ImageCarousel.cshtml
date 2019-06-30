@@ -2,14 +2,10 @@
 @inject FileManager FileManager
 @{ List<string> paths = FileManager.GetFullImagePaths(Model); }
 
-@if (paths.Count == 0)
+@if (paths.Count != 0)
 {
-    <img class="card-img border border-secondary mr-3 mb-3" src="@Model.GetMainImageFullLink()">
-}
-else
-{
-    <a data-toggle="modal" data-target="#carousel@(Model.EnglishName)" class="float-left">
-        <img class="card-img border border-secondary mr-3 mb-3" src="@Model.GetMainImageFullLink()">
+    <a data-toggle="modal" data-target="#carousel@(Model.EnglishName)">
+        <img class="card-img border border-secondary bg-white" src="@Model.GetMainImageFullLink()">
     </a>
     <div id="carousel@(Model.EnglishName)" class="modal fade">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -28,7 +24,7 @@ else
                             {
                                 string path = FileManager.GetRelativePath(fullPath);
                                 <div class="carousel-item h-400px @(path == Model.GetMainImageFullLink() ? "active" : "")">
-                                    <img src="@path" class="d-block image-carousel-image">
+                                    <img src="@path" class="d-block fit-image">
                                 </div>
                             }
                         </div>
