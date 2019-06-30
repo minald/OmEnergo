@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace OmEnergo.Infrastucture.TagHelpers
+namespace OmEnergo.Infrastructure.TagHelpers
 {
     [HtmlTargetElement("a", Attributes = "om-children-amount")]
     public class SidebarLinkTagHelper : TagHelper
