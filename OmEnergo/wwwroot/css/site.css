@@ -1,4 +1,5 @@
 ﻿body {
+    min-width: 768px; /*Bootstrap min-width for medium devices*/
     padding: 6px 0px;
     line-height: 22px;
     background-image: url(/images/Background.jpg);
@@ -12,10 +13,6 @@
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
-}
-
-nav {
-    justify-content: space-between !important;
 }
 
 a:hover {

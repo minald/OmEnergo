@@ -139,6 +139,11 @@ namespace OmEnergo.Infrastructure
         private static List<string> GetFullFilesPaths(CommonObject commonObject)
         {
             string directoryPath = HostingEnvironment.WebRootPath + commonObject.GetDirectoryPath();
+            if (!Directory.Exists(directoryPath))
+            {
+                return new List<string>();
+            }
+
             string[] mainImage = Directory.GetFiles(directoryPath, $"{commonObject.Id}.*");
             string[] otherFiles = Directory.GetFiles(directoryPath, $"{commonObject.Id}_*");
             return mainImage.Union(otherFiles).ToList();
