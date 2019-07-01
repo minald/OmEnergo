@@ -239,5 +239,9 @@ namespace OmEnergo.Controllers
         }
 
         #endregion
+
+        //Method is necessary for validation of create/edit 
+        public IActionResult IsNewEnglishName(string englishName) 
+            => Json(Repository.GetObjectByEnglishName(englishName) == null);
     }
 }

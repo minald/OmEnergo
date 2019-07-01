@@ -1,4 +1,5 @@
-﻿using OmEnergo.Infrastructure;
+﻿using Microsoft.AspNetCore.Mvc;
+using OmEnergo.Infrastructure;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -13,6 +14,7 @@ namespace OmEnergo.Models
         public string Name { get; set; }
 
         [Display(Name = "Имя для URL")]
+        [Remote("IsNewEnglishName", "Admin", ErrorMessage = "Такое имя для URL уже существует")]
         public string EnglishName { get; set; }
 
         [Display(Name = "Описание")]
