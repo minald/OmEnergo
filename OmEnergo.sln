@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmEnergo", "OmEnergo\OmEnergo.csproj", "{39391E73-FEBF-4871-BA14-3576D64BFC20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmEnergo", "OmEnergo\OmEnergo.csproj", "{39391E73-FEBF-4871-BA14-3576D64BFC20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmEnergo.Tests", "OmEnergo.Tests\OmEnergo.Tests.csproj", "{021C196E-B2AF-4A9F-A1B5-B33E7FB47885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39391E73-FEBF-4871-BA14-3576D64BFC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{021C196E-B2AF-4A9F-A1B5-B33E7FB47885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021C196E-B2AF-4A9F-A1B5-B33E7FB47885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021C196E-B2AF-4A9F-A1B5-B33E7FB47885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021C196E-B2AF-4A9F-A1B5-B33E7FB47885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
