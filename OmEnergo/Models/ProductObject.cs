@@ -17,8 +17,6 @@ namespace OmEnergo.Models
         public IDictionary<string, string> GetPropertiesWithValues()
             => GetProperties().Where(p => !String.IsNullOrWhiteSpace(p.Value)).ToDictionary(x => x.Key, x => x.Value);
 
-        public string GetPropertyNames() => String.Join(';', GetProperties().Select(x => x.Key));
-
         public void UpdateProperties(List<string> propertyNames)
         {
             var result = new Dictionary<string, string>();

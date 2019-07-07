@@ -106,7 +106,7 @@ namespace OmEnergo.Infrastructure.Database
 
         #region Sections
 
-        public IEnumerable<Section> GetAllSections() => Db.Sections
+        public virtual IEnumerable<Section> GetAllSections() => Db.Sections
             .Include(x => x.Products).ThenInclude(x => x.Models)
             .Include(x => x.ChildSections).ThenInclude(x => x.Products)
             .Include(x => x.ChildSections).ThenInclude(x => x.ProductModels)
@@ -121,7 +121,7 @@ namespace OmEnergo.Infrastructure.Database
 
         #region Products
 
-        public IEnumerable<Product> GetAllProducts() => Db.Products.Include(x => x.Section).Include(x => x.Models);
+        public virtual IEnumerable<Product> GetAllProducts() => Db.Products.Include(x => x.Section).Include(x => x.Models);
 
         public Product GetProduct(int id) => GetAllProducts().FirstOrDefault(x => x.Id == id);
 
@@ -131,7 +131,7 @@ namespace OmEnergo.Infrastructure.Database
 
         #region ProductModels
 
-        public IEnumerable<ProductModel> GetAllProductModels() => Db.ProductModels
+        public virtual IEnumerable<ProductModel> GetAllProductModels() => Db.ProductModels
             .Include(x => x.Section)
             .Include(x => x.Product).ThenInclude(x => x.Section);
 
@@ -144,7 +144,7 @@ namespace OmEnergo.Infrastructure.Database
 
         #region ConfigKeys
 
-        public IEnumerable<ConfigKey> GetAllConfigKeys() => Db.ConfigKeys.ToList();
+        public virtual IEnumerable<ConfigKey> GetAllConfigKeys() => Db.ConfigKeys.ToList();
 
         public string GetConfigValue(string key) =>
             Db.ConfigKeys.FirstOrDefault(x => x.Key.ToLower() == key.ToLower())?.Value ?? "";
