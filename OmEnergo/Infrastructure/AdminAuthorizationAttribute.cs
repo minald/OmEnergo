@@ -11,7 +11,7 @@ namespace OmEnergo.Infrastructure
 		{
 			if (context.HttpContext.Session.GetString("isLogin") != "true")
 			{
-				context.Result = new ContentResult { StatusCode = 404 };
+                context.Result = new NotFoundResult();
 			}
 		}
 	}

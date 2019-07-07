@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OmEnergo.Models;
 
-namespace OmEnergo.Models
+namespace OmEnergo.Infrastructure.Database
 {
     public class OmEnergoContext : DbContext
     {

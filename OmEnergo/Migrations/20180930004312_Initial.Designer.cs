@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using OmEnergo.Models;
+using OmEnergo.Infrastructure.Database;
 using System;
 
 namespace OmEnergo.Migrations

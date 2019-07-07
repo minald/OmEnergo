@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
 using System.Collections.Generic;

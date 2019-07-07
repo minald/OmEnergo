@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OmEnergo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OmEnergo.Models
+namespace OmEnergo.Infrastructure.Database
 {
     public class Repository
     {

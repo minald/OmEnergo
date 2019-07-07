@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using OmEnergo.Models;
+using OmEnergo.Infrastructure;
+using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -11,13 +11,8 @@ namespace OmEnergo.Controllers
     public class HomeController : Controller
     {
         private Repository Repository { get; set; }
-        public IConfiguration Configuration { get; set; }
 
-        public HomeController(Repository repository, IConfiguration configuration)
-        {
-            Repository = repository;
-            Configuration = configuration;
-        }
+        public HomeController(Repository repository) => Repository = repository;
 
         public IActionResult About() => View();
 
@@ -26,11 +21,12 @@ namespace OmEnergo.Controllers
         public IActionResult Contacts() => View();
 
         [HttpPost]
-		public IActionResult Contacts(string name, string text, string email, string phoneNumber = "")
+		public IActionResult Contacts([FromServices] EmailSender emailSender, 
+            string name, string text, string email, string phoneNumber = "")
 		{
 			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
 			{
-			    Task.Factory.StartNew(() => new EmailSender(Configuration).SendEmail(name, text, email, phoneNumber));
+			    Task.Factory.StartNew(() => emailSender.SendEmail(name, text, email, phoneNumber));
 			}
 
 			return RedirectToAction("Index", "Catalog");

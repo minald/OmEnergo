@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OmEnergo.Infrastructure.Database;
 using System.Collections.Generic;
 
 namespace OmEnergo.Models

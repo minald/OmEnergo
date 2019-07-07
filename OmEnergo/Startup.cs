@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OmEnergo.Infrastructure;
-using OmEnergo.Models;
+using OmEnergo.Infrastructure.Database;
 
 namespace OmEnergo
 {
@@ -22,6 +22,7 @@ namespace OmEnergo
             services.AddScoped<Repository>();
             services.AddScoped<FileManager>();
             services.AddScoped<ExcelReportBuilder>();
+            services.AddScoped<EmailSender>();
             services.AddSession();
             services.AddMvc();
         }
@@ -40,7 +41,7 @@ namespace OmEnergo
                 app.UseExceptionHandler("/Home/Error");
             }
 
-			app.UseSession();
+            app.UseSession();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {

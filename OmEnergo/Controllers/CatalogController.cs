@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OmEnergo.Models;
+using OmEnergo.Infrastructure.Database;
 using System.Linq;
 
 namespace OmEnergo.Controllers

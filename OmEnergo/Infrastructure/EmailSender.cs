@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Net.Mail;
 
-namespace OmEnergo.Models
+namespace OmEnergo.Infrastructure
 {
     public class EmailSender
     {
@@ -19,7 +19,8 @@ namespace OmEnergo.Models
 				client.Host = Configuration["Email:Host"];
 				client.Port = Int32.Parse(Configuration["Email:Port"]);
 				client.Credentials = new NetworkCredential(Configuration["Email:From"], Configuration["Email:Password"]);
-			    client.Send(CreateMessage(name, text, email, phoneNumber));
+                MailMessage message = CreateMessage(name, text, email, phoneNumber);
+                client.Send(message);
 			}
 		}
 
@@ -29,8 +30,10 @@ namespace OmEnergo.Models
 			{
 				From = new MailAddress(Configuration["Email:From"]),
 				Subject = "Обратная связь",
-				Body = "Имя: " + name + Environment.NewLine + "Телефон: " + phoneNumber + Environment.NewLine
-				    + "Email: " + email + Environment.NewLine + "Сообщение: " + text
+				Body = $"Имя: {name}" + Environment.NewLine
+                     + $"Телефон: {phoneNumber}" + Environment.NewLine
+                     + $"Email: {email}" + Environment.NewLine 
+                     + $"Сообщение: {text}"
 			};
 			mailMessage.To.Add(Configuration["Email:To"]);
 			return mailMessage;

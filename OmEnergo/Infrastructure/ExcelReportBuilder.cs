@@ -1,4 +1,6 @@
 ﻿using ClosedXML.Excel;
+using OmEnergo.Infrastructure.Database;
+using OmEnergo.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace OmEnergo.Models
+namespace OmEnergo.Infrastructure
 {
     public class ExcelReportBuilder
     {
