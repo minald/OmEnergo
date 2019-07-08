@@ -137,7 +137,7 @@ namespace OmEnergo.Infrastructure
         public static List<string> GetFullDocumentPaths(CommonObject commonObject) => GetFullFilesPaths(commonObject)
             .Where(x => SupportedDocumentExtensions.Contains(GetExtensionWithoutDot(x))).ToList();
 
-        private static List<string> GetFullFilesPaths(CommonObject commonObject)
+        public static List<string> GetFullFilesPaths(CommonObject commonObject)
         {
             string directoryPath = HostingEnvironment.WebRootPath + commonObject.GetDirectoryPath();
             if (!Directory.Exists(directoryPath))

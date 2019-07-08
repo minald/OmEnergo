@@ -1,7 +1,11 @@
 ﻿@model CommonObject
+@inject FileManager FileManager
 
-<button data-toggle="modal" data-target="#delete@(Model.GetType().Name)@(Model.Id)" 
-        class="btn btn-sm btn-danger">Удалить</button>
+@if (FileManager.GetFullFilesPaths(Model).Count == 0)
+{
+<button data-toggle="modal" data-target="#delete@(Model.GetType().Name)@(Model.Id)"
+        class="btn btn-sm btn-danger">Удалить
+</button>
 <div id="delete@(Model.GetType().Name)@(Model.Id)" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -20,3 +24,4 @@
         </div>
     </div>
 </div>
+}
