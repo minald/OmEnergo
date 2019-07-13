@@ -8,11 +8,9 @@
     <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.min.css">
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" />
-        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 </head>
 <body>
@@ -79,6 +77,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

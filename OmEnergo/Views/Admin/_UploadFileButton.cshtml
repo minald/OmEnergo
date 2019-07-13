@@ -1,7 +1,14 @@
 ﻿@model string
 
-<form asp-action="UploadFileAsync" asp-route-englishName="@Model" method="post" 
-      enctype="multipart/form-data" class="d-inline-block">
-    <label for="uploadFile" class="btn btn-info m-0">Загрузить файл</label>
-    <input id="uploadFile" class="d-none" type="file" name="uploadedFile" onchange="form.submit()">
-</form>
+<div class="row">
+    <form asp-action="UploadFileAsync" asp-route-englishName="@Model" method="post"
+          enctype="multipart/form-data" class="offset-3 col-6 input-group">
+        <div class="input-group-prepend">
+            <button type="submit" class="btn btn-info">Загрузить</button>
+        </div>
+        <div class="custom-file">
+            <input id="uploadFile" type="file" name="uploadedFile" class="custom-file-input">
+            <label for="uploadFile" class="custom-file-label" data-browse="Выбрать файл"></label>
+        </div>
+    </form>
+</div>

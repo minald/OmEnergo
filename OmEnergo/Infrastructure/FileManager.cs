@@ -43,7 +43,7 @@ namespace OmEnergo.Infrastructure
         {
             if (uploadedFile == null)
             {
-                throw new Exception("При загрузке файла произошла ошибка");
+                throw new Exception("Пожалуйста, выберите файл");
             }
             
             string path = GetTargetPath(objectEnglishName, uploadedFile);

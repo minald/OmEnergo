@@ -44,6 +44,15 @@
     </div>
     }
 </div>
-<div class="text-center">
-    @Html.Partial("_UploadFileButton", Model.EnglishName as string)
-</div>
+@Html.Partial("_UploadFileButton", Model.EnglishName as string)
+
+<!--This is the code for the _UploadFileButton partial view. 
+        For some reason, it isn't possible to add any section, such as Scripts, to a partial view.-->
+@section Scripts {
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}
