@@ -26,7 +26,7 @@ namespace OmEnergo.Controllers
 		{
 			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
 			{
-			    Task.Factory.StartNew(() => emailSender.SendEmail(name, text, email, phoneNumber));
+			    Task.Factory.StartNew(() => emailSender.SendEmail(name, phoneNumber, email, text));
 			}
 
 			return RedirectToAction("Index", "Catalog");

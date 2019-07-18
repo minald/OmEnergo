@@ -62,9 +62,9 @@ namespace OmEnergo.Infrastructure.Database
             return productModel;
         }
 
-        public T Get<T>(Func<T, bool> predicate) where T : CommonObject => Db.Set<T>().FirstOrDefault(predicate);
+        public T Get<T>(Func<T, bool> predicate) where T : UniqueObject => Db.Set<T>().FirstOrDefault(predicate);
 
-        public void Update<T>(T obj) where T : CommonObject
+        public void Update<T>(T obj) where T : UniqueObject
         {
             var existingItem = Db.Set<T>().Find(obj.Id);
             if (existingItem == null)
@@ -92,13 +92,13 @@ namespace OmEnergo.Infrastructure.Database
             UpdateRange(productModels);
         }
 
-        public void UpdateRange<T>(IEnumerable<T> obj) where T : CommonObject
+        public void UpdateRange<T>(IEnumerable<T> obj) where T : UniqueObject
         {
             Db.Set<T>().UpdateRange(obj);
             Db.SaveChanges();
         }
 
-        public void Delete<T>(int id) where T : CommonObject
+        public void Delete<T>(int id) where T : UniqueObject
         {
             Db.Set<T>().Remove(Db.Set<T>().FirstOrDefault(x => x.Id == id));
             Db.SaveChanges();
@@ -144,7 +144,7 @@ namespace OmEnergo.Infrastructure.Database
 
         #region ConfigKeys
 
-        public virtual IEnumerable<ConfigKey> GetAllConfigKeys() => Db.ConfigKeys.ToList();
+        public virtual List<ConfigKey> GetAllConfigKeys() => Db.ConfigKeys.ToList();
 
         public string GetConfigValue(string key) =>
             Db.ConfigKeys.FirstOrDefault(x => x.Key.ToLower() == key.ToLower())?.Value ?? "";

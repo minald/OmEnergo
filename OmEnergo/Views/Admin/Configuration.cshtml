@@ -1,0 +1,22 @@
+﻿@model List<ConfigKey>
+
+<h2 class="text-center">Конфигурация</h2>
+<form asp-action="SaveConfiguration" method="post">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="form-inline input-group">
+            <input hidden name="[@i].Id" value="@Model[i].Id">
+            <input readonly class="form-control mb-2 mr-2" name="[@i].Key" value="@Model[i].Key">
+            <input type="text" class="form-control mb-2" name="[@i].Value" value="@Model[i].Value">
+        </div>
+    }
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+    </div>
+    <i class="fas fa-exclamation-triangle fa-4x float-left m-2"></i>
+    <p class="font-weight-bold m-2">
+        Для того, чтобы отправление писем на почту gmail проходило успешно,<br>
+        необходимо в настройках аккаунта дать доступ сторонним приложениям.<br>
+        Сделать это можно по <a href="https://myaccount.google.com/u/0/lesssecureapps" class="text-primary font-weight-light">этой ссылке</a>.
+    </p>
+</form>

@@ -1,4 +1,5 @@
 ## Version history
+* 18.07.19 - 0.3.4 - Implementing the admin page with configuration keys and fixing UI bugs
 * 01.07.19 - 0.3.3 - Implementing the image carousel and improving UI
 * 02.05.19 - 0.3.2 - Adding a file manager for the admin 
 * 19.04.19 - 0.3.1 - Simplifying the url system and adding a page for models

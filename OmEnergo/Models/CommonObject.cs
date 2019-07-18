@@ -6,10 +6,8 @@ using System.IO;
 
 namespace OmEnergo.Models
 {
-    public abstract class CommonObject
+    public abstract class CommonObject : UniqueObject
     {
-        public int Id { get; set; }
-
         [Display(Name = "Имя")]
         public string Name { get; set; }
 

@@ -6,13 +6,14 @@ using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
-    //[AdminAuthorization]
+    [AdminAuthorization]
     public class AdminController : Controller
     {
         private Repository Repository { get; set; }
@@ -35,6 +36,15 @@ namespace OmEnergo.Controllers
         #region Main page
 
         public IActionResult Index() => View();
+
+        public IActionResult Configuration() => View(Repository.GetAllConfigKeys());
+
+        [HttpPost]
+        public IActionResult SaveConfiguration(List<ConfigKey> configKeys)
+        {
+            Repository.UpdateRange(configKeys);
+            return RedirectToAction(nameof(Configuration));
+        }
 
         public IActionResult CreateBackup([FromServices]ExcelReportBuilder excelReportBuilder)
         {
