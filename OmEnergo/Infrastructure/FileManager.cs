@@ -65,13 +65,12 @@ namespace OmEnergo.Infrastructure
             string uploadedFileExtension = GetExtensionWithoutDot(uploadedFile.FileName);
             if (SupportedDocumentExtensions.Contains(uploadedFileExtension))
             {
-                string directoryPath = HostingEnvironment.WebRootPath + obj.GetDirectoryPath();
-                return directoryPath + $@"\{obj.Id}_{uploadedFile.FileName}";
+                return HostingEnvironment.WebRootPath + obj.GetDocumentPath(uploadedFile.FileName);
             }
             else if (SupportedImageExtensions.Contains(uploadedFileExtension))
             {
                 string mainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImageFullLink();
-                return File.Exists(mainImageFullPath) ? GetPathWithGuid(mainImageFullPath, obj.Id) : mainImageFullPath;
+                return File.Exists(mainImageFullPath) ? GetNewSecondaryImagePath(mainImageFullPath, obj.Id) : mainImageFullPath;
             }
             else
             {
@@ -111,12 +110,12 @@ namespace OmEnergo.Infrastructure
             string oldMainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImageFullLink();
             if (newMainImageFullPath != oldMainImageFullPath)
             {
-                File.Move(oldMainImageFullPath, GetPathWithGuid(oldMainImageFullPath, obj.Id));
+                File.Move(oldMainImageFullPath, GetNewSecondaryImagePath(oldMainImageFullPath, obj.Id));
                 File.Move(newMainImageFullPath, oldMainImageFullPath);
             }
         }
 
-        private string GetPathWithGuid(string path, int id) => path.Replace($"{id}.", $"{id}_{Guid.NewGuid()}.");
+        private string GetNewSecondaryImagePath(string path, int id) => path.Replace($"{id}.", $"{id}_{Guid.NewGuid()}.");
 
         #region Static methods
 

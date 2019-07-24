@@ -30,6 +30,13 @@ namespace OmEnergo.Models
             return Path.Combine(directoryPath, mainImageName);
         }
 
+        public string GetDocumentPath(string originalFilename)
+        {
+            string directoryPath = GetDirectoryPath();
+            string filename = $"{Id}_{originalFilename}";
+            return Path.Combine(directoryPath, filename);
+        }
+
         public void SetEnglishNameIfEmpty()
         {
             if (String.IsNullOrEmpty(EnglishName))
