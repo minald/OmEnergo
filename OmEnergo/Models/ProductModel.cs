@@ -27,6 +27,8 @@ namespace OmEnergo.Models
             return $@"\images\{parentPath}";
         }
 
+        public override string GetImageNamePrefix() => "m";
+
         public string GetStringPriceFractionalPart()
         {
             string prefix = GetPriceFractionalPart() < 10 ? "0" : "";

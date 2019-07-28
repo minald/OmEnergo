@@ -69,7 +69,7 @@ namespace OmEnergo.Infrastructure
             }
             else if (SupportedImageExtensions.Contains(uploadedFileExtension))
             {
-                string mainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImageFullLink();
+                string mainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImagePath();
                 return File.Exists(mainImageFullPath) ? GetNewSecondaryImagePath(mainImageFullPath, obj.Id) : mainImageFullPath;
             }
             else
@@ -88,7 +88,7 @@ namespace OmEnergo.Infrastructure
             }
 
             CommonObject obj = Repository.GetObjectByEnglishName(objectEnglishName);
-            string mainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImageFullLink();
+            string mainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImagePath();
             if (deletedFileFullPath == mainImageFullPath)
             {
                 MakeSecondaryImageMain(obj, mainImageFullPath);
@@ -107,7 +107,7 @@ namespace OmEnergo.Infrastructure
         public void MakeImageMain(string newMainImageFullPath, string objectEnglishName)
         {
             CommonObject obj = Repository.GetObjectByEnglishName(objectEnglishName);
-            string oldMainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImageFullLink();
+            string oldMainImageFullPath = HostingEnvironment.WebRootPath + obj.GetMainImagePath();
             if (newMainImageFullPath != oldMainImageFullPath)
             {
                 File.Move(oldMainImageFullPath, GetNewSecondaryImagePath(oldMainImageFullPath, obj.Id));

@@ -21,7 +21,7 @@
                     <a asp-action="Section" asp-route-id="@subsection.Id">@subsection.Name</a>
                 </td>
                 <td>Подсекция</td>
-                <td><img class="card-img admin-photo" src="@subsection.GetMainImageFullLink()"></td>
+                <td><img class="card-img admin-photo" src="@subsection.GetMainImagePath()"></td>
                 <td class="admin-description">@subsection.Description</td>
                 <td class="table-secondary"></td>
                 <td>
@@ -42,7 +42,7 @@
                     <a asp-action="Product" asp-route-id="@product.Id">@product.Name</a>
                 </td>
                 <td>Продукт</td>
-                <td><img class="card-img admin-photo" src="@product.GetMainImageFullLink()"></td>
+                <td><img class="card-img admin-photo" src="@product.GetMainImagePath()"></td>
                 <td class="admin-description">@product.Description</td>
                 <td class="table-secondary"></td>
                 <td>
@@ -61,7 +61,7 @@
                 <td>@productModel.SequenceNumber</td>
                 <td>@productModel.Name</td>
                 <td>Модель</td>
-                <td><img class="card-img admin-photo" src="@productModel.GetMainImageFullLink()"></td>
+                <td><img class="card-img admin-photo" src="@productModel.GetMainImagePath()"></td>
                 <td class="table-secondary"></td>
                 <td>@productModel.Price</td>
                 <td>

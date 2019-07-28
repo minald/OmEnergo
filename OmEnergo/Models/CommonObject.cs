@@ -23,10 +23,13 @@ namespace OmEnergo.Models
 
         public abstract string GetDirectoryPath();
 
-        public string GetMainImageFullLink()
+        public abstract string GetImageNamePrefix();
+
+        public string GetMainImagePath()
         {
             string directoryPath = GetDirectoryPath();
-            string mainImageName = $"{Id}.jpg";
+            string imageNamePrefix = GetImageNamePrefix();
+            string mainImageName = $"{imageNamePrefix}{Id}.jpg";
             return Path.Combine(directoryPath, mainImageName);
         }
 
