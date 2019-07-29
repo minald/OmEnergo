@@ -33,6 +33,14 @@ namespace OmEnergo.Models
             return Path.Combine(directoryPath, mainImageName);
         }
 
+        public string GetMainImageThumbnailPath(string pixels)
+        {
+            string directoryPath = GetDirectoryPath();
+            string imageNamePrefix = GetImageNamePrefix();
+            string mainImageName = $"{imageNamePrefix}{Id}-{pixels}.jpg";
+            return Path.Combine(directoryPath, mainImageName);
+        }
+
         public string GetDocumentPath(string originalFilename)
         {
             string directoryPath = GetDirectoryPath();

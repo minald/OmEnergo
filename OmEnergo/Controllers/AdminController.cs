@@ -7,6 +7,7 @@ using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,6 +64,43 @@ namespace OmEnergo.Controllers
             string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             string fullFileName = $"{mainFileNamePart}_{currentDatetime}.xlsx";
             return File(stream, ExcelReportBuilder.XlsxMimeType, fullFileName);
+        }
+
+        [HttpPost]
+        public IActionResult CreateThumbnails()
+        {
+            var commonObjects = Repository.GetAllProductModels();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public void CreateThumbnails(List<CommonObject> commonObjects)
+        {
+            foreach (var commonObject in commonObjects)
+            {
+                List<string> imagePaths = Infrastructure.FileManager.GetFullImagePaths(commonObject);
+                foreach (string imagePath in imagePaths)
+                {
+                    Image img = Image.FromFile(imagePath);
+                    //Stream stream = ProductImage.OpenReadStream();
+
+                    //Image newImage = GetReducedImage(32, 32, stream);
+                    //newImage.Save("path+filename");
+                }
+            }
+        }
+
+        public Image GetReducedImage(int width, int height, Stream resourceImage)
+        {
+            try
+            {
+                Image image = Image.FromStream(resourceImage);
+                Image thumb = image.GetThumbnailImage(width, height, () => false, IntPtr.Zero);
+                return thumb;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         #endregion 

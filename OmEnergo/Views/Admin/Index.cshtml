@@ -1,10 +1,22 @@
 ﻿<h2 class="text-center">Главная страница</h2>
 <div class="row">
-    <a class="btn btn-primary m-3" asp-action="Sections">Измененить содержимое сайта</a>
-    <a class="btn btn-info m-3" asp-action="Configuration">Измененить конфигурацию</a>
+    <a class="btn btn-primary m-3" asp-action="Sections">Изменить содержимое сайта</a>
+    <a class="btn btn-info m-3" asp-action="Configuration">Изменить конфигурацию</a>
 </div>
+<hr>
 <h3>Отчёты</h3>
 <div class="row">
     <a class="btn btn-info m-3" asp-action="GetPricesReport">Скачать отчёт с ценами</a>
     <a class="btn btn-info m-3" asp-action="CreateBackup">Скачать бэкап базы</a>
 </div>
+<hr>
+<h3>Миниатюры картинок</h3>
+<form asp-action="CreateThumbnails" class="form-inline">
+    <div class="input-group mr-2">
+        <input type="number" name="pixels" class="form-control">
+        <div class="input-group-append">
+            <span class="input-group-text">пикселей</span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary my-1">Создать</button>
+</form>
