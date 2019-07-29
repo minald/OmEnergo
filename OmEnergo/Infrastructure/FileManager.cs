@@ -144,8 +144,8 @@ namespace OmEnergo.Infrastructure
                 return new List<string>();
             }
 
-            string[] mainImage = Directory.GetFiles(directoryPath, $"{commonObject.Id}.*");
-            string[] otherFiles = Directory.GetFiles(directoryPath, $"{commonObject.Id}_*");
+            string[] mainImage = Directory.GetFiles(directoryPath, commonObject.GetNamePatternOfMainImage());
+            string[] otherFiles = Directory.GetFiles(directoryPath, commonObject.GetNamePatternOfAllFilesExceptMainImage());
             return mainImage.Union(otherFiles).ToList();
         }
 

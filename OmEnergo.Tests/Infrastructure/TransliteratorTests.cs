@@ -11,6 +11,7 @@ namespace OmEnergo.Tests.Infrastructure
         [InlineData(@"цифра2", "tsifra2")]
         [InlineData(@"белый котёнок", "belyy-kotenok")]
         [InlineData(@"Щи-БОРщ", "shchi-borshch")]
+        [InlineData(@"Звезда*", "zvezda*")]
         public void FromRussianToEnglish(string russianString, string expected)
         {
             //Arrange

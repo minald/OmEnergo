@@ -54,7 +54,7 @@ namespace OmEnergo.Infrastructure
                 {
                     transliteratedString += engChar;
                 }
-                else if (Regex.IsMatch(c.ToString(), "[a-zA-Z0-9]"))
+                else if (Regex.IsMatch(c.ToString(), "[a-zA-Z0-9*]"))
                 {
                     transliteratedString += c;
                 }

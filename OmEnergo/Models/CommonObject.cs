@@ -40,6 +40,10 @@ namespace OmEnergo.Models
             return Path.Combine(directoryPath, filename);
         }
 
+        public string GetNamePatternOfMainImage() => $"{GetImageNamePrefix()}{Id}.*";
+
+        public string GetNamePatternOfAllFilesExceptMainImage() => $"{GetImageNamePrefix()}{Id}_*";
+
         public void SetEnglishNameIfEmpty()
         {
             if (String.IsNullOrEmpty(EnglishName))
