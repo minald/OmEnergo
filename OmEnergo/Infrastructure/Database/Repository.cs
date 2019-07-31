@@ -16,8 +16,8 @@ namespace OmEnergo.Infrastructure.Database
 
         #region Methods which must be optimized
 
-        public IEnumerable<Section> GetMainSections() => Db.Sections.Include(x => x.ParentSection).Include(x => x.ChildSections)
-            .Include(x => x.Products).Include(x => x.ProductModels).ToList().Where(x => x.IsMainSection());
+        public IEnumerable<Section> GetOrderedMainSections() => Db.Sections.Include(x => x.ParentSection)
+            .ToList().Where(x => x.IsMainSection()).OrderBy(x => x.SequenceNumber);
 
         public Section GetSection(string name) => Db.Sections.Include(x => x.Products).Include(x => x.ProductModels)
             .Include(x => x.ChildSections).Include(x => x.ParentSection).FirstOrDefault(x => x.EnglishName == name);

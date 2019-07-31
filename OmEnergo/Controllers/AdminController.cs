@@ -67,47 +67,23 @@ namespace OmEnergo.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateThumbnails()
+        public IActionResult CreateThumbnails(int maxSize)
         {
-            var commonObjects = Repository.GetAllProductModels();
+            var commonObjects = new List<CommonObject>();
+            commonObjects.AddRange(Repository.GetAllSections() ?? new List<Section>());
+            commonObjects.AddRange(Repository.GetAllProducts() ?? new List<Product>());
+            commonObjects.AddRange(Repository.GetAllProductModels() ?? new List<ProductModel>());
+            var imageThumbnailCreator = new ImageThumbnailCreator(maxSize);
+            imageThumbnailCreator.Create(commonObjects);
+            TempData["message"] = "Миниатюры изображений успешно созданы";
             return RedirectToAction(nameof(Index));
-        }
-
-        public void CreateThumbnails(List<CommonObject> commonObjects)
-        {
-            foreach (var commonObject in commonObjects)
-            {
-                List<string> imagePaths = Infrastructure.FileManager.GetFullImagePaths(commonObject);
-                foreach (string imagePath in imagePaths)
-                {
-                    Image img = Image.FromFile(imagePath);
-                    //Stream stream = ProductImage.OpenReadStream();
-
-                    //Image newImage = GetReducedImage(32, 32, stream);
-                    //newImage.Save("path+filename");
-                }
-            }
-        }
-
-        public Image GetReducedImage(int width, int height, Stream resourceImage)
-        {
-            try
-            {
-                Image image = Image.FromStream(resourceImage);
-                Image thumb = image.GetThumbnailImage(width, height, () => false, IntPtr.Zero);
-                return thumb;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
         }
 
         #endregion 
 
         #region Sections
 
-        public IActionResult Sections() => View(Repository.GetMainSections().OrderBy(x => x.SequenceNumber));
+        public IActionResult Sections() => View(Repository.GetOrderedMainSections());
 
         public IActionResult Section(int id) => View(Repository.GetSection(id));
 
@@ -124,7 +100,7 @@ namespace OmEnergo.Controllers
             }
             else
             {
-                section.SequenceNumber = Repository.GetMainSections().Count() + 1;
+                section.SequenceNumber = Repository.GetOrderedMainSections().Count() + 1;
             }
 
             section.SetEnglishNameIfEmpty();

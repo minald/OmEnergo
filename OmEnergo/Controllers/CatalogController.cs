@@ -12,7 +12,7 @@ namespace OmEnergo.Controllers
 
         public IActionResult Index()
         {
-            var mainSections = Repository.GetMainSections().OrderBy(x => x.SequenceNumber);
+            var mainSections = Repository.GetOrderedMainSections();
             ViewData["Title"] = "Каталог";
             return View("_PanelWithCards", mainSections);
         }

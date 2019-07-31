@@ -5,7 +5,7 @@
 @if (paths.Count != 0)
 {
     <a data-toggle="modal" data-target="#carousel@(Model.EnglishName)">
-        <img class="card-img border border-secondary bg-white" src="@Model.GetMainImagePath()">
+        <img class="card-img border border-secondary bg-white" src="@Model.GetMainImageThumbnailPath(250)">
     </a>
     <div id="carousel@(Model.EnglishName)" class="modal fade">
         <div class="modal-dialog modal-lg modal-dialog-centered">

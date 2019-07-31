@@ -3,7 +3,7 @@
   /*Bootstrap min-width for medium devices*/
   padding: 6px 0px;
   line-height: 22px;
-  background-image: url(/images/Background.jpg);
+  /*background-image: url(/images/Background.jpg);*/
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
