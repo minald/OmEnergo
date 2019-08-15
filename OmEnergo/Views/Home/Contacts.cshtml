@@ -1,67 +1,66 @@
 ﻿@model EmailMessageViewModel
 @{
-    ViewData["Title"] = "Контакты";
+	ViewData["Title"] = "Контакты";
 }
 @section Scripts {
-    <script asp-src-include="lib/jquery-validation/**/jquery.validate.min.js"></script>
-    <script asp-src-include="lib/jquery-validation-unobtrusive/**/*.min.js"></script>
+	@{ Html.RenderPartial("_ValidationScriptsPartial"); }
 }
 
 <h1 class="text-center">Контакты</h1>
 <div class="row">
-    <div class="col-lg-6">
-        <h3>ООО "ОмЭнерго"</h3>
-        <p>
-            Время работы:<br>
-            Технические специалисты: 9:00-17:00;<br>
-            Выписка накладных: 9:30-16:30.
-        </p>
-        <h4>Заранее согласовывайте время приезда к нам!</h4>
-        <p>
-            Юридический и почтовый адрес:<br>
-            220055, РБ, г.Минск, ул.Каменногорская, д.47, оф.112 (7 этаж)<br>
-            Тел/факс: (+375-17) 248-77-45<br>
-            Velcom:  (+375-29) 341-31-35<br>
-            МТС: (+375-29) 560-01-79<br>
-            E-mail: info@omenergo.by
-        </p>
-    </div>
-    <div class="col-lg-6 col-12">
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af7cc1bc8fa1165565789e8adc8c7dae2d652d2d6bfcb93676d654d7d81d4bca7&amp;source=constructor"></iframe>
-    </div>
+	<div class="col-lg-6">
+		<h3>ООО "ОмЭнерго"</h3>
+		<p>
+			Время работы:<br>
+			Технические специалисты: 9:00-17:00;<br>
+			Выписка накладных: 9:30-16:30.
+		</p>
+		<h4>Заранее согласовывайте время приезда к нам!</h4>
+		<p>
+			Юридический и почтовый адрес:<br>
+			220055, РБ, г.Минск, ул.Каменногорская, д.47, оф.112 (7 этаж)<br>
+			Тел/факс: (+375-17) 248-77-45<br>
+			Velcom:  (+375-29) 341-31-35<br>
+			МТС: (+375-29) 560-01-79<br>
+			E-mail: info@omenergo.by
+		</p>
+	</div>
+	<div class="col-lg-6 col-12">
+		<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af7cc1bc8fa1165565789e8adc8c7dae2d652d2d6bfcb93676d654d7d81d4bca7&amp;source=constructor"></iframe>
+	</div>
 </div>
 <hr />
 <h2 id="feedback" class="text-center">Обратная связь</h2>
 <form asp-action="Contacts" method="post" class="row">
-    <div class="col-lg-5">
-        <div class="form-group">
-            <div>
-                <label asp-for="Name"></label>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <input asp-for="Name" class="form-control" />
-        </div>
-        <div class="form-group">
-            <div>
-                <label asp-for="Email"></label>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <input asp-for="Email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <div>
-                <label asp-for="PhoneNumber"></label>
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <input asp-for="PhoneNumber" class="form-control" />
-        </div>
-    </div>
-    <div class="form-group col-lg-7 col-12">
-        <div>
-            <label asp-for="Text"></label>
-            <span asp-validation-for="Text" class="text-danger"></span>
-        </div>
-        <textarea asp-for="Text" rows="8" class="form-control"></textarea>
-    </div>
-    <button class="btn btn-primary mx-auto" type="submit">Отправить</button>
+	<div class="col-lg-5">
+		<div class="form-group">
+			<div>
+				<label asp-for="Name"></label>
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<input asp-for="Name" class="form-control" />
+		</div>
+		<div class="form-group">
+			<div>
+				<label asp-for="Email"></label>
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<input asp-for="Email" class="form-control" />
+		</div>
+		<div class="form-group">
+			<div>
+				<label asp-for="PhoneNumber"></label>
+				<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+			</div>
+			<input asp-for="PhoneNumber" class="form-control" />
+		</div>
+	</div>
+	<div class="form-group col-lg-7 col-12">
+		<div>
+			<label asp-for="Text"></label>
+			<span asp-validation-for="Text" class="text-danger"></span>
+		</div>
+		<textarea asp-for="Text" rows="8" class="form-control"></textarea>
+	</div>
+	<button class="btn btn-primary mx-auto" type="submit">Отправить</button>
 </form>

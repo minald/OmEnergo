@@ -2,11 +2,11 @@
 
 namespace OmEnergo.Models.ViewModels
 {
-    public class SearchViewModel
-    {
-        public string SearchString { get; set; }
+	public class SearchViewModel
+	{
+		public string SearchString { get; set; }
 
-        public IEnumerable<Section> Sections { get; set; }
+		public IEnumerable<Section> Sections { get; set; }
 
 		public IEnumerable<Product> Products { get; set; }
 
@@ -14,7 +14,7 @@ namespace OmEnergo.Models.ViewModels
 
 		public SearchViewModel(string searchString, IEnumerable<Section> sections, IEnumerable<Product> products, IEnumerable<ProductModel> productModels)
 		{
-            SearchString = searchString;
+			SearchString = searchString;
 			Sections = sections;
 			Products = products;
 			ProductModels = productModels;

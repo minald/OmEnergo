@@ -2,33 +2,33 @@
 
 <h2 class="text-center">Секции</h2>
 <table class="table table-bordered table-striped table-hover bg-light">
-    <tr>
-        <th>#</th>
-        <th>Название</th>
-        <th>Фото</th>
-        <th>Описание</th>
-        <th>Действия</th>
-    </tr>
-    @foreach (var mainSection in Model.OrderBy(x => x.SequenceNumber))
-    {
-        <tr>
-            <td>@mainSection.SequenceNumber</td>
-            <td>
-                <a asp-action="Section" asp-route-id="@mainSection.Id">@mainSection.Name</a>
-            </td>
-            <td><img class="card-img admin-photo" src="@mainSection.GetMainImagePath()"></td>
-            <td class="admin-description">@mainSection.Description</td>
-            <td>
-                <a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
-                <a asp-action="FileManager" asp-route-englishName="@mainSection.EnglishName" class="btn btn-info">Файл менеджер</a>
-                @if (!mainSection.GetOrderedNestedObjects().Any())
-                {
-                    @Html.Partial("_DeleteButtonWithPopup", mainSection)
-                }
-            </td>
-        </tr>
-    }
+	<tr>
+		<th>#</th>
+		<th>Название</th>
+		<th>Фото</th>
+		<th>Описание</th>
+		<th>Действия</th>
+	</tr>
+	@foreach (var mainSection in Model.OrderBy(x => x.SequenceNumber))
+	{
+		<tr>
+			<td>@mainSection.SequenceNumber</td>
+			<td>
+				<a asp-action="Section" asp-route-id="@mainSection.Id">@mainSection.Name</a>
+			</td>
+			<td><img class="card-img admin-photo" src="@mainSection.GetMainImagePath()"></td>
+			<td class="admin-description">@mainSection.Description</td>
+			<td>
+				<a asp-action="EditSection" asp-route-id="@mainSection.Id" class="btn btn-info">Изменить</a>
+				<a asp-action="FileManager" asp-route-englishName="@mainSection.EnglishName" class="btn btn-info">Файл менеджер</a>
+				@if (!mainSection.GetOrderedNestedObjects().Any())
+				{
+					@Html.Partial("_DeleteButtonWithPopup", mainSection)
+				}
+			</td>
+		</tr>
+	}
 </table>
 <div class="text-center">
-    <a asp-action="CreateSection" class="btn btn-primary">Создать</a>
+	<a asp-action="CreateSection" class="btn btn-primary">Создать</a>
 </div>

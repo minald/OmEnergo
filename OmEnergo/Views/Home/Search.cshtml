@@ -1,29 +1,29 @@
 ﻿@model SearchViewModel
 @{
-    ViewData["Title"] = "Поиск";
+	ViewData["Title"] = "Поиск";
 }
 
 <h3 class="text-center">Поиск "@Model.SearchString"</h3>
 @if (Model.Sections.Any() || Model.Products.Any() || Model.ProductModels.Any())
 {
-    <div id="sectionsAndProducts" class="row justify-content-center">
-        @foreach (var section in Model.Sections)
-        {
-            @Html.Partial("_CommonObjectCard", section)
-        }
-        @foreach (var product in Model.Products)
-        {
-            @Html.Partial("_CommonObjectCard", product)
-        }
-    </div>
-    <div id="productModels" class="row justify-content-center">
-        @foreach (var productModel in Model.ProductModels)
-        {
-            @Html.Partial("_CommonObjectCard", productModel)
-        }
-    </div>
+	<div id="sectionsAndProducts" class="row justify-content-center">
+		@foreach (var section in Model.Sections)
+		{
+			@Html.Partial("_CommonObjectCard", section)
+		}
+		@foreach (var product in Model.Products)
+		{
+			@Html.Partial("_CommonObjectCard", product)
+		}
+	</div>
+	<div id="productModels" class="row justify-content-center">
+		@foreach (var productModel in Model.ProductModels)
+		{
+			@Html.Partial("_CommonObjectCard", productModel)
+		}
+	</div>
 }
 else
 {
-    <h4 class="text-center mt-4 font-weight-light">По запросу ничего не найдено</h4>
+	<h4 class="text-center mt-4 font-weight-light">По запросу ничего не найдено</h4>
 }

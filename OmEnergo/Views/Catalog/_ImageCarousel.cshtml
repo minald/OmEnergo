@@ -4,42 +4,42 @@
 
 @if (paths.Count != 0)
 {
-    <a data-toggle="modal" data-target="#carousel@(Model.EnglishName)">
-        <img class="card-img border border-secondary bg-white" src="@Model.GetMainImageThumbnailPath(250)">
-    </a>
-    <div id="carousel@(Model.EnglishName)" class="modal fade">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">@Model.Name</h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body bg-secondary">
-                    <div id="carouselControls@(Model.EnglishName)" class="carousel slide"
-                         data-ride="carousel" data-interval="false">
-                        <div class="carousel-inner">
-                            @foreach (var fullPath in paths)
-                            {
-                                string path = FileManager.GetRelativePath(fullPath);
-                                <div class="carousel-item h-400px @(path == Model.GetMainImagePath() ? "active" : "")">
-                                    <img src="@path" class="d-block fit-image">
-                                </div>
-                            }
-                        </div>
-                        @if (paths.Count > 1)
-                        {
-                            <a class="carousel-control-prev" href="#carouselControls@(Model.EnglishName)" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselControls@(Model.EnglishName)" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
-                            </a>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<a data-toggle="modal" data-target="#carousel@(Model.EnglishName)">
+		<img class="card-img border border-secondary bg-white" src="@Model.GetMainImageThumbnailPath(250)">
+	</a>
+	<div id="carousel@(Model.EnglishName)" class="modal fade">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">@Model.Name</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-secondary">
+					<div id="carouselControls@(Model.EnglishName)" class="carousel slide"
+						 data-ride="carousel" data-interval="false">
+						<div class="carousel-inner">
+							@foreach (var fullPath in paths)
+							{
+								string path = FileManager.GetRelativePath(fullPath);
+								<div class="carousel-item h-400px @(path == Model.GetMainImagePath() ? "active" : "")">
+									<img src="@path" class="d-block fit-image">
+								</div>
+							}
+						</div>
+						@if (paths.Count > 1)
+						{
+							<a class="carousel-control-prev" href="#carouselControls@(Model.EnglishName)" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon bg-secondary" aria-hidden="true"></span>
+							</a>
+							<a class="carousel-control-next" href="#carouselControls@(Model.EnglishName)" role="button" data-slide="next">
+								<span class="carousel-control-next-icon bg-secondary" aria-hidden="true"></span>
+							</a>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 }

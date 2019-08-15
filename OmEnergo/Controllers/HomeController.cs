@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
-    public class HomeController : Controller
-    {
-        private Repository Repository { get; set; }
+	public class HomeController : Controller
+	{
+		private Repository Repository { get; set; }
 
-        public HomeController(Repository repository) => Repository = repository;
+		public HomeController(Repository repository) => Repository = repository;
 
-        public IActionResult About() => View();
+		public IActionResult About() => View();
 
-        public IActionResult PaymentAndDelivery() => View();
+		public IActionResult PaymentAndDelivery() => View();
 
-        public IActionResult Contacts() => View();
+		public IActionResult Contacts() => View();
 
-        [HttpPost]
+		[HttpPost]
 		public IActionResult Contacts([FromServices] EmailSender emailSender, 
-            string name, string text, string email, string phoneNumber = "")
+			string name, string text, string email, string phoneNumber = "")
 		{
 			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
 			{
-			    Task.Factory.StartNew(() => emailSender.SendEmail(name, phoneNumber, email, text));
+				Task.Factory.StartNew(() => emailSender.SendEmail(name, phoneNumber, email, text));
 			}
 
 			return RedirectToAction("Index", "Catalog");
@@ -37,24 +37,24 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult Login(string login, string password)
 		{
-            string correctLogin = Repository.GetConfigValue("AdminLogin");
-            string correctPassword = Repository.GetConfigValue("AdminPassword");
-            if (login == correctLogin && password == correctPassword)
+			string correctLogin = Repository.GetConfigValue("AdminLogin");
+			string correctPassword = Repository.GetConfigValue("AdminPassword");
+			if (login == correctLogin && password == correctPassword)
 			{
 				HttpContext.Session.SetString("isLogin", "true");
-                return RedirectToAction("Index", "Admin");
+				return RedirectToAction("Index", "Admin");
 			}
 			else
 			{
 				TempData["message"] = "Введённые данные неверны";
-                return RedirectToAction(nameof(Login));
-            }
+				return RedirectToAction(nameof(Login));
+			}
 		}
 
-        public IActionResult Search(string searchString) => View(new SearchViewModel(searchString,
-            Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
-            Repository.GetSearchedProductModels(searchString)));
+		public IActionResult Search(string searchString) => View(new SearchViewModel(searchString,
+			Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
+			Repository.GetSearchedProductModels(searchString)));
 
-        public IActionResult Error() => View();
-    }
+		public IActionResult Error() => View();
+	}
 }

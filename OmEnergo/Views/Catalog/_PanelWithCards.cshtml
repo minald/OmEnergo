@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<CommonObject>
 
 <div class="row justify-content-center">
-    @foreach (CommonObject obj in Model)
-    {
-        @Html.Partial("_CommonObjectCard", obj)
-    }
+	@foreach (CommonObject obj in Model)
+	{
+		@Html.Partial("_CommonObjectCard", obj)
+	}
 </div>

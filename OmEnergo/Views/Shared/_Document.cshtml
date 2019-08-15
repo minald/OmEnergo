@@ -5,6 +5,6 @@
 @if (FileManager.CanBePreviewed(Model))
 {
 <a asp-controller="Document" asp-action="Look" asp-route-path="@Model"
-    class="fas fa-eye mx-1"></a>
+	class="fas fa-eye mx-1"></a>
 }
 @FileManager.GetFileName(Model)

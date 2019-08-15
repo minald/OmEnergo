@@ -1,13 +1,13 @@
 ﻿@model IDictionary<string, string>
 
 <table class="table table-sm table-bordered table-hover bg-light float-right w-auto mw-50 ml-3 mb-3">
-    <tbody>
-        @foreach (var property in Model)
-        {
-            <tr>
-                <td>@property.Key</td>
-                <td>@property.Value</td>
-            </tr>
-        }
-    </tbody>
+	<tbody>
+		@foreach (var property in Model)
+		{
+			<tr>
+				<td>@property.Key</td>
+				<td>@property.Value</td>
+			</tr>
+		}
+	</tbody>
 </table>

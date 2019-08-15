@@ -2,82 +2,82 @@
 
 <h2 class="text-center">@Model.Name</h2>
 <table class="table table-bordered table-striped table-hover bg-light">
-    <tr>
-        <th>#</th>
-        <th>Название</th>
-        <th>Тип</th>
-        <th>Фото</th>
-        <th>Описание</th>
-        <th>Цена</th>
-        <th>Действия</th>
-    </tr>
-    @foreach (var obj in Model.GetOrderedNestedObjects())
-    {
-        if (obj is Section subsection)
-        {
-            <tr>
-                <td>@subsection.SequenceNumber</td>
-                <td>
-                    <a asp-action="Section" asp-route-id="@subsection.Id">@subsection.Name</a>
-                </td>
-                <td>Подсекция</td>
-                <td><img class="card-img admin-photo" src="@subsection.GetMainImagePath()"></td>
-                <td class="admin-description">@subsection.Description</td>
-                <td class="table-secondary"></td>
-                <td>
-                    <a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
-                    <a asp-action="FileManager" asp-route-englishName="@subsection.EnglishName" class="btn btn-info">Файл менеджер</a>
-                    @if (!subsection.GetOrderedNestedObjects().Any())
-                    {
-                        @Html.Partial("_DeleteButtonWithPopup", subsection)
-                    }
-                </td>
-            </tr>
-        }
-        if (obj is Product product)
-        {
-            <tr>
-                <td>@product.SequenceNumber</td>
-                <td>
-                    <a asp-action="Product" asp-route-id="@product.Id">@product.Name</a>
-                </td>
-                <td>Продукт</td>
-                <td><img class="card-img admin-photo" src="@product.GetMainImagePath()"></td>
-                <td class="admin-description">@product.Description</td>
-                <td class="table-secondary"></td>
-                <td>
-                    <a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">Изменить</a>
-                    <a asp-action="FileManager" asp-route-englishName="@product.EnglishName" class="btn btn-info">Файл менеджер</a>
-                    @if (!product.Models.Any())
-                    {
-                        @Html.Partial("_DeleteButtonWithPopup", product)
-                    }
-                </td>
-            </tr>
-        }
-        if (obj is ProductModel productModel)
-        {
-            <tr>
-                <td>@productModel.SequenceNumber</td>
-                <td>@productModel.Name</td>
-                <td>Модель</td>
-                <td><img class="card-img admin-photo" src="@productModel.GetMainImagePath()"></td>
-                <td class="table-secondary"></td>
-                <td>@productModel.Price</td>
-                <td>
-                    <a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
-                    <a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
-                    @Html.Partial("_DeleteButtonWithPopup", productModel)
-                </td>
-            </tr>
-        }
-    }
+	<tr>
+		<th>#</th>
+		<th>Название</th>
+		<th>Тип</th>
+		<th>Фото</th>
+		<th>Описание</th>
+		<th>Цена</th>
+		<th>Действия</th>
+	</tr>
+	@foreach (var obj in Model.GetOrderedNestedObjects())
+	{
+		if (obj is Section subsection)
+		{
+			<tr>
+				<td>@subsection.SequenceNumber</td>
+				<td>
+					<a asp-action="Section" asp-route-id="@subsection.Id">@subsection.Name</a>
+				</td>
+				<td>Подсекция</td>
+				<td><img class="card-img admin-photo" src="@subsection.GetMainImagePath()"></td>
+				<td class="admin-description">@subsection.Description</td>
+				<td class="table-secondary"></td>
+				<td>
+					<a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
+					<a asp-action="FileManager" asp-route-englishName="@subsection.EnglishName" class="btn btn-info">Файл менеджер</a>
+					@if (!subsection.GetOrderedNestedObjects().Any())
+					{
+						@Html.Partial("_DeleteButtonWithPopup", subsection)
+					}
+				</td>
+			</tr>
+		}
+		if (obj is Product product)
+		{
+			<tr>
+				<td>@product.SequenceNumber</td>
+				<td>
+					<a asp-action="Product" asp-route-id="@product.Id">@product.Name</a>
+				</td>
+				<td>Продукт</td>
+				<td><img class="card-img admin-photo" src="@product.GetMainImagePath()"></td>
+				<td class="admin-description">@product.Description</td>
+				<td class="table-secondary"></td>
+				<td>
+					<a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">Изменить</a>
+					<a asp-action="FileManager" asp-route-englishName="@product.EnglishName" class="btn btn-info">Файл менеджер</a>
+					@if (!product.Models.Any())
+					{
+						@Html.Partial("_DeleteButtonWithPopup", product)
+					}
+				</td>
+			</tr>
+		}
+		if (obj is ProductModel productModel)
+		{
+			<tr>
+				<td>@productModel.SequenceNumber</td>
+				<td>@productModel.Name</td>
+				<td>Модель</td>
+				<td><img class="card-img admin-photo" src="@productModel.GetMainImagePath()"></td>
+				<td class="table-secondary"></td>
+				<td>@productModel.Price</td>
+				<td>
+					<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
+					<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
+					@Html.Partial("_DeleteButtonWithPopup", productModel)
+				</td>
+			</tr>
+		}
+	}
 </table>
 <div class="text-center">
-    @if (Model.IsMainSection())
-    {
-        <a asp-action="CreateSection" asp-route-parentId="@Model.Id" class="btn btn-primary">Создать подсекцию</a>
-    }
-    <a asp-action="CreateProduct" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать продукт</a>
-    <a asp-action="CreateProductModel" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать модель</a>
+	@if (Model.IsMainSection())
+	{
+		<a asp-action="CreateSection" asp-route-parentId="@Model.Id" class="btn btn-primary">Создать подсекцию</a>
+	}
+	<a asp-action="CreateProduct" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать продукт</a>
+	<a asp-action="CreateProductModel" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать модель</a>
 </div>  

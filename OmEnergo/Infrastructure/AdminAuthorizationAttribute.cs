@@ -5,13 +5,13 @@ using System;
 
 namespace OmEnergo.Infrastructure
 {
-    public class AdminAuthorizationAttribute : Attribute, IAuthorizationFilter
+	public class AdminAuthorizationAttribute : Attribute, IAuthorizationFilter
 	{ 
 		public void OnAuthorization(AuthorizationFilterContext context)
 		{
 			if (context.HttpContext.Session.GetString("isLogin") != "true")
 			{
-                context.Result = new NotFoundResult();
+				context.Result = new NotFoundResult();
 			}
 		}
 	}
