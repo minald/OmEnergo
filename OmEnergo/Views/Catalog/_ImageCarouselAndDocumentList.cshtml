@@ -3,13 +3,13 @@
 @{ List<string> paths = FileManager.GetFullDocumentPaths(Model); }
 
 <div class="float-left mr-3 mb-3" style="width: 250px">
-	@Html.Partial("_ImageCarousel", Model)
-   @if (paths.Count != 0)
+	<partial name="_ImageCarousel" model="Model" />
+	@if (paths.Count != 0)
 	{
 	<ul class="list-group float-left mt-1 w-100">
 		@foreach (string path in paths)
 		{
-		<li class="list-group-item p-1">@Html.Partial("_Document", path)</li>
+		<li class="list-group-item p-1"><partial name="_Document" model="path" /></li>
 		}
 	</ul>
 	}

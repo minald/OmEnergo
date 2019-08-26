@@ -19,7 +19,7 @@
 			<td>
 				<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
 				<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
-				@Html.Partial("_DeleteButtonWithPopup", productModel)
+				<partial name="_DeleteButtonWithPopup" model="productModel" />
 			</td>
 		</tr>
 	}

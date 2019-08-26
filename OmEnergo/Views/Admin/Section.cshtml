@@ -29,7 +29,7 @@
 					<a asp-action="FileManager" asp-route-englishName="@subsection.EnglishName" class="btn btn-info">Файл менеджер</a>
 					@if (!subsection.GetOrderedNestedObjects().Any())
 					{
-						@Html.Partial("_DeleteButtonWithPopup", subsection)
+						<partial name="_DeleteButtonWithPopup" model="subsection" />
 					}
 				</td>
 			</tr>
@@ -50,7 +50,7 @@
 					<a asp-action="FileManager" asp-route-englishName="@product.EnglishName" class="btn btn-info">Файл менеджер</a>
 					@if (!product.Models.Any())
 					{
-						@Html.Partial("_DeleteButtonWithPopup", product)
+						<partial name="_DeleteButtonWithPopup" model="product" />
 					}
 				</td>
 			</tr>
@@ -67,7 +67,7 @@
 				<td>
 					<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
 					<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
-					@Html.Partial("_DeleteButtonWithPopup", productModel)
+					<partial name="_DeleteButtonWithPopup" model="productModel" />
 				</td>
 			</tr>
 		}

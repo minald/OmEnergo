@@ -1,7 +1,7 @@
 ﻿@model ProductModel
 
 @section Scripts {
-	@{ Html.RenderPartial("_ValidationScriptsPartial"); }
+	<partial name="_ValidationScriptsPartial" />
 }
 
 <h4 class="text-center">@(Model.Section?.Name ?? Model.Product.Name)</h4>

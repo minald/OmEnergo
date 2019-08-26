@@ -9,17 +9,17 @@
 	<div id="sectionsAndProducts" class="row justify-content-center">
 		@foreach (var section in Model.Sections)
 		{
-			@Html.Partial("_CommonObjectCard", section)
+			<partial name="_CommonObjectCard" model="section" />
 		}
 		@foreach (var product in Model.Products)
 		{
-			@Html.Partial("_CommonObjectCard", product)
+			<partial name="_CommonObjectCard" model="product" />
 		}
 	</div>
 	<div id="productModels" class="row justify-content-center">
 		@foreach (var productModel in Model.ProductModels)
 		{
-			@Html.Partial("_CommonObjectCard", productModel)
+			<partial name="_CommonObjectCard" model="productModel" />
 		}
 	</div>
 }

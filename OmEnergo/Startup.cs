@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ namespace OmEnergo
 			services.AddScoped<ExcelReportBuilder>();
 			services.AddScoped<EmailSender>();
 			services.AddSession();
-			services.AddMvc();
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -34,13 +35,14 @@ namespace OmEnergo
 			{
 				app.UseMiniProfiler();
 				app.UseDeveloperExceptionPage();
-				app.UseBrowserLink();
 			}
 			else
 			{
 				app.UseExceptionHandler("/Home/Error");
+				app.UseHsts();
 			}
 
+			app.UseHttpsRedirection();
 			app.UseSession();
 			app.UseStaticFiles();
 			app.UseMvc(routes =>

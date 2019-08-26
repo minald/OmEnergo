@@ -23,7 +23,7 @@
 				<a asp-action="FileManager" asp-route-englishName="@mainSection.EnglishName" class="btn btn-info">Файл менеджер</a>
 				@if (!mainSection.GetOrderedNestedObjects().Any())
 				{
-					@Html.Partial("_DeleteButtonWithPopup", mainSection)
+					<partial name="_DeleteButtonWithPopup" model="mainSection" />
 				}
 			</td>
 		</tr>

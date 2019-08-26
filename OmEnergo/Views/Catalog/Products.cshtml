@@ -2,19 +2,19 @@
 
 <h2 class="text-center">@Model.Name</h2>
 <div class="common-object-description mb-2">
-	@Html.Partial("_ImageCarouselAndDocumentList", Model)
-   @if (Model is ProductObject productObject)
+	<partial name="_ImageCarouselAndDocumentList" model="Model" />
+	@if (Model is ProductObject productObject)
 	{
-		@Html.Partial("_PropertiesTable", productObject.GetPropertiesWithValues())
+		<partial name="_PropertiesTable" model="productObject.GetPropertiesWithValues()" />
 	}
 	<p class="text-justify">@Model.Description</p>
 </div>
 
 @if (Model is Section section)
 {
-	@Html.Partial("_PanelWithCards", section.GetOrderedNestedObjects())
+	<partial name="_PanelWithCards" model="section.GetOrderedNestedObjects()" />
 }
 else if (Model is Product product)
 {
-	@Html.Partial("_PanelWithCards", product.Models.OrderBy(x => x.SequenceNumber))
+	<partial name="_PanelWithCards" model="@(product.Models.OrderBy(x => x.SequenceNumber))" />
 }

@@ -1,7 +1,7 @@
 ﻿@model Section
 
 @section Scripts {
-	@{ Html.RenderPartial("_ValidationScriptsPartial"); }
+	<partial name="_ValidationScriptsPartial" />
 }
 
 <form asp-action=@(Model.Id == 0 ? "CreateSection" : "EditSection")

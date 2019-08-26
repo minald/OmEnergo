@@ -3,6 +3,6 @@
 <div class="row justify-content-center">
 	@foreach (CommonObject obj in Model)
 	{
-		@Html.Partial("_CommonObjectCard", obj)
+		<partial name="_CommonObjectCard" model="obj" />
 	}
 </div>
