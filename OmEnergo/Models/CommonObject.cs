@@ -21,7 +21,16 @@ namespace OmEnergo.Models
 		[Display(Name = "Порядковый номер")]
 		public int SequenceNumber { get; set; }
 
-		public abstract string GetDirectoryPath();
+        [Display(Name = "Метатег Title")]
+        public string MetatagTitle { get; set; }
+
+        [Display(Name = "Метатег Description")]
+        public string MetatagDescription { get; set; }
+
+        [Display(Name = "Метатег Keywords")]
+        public string MetatagKeywords { get; set; }
+
+        public abstract string GetDirectoryPath();
 
 		public abstract string GetImageNamePrefix();
 

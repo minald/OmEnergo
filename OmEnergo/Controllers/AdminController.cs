@@ -7,7 +7,6 @@ using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,13 +17,11 @@ namespace OmEnergo.Controllers
 	public class AdminController : Controller
 	{
 		private Repository Repository { get; set; }
-		private IHostingEnvironment HostingEnvironment { get; set; }
 		private FileManager _FileManager { get; set; }
 
 		public AdminController(Repository repository, IHostingEnvironment hostingEnvironment)
 		{
 			Repository = repository;
-			HostingEnvironment = hostingEnvironment;
 			_FileManager = new FileManager(repository, hostingEnvironment);
 		}
 

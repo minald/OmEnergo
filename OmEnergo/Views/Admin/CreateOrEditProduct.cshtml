@@ -6,43 +6,23 @@
 
 <h4 class="text-center">@Model.Section.Name</h4>
 <form asp-action=@(Model.Id == 0 ? "CreateProduct" : "EditProduct")
-	  asp-route-sectionId="@Model.Section?.Id" method="post">
-	<input hidden asp-for="Id">
-	<input hidden asp-for="Properties">
-	<div class="form-group row">
-		<label asp-for="Name" class="col-sm-2 col-form-label text-right"></label>
-		<div class="col-sm-5"><input asp-for="Name" class="form-control"></div>
-		<label asp-for="SequenceNumber" class="col-sm-2 col-form-label text-right"></label>
-		<div class="col-sm-3"><input asp-for="SequenceNumber" class="form-control"></div>
-	</div>
-	<div class="form-group row">
-		<label asp-for="EnglishName" class="col-sm-2 col-form-label text-right"></label>
-		<div class="col-sm-10">
-			<input asp-for="EnglishName" class="form-control">
-			<span asp-validation-for="EnglishName" class="text-danger"></span>
-			<small class="form-text text-muted">Значение посчитается автоматически, если сделать его пустым</small>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label asp-for="Description" class="col-sm-2 col-form-label text-right"></label>
-		<div class="col-sm-10">
-			<textarea asp-for="Description" rows="3" class="form-control"></textarea>
-		</div>
-	</div>
-	<fieldset class="properties-fieldset">
-		<legend><label asp-for="Properties"></label></legend>
-		@foreach (var property in Model.GetProperties())
-		{
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label text-right">@property.Key</label>
-				<div class="col-sm-10">
-					<input name="values[]" value="@property.Value" class="form-control" />
-				</div>
-			</div>
-		}
-	</fieldset>
-	<div class="text-center">
-		<button class="btn btn-primary" type="submit">Сохранить</button>
-		<a asp-action="Section" asp-route-id="@Model.Section.Id" asp- class="btn btn-secondary">Отмена</a>
-	</div>
+      asp-route-sectionId="@Model.Section?.Id" method="post">
+    <partial name="_CreateOrEditFormCommonObjectProperties" model="@Model" />
+    <input hidden asp-for="Properties">
+    <fieldset class="properties-fieldset">
+        <legend><label asp-for="Properties"></label></legend>
+        @foreach (var property in Model.GetProperties())
+        {
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">@property.Key</label>
+                <div class="col-sm-10">
+                    <input name="values[]" value="@property.Value" class="form-control" />
+                </div>
+            </div>
+        }
+    </fieldset>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Сохранить</button>
+        <a asp-action="Section" asp-route-id="@Model.Section.Id" asp- class="btn btn-secondary">Отмена</a>
+    </div>
 </form>

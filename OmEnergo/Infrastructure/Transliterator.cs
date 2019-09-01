@@ -6,7 +6,7 @@ namespace OmEnergo.Infrastructure
 	public static class Transliterator
 	{
 		//In accordance with http://transliteration.ru/gosdep/
-		private static Dictionary<char, string> RusToEngMatchingDictionary = new Dictionary<char, string>
+		private static readonly Dictionary<char, string> RusToEngMatchingDictionary = new Dictionary<char, string>
 		{
 			{ 'а', "a" },
 			{ 'б', "b" },

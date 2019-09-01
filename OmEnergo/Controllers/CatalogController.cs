@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmEnergo.Infrastructure.Database;
-using System.Linq;
 
 namespace OmEnergo.Controllers
 {
@@ -20,8 +19,9 @@ namespace OmEnergo.Controllers
 		public IActionResult Products(string name)
 		{
 			var commonObject = Repository.GetObjectByEnglishName(name);
-			ViewData["Title"] = commonObject.Name;
-			return View(commonObject);
+			ViewData["Title"] = commonObject.MetatagTitle ?? commonObject.Name;
+            ViewData["MetatagDescription"] = commonObject.MetatagDescription ?? commonObject.Name;
+            return View(commonObject);
 		}
 	}
 }
