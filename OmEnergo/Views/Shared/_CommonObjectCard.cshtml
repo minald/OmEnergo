@@ -1,13 +1,13 @@
 ﻿@model CommonObject
 
 <a asp-controller="Catalog" asp-action="Products" asp-route-name="@Model.EnglishName" 
-   class="col-sm-6 col-lg-4 col-xl-3 common-object-card">
+   class="col-sm-6 col-lg-4 col-xl-3 common-object-card" title="@Model.Name">
 	<div class="card shadow">
 		<div class="card-header">
 			<h6 class="text-center m-0">@Model.Name</h6>
 		</div>
 		<div class="card-body">
-			<img class="card-img" src="@Model.GetMainImageThumbnailPath(250)">
+			<img class="card-img" src="@Model.GetMainImageThumbnailPath(250)" alt="@Model.Name">
 		</div>
 		@if (Model is ProductModel productModel)
 		{
@@ -17,11 +17,14 @@
 					<li class="list-group-item">@property.Key: @property.Value</li>
 				}
 			</ul>
-			<div class="card-footer">
-				<h5 class="text-center price">
-					@productModel.GetPriceIntegerPart()<sup>@productModel.GetStringPriceFractionalPart()</sup>
-				</h5>
-			</div>
+            if (productModel.Price != 0)
+            {
+                <div class="card-footer">
+				    <h5 class="text-center price">
+					    @productModel.GetPriceIntegerPart()<sup>@productModel.GetStringPriceFractionalPart()</sup>
+				    </h5>
+			    </div>
+            }
 		}
 	</div>
 </a>

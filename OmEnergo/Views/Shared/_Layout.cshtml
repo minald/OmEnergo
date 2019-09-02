@@ -29,7 +29,8 @@
 			</div>
 			<div>
 				<i class="far fa-envelope"></i>  info@omenergo.by<br />
-				<a asp-controller="Home" asp-action="Contacts" asp-fragment="feedback"><i class="fas fa-pen-alt"></i>  Обратная связь</a>	   
+				<a asp-controller="Home" asp-action="Contacts" asp-fragment="feedback" 
+                   title="Обратная связь"><i class="fas fa-pen-alt"></i>  Обратная связь</a>   
 			</div>
 		</div>
 	</header>
@@ -39,10 +40,10 @@
 			</button>
 			<div id="mainNavbar" class="collapse navbar-collapse">
 				<div class="navbar-nav">
-				<a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">Каталог</a>
-					<a asp-controller="Home" asp-action="About" class="nav-item nav-link">О компании</a>
-					<a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link">Оплата и доставка</a>
-					<a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link">Контакты</a>
+				<a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link" title="Каталог">Каталог</a>
+					<a asp-controller="Home" asp-action="About" class="nav-item nav-link" title="О компании">О компании</a>
+					<a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link" title="Оплата и доставка">Оплата и доставка</a>
+					<a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link" title="Контакты">Контакты</a>
 				</div>
 			</div>
 		<form asp-controller="Home" asp-action="Search" class="input-group search">
@@ -66,7 +67,7 @@
 					</button>
 				</div>
 			}
-			<a href='javascript:history.go(-1)' class="btn btn-sm btn-outline-secondary position-absolute">
+			<a href='javascript:history.go(-1)' class="btn btn-sm btn-outline-secondary position-absolute" title="Назад">
 				<i class="fas fa-undo-alt mr-1"></i>Назад
 			</a>
 			@RenderBody()
