@@ -260,10 +260,14 @@ namespace OmEnergo.Controllers
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
-		#endregion
+        #endregion
 
-		//Method is necessary for validation of create/edit 
-		public IActionResult IsNewEnglishName(string englishName) 
-			=> Json(Repository.GetObjectByEnglishName(englishName) == null);
-	}
+        //Method is necessary for validation of create/edit actions
+        public IActionResult IsNewEnglishName(string englishName, int id)
+        {
+            var obj = Repository.GetObjectByEnglishName(englishName);
+            bool isNew = obj == null ? true : obj?.Id == id;
+            return Json(isNew);
+        }
+    }
 }

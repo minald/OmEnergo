@@ -8,11 +8,12 @@ namespace OmEnergo.Models
 {
 	public abstract class CommonObject : UniqueObject
 	{
-		[Display(Name = "Имя")]
+		[Display(Name = "Название")]
+        [Required(ErrorMessage = "Это поле обязательно для заполнения")]
 		public string Name { get; set; }
 
-		[Display(Name = "Имя для URL")]
-		[Remote("IsNewEnglishName", "Admin", ErrorMessage = "Такое имя для URL уже существует")]
+		[Display(Name = "Название для URL")]
+		[Remote("IsNewEnglishName", "Admin", AdditionalFields = "Id", ErrorMessage = "Такое название для URL уже существует")]
 		public string EnglishName { get; set; }
 
 		[Display(Name = "Описание")]
@@ -22,9 +23,11 @@ namespace OmEnergo.Models
 		public int SequenceNumber { get; set; }
 
         [Display(Name = "Метатег Title")]
+        [StringLength(90)]
         public string MetatagTitle { get; set; }
 
         [Display(Name = "Метатег Description")]
+        [StringLength(300)]
         public string MetatagDescription { get; set; }
 
         [Display(Name = "Метатег Keywords")]
@@ -34,7 +37,7 @@ namespace OmEnergo.Models
 
 		public abstract string GetImageNamePrefix();
 
-		public string GetMainImagePath()
+        public string GetMainImagePath()
 		{
 			string directoryPath = GetDirectoryPath();
 			string imageNamePrefix = GetImageNamePrefix();
