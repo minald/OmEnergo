@@ -125,20 +125,41 @@ iframe {
 	padding-left: 16px;
 }
 
+$image-size: 250;
+$image-size-px: 250px;
+$image-size-with-borders: $image-size + 2 * 1;
+$image-size-with-borders-px: $image-size-with-borders + unquote("px");
+$image-wrapper-size-px: ($image-size + 27 + 1) + unquote("px"); //27 is the lsPager height, 1 is necessary to avoid the appearance of a vertical scrollbar
 .common-object-description {
-	overflow: auto;
+    overflow: auto;
+    min-height: $image-wrapper-size-px;
 
-	img.card-img {
-		max-height: 250px;
-		max-width: 250px;
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-	}
+    #imagegallery-parent {
+        width: $image-size-with-borders-px;
+        height: $image-size-with-borders-px;
 
-	p {
-		white-space: pre-wrap;
-	}
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.25) !important;
+            background-image: url(/images/Magnifier.png);
+            background-position: center;
+            background-repeat: no-repeat;
+
+            img {
+                opacity: 0.5;
+            }
+        }
+
+        img.card-img {
+            width: $image-size-px;
+            height: $image-size-px;
+            object-fit: contain;
+        }
+    }
+
+    p {
+        white-space: pre-wrap;
+    }
 }
 
 .h-400px {
@@ -147,10 +168,4 @@ iframe {
 
 .mw-50 {
 	max-width: 50%;
-}
-
-.fit-image {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
 }

@@ -82,27 +82,6 @@
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    @*<script src="~/js/jivosite-widget.min.js"></script>*@
-    <script src="~/lib/lightslider/js/lightslider.min.js"></script>
-    <script src="~/lib/lightgallery/js/lightgallery-all.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#imagegallery').lightSlider({
-                item:1,
-                loop:true,
-                slideMargin:0,
-                enableDrag: false,
-                adaptiveHeight: false,
-                keyPress: true,
-                currentPagerPosition:'left',
-                onSliderLoad: function(el) {
-                    el.lightGallery({
-                        selector: '#imagegallery .lslide'
-                    });
-                }   
-            });  
-         });
-    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

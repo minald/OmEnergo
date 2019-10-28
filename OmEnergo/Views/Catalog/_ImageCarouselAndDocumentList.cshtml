@@ -2,8 +2,8 @@
 @inject FileManager FileManager
 @{ List<string> paths = FileManager.GetFullDocumentPaths(Model); }
 
-<div class="float-left mr-3 mb-3" style="width: 250px">
-	<partial name="_ImageCarousel" model="Model" />
+<div class="float-left mr-3 mb-3">
+    <partial name="_ImageCarousel" model="Model" />
 	@if (paths.Count != 0)
 	{
 	<ul class="list-group float-left mt-1 w-100">
