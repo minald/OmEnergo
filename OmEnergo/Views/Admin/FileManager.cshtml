@@ -44,15 +44,7 @@
 	</div>
 	}
 </div>
-<partial name="_UploadFileButton" model="@(Model.EnglishName as string)" />
-
-<!--This is the code for the _UploadFileButton partial view. 
-	For some reason, it isn't possible to add any section, such as Scripts, to a partial view.-->
-@section Scripts {
-	<script>
-		$(".custom-file-input").on("change", function () {
-			var fileName = $(this).val().split("\\").pop();
-			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-		});
-	</script>
-}
+<div class="m-auto max-width-600px">
+    <partial name="_UploadFileButton"
+             model="@(new UploadFileFormViewModel("UploadFileAsync") { AspRouteEnglishName = Model.EnglishName })" />
+</div>

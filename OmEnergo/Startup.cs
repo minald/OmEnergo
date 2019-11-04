@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
+using OmEnergo.Infrastructure.Excel;
 
 namespace OmEnergo
 {
@@ -22,8 +23,9 @@ namespace OmEnergo
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
 			services.AddScoped<Repository>();
 			services.AddScoped<FileManager>();
-			services.AddScoped<ExcelReportBuilder>();
-			services.AddScoped<EmailSender>();
+            services.AddScoped<ExcelWriter>();
+            services.AddScoped<ExcelDbUpdater>();
+            services.AddScoped<EmailSender>();
 			services.AddSession();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

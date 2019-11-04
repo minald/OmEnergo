@@ -166,6 +166,10 @@ $image-wrapper-size-px: ($image-size + 27 + 1) + unquote("px"); //27 is the lsPa
 	height: 400px;
 }
 
-.mw-50 {
+.max-width-50 {
 	max-width: 50%;
+}
+
+.max-width-600px {
+    max-width: 600px;
 }

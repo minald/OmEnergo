@@ -1,16 +1,16 @@
-﻿//Must be recompiled manually after every change due to the bug in the WebOptimizer tool,
-//when js or jsx files cannot be auto-recompiled, i.e. rebundled and reminified, on saving.
-//This comment can be removed after resolving the 'https://github.com/madskristensen/WebCompiler/issues/402' issue
+﻿// Must be recompiled manually after every change due to the bug in the WebOptimizer tool,
+// when js or jsx files cannot be auto-recompiled, i.e. rebundled and reminified, on saving.
+// This comment can be removed after resolving the 'https://github.com/madskristensen/WebCompiler/issues/402' issue
 
 'use strict';
 
-//For the navigation tree sidebar
+// For the navigation tree sidebar
 $('.fa-angle-right').click(function () {
     $(this).toggleClass('fa-angle-right');
     $(this).toggleClass('fa-angle-down');
 });
 
-//The Jivosite widget
+// The Jivosite widget
 (function () {
     var widget_id = 'r8B1qiUPl0';
     var d = document;
@@ -33,4 +33,11 @@ $('.fa-angle-right').click(function () {
         }
     }
 })();
+
+// For the _UploadFileButton.cshtml
+// This code is here, because this code doesn't work inside the Scripts section inside the _UploadFileButton.cshtml partial view.
+$(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
 

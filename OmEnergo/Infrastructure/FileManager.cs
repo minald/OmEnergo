@@ -74,9 +74,9 @@ namespace OmEnergo.Infrastructure
 			}
 			else
 			{
-				throw new Exception("Формат загружаемого файла не поддерживается. "
-					+ $"Поддерживаемые форматы документов: {String.Join(", ", SupportedDocumentExtensions)}. "
-					+ $"Поддерживаемые форматы изображений: {String.Join(", ", SupportedImageExtensions)}.");
+				throw new FormatException("Формат загружаемого файла не поддерживается. "
+					+ $"\nПоддерживаемые форматы документов: {String.Join(", ", SupportedDocumentExtensions)}. "
+					+ $"\nПоддерживаемые форматы изображений: {String.Join(", ", SupportedImageExtensions)}.");
 			}
 		}
 

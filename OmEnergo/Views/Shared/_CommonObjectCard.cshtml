@@ -7,7 +7,7 @@
 			<h6 class="text-center m-0">@Model.Name</h6>
 		</div>
 		<div class="card-body">
-			<img class="card-img" src="@Model.GetMainImageThumbnailPath(250)" alt="@Model.Name">
+			<img class="card-img" src="@Model.GetMainImageThumbnailPath(pixels: 250)" alt="@Model.Name">
 		</div>
 		@if (Model is ProductModel productModel)
 		{

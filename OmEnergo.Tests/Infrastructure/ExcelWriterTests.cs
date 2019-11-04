@@ -5,15 +5,16 @@ using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xunit;
 
 namespace OmEnergo.Tests.Infrastructure
 {
-	public class ExcelReportBuilderTests
-	{
-		private ExcelReportBuilder ExcelReportBuilder { get; set; }
+	public class ExcelWriterTests
+    {
+		private ExcelWriter _ExcelWriter { get; set; }
 
-		public ExcelReportBuilderTests()
+		public ExcelWriterTests()
 		{
 			var sections = new List<Section>()
 			{
@@ -30,40 +31,24 @@ namespace OmEnergo.Tests.Infrastructure
 			repositoryMock.Setup(x => x.GetAllProducts()).Returns(new List<Product>());
 			repositoryMock.Setup(x => x.GetAllProductModels()).Returns(productModels);
 			repositoryMock.Setup(x => x.GetAllConfigKeys()).Returns(new List<ConfigKey>());
-			ExcelReportBuilder = new ExcelReportBuilder(repositoryMock.Object);
+			_ExcelWriter = new ExcelWriter(repositoryMock.Object);
 		}
 
 		[Fact]
-		public void CreateDatabaseBackup()
+		public void CreateExcelStream()
 		{
 			//Arrange
 
 			//Act
-			MemoryStream actualMemoryStream = ExcelReportBuilder.CreateDatabaseBackup();
+			MemoryStream actualMemoryStream = _ExcelWriter.CreateExcelStream();
 			var actualXlWorkbook = new XLWorkbook(actualMemoryStream);
 
 			//Assert
 			Assert.Equal(4, actualXlWorkbook.Worksheets.Count);
-		}
-
-		[Fact]
-		public void CreatePricesReport()
-		{
-			//Arrange
-
-			//Act
-			MemoryStream actualMemoryStream = ExcelReportBuilder.CreatePricesReport();
-			var actualXlWorkbook = new XLWorkbook(actualMemoryStream);
-			IXLWorksheet actualWorksheet = actualXlWorkbook.Worksheets.Worksheet("ProductModel");
-
-			//Assert
-			Assert.Equal(1, actualXlWorkbook.Worksheets.Count);
-			Assert.Equal("Name", actualWorksheet.Cell(1, 1).GetString());
-			Assert.Equal("Price", actualWorksheet.Cell(1, 2).GetString());
-			Assert.Equal("ModelA", actualWorksheet.Cell(2, 1).GetString());
-			Assert.Equal("", actualWorksheet.Cell(2, 3).GetString());
-			Assert.Equal("ModelB", actualWorksheet.Cell(3, 1).GetString());
-			Assert.Equal("SectionB", actualWorksheet.Cell(3, 4).GetString());
-		}
+            Assert.Equal(3, actualXlWorkbook.Worksheet("Section").RowsUsed().Count());
+            Assert.Equal(3, actualXlWorkbook.Worksheet("ProductModel").RowsUsed().Count());
+            Assert.Single(actualXlWorkbook.Worksheet("Product").RowsUsed());
+            Assert.Single(actualXlWorkbook.Worksheet("ConfigKey").RowsUsed());
+        }
 	}
 }

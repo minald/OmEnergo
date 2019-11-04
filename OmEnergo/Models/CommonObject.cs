@@ -37,28 +37,19 @@ namespace OmEnergo.Models
 
 		public abstract string GetImageNamePrefix();
 
-        public string GetMainImagePath()
-		{
-			string directoryPath = GetDirectoryPath();
-			string imageNamePrefix = GetImageNamePrefix();
-			string mainImageName = $"{imageNamePrefix}{Id}.jpg";
-			return Path.Combine(directoryPath, mainImageName);
-		}
+        public string GetMainImagePath() => GetFilePath(".jpg");
 
-		public string GetMainImageThumbnailPath(int pixels)
-		{
-			string directoryPath = GetDirectoryPath();
-			string imageNamePrefix = GetImageNamePrefix();
-			string mainImageName = $"{imageNamePrefix}{Id}-{pixels}.jpg";
-			return Path.Combine(directoryPath, mainImageName);
-		}
+		public string GetMainImageThumbnailPath(int pixels) => GetFilePath($"-{pixels}.jpg");
 
-		public string GetDocumentPath(string originalFilename)
-		{
-			string directoryPath = GetDirectoryPath();
-			string filename = $"{Id}_{originalFilename}";
-			return Path.Combine(directoryPath, filename);
-		}
+		public string GetDocumentPath(string originalFilename) => GetFilePath($"_{originalFilename}");
+
+        private string GetFilePath(string filenameLastPart)
+        {
+            string directoryPath = GetDirectoryPath();
+            string imageNamePrefix = GetImageNamePrefix();
+            string filename = $"{imageNamePrefix}{Id}{filenameLastPart}";
+            return Path.Combine(directoryPath, filename);
+        }
 
 		public string GetNamePatternOfMainImage() => $"{GetImageNamePrefix()}{Id}.*";
 
