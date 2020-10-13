@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
@@ -20,10 +21,13 @@ namespace OmEnergo.Controllers
 		private Repository _Repository { get; set; }
 		private FileManager _FileManager { get; set; }
 
-		public AdminController(Repository repository, IHostingEnvironment hostingEnvironment)
+		private readonly ILogger<AdminController> _Logger;
+
+		public AdminController(Repository repository, IHostingEnvironment hostingEnvironment, ILogger<AdminController> logger)
 		{
 			_Repository = repository;
 			_FileManager = new FileManager(repository, hostingEnvironment);
+			_Logger = logger;
 		}
 
 		public override void OnActionExecuted(ActionExecutedContext context)
@@ -70,6 +74,7 @@ namespace OmEnergo.Controllers
 			catch (Exception ex)
 			{
 				TempData["message"] = ex.Message;
+				_Logger.LogError($"AdminController: {ex.Message}");
 			}
 
 			return Redirect(Request.Headers["Referer"].ToString());
@@ -254,6 +259,7 @@ namespace OmEnergo.Controllers
 			catch (Exception ex)
 			{
 				TempData["message"] = ex.Message;
+				_Logger.LogError($"AdminController: {ex.Message}");
 			}
 
 			return Redirect(Request.Headers["Referer"].ToString());

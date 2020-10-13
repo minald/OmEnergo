@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.Extensions.Logging;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
@@ -15,9 +16,15 @@ namespace OmEnergo.Infrastructure.Excel
 	{
 		private Repository _Repository { get; }
 
+		private readonly ILogger<ExcelDbUpdater> _Logger;
+
 		private DataRow CurrentDataRow { get; set; }
 
-		public ExcelDbUpdater(Repository repository) => _Repository = repository;
+		public ExcelDbUpdater(Repository repository, ILogger<ExcelDbUpdater> logger)
+		{
+			_Repository = repository;
+			_Logger = logger;
+		}
 
 		public void ReadExcelAndUpdateDb(Stream excelFileStream)
 		{
@@ -92,6 +99,7 @@ namespace OmEnergo.Infrastructure.Excel
 					message += $"\nДопустимый формат нецелых чисел: 1234.56 или 1234,56";
 				}
 
+				_Logger.LogError($"ExcelDbUpdater: {message}");
 				throw new Exception(message, ex);
 			}
 		}

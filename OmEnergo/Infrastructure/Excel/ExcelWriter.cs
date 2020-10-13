@@ -11,6 +11,7 @@ namespace OmEnergo.Infrastructure.Excel
 	public class ExcelWriter
 	{
 		public const string XlsxMimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		private const int ExcelDefaultRowHeight = 15;
 
 		private Repository _Repository { get; }
 
@@ -36,7 +37,7 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private void SetCellsWidthAndHeight(XLWorkbook xlWorkbook)
 		{
-			xlWorkbook.Worksheets.ToList().ForEach(x => x.Rows(1, 10000).Height = 15);
+			xlWorkbook.Worksheets.ToList().ForEach(x => x.Rows(1, 10000).Height = ExcelDefaultRowHeight);
 			foreach (IXLWorksheet worksheet in xlWorkbook.Worksheets)
 			{
 				worksheet.Columns(1, 50).ToList().ForEach(c => SetColumnWidth(c));
@@ -53,7 +54,7 @@ namespace OmEnergo.Infrastructure.Excel
 			else
 			{
 				bool isAllValuesAreNumbersOrEmpty = cellsUsed.Count() == 0 ||
-				cellsUsed.All(x => Regex.IsMatch(x.Value as string, "^[0-9\\.\\,]+$"));
+					cellsUsed.All(x => Regex.IsMatch(x.Value as string, "^[0-9\\.\\,]+$"));
 				column.Width = isAllValuesAreNumbersOrEmpty ? 10 : 60;
 			}
 		}

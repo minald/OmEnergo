@@ -1,7 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Moq;
-using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
+using OmEnergo.Infrastructure.Excel;
 using OmEnergo.Models;
 using System.Collections.Generic;
 using System.IO;
