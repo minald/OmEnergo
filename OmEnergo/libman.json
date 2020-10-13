@@ -1,34 +1,34 @@
 {
-  "version": "1.0",
-  "defaultProvider": "cdnjs",
-  "libraries": [
-    {
-      "library": "twitter-bootstrap@4.3.1",
-      "destination": "wwwroot/lib/twitter-bootstrap/"
-    },
-    {
-      "library": "jquery@3.4.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
-      "library": "jquery-validate@1.19.1",
-      "destination": "wwwroot/lib/jquery-validate/"
-    },
-    {
-      "library": "jquery-validation-unobtrusive@3.2.11",
-      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
-    },
-    {
-      "library": "font-awesome@5.10.2",
-      "destination": "wwwroot/lib/font-awesome/"
-    },
-    {
-      "library": "lightslider@1.1.6",
-      "destination": "wwwroot/lib/lightslider/"
-    },
-    {
-      "library": "lightgallery@1.6.12",
-      "destination": "wwwroot/lib/lightgallery/"
-    }
-  ]
+	"version": "1.0",
+	"defaultProvider": "cdnjs",
+	"libraries": [
+		{
+			"library": "twitter-bootstrap@4.3.1",
+			"destination": "wwwroot/lib/twitter-bootstrap/"
+		},
+		{
+			"library": "jquery@3.4.1",
+			"destination": "wwwroot/lib/jquery/"
+		},
+		{
+			"library": "jquery-validate@1.19.1",
+			"destination": "wwwroot/lib/jquery-validate/"
+		},
+		{
+			"library": "jquery-validation-unobtrusive@3.2.11",
+			"destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+		},
+		{
+			"library": "font-awesome@5.10.2",
+			"destination": "wwwroot/lib/font-awesome/"
+		},
+		{
+			"library": "lightslider@1.1.6",
+			"destination": "wwwroot/lib/lightslider/"
+		},
+		{
+			"library": "lightgallery@1.6.12",
+			"destination": "wwwroot/lib/lightgallery/"
+		}
+	]
 }

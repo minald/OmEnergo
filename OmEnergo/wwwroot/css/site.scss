@@ -131,35 +131,35 @@ $image-size-with-borders: $image-size + 2 * 1;
 $image-size-with-borders-px: $image-size-with-borders + unquote("px");
 $image-wrapper-size-px: ($image-size + 27 + 1) + unquote("px"); //27 is the lsPager height, 1 is necessary to avoid the appearance of a vertical scrollbar
 .common-object-description {
-    overflow: auto;
-    min-height: $image-wrapper-size-px;
+	overflow: auto;
+	min-height: $image-wrapper-size-px;
 
-    #imagegallery-parent {
-        width: $image-size-with-borders-px;
-        height: $image-size-with-borders-px;
+	#imagegallery-parent {
+		width: $image-size-with-borders-px;
+		height: $image-size-with-borders-px;
 
-        &:hover {
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.25) !important;
-            background-image: url(/images/Magnifier.png);
-            background-position: center;
-            background-repeat: no-repeat;
+		&:hover {
+			cursor: pointer;
+			background-color: rgba(0, 0, 0, 0.25) !important;
+			background-image: url(/images/Magnifier.png);
+			background-position: center;
+			background-repeat: no-repeat;
 
-            img {
-                opacity: 0.5;
-            }
-        }
+			img {
+				opacity: 0.5;
+			}
+		}
 
-        img.card-img {
-            width: $image-size-px;
-            height: $image-size-px;
-            object-fit: contain;
-        }
-    }
+		img.card-img {
+			width: $image-size-px;
+			height: $image-size-px;
+			object-fit: contain;
+		}
+	}
 
-    p {
-        white-space: pre-wrap;
-    }
+	p {
+		white-space: pre-wrap;
+	}
 }
 
 .h-400px {
@@ -171,5 +171,5 @@ $image-wrapper-size-px: ($image-size + 27 + 1) + unquote("px"); //27 is the lsPa
 }
 
 .max-width-600px {
-    max-width: 600px;
+	max-width: 600px;
 }

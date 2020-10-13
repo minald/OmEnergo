@@ -21,29 +21,29 @@ a:hover {
 .common-object-card {
   padding-bottom: 10px; }
   .common-object-card > .card {
-	color: black; }
-	.common-object-card > .card > .card-header {
-	  z-index: 1;
-	  height: 40px;
-	  background: linear-gradient(rgba(0, 123, 255, 0.2), white);
-	  border-style: none;
-	  padding: 4px; }
-	.common-object-card > .card > .card-body {
-	  height: 200px;
-	  padding: 10px;
-	  display: flex;
-	  justify-content: center; }
-	  .common-object-card > .card > .card-body > img {
-		max-height: 100%;
-		max-width: 100%;
-		height: auto;
-		width: auto;
-		object-fit: contain; }
-	.common-object-card > .card > ul > li,
-	.common-object-card > .card > .card-footer {
-	  padding: 2px 6px; }
+    color: black; }
+    .common-object-card > .card > .card-header {
+      z-index: 1;
+      height: 40px;
+      background: linear-gradient(rgba(0, 123, 255, 0.2), white);
+      border-style: none;
+      padding: 4px; }
+    .common-object-card > .card > .card-body {
+      height: 200px;
+      padding: 10px;
+      display: flex;
+      justify-content: center; }
+      .common-object-card > .card > .card-body > img {
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        width: auto;
+        object-fit: contain; }
+    .common-object-card > .card > ul > li,
+    .common-object-card > .card > .card-footer {
+      padding: 2px 6px; }
   .common-object-card:hover > .card > .card-header {
-	background: linear-gradient(rgba(0, 123, 255, 0.5), white); }
+    background: linear-gradient(rgba(0, 123, 255, 0.5), white); }
 
 iframe {
   min-height: 400px;
@@ -56,8 +56,8 @@ iframe {
   font-size: 50px;
   margin: -4px; }
   .price > sup {
-	font-size: 27px;
-	padding-left: 5px; }
+    font-size: 27px;
+    padding-left: 5px; }
 
 .input-validation-error {
   border-color: red;
@@ -68,17 +68,17 @@ iframe {
   padding: 0px 10px;
   margin-bottom: 20px; }
   .properties-fieldset > legend {
-	width: auto;
-	padding: 0 10px;
-	margin-bottom: 0px; }
+    width: auto;
+    padding: 0 10px;
+    margin-bottom: 0px; }
 
 .search {
   width: 320px; }
   .search > div > button {
-	border-radius: 0 0.25rem 0.25rem 0 !important;
-	cursor: pointer; }
-	.search > div > button > img {
-	  width: 20px; }
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    cursor: pointer; }
+    .search > div > button > img {
+      width: 20px; }
 
 .admin-description {
   white-space: nowrap;
@@ -98,22 +98,22 @@ iframe {
   overflow: auto;
   min-height: 278px; }
   .common-object-description #imagegallery-parent {
-	width: 252px;
-	height: 252px; }
-	.common-object-description #imagegallery-parent:hover {
-	  cursor: pointer;
-	  background-color: rgba(0, 0, 0, 0.25) !important;
-	  background-image: url(/images/Magnifier.png);
-	  background-position: center;
-	  background-repeat: no-repeat; }
-	  .common-object-description #imagegallery-parent:hover img {
-		opacity: 0.5; }
-	.common-object-description #imagegallery-parent img.card-img {
-	  width: 250px;
-	  height: 250px;
-	  object-fit: contain; }
+    width: 252px;
+    height: 252px; }
+    .common-object-description #imagegallery-parent:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.25) !important;
+      background-image: url(/images/Magnifier.png);
+      background-position: center;
+      background-repeat: no-repeat; }
+      .common-object-description #imagegallery-parent:hover img {
+        opacity: 0.5; }
+    .common-object-description #imagegallery-parent img.card-img {
+      width: 250px;
+      height: 250px;
+      object-fit: contain; }
   .common-object-description p {
-	white-space: pre-wrap; }
+    white-space: pre-wrap; }
 
 .h-400px {
   height: 400px; }
