@@ -11,7 +11,7 @@ using Xunit;
 namespace OmEnergo.Tests.Infrastructure
 {
 	public class ExcelWriterTests
-    {
+	{
 		private ExcelWriter _ExcelWriter { get; set; }
 
 		public ExcelWriterTests()
@@ -45,10 +45,10 @@ namespace OmEnergo.Tests.Infrastructure
 
 			//Assert
 			Assert.Equal(4, actualXlWorkbook.Worksheets.Count);
-            Assert.Equal(3, actualXlWorkbook.Worksheet("Section").RowsUsed().Count());
-            Assert.Equal(3, actualXlWorkbook.Worksheet("ProductModel").RowsUsed().Count());
-            Assert.Single(actualXlWorkbook.Worksheet("Product").RowsUsed());
-            Assert.Single(actualXlWorkbook.Worksheet("ConfigKey").RowsUsed());
-        }
+			Assert.Equal(3, actualXlWorkbook.Worksheet("Section").RowsUsed().Count());
+			Assert.Equal(3, actualXlWorkbook.Worksheet("ProductModel").RowsUsed().Count());
+			Assert.Single(actualXlWorkbook.Worksheet("Product").RowsUsed());
+			Assert.Single(actualXlWorkbook.Worksheet("ConfigKey").RowsUsed());
+		}
 	}
 }

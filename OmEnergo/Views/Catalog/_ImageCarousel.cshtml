@@ -4,15 +4,15 @@
 
 @if (fullPaths.Count != 0)
 {
-    <div id="imagegallery-parent" class="border border-secondary bg-white">
-        <ul id="imagegallery" class="cS-hidden">
-            @foreach (var fullPath in fullPaths)
-            {
-                string path = FileManager.GetRelativePath(fullPath);
-                <li data-thumb="@path" data-src="@path">
-                    <img src="@path" class="card-img bg-light" alt="@Model.Name">
-                </li>
-            }
-        </ul>
-    </div>
+	<div id="imagegallery-parent" class="border border-secondary bg-white">
+		<ul id="imagegallery" class="cS-hidden">
+			@foreach (var fullPath in fullPaths)
+			{
+				string path = FileManager.GetRelativePath(fullPath);
+				<li data-thumb="@path" data-src="@path">
+					<img src="@path" class="card-img bg-light" alt="@Model.Name">
+				</li>
+			}
+		</ul>
+	</div>
 }

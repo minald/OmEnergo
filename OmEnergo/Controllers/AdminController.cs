@@ -47,35 +47,35 @@ namespace OmEnergo.Controllers
 
 		public FileStreamResult CreateBackup([FromServices]ExcelWriter excelWriter)
 		{
-            MemoryStream excelFileStream = excelWriter.CreateExcelStream();
-            string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            string fullFileName = $"OmEnergoDB_{currentDatetime}.xlsx";
-            return File(excelFileStream, ExcelWriter.XlsxMimeType, fullFileName);
-        }
+			MemoryStream excelFileStream = excelWriter.CreateExcelStream();
+			string currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+			string fullFileName = $"OmEnergoDB_{currentDatetime}.xlsx";
+			return File(excelFileStream, ExcelWriter.XlsxMimeType, fullFileName);
+		}
 
-        [HttpPost]
-        public IActionResult UploadExcelWithData([FromServices]ExcelDbUpdater excelDbUpdater, IFormFile uploadedFile)
-        {
-            try
-            {
-                if (uploadedFile == null)
-                {
-                    throw new Exception("Пожалуйста, выберите файл");
-                }
+		[HttpPost]
+		public IActionResult UploadExcelWithData([FromServices]ExcelDbUpdater excelDbUpdater, IFormFile uploadedFile)
+		{
+			try
+			{
+				if (uploadedFile == null)
+				{
+					throw new Exception("Пожалуйста, выберите файл");
+				}
 
-                Stream excelFileStream = uploadedFile.OpenReadStream();
-                excelDbUpdater.ReadExcelAndUpdateDb(excelFileStream);
-                TempData["message"] = "Данные успешно обновлены";
-            }
-            catch (Exception ex)
-            {
-                TempData["message"] = ex.Message;
-            }
+				Stream excelFileStream = uploadedFile.OpenReadStream();
+				excelDbUpdater.ReadExcelAndUpdateDb(excelFileStream);
+				TempData["message"] = "Данные успешно обновлены";
+			}
+			catch (Exception ex)
+			{
+				TempData["message"] = ex.Message;
+			}
 
-            return Redirect(Request.Headers["Referer"].ToString());
-        }
+			return Redirect(Request.Headers["Referer"].ToString());
+		}
 
-        [HttpPost]
+		[HttpPost]
 		public IActionResult CreateThumbnails(int maxSize)
 		{
 			var commonObjects = new List<CommonObject>();
@@ -235,6 +235,7 @@ namespace OmEnergo.Controllers
 
 		#endregion
 
+
 		#region FileManager
 
 		public IActionResult FileManager(string englishName)
@@ -272,14 +273,14 @@ namespace OmEnergo.Controllers
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
-        #endregion
+		#endregion
 
-        //Method is necessary for validation of create/edit actions
-        public IActionResult IsNewEnglishName(string englishName, int id)
-        {
-            var obj = _Repository.GetObjectByEnglishName(englishName);
-            bool isNew = obj == null ? true : obj?.Id == id;
-            return Json(isNew);
-        }
-    }
+		//Method is necessary for validation of create/edit actions
+		public IActionResult IsNewEnglishName(string englishName, int id)
+		{
+			var obj = _Repository.GetObjectByEnglishName(englishName);
+			bool isNew = obj == null ? true : obj?.Id == id;
+			return Json(isNew);
+		}
+	}
 }

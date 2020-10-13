@@ -2,8 +2,8 @@
 
 namespace OmEnergo.Infrastructure.Excel
 {
-    interface IDataTableCreator
-    {
-        DataTable Create(object data);
-    }
+	interface IDataTableCreator
+	{
+		DataTable Create(object data);
+	}
 }

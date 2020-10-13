@@ -1,25 +1,25 @@
 ﻿<h2 class="text-center">Главная страница</h2>
 <div class="row m-3">
-    <a class="btn btn-primary mr-3" asp-action="Sections">Изменить содержимое сайта</a>
-    <a class="btn btn-info" asp-action="Configuration">Изменить конфигурацию</a>
+	<a class="btn btn-primary mr-3" asp-action="Sections">Изменить содержимое сайта</a>
+	<a class="btn btn-info" asp-action="Configuration">Изменить конфигурацию</a>
 </div>
 <hr>
 <h3>Загрузка и выгрузка данных из Excel</h3>
 <div class="row m-3">
-    <a class="btn btn-info" asp-action="CreateBackup">Скачать файл Excel</a>
-    <div class="col ml-3 max-width-600px">
-        <partial name="_UploadFileButton" model="@(new UploadFileFormViewModel("UploadExcelWithData"))" />
-    </div>
+	<a class="btn btn-info" asp-action="CreateBackup">Скачать файл Excel</a>
+	<div class="col ml-3 max-width-600px">
+		<partial name="_UploadFileButton" model="@(new UploadFileFormViewModel("UploadExcelWithData"))" />
+	</div>
 </div>
 <hr>
 <h3>Миниатюры картинок</h3>
 <form asp-action="CreateThumbnails" class="form-inline m-3">
-    <div class="input-group mr-2">
-        <input type="number" name="maxSize" class="form-control">
-        <div class="input-group-append">
-            <span class="input-group-text">пикселей</span>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary my-1">Создать</button>
+	<div class="input-group mr-2">
+		<input type="number" name="maxSize" class="form-control">
+		<div class="input-group-append">
+			<span class="input-group-text">пикселей</span>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary my-1">Создать</button>
 </form>
 

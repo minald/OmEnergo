@@ -20,8 +20,8 @@ namespace OmEnergo.Controllers
 		{
 			var commonObject = Repository.GetObjectByEnglishName(name);
 			ViewData["Title"] = commonObject.MetatagTitle ?? commonObject.Name;
-            ViewData["MetatagDescription"] = commonObject.MetatagDescription ?? commonObject.Name;
-            return View(commonObject);
+			ViewData["MetatagDescription"] = commonObject.MetatagDescription ?? commonObject.Name;
+			return View(commonObject);
 		}
 	}
 }

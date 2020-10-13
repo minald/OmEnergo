@@ -6,34 +6,34 @@
 
 <h4 class="text-center">@(Model.Section?.Name ?? Model.Product.Name)</h4>
 <form asp-action=@(Model.Id == 0 ? "CreateProductModel" : "EditProductModel")
-      asp-route-sectionId="@Model.Section?.Id" asp-route-productId="@Model.Product?.Id" method="post">
-    <input hidden asp-for="Properties">
-    <partial name="_CreateOrEditFormCommonObjectProperties" model="@Model" />
-    <div class="form-group row">
-        <label asp-for="Price" class="col-sm-2 col-form-label text-right"></label>
-        <div class="col-sm-10"><input asp-for="Price" class="form-control"></div>
-    </div>
-    <fieldset class="properties-fieldset">
-        <legend><label asp-for="Properties"></label></legend>
-        @foreach (var property in Model.GetProperties())
-        {
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label text-right">@property.Key</label>
-                <div class="col-sm-10">
-                    <input name="values[]" value="@property.Value" class="form-control" />
-                </div>
-            </div>
-        }
-    </fieldset>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Сохранить</button>
-        @if (Model.Section != null)
-        {
-            <a asp-action="Section" asp-route-id="@Model.Section?.Id" class="btn btn-secondary">Отмена</a>
-        }
-        else
-        {
-            <a asp-action="Product" asp-route-id="@Model.Product?.Id" class="btn btn-secondary">Отмена</a>
-        }
-    </div>
+	  asp-route-sectionId="@Model.Section?.Id" asp-route-productId="@Model.Product?.Id" method="post">
+	<input hidden asp-for="Properties">
+	<partial name="_CreateOrEditFormCommonObjectProperties" model="@Model" />
+	<div class="form-group row">
+		<label asp-for="Price" class="col-sm-2 col-form-label text-right"></label>
+		<div class="col-sm-10"><input asp-for="Price" class="form-control"></div>
+	</div>
+	<fieldset class="properties-fieldset">
+		<legend><label asp-for="Properties"></label></legend>
+		@foreach (var property in Model.GetProperties())
+		{
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label text-right">@property.Key</label>
+				<div class="col-sm-10">
+					<input name="values[]" value="@property.Value" class="form-control" />
+				</div>
+			</div>
+		}
+	</fieldset>
+	<div class="text-center">
+		<button class="btn btn-primary" type="submit">Сохранить</button>
+		@if (Model.Section != null)
+		{
+			<a asp-action="Section" asp-route-id="@Model.Section?.Id" class="btn btn-secondary">Отмена</a>
+		}
+		else
+		{
+			<a asp-action="Product" asp-route-id="@Model.Product?.Id" class="btn btn-secondary">Отмена</a>
+		}
+	</div>
 </form>

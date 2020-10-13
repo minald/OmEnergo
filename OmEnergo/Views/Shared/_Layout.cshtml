@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewData["Title"]</title>
+	<title>@ViewData["Title"]</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="Description" content="@ViewData["MetatagDescription"]"/>
+	<meta name="Description" content="@ViewData["MetatagDescription"]"/>
 	<link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
-    <link rel="stylesheet" href="~/lib/lightslider/css/lightslider.min.css" />
-    <link rel="stylesheet" href="~/lib/lightgallery/css/lightgallery.min.css" /> 
+	<link rel="stylesheet" href="~/lib/lightslider/css/lightslider.min.css" />
+	<link rel="stylesheet" href="~/lib/lightgallery/css/lightgallery.min.css" /> 
 	<environment include="Development">
 		<link rel="stylesheet" href="~/css/site.css" />
 	</environment>
@@ -17,71 +17,71 @@
 	</environment>
 </head>
 <body>
-    <mini-profiler />
-    <header class="d-flex px-4 pb-1 m-0">
-        <div class="mr-auto">
-            <h1 class="mb-0">ООО "ОмЭнерго"</h1>
-            <h4 class="mb-1">Электротехническая компания</h4>
-        </div>
-        <div class="d-flex flex-row small">
-            <div class="mr-4">
-                <i class="fas fa-phone"></i>  +375 (17) 248-77-45<br>
-                <img src="~/images/VelcomIcon.png" />  +375 (29) 341-31-35<br>
-                <img src="~/images/MtsIcon.png" />  +375 (29) 560-01-79<br>
-            </div>
-            <div>
-                <i class="far fa-envelope"></i>  info@omenergo.by<br />
-                <a asp-controller="Home" asp-action="Contacts" asp-fragment="feedback"
-                   title="Обратная связь"><i class="fas fa-pen-alt"></i>  Обратная связь</a>
-            </div>
-        </div>
-    </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-1">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="mainNavbar" class="collapse navbar-collapse">
-            <div class="navbar-nav">
-                <a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link" title="Каталог">Каталог</a>
-                <a asp-controller="Home" asp-action="About" class="nav-item nav-link" title="О компании">О компании</a>
-                <a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link" title="Оплата и доставка">Оплата и доставка</a>
-                <a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link" title="Контакты">Контакты</a>
-            </div>
-        </div>
-        <form asp-controller="Home" asp-action="Search" class="input-group search">
-            <input name="searchString" class="form-control">
-            <div class="input-group-append">
-                <button class="input-group-text" type="submit"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-    </nav>
-    <div class="body-content row px-2 pt-3 m-0">
-        <div class="col-3 p-0 navigation-tree-sidebar">
-            @await Component.InvokeAsync("NavigationTreeSidebar")
-        </div>
-        <div class="col-9">
-            @if (TempData["message"] != null)
-            {
-                <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
-                    <pre class="m-0">@TempData["message"]</pre>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            }
-            <a href='javascript:history.go(-1)' class="btn btn-sm btn-outline-secondary position-absolute" title="Назад">
-                <i class="fas fa-undo-alt mr-1"></i>Назад
-            </a>
-            @RenderBody()
-        </div>
-    </div>
-    <hr />
-    <footer class="pl-4">
-        <p>&copy; 2019 - ООО "ОмЭнерго"</p>
-    </footer>
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+	<mini-profiler />
+	<header class="d-flex px-4 pb-1 m-0">
+		<div class="mr-auto">
+			<h1 class="mb-0">ООО "ОмЭнерго"</h1>
+			<h4 class="mb-1">Электротехническая компания</h4>
+		</div>
+		<div class="d-flex flex-row small">
+			<div class="mr-4">
+				<i class="fas fa-phone"></i>  +375 (17) 248-77-45<br>
+				<img src="~/images/VelcomIcon.png" />  +375 (29) 341-31-35<br>
+				<img src="~/images/MtsIcon.png" />  +375 (29) 560-01-79<br>
+			</div>
+			<div>
+				<i class="far fa-envelope"></i>  info@omenergo.by<br />
+				<a asp-controller="Home" asp-action="Contacts" asp-fragment="feedback"
+				   title="Обратная связь"><i class="fas fa-pen-alt"></i>  Обратная связь</a>
+			</div>
+		</div>
+	</header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 py-1">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div id="mainNavbar" class="collapse navbar-collapse">
+			<div class="navbar-nav">
+				<a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link" title="Каталог">Каталог</a>
+				<a asp-controller="Home" asp-action="About" class="nav-item nav-link" title="О компании">О компании</a>
+				<a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link" title="Оплата и доставка">Оплата и доставка</a>
+				<a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link" title="Контакты">Контакты</a>
+			</div>
+		</div>
+		<form asp-controller="Home" asp-action="Search" class="input-group search">
+			<input name="searchString" class="form-control">
+			<div class="input-group-append">
+				<button class="input-group-text" type="submit"><i class="fas fa-search"></i></button>
+			</div>
+		</form>
+	</nav>
+	<div class="body-content row px-2 pt-3 m-0">
+		<div class="col-3 p-0 navigation-tree-sidebar">
+			@await Component.InvokeAsync("NavigationTreeSidebar")
+		</div>
+		<div class="col-9">
+			@if (TempData["message"] != null)
+			{
+				<div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+					<pre class="m-0">@TempData["message"]</pre>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			}
+			<a href='javascript:history.go(-1)' class="btn btn-sm btn-outline-secondary position-absolute" title="Назад">
+				<i class="fas fa-undo-alt mr-1"></i>Назад
+			</a>
+			@RenderBody()
+		</div>
+	</div>
+	<hr />
+	<footer class="pl-4">
+		<p>&copy; 2019 - ООО "ОмЭнерго"</p>
+	</footer>
+	<script src="~/lib/jquery/jquery.min.js"></script>
+	<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.min.js" asp-append-version="true"></script>
+	@RenderSection("Scripts", required: false)
 </body>
 </html>

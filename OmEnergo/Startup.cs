@@ -23,9 +23,9 @@ namespace OmEnergo
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
 			services.AddScoped<Repository>();
 			services.AddScoped<FileManager>();
-            services.AddScoped<ExcelWriter>();
-            services.AddScoped<ExcelDbUpdater>();
-            services.AddScoped<EmailSender>();
+			services.AddScoped<ExcelWriter>();
+			services.AddScoped<ExcelDbUpdater>();
+			services.AddScoped<EmailSender>();
 			services.AddSession();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

@@ -2,44 +2,44 @@
 
 <h2 class="text-center">@Model.Name</h2>
 <div class="common-object-description mb-2">
-    <partial name="_ImageCarouselAndDocumentList" model="Model" />
-    @if (Model is ProductObject productObject)
-    {
-        <partial name="_PropertiesTable" model="productObject.GetPropertiesWithValues()" />
-    }
-    <p class="text-justify">@Model.Description</p>
+	<partial name="_ImageCarouselAndDocumentList" model="Model" />
+	@if (Model is ProductObject productObject)
+	{
+		<partial name="_PropertiesTable" model="productObject.GetPropertiesWithValues()" />
+	}
+	<p class="text-justify">@Model.Description</p>
 </div>
 
 @if (Model is Section section)
 {
-    <partial name="_PanelWithCards" model="section.GetOrderedNestedObjects()" />
+	<partial name="_PanelWithCards" model="section.GetOrderedNestedObjects()" />
 }
 else if (Model is Product product)
 {
-    <partial name="_PanelWithCards" model="@(product.Models.OrderBy(x => x.SequenceNumber))" />
+	<partial name="_PanelWithCards" model="@(product.Models.OrderBy(x => x.SequenceNumber))" />
 }
 
 @section Scripts{
-    <script src="~/lib/lightslider/js/lightslider.min.js"></script>
-    <script src="~/lib/lightgallery/js/lightgallery-all.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#imagegallery').lightSlider({
-                item: 1,
-                slideMargin: 0,
-                loop: true,
-                auto: true,
-                speed: 2000,
-                pause: 10000,
-                enableDrag: false,
-                keyPress: true,
-                onSliderLoad: function (el) {
-                    $('#imagegallery').removeClass('cS-hidden');
-                    el.lightGallery({
-                        selector: '#imagegallery .lslide'
-                    });
-                }
-            });
-        });
-    </script>
+	<script src="~/lib/lightslider/js/lightslider.min.js"></script>
+	<script src="~/lib/lightgallery/js/lightgallery-all.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#imagegallery').lightSlider({
+				item: 1,
+				slideMargin: 0,
+				loop: true,
+				auto: true,
+				speed: 2000,
+				pause: 10000,
+				enableDrag: false,
+				keyPress: true,
+				onSliderLoad: function (el) {
+					$('#imagegallery').removeClass('cS-hidden');
+					el.lightGallery({
+						selector: '#imagegallery .lslide'
+					});
+				}
+			});
+		});
+	</script>
 }

@@ -17,14 +17,14 @@
 					<li class="list-group-item">@property.Key: @property.Value</li>
 				}
 			</ul>
-            if (productModel.Price != 0)
-            {
-                <div class="card-footer">
-				    <h5 class="text-center price">
-					    @productModel.GetPriceIntegerPart()<sup>@productModel.GetStringPriceFractionalPart()</sup>
-				    </h5>
-			    </div>
-            }
+			if (productModel.Price != 0)
+			{
+				<div class="card-footer">
+					<h5 class="text-center price">
+						@productModel.GetPriceIntegerPart()<sup>@productModel.GetStringPriceFractionalPart()</sup>
+					</h5>
+				</div>
+			}
 		}
 	</div>
 </a>
