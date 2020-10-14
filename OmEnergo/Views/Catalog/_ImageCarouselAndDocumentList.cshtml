@@ -6,11 +6,11 @@
 	<partial name="_ImageCarousel" model="Model" />
 	@if (paths.Count != 0)
 	{
-	<ul class="list-group float-left mt-1 w-100">
-		@foreach (string path in paths)
-		{
-		<li class="list-group-item p-1"><partial name="_Document" model="path" /></li>
-		}
-	</ul>
+		<ul class="list-group float-left mt-1 w-100">
+			@foreach (string path in paths)
+			{
+				<li class="list-group-item p-1"><partial name="_Document" model="path" /></li>
+			}
+		</ul>
 	}
 </div>

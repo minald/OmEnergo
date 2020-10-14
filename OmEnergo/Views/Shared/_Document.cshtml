@@ -4,7 +4,7 @@
    class="fas fa-file-download mx-1" title="Скачать"></a>
 @if (FileManager.CanBePreviewed(Model))
 {
-<a asp-controller="Document" asp-action="Look" asp-route-path="@Model"
-	class="fas fa-eye mx-1" title="Смотреть"></a>
+	<a asp-controller="Document" asp-action="Look" asp-route-path="@Model"
+		class="fas fa-eye mx-1" title="Смотреть"></a>
 }
 @FileManager.GetFileName(Model)

@@ -2,46 +2,46 @@
 
 <h2 class="text-center">@Model.Name</h2>
 <div class="row justify-content-center mb-3">
-   @foreach (string imageFullPath in FileManager.GetFullImagePaths(Model))
+	@foreach (string imageFullPath in FileManager.GetFullImagePaths(Model))
 	{
-	<div class="col-sm-6 col-lg-4 col-xl-3 common-object-card">
-		<div class="card shadow">
-			<div class="card-body">
-				<img class="card-img" src="@FileManager.GetRelativePath(imageFullPath)" asp-append-version="true">
-			</div>
-			<div class="card-footer justify-content-center d-flex">
-				@if (!FileManager.IsTheMainImage(imageFullPath, Model.Id))
-				{
-					<form asp-action="MakeImageMain" asp-route-path="@imageFullPath"
+		<div class="col-sm-6 col-lg-4 col-xl-3 common-object-card">
+			<div class="card shadow">
+				<div class="card-body">
+					<img class="card-img" src="@FileManager.GetRelativePath(imageFullPath)" asp-append-version="true">
+				</div>
+				<div class="card-footer justify-content-center d-flex">
+					@if (!FileManager.IsTheMainImage(imageFullPath, Model.Id))
+					{
+						<form asp-action="MakeImageMain" asp-route-path="@imageFullPath"
+							  asp-route-englishName="@Model.EnglishName" method="post">
+							<button class="btn btn-info" type="submit">Сделать главным</button>
+						</form>
+					}
+					<form asp-action="DeleteFile" asp-route-path="@imageFullPath"
 						  asp-route-englishName="@Model.EnglishName" method="post">
-						<button class="btn btn-info" type="submit">Сделать главным</button>
+						<button class="btn btn-sm btn-danger my-1 ml-2" type="submit">Удалить</button>
 					</form>
-				}
-				<form asp-action="DeleteFile" asp-route-path="@imageFullPath"
-					  asp-route-englishName="@Model.EnglishName" method="post">
-					<button class="btn btn-sm btn-danger my-1 ml-2" type="submit">Удалить</button>
-				</form>
+				</div>
 			</div>
 		</div>
-	</div>
 	}
 </div>
 <div class="row justify-content-center mb-3">
    @foreach (string docFullPath in FileManager.GetFullDocumentPaths(Model))
 	{
-	<div class="col-sm-6 col-lg-4 col-xl-3">
-		<div class="card shadow">
-			<div class="card-header">
-				<partial name="_Document" model="docFullPath" />
-			</div>
-			<div class="card-footer justify-content-center d-flex">
-				<form asp-action="DeleteFile" asp-route-path="@docFullPath"
-					  asp-route-englishName="@Model.EnglishName" method="post">
-					<button class="btn btn-sm btn-danger" type="submit">Удалить</button>
-				</form>
+		<div class="col-sm-6 col-lg-4 col-xl-3">
+			<div class="card shadow">
+				<div class="card-header">
+					<partial name="_Document" model="docFullPath" />
+				</div>
+				<div class="card-footer justify-content-center d-flex">
+					<form asp-action="DeleteFile" asp-route-path="@docFullPath"
+						  asp-route-englishName="@Model.EnglishName" method="post">
+						<button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 	}
 </div>
 <div class="m-auto max-width-600px">
