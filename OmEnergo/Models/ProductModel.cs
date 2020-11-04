@@ -23,7 +23,7 @@ namespace OmEnergo.Models
 
 		public override string GetDirectoryPath()
 		{
-			string parentPath = Section != null ? $"{Section?.Id}" : $@"{Product.Section.Id}\{Product.Id}";
+			var parentPath = Section != null ? $"{Section?.Id}" : $@"{Product.Section.Id}\{Product.Id}";
 			return $@"\images\{parentPath}";
 		}
 
@@ -31,7 +31,7 @@ namespace OmEnergo.Models
 
 		public string GetStringPriceFractionalPart()
 		{
-			string prefix = GetPriceFractionalPart() < 10 ? "0" : "";
+			var prefix = GetPriceFractionalPart() < 10 ? "0" : "";
 			return prefix + GetPriceFractionalPart().ToString();
 		}
 

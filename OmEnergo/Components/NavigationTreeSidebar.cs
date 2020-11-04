@@ -6,10 +6,10 @@ namespace OmEnergo.Models
 {
 	public class NavigationTreeSidebar : ViewComponent
 	{
-		private IEnumerable<Section> Sections { get; set; }
+		private IEnumerable<Section> sections { get; set; }
 
-		public NavigationTreeSidebar(Repository repository) => Sections = repository.GetFullCatalog();
+		public NavigationTreeSidebar(Repository repository) => sections = repository.GetFullCatalog();
 
-		public IViewComponentResult Invoke() => View(Sections);
+		public IViewComponentResult Invoke() => View(sections);
 	}
 }

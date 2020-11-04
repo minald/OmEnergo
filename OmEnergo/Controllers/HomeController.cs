@@ -10,9 +10,9 @@ namespace OmEnergo.Controllers
 {
 	public class HomeController : Controller
 	{
-		private Repository Repository { get; set; }
+		private readonly Repository repository;
 
-		public HomeController(Repository repository) => Repository = repository;
+		public HomeController(Repository repository) => this.repository = repository;
 
 		public IActionResult About() => View();
 
@@ -37,8 +37,8 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult Login(string login, string password)
 		{
-			string correctLogin = Repository.GetConfigValue("AdminLogin");
-			string correctPassword = Repository.GetConfigValue("AdminPassword");
+			var correctLogin = repository.GetConfigValue("AdminLogin");
+			var correctPassword = repository.GetConfigValue("AdminPassword");
 			if (login == correctLogin && password == correctPassword)
 			{
 				HttpContext.Session.SetString("isLogin", "true");
@@ -52,8 +52,8 @@ namespace OmEnergo.Controllers
 		}
 
 		public IActionResult Search(string searchString) => View(new SearchViewModel(searchString,
-			Repository.GetSearchedSections(searchString), Repository.GetSearchedProducts(searchString),
-			Repository.GetSearchedProductModels(searchString)));
+			repository.GetSearchedSections(searchString), repository.GetSearchedProducts(searchString),
+			repository.GetSearchedProductModels(searchString)));
 
 		public IActionResult Error() => View();
 	}

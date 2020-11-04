@@ -47,7 +47,7 @@ namespace OmEnergo.Infrastructure
 
 		public static string FromRussianToEnglish(string russianString)
 		{
-			string transliteratedString = "";
+			var transliteratedString = "";
 			foreach (var c in russianString.ToLower().Trim())
 			{
 				if (RusToEngMatchingDictionary.TryGetValue(c, out string engChar))

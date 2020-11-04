@@ -16,8 +16,8 @@ namespace OmEnergo.Infrastructure
 			if (context.Response.StatusCode == 404 && 
 				context.Request.Headers["accept"].ToString().ToLower().StartsWith("image"))
 			{
-				string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\DefaultImage.jpg");
-				byte[] bytes = await File.ReadAllBytesAsync(path);
+				var path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images\DefaultImage.jpg");
+				var bytes = await File.ReadAllBytesAsync(path);
 				await context.Response.Body.WriteAsync(bytes, 0, bytes.Length);
 			}
 		}

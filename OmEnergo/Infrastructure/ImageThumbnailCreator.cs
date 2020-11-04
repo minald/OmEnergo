@@ -8,25 +8,25 @@ namespace OmEnergo.Infrastructure
 {
 	public class ImageThumbnailCreator
 	{
-		private int MaxSize { get; set; }
+		private readonly int maxSize;
 
 		public ImageThumbnailCreator(int maxSize)
 		{
-			MaxSize = maxSize;
+			this.maxSize = maxSize;
 		}
 
 		public void Create(List<CommonObject> commonObjects)
 		{
 			foreach (var commonObject in commonObjects)
 			{
-				List<string> imagePaths = FileManager.GetFullImagePaths(commonObject);
-				foreach (string imagePath in imagePaths)
+				var imagePaths = FileManager.GetFullImagePaths(commonObject);
+				foreach (var imagePath in imagePaths)
 				{
-					string thumnailPath = GetThumbnailPath(imagePath, commonObject);
+					var thumnailPath = GetThumbnailPath(imagePath, commonObject);
 					if (!File.Exists(thumnailPath))
 					{
-						Image image = Image.FromFile(imagePath);
-						Image thumbnail = GetThumbnailFrom(image);
+						var image = Image.FromFile(imagePath);
+						var thumbnail = GetThumbnailFrom(image);
 						thumbnail.Save(thumnailPath);
 					}
 				}
@@ -34,17 +34,16 @@ namespace OmEnergo.Infrastructure
 		}
 
 		private string GetThumbnailPath(string imagePath, CommonObject obj) => 
-			imagePath.Replace($"{obj.GetImageNamePrefix()}{obj.Id}", $"{obj.GetImageNamePrefix()}{obj.Id}-{MaxSize}");
+			imagePath.Replace($"{obj.GetImageNamePrefix()}{obj.Id}", $"{obj.GetImageNamePrefix()}{obj.Id}-{maxSize}");
 
 		private Image GetThumbnailFrom(Image image)
 		{
-			int originalWidth = image.Width;
-			int originalHeight = image.Height;
-
-			int biggerSize = Math.Max(originalWidth, originalHeight);
-			double compressionRatio = biggerSize > MaxSize ? (double)biggerSize / MaxSize : 1;
-			int width = (int)(originalWidth / compressionRatio);
-			int height = (int)(originalHeight / compressionRatio);
+			var originalWidth = image.Width;
+			var originalHeight = image.Height;
+			var biggerSize = Math.Max(originalWidth, originalHeight);
+			var compressionRatio = biggerSize > maxSize ? (double)biggerSize / maxSize : 1;
+			var width = (int)(originalWidth / compressionRatio);
+			var height = (int)(originalHeight / compressionRatio);
 
 			return image.GetThumbnailImage(width, height, () => false, IntPtr.Zero);
 		}

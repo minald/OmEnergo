@@ -10,10 +10,8 @@ namespace OmEnergo.Tests.Infrastructure
 		[InlineData(@"2\4\178_9db442b4-c892-441b-ab76-574fb1978a74.jpg", 178, false)]
 		public void IsTheMainImage(string imagePath, int objectId, bool expected)
 		{
-			//Arrange
-
 			//Act
-			bool actual = FileManager.IsTheMainImage(imagePath, objectId);
+			var actual = FileManager.IsTheMainImage(imagePath, objectId);
 
 			//Assert
 			Assert.Equal(expected, actual);
@@ -24,10 +22,8 @@ namespace OmEnergo.Tests.Infrastructure
 		[InlineData(@"\images\9_Price_03_14.xlsx", @"\images\9_Price_03_14.xlsx")]
 		public void GetRelativePath(string fullPath, string expected)
 		{
-			//Arrange
-
 			//Act
-			string actual = FileManager.GetRelativePath(fullPath);
+			var actual = FileManager.GetRelativePath(fullPath);
 
 			//Assert
 			Assert.Equal(expected, actual);
@@ -38,10 +34,8 @@ namespace OmEnergo.Tests.Infrastructure
 		[InlineData(@"\images\9_Price_03_14.xlsx", "Price_03_14.xlsx")]
 		public void GetFileName(string fullPath, string expected)
 		{
-			//Arrange
-
 			//Act
-			string actual = FileManager.GetFileName(fullPath);
+			var actual = FileManager.GetFileName(fullPath);
 
 			//Assert
 			Assert.Equal(expected, actual);
@@ -52,10 +46,8 @@ namespace OmEnergo.Tests.Infrastructure
 		[InlineData(@"\images\17_NewPrice.xlsx", false)]
 		public void CanBePreviewed(string path, bool expected)
 		{
-			//Arrange
-
 			//Act
-			bool actual = FileManager.CanBePreviewed(path);
+			var actual = FileManager.CanBePreviewed(path);
 
 			//Assert
 			Assert.Equal(expected, actual);
@@ -66,10 +58,8 @@ namespace OmEnergo.Tests.Infrastructure
 		[InlineData(@"\images\23_Description.txt", "text/plain")]
 		public void GetContentType(string path, string expected)
 		{
-			//Arrange
-
 			//Act
-			string actual = FileManager.GetContentType(path);
+			var actual = FileManager.GetContentType(path);
 
 			//Assert
 			Assert.Equal(expected, actual);

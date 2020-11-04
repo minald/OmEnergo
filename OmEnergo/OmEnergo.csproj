@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+		<LangVersion>8.0</LangVersion>
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
         <UserSecretsId>5e94c9a3-52b8-4eb1-a5f4-9e99185ffda8</UserSecretsId>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <NoWarn>1701;1702;IDE0049</NoWarn>
+        <NoWarn>1701;1702;IDE0049;IDE1006</NoWarn>
     </PropertyGroup>
     <ItemGroup>
         <Compile Remove="Database\**" />

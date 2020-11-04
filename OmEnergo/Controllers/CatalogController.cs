@@ -5,20 +5,20 @@ namespace OmEnergo.Controllers
 {
 	public class CatalogController : Controller
 	{
-		private Repository Repository { get; set; }
+		private readonly Repository repository;
 
-		public CatalogController(Repository repository) => Repository = repository;
+		public CatalogController(Repository repository) => this.repository = repository;
 
 		public IActionResult Index()
 		{
-			var mainSections = Repository.GetOrderedMainSections();
+			var mainSections = repository.GetOrderedMainSections();
 			ViewData["Title"] = "Каталог";
 			return View("_PanelWithCards", mainSections);
 		}
 
 		public IActionResult Products(string name)
 		{
-			var commonObject = Repository.GetObjectByEnglishName(name);
+			var commonObject = repository.GetObjectByEnglishName(name);
 			ViewData["Title"] = commonObject.MetatagTitle ?? commonObject.Name;
 			ViewData["MetatagDescription"] = commonObject.MetatagDescription ?? commonObject.Name;
 			return View(commonObject);

@@ -22,8 +22,6 @@ namespace OmEnergo.Tests.Infrastructure
 			RequestDelegate requestDelegate = DelegateWhichDoesNothing;
 			var defaultImageMiddleware = new DefaultImageMiddleware(requestDelegate);
 
-			//Act
-
 			//Assert
 			//The DirectoryNotFoundException is thrown only in case, if the middleware tries to get the default image,
 			//which does not exist in the current Tests project folder 

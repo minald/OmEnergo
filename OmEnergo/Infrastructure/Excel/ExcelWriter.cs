@@ -1,7 +1,6 @@
 ﻿using ClosedXML.Excel;
 using OmEnergo.Infrastructure.Database;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,17 +12,17 @@ namespace OmEnergo.Infrastructure.Excel
 		public const string XlsxMimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 		private const int ExcelDefaultRowHeight = 15;
 
-		private Repository _Repository { get; }
+		private readonly Repository repository;
 
-		public ExcelWriter(Repository repository) => _Repository = repository;
+		public ExcelWriter(Repository repository) => this.repository = repository;
 
 		public MemoryStream CreateExcelStream()
 		{
-			var workbook = new XLWorkbook();
-			AddWorksheet(workbook, _Repository.GetAllSections());
-			AddWorksheet(workbook, _Repository.GetAllProducts());
-			AddWorksheet(workbook, _Repository.GetAllProductModels());
-			AddWorksheet(workbook, _Repository.GetAllConfigKeys());
+			using var workbook = new XLWorkbook();
+			AddWorksheet(workbook, repository.GetAllSections());
+			AddWorksheet(workbook, repository.GetAllProducts());
+			AddWorksheet(workbook, repository.GetAllProductModels());
+			AddWorksheet(workbook, repository.GetAllConfigKeys());
 			SetCellsWidthAndHeight(workbook);
 			return ToMemoryStream(workbook);
 		}
@@ -31,14 +30,14 @@ namespace OmEnergo.Infrastructure.Excel
 		private void AddWorksheet<T>(XLWorkbook workbook, IEnumerable<T> objects)
 		{
 			var dataTableCreator = new DataTableCreatorFromIEnumerable<T>();
-			DataTable dataTable = dataTableCreator.Create(objects);
+			using var dataTable = dataTableCreator.Create(objects);
 			workbook.Worksheets.Add(dataTable);
 		}
 
 		private void SetCellsWidthAndHeight(XLWorkbook xlWorkbook)
 		{
 			xlWorkbook.Worksheets.ToList().ForEach(x => x.Rows(1, 10000).Height = ExcelDefaultRowHeight);
-			foreach (IXLWorksheet worksheet in xlWorkbook.Worksheets)
+			foreach (var worksheet in xlWorkbook.Worksheets)
 			{
 				worksheet.Columns(1, 50).ToList().ForEach(c => SetColumnWidth(c));
 			}
@@ -46,14 +45,14 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private void SetColumnWidth(IXLColumn column)
 		{
-			IEnumerable<IXLCell> cellsUsed = column.CellsUsed().Skip(1);
+			var cellsUsed = column.CellsUsed().Skip(1);
 			if (column.FirstCell().Value as string == "Id")
 			{
 				column.Hide();
 			}
 			else
 			{
-				bool isAllValuesAreNumbersOrEmpty = cellsUsed.Count() == 0 ||
+				var isAllValuesAreNumbersOrEmpty = cellsUsed.Count() == 0 ||
 					cellsUsed.All(x => Regex.IsMatch(x.Value as string, "^[0-9\\.\\,]+$"));
 				column.Width = isAllValuesAreNumbersOrEmpty ? 10 : 60;
 			}

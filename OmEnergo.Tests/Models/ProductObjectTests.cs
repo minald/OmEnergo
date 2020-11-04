@@ -7,12 +7,12 @@ namespace OmEnergo.Tests.Models
 {
 	public class ProductObjectTests
 	{
-		private ProductModel ProductModel { get; set; }
+		private ProductModel productModel { get; set; }
 
 		public ProductObjectTests()
 		{
-			string properties = "{\"Power\":\"11 kW\",\"Measurements\":\"127x150x200 mm\",\"Weight\":\"4 kg\"}";
-			ProductModel = new ProductModel() { Properties = properties };
+			var properties = "{\"Power\":\"11 kW\",\"Measurements\":\"127x150x200 mm\",\"Weight\":\"4 kg\"}";
+			productModel = new ProductModel() { Properties = properties };
 		}
 
 		[Fact]
@@ -27,7 +27,7 @@ namespace OmEnergo.Tests.Models
 			};
 
 			//Act
-			var actual = ProductModel.GetProperties();
+			var actual = productModel.GetProperties();
 
 			//Assert
 			Assert.Equal(expected, actual);
@@ -37,7 +37,7 @@ namespace OmEnergo.Tests.Models
 		public void GetPropertiesWithValues()
 		{
 			//Arrange
-			ProductModel.Properties = "{\"Power\":\"11 kW\",\"Year\":\"\",\"Weight\":\"4 kg\"}";
+			productModel.Properties = "{\"Power\":\"11 kW\",\"Year\":\"\",\"Weight\":\"4 kg\"}";
 			var expected = new Dictionary<string, string>()
 			{
 				["Power"] = "11 kW",
@@ -45,7 +45,7 @@ namespace OmEnergo.Tests.Models
 			};
 
 			//Act
-			var actual = ProductModel.GetPropertiesWithValues();
+			var actual = productModel.GetPropertiesWithValues();
 
 			//Assert
 			Assert.Equal(expected, actual);
@@ -58,13 +58,13 @@ namespace OmEnergo.Tests.Models
 		public void UpdateProperties(string propertyNamesAsString, string expected)
 		{
 			//Arrange
-			List<string> propertyNames = propertyNamesAsString.Split(';').ToList();
+			var propertyNames = propertyNamesAsString.Split(';').ToList();
 
 			//Act
-			ProductModel.UpdateProperties(propertyNames);
+			productModel.UpdateProperties(propertyNames);
 
 			//Assert
-			string actual = ProductModel.Properties;
+			var actual = productModel.Properties;
 			Assert.Equal(expected, actual);
 		}
 
@@ -75,13 +75,13 @@ namespace OmEnergo.Tests.Models
 		public void UpdatePropertyValues(string propertyValuesAsString, string expected)
 		{
 			//Arrange
-			string[] propertyValues = propertyValuesAsString.Split(';');
+			var propertyValues = propertyValuesAsString.Split(';');
 
 			//Act
-			ProductModel.UpdatePropertyValues(propertyValues);
+			productModel.UpdatePropertyValues(propertyValues);
 
 			//Assert
-			string actual = ProductModel.Properties;
+			var actual = productModel.Properties;
 			Assert.Equal(expected, actual);
 		}
 	}

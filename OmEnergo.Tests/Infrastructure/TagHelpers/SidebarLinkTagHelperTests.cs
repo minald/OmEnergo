@@ -8,16 +8,16 @@ namespace OmEnergo.Tests.Infrastructure.TagHelpers
 {
 	public class SidebarLinkTagHelperTests
 	{
-		private TagHelperContext TagHelperContext { get; set; }
-		private TagHelperOutput TagHelperOutput { get; set; }
+		private TagHelperContext tagHelperContext { get; set; }
+		private TagHelperOutput tagHelperOutput { get; set; }
 
 		public SidebarLinkTagHelperTests()
 		{
-			TagHelperContext = new TagHelperContext(
+			tagHelperContext = new TagHelperContext(
 				new TagHelperAttributeList(),
 				new Dictionary<object, object>(),
 				"uniqueId");
-			TagHelperOutput = new TagHelperOutput(
+			tagHelperOutput = new TagHelperOutput(
 				"a",
 				new TagHelperAttributeList(),
 				(cache, encoder) => Task.FromResult<TagHelperContent>(new DefaultTagHelperContent()));
@@ -30,10 +30,10 @@ namespace OmEnergo.Tests.Infrastructure.TagHelpers
 			var tagHelper = new SidebarLinkTagHelper() { OmChildrenAmount = 1 };
 
 			//Act
-			tagHelper.Process(TagHelperContext, TagHelperOutput);
+			tagHelper.Process(tagHelperContext, tagHelperOutput);
 
 			//Assert
-			string actual = TagHelperOutput.Attributes["class"].Value.ToString();
+			var actual = tagHelperOutput.Attributes["class"].Value.ToString();
 			Assert.Equal("fas fa-angle-right", actual);
 		}
 
@@ -44,10 +44,10 @@ namespace OmEnergo.Tests.Infrastructure.TagHelpers
 			var tagHelper = new SidebarLinkTagHelper() { OmChildrenAmount = 0 };
 
 			//Act
-			tagHelper.Process(TagHelperContext, TagHelperOutput);
+			tagHelper.Process(tagHelperContext, tagHelperOutput);
 
 			//Assert
-			object actual = TagHelperOutput.Attributes["class"]?.Value;
+			var actual = tagHelperOutput.Attributes["class"]?.Value;
 			Assert.Null(actual);
 		}
 	}

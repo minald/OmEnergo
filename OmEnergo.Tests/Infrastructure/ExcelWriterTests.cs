@@ -4,7 +4,6 @@ using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
 using OmEnergo.Models;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace OmEnergo.Tests.Infrastructure
 {
 	public class ExcelWriterTests
 	{
-		private ExcelWriter _ExcelWriter { get; set; }
+		private readonly ExcelWriter excelWriter;
 
 		public ExcelWriterTests()
 		{
@@ -31,17 +30,15 @@ namespace OmEnergo.Tests.Infrastructure
 			repositoryMock.Setup(x => x.GetAllProducts()).Returns(new List<Product>());
 			repositoryMock.Setup(x => x.GetAllProductModels()).Returns(productModels);
 			repositoryMock.Setup(x => x.GetAllConfigKeys()).Returns(new List<ConfigKey>());
-			_ExcelWriter = new ExcelWriter(repositoryMock.Object);
+			excelWriter = new ExcelWriter(repositoryMock.Object);
 		}
 
 		[Fact]
 		public void CreateExcelStream()
 		{
-			//Arrange
-
 			//Act
-			MemoryStream actualMemoryStream = _ExcelWriter.CreateExcelStream();
-			var actualXlWorkbook = new XLWorkbook(actualMemoryStream);
+			using var actualMemoryStream = excelWriter.CreateExcelStream();
+			using var actualXlWorkbook = new XLWorkbook(actualMemoryStream);
 
 			//Assert
 			Assert.Equal(4, actualXlWorkbook.Worksheets.Count);

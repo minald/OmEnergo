@@ -45,9 +45,9 @@ namespace OmEnergo.Models
 
 		private string GetFilePath(string filenameLastPart)
 		{
-			string directoryPath = GetDirectoryPath();
-			string imageNamePrefix = GetImageNamePrefix();
-			string filename = $"{imageNamePrefix}{Id}{filenameLastPart}";
+			var directoryPath = GetDirectoryPath();
+			var imageNamePrefix = GetImageNamePrefix();
+			var filename = $"{imageNamePrefix}{Id}{filenameLastPart}";
 			return Path.Combine(directoryPath, filename);
 		}
 

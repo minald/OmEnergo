@@ -15,7 +15,7 @@ namespace OmEnergo.Infrastructure.Excel
 		private DataTable Create(IEnumerable<T> objects)
 		{
 			var dataTable = new DataTable(typeof(T).Name);
-			List<PropertyInfo> properties = GetNonListProperties();
+			var properties = GetNonListProperties();
 			properties.ForEach(x => dataTable.Columns.Add(x.Name));
 			FillDataTable(dataTable, objects, properties);
 			return dataTable;
@@ -28,7 +28,7 @@ namespace OmEnergo.Infrastructure.Excel
 		{
 			foreach (T obj in objects)
 			{
-				object[] propertyValues = GetPropertyValues(obj, properties).ToArray();
+				var propertyValues = GetPropertyValues(obj, properties).ToArray();
 				dataTable.Rows.Add(propertyValues);
 			}
 		}
@@ -37,8 +37,8 @@ namespace OmEnergo.Infrastructure.Excel
 		{
 			foreach (var property in properties)
 			{
-				object value = property.GetValue(obj, null);
-				object resultValue = value is UniqueObject uniqueObject ? uniqueObject.Id : value;
+				var value = property.GetValue(obj, null);
+				var resultValue = value is UniqueObject uniqueObject ? uniqueObject.Id : value;
 				yield return resultValue;
 			}
 		}

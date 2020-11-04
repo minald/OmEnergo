@@ -35,9 +35,9 @@ namespace OmEnergo.Models
 			return list.OrderBy(x => x.SequenceNumber);
 		}
 
-		public List<string> GetProductPropertyList() => ProductProperties?.Split(';').ToList() ?? new List<string>();
+		public List<string> GetProductPropertyList() => ProductProperties?.Split(';')?.ToList() ?? new List<string>();
 
-		public List<string> GetProductModelPropertyList() => ProductModelProperties?.Split(';').ToList() ?? new List<string>();
+		public List<string> GetProductModelPropertyList() => ProductModelProperties?.Split(';')?.ToList() ?? new List<string>();
 
 		public bool IsMainSection() => ParentSection == null;
 

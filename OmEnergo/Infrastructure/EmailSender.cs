@@ -7,44 +7,44 @@ namespace OmEnergo.Infrastructure
 {
 	public class EmailSender
 	{
-		private readonly string Host;
-		private readonly int Port;
-		private readonly bool EnableSsl;
-		private readonly string SenderEmailAddress;
-		private readonly string SenderPassword;
+		private readonly string host;
+		private readonly int port;
+		private readonly bool enableSsl;
+		private readonly string senderEmailAddress;
+		private readonly string senderPassword;
 
 		public EmailSender(Repository repository)
 		{
-			Host = repository.GetConfigValue("Email_Host");
-			Port = Convert.ToInt32(repository.GetConfigValue("Email_Port"));
-			EnableSsl = Convert.ToBoolean(repository.GetConfigValue("Email_EnableSsl"));
-			SenderEmailAddress = repository.GetConfigValue("Email_SenderEmailAddress");
-			SenderPassword = repository.GetConfigValue("Email_SenderPassword");
+			host = repository.GetConfigValue("Email_Host");
+			port = Convert.ToInt32(repository.GetConfigValue("Email_Port"));
+			enableSsl = Convert.ToBoolean(repository.GetConfigValue("Email_EnableSsl"));
+			senderEmailAddress = repository.GetConfigValue("Email_SenderEmailAddress");
+			senderPassword = repository.GetConfigValue("Email_SenderPassword");
 		}
 
 		public void SendEmail(string name, string phoneNumber, string email, string text)
 		{
-			using (var client = new SmtpClient(Host, Port))
+			using var client = new SmtpClient(host, port)
 			{
-				client.EnableSsl = EnableSsl;
-				client.Credentials = new NetworkCredential(SenderEmailAddress, SenderPassword);
-				MailMessage message = CreateMessage(name, phoneNumber, email, text);
-				client.Send(message);
-			}
+				EnableSsl = enableSsl,
+				Credentials = new NetworkCredential(senderEmailAddress, senderPassword)
+			};
+			var message = CreateMessage(name, phoneNumber, email, text);
+			client.Send(message);
 		}
 
 		private MailMessage CreateMessage(string name, string phoneNumber, string email, string text)
 		{
 			var mailMessage = new MailMessage
 			{
-				From = new MailAddress(SenderEmailAddress),
+				From = new MailAddress(senderEmailAddress),
 				Subject = "Обратная связь с сайта omenergo.by",
 				Body = $"Имя: {name}" + Environment.NewLine
 					 + $"Телефон: {phoneNumber}" + Environment.NewLine
 					 + $"Email: {email}" + Environment.NewLine 
 					 + $"Сообщение: {text}"
 			};
-			mailMessage.To.Add(SenderEmailAddress);
+			mailMessage.To.Add(senderEmailAddress);
 			return mailMessage;
 		}
 	}

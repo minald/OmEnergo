@@ -20,7 +20,7 @@ namespace OmEnergo.Infrastructure.Excel
 		{
 			foreach (IXLCell cell in worksheet.FirstRow().CellsUsed())
 			{
-				string columnName = cell.Value.ToString();
+				var columnName = cell.Value.ToString();
 				dataTable.Columns.Add(columnName);
 			}
 		}

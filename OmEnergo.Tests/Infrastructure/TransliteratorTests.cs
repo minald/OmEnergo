@@ -14,10 +14,8 @@ namespace OmEnergo.Tests.Infrastructure
 		[InlineData(@"Звезда*", "zvezda*")]
 		public void FromRussianToEnglish(string russianString, string expected)
 		{
-			//Arrange
-
 			//Act
-			string actual = Transliterator.FromRussianToEnglish(russianString);
+			var actual = Transliterator.FromRussianToEnglish(russianString);
 
 			//Assert
 			Assert.Equal(expected, actual);

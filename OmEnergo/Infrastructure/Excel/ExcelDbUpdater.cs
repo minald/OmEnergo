@@ -14,54 +14,50 @@ namespace OmEnergo.Infrastructure.Excel
 {
 	public class ExcelDbUpdater
 	{
-		private Repository _Repository { get; }
+		private readonly Repository repository;
 
-		private readonly ILogger<ExcelDbUpdater> _Logger;
+		private readonly ILogger<ExcelDbUpdater> logger;
 
-		private DataRow CurrentDataRow { get; set; }
+		private DataRow currentDataRow { get; set; }
 
 		public ExcelDbUpdater(Repository repository, ILogger<ExcelDbUpdater> logger)
 		{
-			_Repository = repository;
-			_Logger = logger;
+			this.repository = repository;
+			this.logger = logger;
 		}
 
 		public void ReadExcelAndUpdateDb(Stream excelFileStream)
 		{
-			using (var workbook = new XLWorkbook(excelFileStream))
-			{
-				UpdateValuesInTable<Section>(workbook);
-				UpdateValuesInTable<Product>(workbook);
-				UpdateValuesInTable<ProductModel>(workbook);
-				UpdateValuesInTable<ConfigKey>(workbook);
-			}
+			using var workbook = new XLWorkbook(excelFileStream);
+			UpdateValuesInTable<Section>(workbook);
+			UpdateValuesInTable<Product>(workbook);
+			UpdateValuesInTable<ProductModel>(workbook);
+			UpdateValuesInTable<ConfigKey>(workbook);
 		}
 
 		private void UpdateValuesInTable<T>(XLWorkbook workbook) where T : UniqueObject
 		{
-			IXLWorksheet worksheet = workbook.Worksheet(typeof(T).Name);
-			using (DataTable dataTable = new DataTableCreatorFromXLWorkbook().Create(worksheet))
-			{
-				UpdateDbWithValuesFromDataTable<T>(dataTable);
-			}
+			var worksheet = workbook.Worksheet(typeof(T).Name);
+			using var dataTable = new DataTableCreatorFromXLWorkbook().Create(worksheet);
+			UpdateDbWithValuesFromDataTable<T>(dataTable);
 		}
 
 		private void UpdateDbWithValuesFromDataTable<T>(DataTable dataTable) where T : UniqueObject
 		{
 			foreach (DataRow dataRow in dataTable.Rows)
 			{
-				CurrentDataRow = dataRow;
+				currentDataRow = dataRow;
 				UpdateCurrentRow<T>();
 			}
 		}
 
 		private void UpdateCurrentRow<T>() where T : UniqueObject
 		{
-			List<PropertyInfo> primitiveProperties = GetPrimitiveProperties<T>();
-			int id = Convert.ToInt32(CurrentDataRow["Id"]);
-			T obj = _Repository.Get<T>(x => x.Id == id);
+			var primitiveProperties = GetPrimitiveProperties<T>();
+			var id = Convert.ToInt32(currentDataRow["Id"]);
+			var obj = repository.Get<T>(x => x.Id == id);
 			primitiveProperties.ForEach(p => ReadAndSetValue(obj, p));
-			_Repository.Update(obj);
+			repository.Update(obj);
 		}
 
 		private List<PropertyInfo> GetPrimitiveProperties<T>() => typeof(T).GetProperties()
@@ -70,8 +66,8 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private void ReadAndSetValue<T>(T obj, PropertyInfo property)
 		{
-			Type propertyType = property.PropertyType;
-			string stringValue = CurrentDataRow[property.Name] as string;
+			var propertyType = property.PropertyType;
+			var stringValue = currentDataRow[property.Name] as string;
 			stringValue = ConvertNonIntegerValueToEnUsFormat(stringValue, propertyType);
 			ChangeTypeAndSetValue(obj, property, stringValue);
 		}
@@ -83,7 +79,7 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private void ChangeTypeAndSetValue<T>(T obj, PropertyInfo property, string stringValue)
 		{
-			Type propertyType = property.PropertyType;
+			var propertyType = property.PropertyType;
 			try
 			{
 				var value = Convert.ChangeType(stringValue, propertyType, CultureInfo.CreateSpecificCulture("en-US"));
@@ -91,15 +87,15 @@ namespace OmEnergo.Infrastructure.Excel
 			}
 			catch (Exception ex)
 			{
-				string message = $"Значение некорректно и не может быть обновлено."
-					+ $"\nТаблица {CurrentDataRow.Table.TableName}, Строка: {CurrentDataRow.Table.Rows.IndexOf(CurrentDataRow) + 2}"
+				var message = $"Значение некорректно и не может быть обновлено."
+					+ $"\nТаблица {currentDataRow.Table.TableName}, Строка: {currentDataRow.Table.Rows.IndexOf(currentDataRow) + 2}"
 					+ $"\nСвойство: {property.Name}, Значение: {stringValue}";
 				if (IsNonIntegerNumber(propertyType))
 				{
 					message += $"\nДопустимый формат нецелых чисел: 1234.56 или 1234,56";
 				}
 
-				_Logger.LogError($"ExcelDbUpdater: {message}");
+				logger.LogError($"ExcelDbUpdater: {message}");
 				throw new Exception(message, ex);
 			}
 		}
