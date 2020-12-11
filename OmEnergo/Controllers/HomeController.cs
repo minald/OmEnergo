@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models.ViewModels;
@@ -11,8 +12,13 @@ namespace OmEnergo.Controllers
 	public class HomeController : Controller
 	{
 		private readonly Repository repository;
+		private readonly IStringLocalizer localizer;
 
-		public HomeController(Repository repository) => this.repository = repository;
+		public HomeController(Repository repository, IStringLocalizer localizer)
+		{
+			this.repository = repository;
+			this.localizer = localizer;
+		}
 
 		public IActionResult About() => View();
 
@@ -46,7 +52,7 @@ namespace OmEnergo.Controllers
 			}
 			else
 			{
-				TempData["message"] = "Введённые данные неверны";
+				TempData["message"] = localizer["TheEnteredDataIsIncorrect"];
 				return RedirectToAction(nameof(Login));
 			}
 		}

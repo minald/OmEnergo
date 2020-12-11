@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
@@ -20,17 +21,19 @@ namespace OmEnergo.Controllers
 		private readonly Repository repository;
 		private readonly FileManager fileManager;
 		private readonly ILogger<AdminController> logger;
+		private readonly IStringLocalizer localizer;
 
-		public AdminController(Repository repository, IHostingEnvironment hostingEnvironment, ILogger<AdminController> logger)
+		public AdminController(Repository repository, FileManager fileManager, ILogger<AdminController> logger, IStringLocalizer localizer)
 		{
 			this.repository = repository;
-			fileManager = new FileManager(repository, hostingEnvironment);
+			this.fileManager = fileManager;
 			this.logger = logger;
+			this.localizer = localizer;
 		}
 
 		public override void OnActionExecuted(ActionExecutedContext context)
 		{
-			ViewData["Title"] = "Административная панель";
+			ViewData["Title"] = localizer["AdministrativePanel"];
 			base.OnActionExecuted(context);
 		}
 
@@ -62,12 +65,12 @@ namespace OmEnergo.Controllers
 			{
 				if (uploadedFile == null)
 				{
-					throw new Exception("Пожалуйста, выберите файл");
+					throw new Exception(localizer["PleaseSelectAFile"]);
 				}
 
 				using var excelFileStream = uploadedFile.OpenReadStream();
 				excelDbUpdater.ReadExcelAndUpdateDb(excelFileStream);
-				TempData["message"] = "Данные успешно обновлены";
+				TempData["message"] = localizer["DataWasSuccessfullyUpdated"];
 			}
 			catch (Exception ex)
 			{
@@ -87,7 +90,7 @@ namespace OmEnergo.Controllers
 			commonObjects.AddRange(repository.GetAllProductModels() ?? new List<ProductModel>());
 			var imageThumbnailCreator = new ImageThumbnailCreator(maxSize);
 			imageThumbnailCreator.Create(commonObjects);
-			TempData["message"] = "Миниатюры изображений успешно созданы";
+			TempData["message"] = localizer["ImageThumbnailsWereSuccessfullyCreated"];
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -117,7 +120,7 @@ namespace OmEnergo.Controllers
 
 			section.SetEnglishNameIfEmpty();
 			repository.Update(section);
-			TempData["message"] = $"Секция {section.Name} создана";
+			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasDeleted_f"]}";
 			return section.IsMainSection() ? RedirectToAction(nameof(Sections))
 				: RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
 		}
@@ -134,7 +137,7 @@ namespace OmEnergo.Controllers
 
 			section.SetEnglishNameIfEmpty();
 			repository.UpdateSectionAndSynchronizeProperties(section);
-			TempData["message"] = $"Секция {section.Name} изменена";
+			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasChanged_f"]}";
 			return section.IsMainSection() ? RedirectToAction(nameof(Sections))
 				: RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
 		}
@@ -144,7 +147,7 @@ namespace OmEnergo.Controllers
 		{
 			var section = repository.GetSection(id);
 			repository.Delete<Section>(id);
-			TempData["message"] = $"Секция {section.Name} удалена";
+			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasDeleted_f"]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
@@ -165,7 +168,7 @@ namespace OmEnergo.Controllers
 			product.UpdatePropertyValues(values);
 			product.SetEnglishNameIfEmpty();
 			repository.Update(product);
-			TempData["message"] = $"Продукт {product.Name} создан";
+			TempData["message"] = $"{localizer["Product"]} {product.Name} {localizer["WasDeleted_m"]}";
 			return RedirectToAction(nameof(Section), new { id = product.Section.Id });
 		}
 
@@ -178,7 +181,7 @@ namespace OmEnergo.Controllers
 			product.UpdatePropertyValues(values);
 			product.SetEnglishNameIfEmpty();
 			repository.Update(product);
-			TempData["message"] = $"Продукт {product.Name} изменён";
+			TempData["message"] = $"{localizer["Product"]} {product.Name} {localizer["WasChanged_m"]}";
 			return RedirectToAction(nameof(Section), new { id = product.Section.Id });
 		}
 
@@ -186,7 +189,7 @@ namespace OmEnergo.Controllers
 		public IActionResult DeleteProduct(int id)
 		{
 			repository.Delete<Product>(id);
-			TempData["message"] = $"Продукт удалён";
+			TempData["message"] = $"{localizer["Product"]} {localizer["WasDeleted_m"]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
@@ -207,7 +210,7 @@ namespace OmEnergo.Controllers
 			productModel.UpdatePropertyValues(values);
 			productModel.SetEnglishNameIfEmpty();
 			repository.Update(productModel);
-			TempData["message"] = $"Модель {productModel.Name} создана";
+			TempData["message"] = $"{localizer["Model"]} {productModel.Name} {localizer["WasDeleted_f"]}";
 			return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
 				: RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
 		}
@@ -223,7 +226,7 @@ namespace OmEnergo.Controllers
 			productModel.UpdatePropertyValues(values);
 			productModel.SetEnglishNameIfEmpty();
 			repository.Update(productModel);
-			TempData["message"] = $"Модель {productModel.Name} изменена";
+			TempData["message"] = $"{localizer["Model"]} {productModel.Name} {localizer["WasChanged_f"]}";
 			return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
 				: RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
 		}
@@ -232,7 +235,7 @@ namespace OmEnergo.Controllers
 		public IActionResult DeleteProductModel(int id)
 		{
 			repository.Delete<ProductModel>(id);
-			TempData["message"] = $"Модель удалена";
+			TempData["message"] = $"{localizer["Model"]} {localizer["WasDeleted_f"]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 

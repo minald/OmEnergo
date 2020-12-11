@@ -1,6 +1,6 @@
 ﻿@model List<ConfigKey>
 
-<h2 class="text-center">Конфигурация</h2>
+<h2 class="text-center">@Localizer["Configuration"]</h2>
 <form asp-action="SaveConfiguration" method="post">
 	@for (int i = 0; i < Model.Count; i++)
 	{
@@ -11,12 +11,9 @@
 		</div>
 	}
 	<div class="text-center">
-		<button class="btn btn-primary" type="submit">Сохранить</button>
+		<button class="btn btn-primary" type="submit">@Localizer["Save"]</button>
 	</div>
 	<i class="fas fa-exclamation-triangle fa-4x float-left m-2"></i>
-	<p class="font-weight-bold m-2">
-		Для того, чтобы отправление писем на почту gmail проходило успешно,<br>
-		необходимо в настройках аккаунта дать доступ сторонним приложениям.<br>
-		Сделать это можно по <a href="https://myaccount.google.com/u/0/lesssecureapps" class="text-primary font-weight-light">этой ссылке</a>.
+	<p class="font-weight-bold m-2 white-space-pre-wrap">@Localizer["EmailConfigurationDescription_Beginning"]<a href="https://myaccount.google.com/u/0/lesssecureapps" class="text-primary font-weight-light">@Localizer["EmailConfigurationDescription_Ending"]</a>.
 	</p>
 </form>

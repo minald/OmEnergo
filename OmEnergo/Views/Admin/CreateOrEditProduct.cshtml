@@ -22,7 +22,7 @@
 		}
 	</fieldset>
 	<div class="text-center">
-		<button class="btn btn-primary" type="submit">Сохранить</button>
-		<a asp-action="Section" asp-route-id="@Model.Section.Id" asp- class="btn btn-secondary">Отмена</a>
+		<button class="btn btn-primary" type="submit">@Localizer["Save"]</button>
+		<a asp-action="Section" asp-route-id="@Model.Section.Id" asp- class="btn btn-secondary">@Localizer["Cancel"]</a>
 	</div>
 </form>

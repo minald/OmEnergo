@@ -173,3 +173,7 @@ $image-wrapper-size-px: ($image-size + 27 + 1) + unquote("px"); //27 is the lsPa
 .max-width-600px {
 	max-width: 600px;
 }
+
+.white-space-pre-wrap {
+	white-space: pre-wrap;
+}

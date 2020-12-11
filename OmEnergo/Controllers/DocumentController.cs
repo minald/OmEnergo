@@ -8,13 +8,13 @@ namespace OmEnergo.Controllers
 	{
 		public IActionResult Look(string path)
 		{
-			using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+			var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
 			return new FileStreamResult(fileStream, FileManager.GetContentType(path));
 		}
 
 		public IActionResult Download(string path)
 		{
-			using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+			var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
 			return File(fileStream, FileManager.GetContentType(path), FileManager.GetFileName(path));
 		}
 	}

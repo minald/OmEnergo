@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
@@ -18,12 +19,15 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private readonly ILogger<ExcelDbUpdater> logger;
 
+		private readonly IStringLocalizer localizer;
+
 		private DataRow currentDataRow { get; set; }
 
-		public ExcelDbUpdater(Repository repository, ILogger<ExcelDbUpdater> logger)
+		public ExcelDbUpdater(Repository repository, ILogger<ExcelDbUpdater> logger, IStringLocalizer localizer)
 		{
 			this.repository = repository;
 			this.logger = logger;
+			this.localizer = localizer;
 		}
 
 		public void ReadExcelAndUpdateDb(Stream excelFileStream)
@@ -87,12 +91,14 @@ namespace OmEnergo.Infrastructure.Excel
 			}
 			catch (Exception ex)
 			{
-				var message = $"Значение некорректно и не может быть обновлено."
-					+ $"\nТаблица {currentDataRow.Table.TableName}, Строка: {currentDataRow.Table.Rows.IndexOf(currentDataRow) + 2}"
-					+ $"\nСвойство: {property.Name}, Значение: {stringValue}";
+				var message = localizer["TheValueIsInvalidAndCannotBeUpdated"].Value
+					.Replace("{{tableName}}", currentDataRow.Table.TableName)
+					.Replace("{{rowNumber}}", (currentDataRow.Table.Rows.IndexOf(currentDataRow) + 2).ToString())
+					.Replace("{{propertyName}}", property.Name)
+					.Replace("{{propertyValue}}", stringValue);
 				if (IsNonIntegerNumber(propertyType))
 				{
-					message += $"\nДопустимый формат нецелых чисел: 1234.56 или 1234,56";
+					message += Environment.NewLine + localizer["ValidNonIntegerFormat"];
 				}
 
 				logger.LogError($"ExcelDbUpdater: {message}");

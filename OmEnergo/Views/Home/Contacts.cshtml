@@ -1,36 +1,25 @@
 ﻿@model EmailMessageViewModel
 @{
-	ViewData["Title"] = "Контакты";
+	ViewData["Title"] = Localizer["Contacts"];
 }
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }
 
-<h1 class="text-center">Контакты</h1>
+<h1 class="text-center">@Localizer["Contacts"]</h1>
 <div class="row">
 	<div class="col-lg-6">
-		<h3>ООО "ОмЭнерго"</h3>
-		<p>
-			Время работы:<br>
-			Технические специалисты: 9:00-17:00;<br>
-			Выписка накладных: 9:30-16:30.
-		</p>
-		<h4>Заранее согласовывайте время приезда к нам!</h4>
-		<p>
-			Юридический и почтовый адрес:<br>
-			220055, РБ, г.Минск, ул.Каменногорская, д.47, оф.12 (2 этаж)<br>
-			Тел/факс: (+375-17) 248-77-45<br>
-			Velcom:  (+375-29) 341-31-35<br>
-			МТС: (+375-29) 560-01-79<br>
-			E-mail: info@omenergo.by
-		</p>
+		<h3>@Localizer["OOO_OmEnergo"]</h3>
+		<p class="white-space-pre-wrap">@Localizer["WorkingHours"]</p>
+		<h4>@Localizer["CoordinateTimeOfArrival"]</h4>
+		<p class="white-space-pre-wrap">@Localizer["ContactInformation"]</p>
 	</div>
 	<div class="col-lg-6 col-12">
 		<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af7cc1bc8fa1165565789e8adc8c7dae2d652d2d6bfcb93676d654d7d81d4bca7&amp;source=constructor"></iframe>
 	</div>
 </div>
 <hr />
-<h2 id="feedback" class="text-center">Обратная связь</h2>
+<h2 id="feedback" class="text-center">@Localizer["Feedback"]</h2>
 <form asp-action="Contacts" method="post" class="row">
 	<div class="col-lg-5">
 		<div class="form-group">
@@ -62,5 +51,5 @@
 		</div>
 		<textarea asp-for="Text" rows="8" class="form-control"></textarea>
 	</div>
-	<button class="btn btn-primary mx-auto" type="submit">Отправить</button>
+	<button class="btn btn-primary mx-auto" type="submit">@Localizer["Send"]</button>
 </form>

@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
+using OmEnergo.Resources;
 
 namespace OmEnergo
 {
@@ -20,13 +22,19 @@ namespace OmEnergo
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMiniProfiler().AddEntityFramework();
+
 			string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
 			services.AddScoped<Repository>();
+
+			services.AddLocalization();
+			services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
+			
 			services.AddScoped<FileManager>();
 			services.AddScoped<ExcelWriter>();
 			services.AddScoped<ExcelDbUpdater>();
 			services.AddScoped<EmailSender>();
+
 			services.AddSession();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

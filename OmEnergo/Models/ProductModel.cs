@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OmEnergo.Resources;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace OmEnergo.Models
@@ -9,7 +10,7 @@ namespace OmEnergo.Models
 
 		public Product Product { get; set; }
 
-		[Display(Name = "Цена")]
+		[Display(Name = "Price", ResourceType = typeof(SharedResource))]
 		public double Price { get; set; }
 
 		public ProductModel() { }

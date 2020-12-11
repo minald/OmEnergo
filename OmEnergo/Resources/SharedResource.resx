@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompany" xml:space="preserve">
+    <value>О компании</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="AdministrativePanel" xml:space="preserve">
+    <value>Административная панель</value>
+  </data>
+  <data name="AFileWithThisNameHasAlreadyBeenUploaded" xml:space="preserve">
+    <value>Файл с таким именем уже загружен</value>
+  </data>
+  <data name="AreYouSure_OnDeleting" xml:space="preserve">
+    <value>Вы уверены? Удаление элемента может привести к удалению всех связанных с ним элементов.</value>
+  </data>
+  <data name="BeCareful_OnDeleting" xml:space="preserve">
+    <value>Аккуратно! Удаление или переименование свойств повлечёт удаление соответствующих свойств у продуктов и моделей!</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Catalog" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="ChangeConfiguration" xml:space="preserve">
+    <value>Изменить конфигурацию</value>
+  </data>
+  <data name="ChangeSiteContent" xml:space="preserve">
+    <value>Изменить содержимое сайта</value>
+  </data>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Выбрать файл</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CompanyDescription" xml:space="preserve">
+    <value>Компания ООО «ОмЭнерго» была образована в 2016 г. Основным направлением деятельности компании является обеспечение потребителей электротехнической продукцией высокого качества.
+
+В компании работают специалисты высокого уровня, способные проконсультировать своих клиентов по широкому спектру вопросов, связанных с техническими характеристиками поставляемой продукцией, ее монтажом, эксплуатацией и обслуживанием.
+
+Наша компания является официальным представителем ЭТК "Энергия" (РФ) на территории Республики Беларусь. За время сотрудничества с российскими партнерами мы и наши клиенты убедились в отличных потребительских свойствах продукции ЭТК "Энергия".
+
+На всю предлагаемую ООО «ОмЭнерго» продукцию установлен гарантийный срок – 1-3 года. При необходимости можно обратиться к специалистам сервисного центра компании. Расходы при гарантийном случае на ремонт и транспортные услуги компания берет на себя.
+
+Клиенты ООО «ОмЭнерго» могут приобрести выбранные изделия в г. Минске (оформление и получение товара производится в одном месте). По желанию клиента компания осуществляет доставку товара в любую точку страны.</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Юридический и почтовый адрес:
+220055, РБ, г.Минск, ул.Каменногорская, д.47, оф.12 (2 этаж)
+Тел/факс: (+375-17) 248-77-45
+Velcom:  (+375-29) 341-31-35
+МТС: (+375-29) 560-01-79
+E-mail: info@omenergo.by</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="CoordinateTimeOfArrival" xml:space="preserve">
+    <value>Заранее согласовывайте время приезда к нам!</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="CreateSubsection" xml:space="preserve">
+    <value>Создать подсекцию</value>
+  </data>
+  <data name="DataWasSuccessfullyUpdated" xml:space="preserve">
+    <value>Данные были успешно обновлены</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteExactly" xml:space="preserve">
+    <value>Точно удалить</value>
+  </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>Доставка</value>
+  </data>
+  <data name="DeliveryDescription" xml:space="preserve">
+    <value>Мы осуществляем доставку продукции по всей стране. Доставка осуществляется собственным автотранспортом компании или с помощью транспортной компании ООО "Автолайтэкспресс".
+
+По Минску доставка осуществляется БЕСПЛАТНО при покупке товара на общую сумму 170 рублей с НДС и более.
+При покупке товара до 170 рублей с НДС стоимость доставки - 6 рублей. Срок доставки – до 1 дня.
+
+По Беларуси доставка осуществляется БЕСПЛАТНО при покупке товара на общую сумму 250 рублей с НДС и более. При покупке товара до 250 рублей с НДС стоимость доставки – 10-15 рублей (в зависимости от населенного пункта). Срок доставки – 1-5 дней.
+
+Дополнительные условия доставки можно уточнить у специалистов нашей компании.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="DownloadExcelFile" xml:space="preserve">
+    <value>Скачать файл Excel</value>
+  </data>
+  <data name="ElectricalCompany" xml:space="preserve">
+    <value>Электротехническая компания</value>
+  </data>
+  <data name="EmailConfigurationDescription_Beginning" xml:space="preserve">
+    <value>Для того, чтобы отправление писем на почту gmail проходило успешно,
+необходимо в настройках аккаунта дать доступ сторонним приложениям.
+Сделать это можно по </value>
+  </data>
+  <data name="EmailConfigurationDescription_Ending" xml:space="preserve">
+    <value>этой ссылке.</value>
+  </data>
+  <data name="EnglishNamePropertyRecommendations" xml:space="preserve">
+    <value>Значение посчитается автоматически, если сделать его пустым</value>
+  </data>
+  <data name="Entrance" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ErrorApologies" xml:space="preserve">
+    <value>Извините, во время обработки Вашего запроса произошла ошибка.</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Обратная связь</value>
+  </data>
+  <data name="FeedbackEmailBody" xml:space="preserve">
+    <value>Имя: {{name}}
+Телефон: {{phoneNumber}}
+Email: {{email}}
+Сообщение: {{text}}</value>
+  </data>
+  <data name="FeedbackFromTheOmenergoBySite" xml:space="preserve">
+    <value>Обратная связь с сайта omenergo.by</value>
+  </data>
+  <data name="FileManager" xml:space="preserve">
+    <value>Файл менеджер</value>
+  </data>
+  <data name="ImagesThumbnails" xml:space="preserve">
+    <value>Миниатюры картинок</value>
+  </data>
+  <data name="ImageThumbnailsWereSuccessfullyCreated" xml:space="preserve">
+    <value>Миниатюры изображений были успешно созданы</value>
+  </data>
+  <data name="LoadingAndUnloadingDataFromExcel" xml:space="preserve">
+    <value>Загрузка и выгрузка данных из Excel</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="Look" xml:space="preserve">
+    <value>Смотреть</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Главная страница</value>
+  </data>
+  <data name="MainSections" xml:space="preserve">
+    <value>Главные секции</value>
+  </data>
+  <data name="MakeItMain" xml:space="preserve">
+    <value>Сделать главным</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="MetatagDescription" xml:space="preserve">
+    <value>Метатег Description</value>
+  </data>
+  <data name="MetatagDescriptionRecommendations" xml:space="preserve">
+    <value>Длина метатега Description не должна превышать 300 символов, рекомендуемая длина: 160-180 символов.</value>
+  </data>
+  <data name="MetatagKeywords" xml:space="preserve">
+    <value>Метатег Keywords</value>
+  </data>
+  <data name="MetatagKeywordsRecommendations" xml:space="preserve">
+    <value>Это поле не обязательно. Используется как памятка о том, какие ключевые слова нужно продвигать.</value>
+  </data>
+  <data name="Metatags" xml:space="preserve">
+    <value>Метатеги</value>
+  </data>
+  <data name="MetatagTitle" xml:space="preserve">
+    <value>Метатег Title</value>
+  </data>
+  <data name="MetatagTitleRecommendations" xml:space="preserve">
+    <value>Длина метатега Title не должна превышать 90 символов, рекомендуемая длина: 60-70 символов.</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="NameForUrl" xml:space="preserve">
+    <value>Название для URL</value>
+  </data>
+  <data name="OOO_OmEnergo" xml:space="preserve">
+    <value>ООО "ОмЭнерго"</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Оплата</value>
+  </data>
+  <data name="PaymentAndDelivery" xml:space="preserve">
+    <value>Оплата и доставка</value>
+  </data>
+  <data name="PaymentDescription" xml:space="preserve">
+    <value>Мы работаем только с юридическими лицами по безналичному расчету.
+Условия оплаты - 100% предоплата.
+Для постоянных клиентов возможна частичная отсрочка платежа.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фото</value>
+  </data>
+  <data name="Pixels" xml:space="preserve">
+    <value>пикселей</value>
+  </data>
+  <data name="PleaseFillInTheField" xml:space="preserve">
+    <value>Пожалуйста, заполните поле</value>
+  </data>
+  <data name="PleaseSelectAFile" xml:space="preserve">
+    <value>Пожалуйста, выберите файл</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="ProductModelProperties" xml:space="preserve">
+    <value>Свойства модели продукта</value>
+  </data>
+  <data name="ProductProperties" xml:space="preserve">
+    <value>Свойства продукта</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="PropertiesMustBeSeparatedBySemicolons" xml:space="preserve">
+    <value>Свойства должны быть разделены точками с запятой, например "Длина;Ширина;Высота"</value>
+  </data>
+  <data name="RequestReturnedNoResults" xml:space="preserve">
+    <value>По запросу ничего не найдено</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Section" xml:space="preserve">
+    <value>Секция</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>Секции</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="SequenceNumber" xml:space="preserve">
+    <value>Порядковый номер</value>
+  </data>
+  <data name="Subsection" xml:space="preserve">
+    <value>Подсекция</value>
+  </data>
+  <data name="SuchNameForUrlAlreadyExists" xml:space="preserve">
+    <value>Такое название для URL уже существует</value>
+  </data>
+  <data name="TheEnteredDataIsIncorrect" xml:space="preserve">
+    <value>Введённые данные неверны</value>
+  </data>
+  <data name="TheValueIsInvalidAndCannotBeUpdated" xml:space="preserve">
+    <value>Значение некорректно и не может быть обновлено.
+Таблица {{tableName}}, Строка: {{rowNumber}}
+Свойство: {{propertyName}}, Значение: {{propertyValue}}</value>
+  </data>
+  <data name="ToLogIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="UploadFileFormatIsNotSupported" xml:space="preserve">
+    <value>Формат загружаемого файла не поддерживается.
+Поддерживаемые форматы документов: {{supportedDocumentExtensions}}. 
+Поддерживаемые форматы изображений: {{supportedImageExtensions}}.</value>
+  </data>
+  <data name="ValidNonIntegerFormat" xml:space="preserve">
+    <value>Допустимый формат нецелых чисел: 1234.56 или 1234,56</value>
+  </data>
+  <data name="WasChanged_f" xml:space="preserve">
+    <value>изменена</value>
+  </data>
+  <data name="WasChanged_m" xml:space="preserve">
+    <value>изменён</value>
+  </data>
+  <data name="WasCreated_f" xml:space="preserve">
+    <value>создана</value>
+  </data>
+  <data name="WasCreated_m" xml:space="preserve">
+    <value>создан</value>
+  </data>
+  <data name="WasDeleted_f" xml:space="preserve">
+    <value>удалена</value>
+  </data>
+  <data name="WasDeleted_m" xml:space="preserve">
+    <value>удалён</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Время работы:
+Технические специалисты: 9:00-17:00;
+Выписка накладных: 9:30-16:30.</value>
+  </data>
+  <data name="WrongEmail" xml:space="preserve">
+    <value>Неправильный email</value>
+  </data>
+</root>

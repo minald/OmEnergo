@@ -1,4 +1,5 @@
-﻿using OmEnergo.Infrastructure.Database;
+﻿using Microsoft.Extensions.Localization;
+using OmEnergo.Infrastructure.Database;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -7,14 +8,18 @@ namespace OmEnergo.Infrastructure
 {
 	public class EmailSender
 	{
+		private readonly IStringLocalizer localizer;
+
 		private readonly string host;
 		private readonly int port;
 		private readonly bool enableSsl;
 		private readonly string senderEmailAddress;
 		private readonly string senderPassword;
 
-		public EmailSender(Repository repository)
+		public EmailSender(IStringLocalizer localizer, Repository repository)
 		{
+			this.localizer = localizer;
+
 			host = repository.GetConfigValue("Email_Host");
 			port = Convert.ToInt32(repository.GetConfigValue("Email_Port"));
 			enableSsl = Convert.ToBoolean(repository.GetConfigValue("Email_EnableSsl"));
@@ -29,6 +34,7 @@ namespace OmEnergo.Infrastructure
 				EnableSsl = enableSsl,
 				Credentials = new NetworkCredential(senderEmailAddress, senderPassword)
 			};
+
 			var message = CreateMessage(name, phoneNumber, email, text);
 			client.Send(message);
 		}
@@ -38,12 +44,14 @@ namespace OmEnergo.Infrastructure
 			var mailMessage = new MailMessage
 			{
 				From = new MailAddress(senderEmailAddress),
-				Subject = "Обратная связь с сайта omenergo.by",
-				Body = $"Имя: {name}" + Environment.NewLine
-					 + $"Телефон: {phoneNumber}" + Environment.NewLine
-					 + $"Email: {email}" + Environment.NewLine 
-					 + $"Сообщение: {text}"
+				Subject = localizer["FeedbackFromTheOmenergoBySite"],
+				Body = localizer["FeedbackEmailBody"].Value
+					.Replace("{{name}}", name)
+					.Replace("{{phoneNumber}}", phoneNumber)
+					.Replace("{{email}}", email)
+					.Replace("{{text}}", text)
 			};
+
 			mailMessage.To.Add(senderEmailAddress);
 			return mailMessage;
 		}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
@@ -15,7 +16,8 @@ namespace OmEnergo.Infrastructure
 		#region Properties
 
 		private readonly Repository repository;
-		
+		private readonly IStringLocalizer localizer;
+
 		private readonly static Dictionary<string, string> supportedDocumentExtensionsAndMimeTypes = new Dictionary<string, string>
 			{
 				{"pdf", "application/pdf"},
@@ -34,23 +36,24 @@ namespace OmEnergo.Infrastructure
 
 		#endregion
 
-		public FileManager(Repository repository, IHostingEnvironment hostingEnvironment)
+		public FileManager(Repository repository, IHostingEnvironment hostingEnvironment, IStringLocalizer localizer)
 		{
 			this.repository = repository;
 			FileManager.hostingEnvironment = hostingEnvironment;
+			this.localizer = localizer;
 		}
 
 		public async Task UploadFileAsync(string objectEnglishName, IFormFile uploadedFile)
 		{
 			if (uploadedFile == null)
 			{
-				throw new Exception("Пожалуйста, выберите файл");
+				throw new Exception(localizer["PleaseSelectAFile"]);
 			}
 
 			var path = GetTargetPath(objectEnglishName, uploadedFile);
 			if (File.Exists(path))
 			{
-				throw new Exception("Файл с таким именем уже загружен");
+				throw new Exception(localizer["AFileWithThisNameHasAlreadyBeenUploaded"]);
 			}
 
 			Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -73,9 +76,9 @@ namespace OmEnergo.Infrastructure
 			}
 			else
 			{
-				throw new FormatException("Формат загружаемого файла не поддерживается. "
-					+ $"\nПоддерживаемые форматы документов: {String.Join(", ", supportedDocumentExtensions)}. "
-					+ $"\nПоддерживаемые форматы изображений: {String.Join(", ", supportedImageExtensions)}.");
+				throw new FormatException(localizer["UploadFileFormatIsNotSupported"].Value
+					.Replace("{{supportedDocumentExtensions}}", String.Join(", ", supportedDocumentExtensions))
+					.Replace("{{supportedImageExtensions}}", String.Join(", ", supportedImageExtensions)));
 			}
 		}
 

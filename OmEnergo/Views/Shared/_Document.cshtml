@@ -1,10 +1,10 @@
 ﻿@model string
 
 <a asp-controller="Document" asp-action="Download" asp-route-path="@Model"
-   class="fas fa-file-download mx-1" title="Скачать"></a>
+   class="fas fa-file-download mx-1" title="@Localizer["Download"]"></a>
 @if (FileManager.CanBePreviewed(Model))
 {
 	<a asp-controller="Document" asp-action="Look" asp-route-path="@Model"
-		class="fas fa-eye mx-1" title="Смотреть"></a>
+		class="fas fa-eye mx-1" title="@Localizer["Look"]"></a>
 }
 @FileManager.GetFileName(Model)

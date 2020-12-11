@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OmEnergo.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ namespace OmEnergo.Models
 {
 	public abstract class ProductObject : CommonObject
 	{
-		[Display(Name = "Свойства")]
+		[Display(Name = "Properties", ResourceType = typeof(SharedResource))]
 		public string Properties { get; set; } //Json object in DB
 
 		public IDictionary<string, string> GetProperties() 

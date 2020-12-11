@@ -4,12 +4,12 @@
 <table class="table table-bordered table-striped table-hover bg-light">
 	<tr>
 		<th>#</th>
-		<th>Название</th>
-		<th>Тип</th>
-		<th>Фото</th>
-		<th>Описание</th>
-		<th>Цена</th>
-		<th>Действия</th>
+		<th>@Localizer["Name"]</th>
+		<th>@Localizer["Type"]</th>
+		<th>@Localizer["Photo"]</th>
+		<th>@Localizer["Description"]</th>
+		<th>@Localizer["Price"]</th>
+		<th>@Localizer["Actions"]</th>
 	</tr>
 	@foreach (var obj in Model.GetOrderedNestedObjects())
 	{
@@ -20,13 +20,13 @@
 				<td>
 					<a asp-action="Section" asp-route-id="@subsection.Id">@subsection.Name</a>
 				</td>
-				<td>Подсекция</td>
+				<td>@Localizer["Subsection"]</td>
 				<td><img class="card-img admin-photo" src="@subsection.GetMainImagePath()"></td>
 				<td class="admin-description">@subsection.Description</td>
 				<td class="table-secondary"></td>
 				<td>
-					<a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">Изменить</a>
-					<a asp-action="FileManager" asp-route-englishName="@subsection.EnglishName" class="btn btn-info">Файл менеджер</a>
+					<a asp-action="EditSection" asp-route-id="@subsection.Id" class="btn btn-info">@Localizer["Change"]</a>
+					<a asp-action="FileManager" asp-route-englishName="@subsection.EnglishName" class="btn btn-info">@Localizer["FileManager"]</a>
 					@if (!subsection.GetOrderedNestedObjects().Any())
 					{
 						<partial name="_DeleteButtonWithPopup" model="subsection" />
@@ -41,13 +41,13 @@
 				<td>
 					<a asp-action="Product" asp-route-id="@product.Id">@product.Name</a>
 				</td>
-				<td>Продукт</td>
+				<td>@Localizer["Product"]</td>
 				<td><img class="card-img admin-photo" src="@product.GetMainImagePath()"></td>
 				<td class="admin-description">@product.Description</td>
 				<td class="table-secondary"></td>
 				<td>
-					<a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">Изменить</a>
-					<a asp-action="FileManager" asp-route-englishName="@product.EnglishName" class="btn btn-info">Файл менеджер</a>
+					<a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-info">@Localizer["Change"]</a>
+					<a asp-action="FileManager" asp-route-englishName="@product.EnglishName" class="btn btn-info">@Localizer["FileManager"]</a>
 					@if (!product.Models.Any())
 					{
 						<partial name="_DeleteButtonWithPopup" model="product" />
@@ -60,13 +60,13 @@
 			<tr>
 				<td>@productModel.SequenceNumber</td>
 				<td>@productModel.Name</td>
-				<td>Модель</td>
+				<td>@Localizer["Model"]</td>
 				<td><img class="card-img admin-photo" src="@productModel.GetMainImagePath()"></td>
 				<td class="table-secondary"></td>
 				<td>@productModel.Price</td>
 				<td>
-					<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">Изменить</a>
-					<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">Файл менеджер</a>
+					<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">@Localizer["Change"]</a>
+					<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">@Localizer["FileManager"]</a>
 					<partial name="_DeleteButtonWithPopup" model="productModel" />
 				</td>
 			</tr>
@@ -76,8 +76,10 @@
 <div class="text-center">
 	@if (Model.IsMainSection())
 	{
-		<a asp-action="CreateSection" asp-route-parentId="@Model.Id" class="btn btn-primary">Создать подсекцию</a>
+		<a asp-action="CreateSection" asp-route-parentId="@Model.Id" class="btn btn-primary">@Localizer["CreateSubsection"]</a>
 	}
-	<a asp-action="CreateProduct" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать продукт</a>
-	<a asp-action="CreateProductModel" asp-route-sectionId="@Model.Id" class="btn btn-primary">Создать модель</a>
+	<a asp-action="CreateProduct" asp-route-sectionId="@Model.Id"
+	   class="btn btn-primary">@Localizer["Create"] @Localizer["Product"].Value.ToLower()</a>
+	<a asp-action="CreateProductModel" asp-route-sectionId="@Model.Id"
+	   class="btn btn-primary">@Localizer["Create"] @Localizer["Model"].Value.ToLower()</a>
 </div>  

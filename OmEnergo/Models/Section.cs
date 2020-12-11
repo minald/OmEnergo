@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OmEnergo.Resources;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -14,10 +15,10 @@ namespace OmEnergo.Models
 
 		public List<ProductModel> ProductModels { get; set; }
 
-		[Display(Name = "Свойства продукта")]
+		[Display(Name = "ProductProperties", ResourceType = typeof(SharedResource))]
 		public string ProductProperties { get; set; } //Semicolon-separated array
 
-		[Display(Name = "Свойства модели продукта")]
+		[Display(Name = "ProductModelProperties", ResourceType = typeof(SharedResource))]
 		public string ProductModelProperties { get; set; } //Semicolon-separated array
 
 		public Section() {}

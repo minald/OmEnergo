@@ -20,8 +20,8 @@
 	<mini-profiler />
 	<header class="d-flex px-4 pb-1 m-0">
 		<div class="mr-auto">
-			<h1 class="mb-0">ООО "ОмЭнерго"</h1>
-			<h4 class="mb-1">Электротехническая компания</h4>
+			<h1 class="mb-0">@Localizer["OOO_OmEnergo"]</h1>
+			<h4 class="mb-1">@Localizer["ElectricalCompany"]</h4>
 		</div>
 		<div class="d-flex flex-row small">
 			<div class="mr-4">
@@ -31,8 +31,8 @@
 			</div>
 			<div>
 				<i class="far fa-envelope"></i>  info@omenergo.by<br />
-				<a asp-controller="Home" asp-action="Contacts" asp-fragment="feedback"
-				   title="Обратная связь"><i class="fas fa-pen-alt"></i>  Обратная связь</a>
+				<a asp-controller="Home" asp-action="Contacts" 
+				   asp-fragment="feedback"><i class="fas fa-pen-alt"></i>  @Localizer["Feedback"]</a>
 			</div>
 		</div>
 	</header>
@@ -42,10 +42,10 @@
 		</button>
 		<div id="mainNavbar" class="collapse navbar-collapse">
 			<div class="navbar-nav">
-				<a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link" title="Каталог">Каталог</a>
-				<a asp-controller="Home" asp-action="About" class="nav-item nav-link" title="О компании">О компании</a>
-				<a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link" title="Оплата и доставка">Оплата и доставка</a>
-				<a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link" title="Контакты">Контакты</a>
+				<a asp-controller="Catalog" asp-action="Index" class="nav-item nav-link">@Localizer["Catalog"]</a>
+				<a asp-controller="Home" asp-action="About" class="nav-item nav-link">@Localizer["AboutCompany"]</a>
+				<a asp-controller="Home" asp-action="PaymentAndDelivery" class="nav-item nav-link">@Localizer["PaymentAndDelivery"]</a>
+				<a asp-controller="Home" asp-action="Contacts" class="nav-item nav-link">@Localizer["Contacts"]</a>
 			</div>
 		</div>
 		<form asp-controller="Home" asp-action="Search" class="input-group search">
@@ -69,15 +69,15 @@
 					</button>
 				</div>
 			}
-			<a href='javascript:history.go(-1)' class="btn btn-sm btn-outline-secondary position-absolute" title="Назад">
-				<i class="fas fa-undo-alt mr-1"></i>Назад
+			<a href='javascript:history.go(-1)' class="btn btn-sm btn-outline-secondary position-absolute">
+				<i class="fas fa-undo-alt mr-1"></i>@Localizer["Return"]
 			</a>
 			@RenderBody()
 		</div>
 	</div>
 	<hr />
 	<footer class="pl-4">
-		<p>&copy; 2019 - ООО "ОмЭнерго"</p>
+		<p>&copy; 2020 - @Localizer["OOO_OmEnergo"]</p>
 	</footer>
 	<script src="~/lib/jquery/jquery.min.js"></script>
 	<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -14,12 +14,12 @@
 					{
 						<form asp-action="MakeImageMain" asp-route-path="@imageFullPath"
 							  asp-route-englishName="@Model.EnglishName" method="post">
-							<button class="btn btn-info" type="submit">Сделать главным</button>
+							<button class="btn btn-info" type="submit">@Localizer["MakeItMain"]</button>
 						</form>
 					}
 					<form asp-action="DeleteFile" asp-route-path="@imageFullPath"
 						  asp-route-englishName="@Model.EnglishName" method="post">
-						<button class="btn btn-sm btn-danger my-1 ml-2" type="submit">Удалить</button>
+						<button class="btn btn-sm btn-danger my-1 ml-2" type="submit">@Localizer["Delete"]</button>
 					</form>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 				<div class="card-footer justify-content-center d-flex">
 					<form asp-action="DeleteFile" asp-route-path="@docFullPath"
 						  asp-route-englishName="@Model.EnglishName" method="post">
-						<button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+						<button class="btn btn-sm btn-danger" type="submit">@Localizer["Delete"]</button>
 					</form>
 				</div>
 			</div>

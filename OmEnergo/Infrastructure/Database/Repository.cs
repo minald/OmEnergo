@@ -8,8 +8,7 @@ namespace OmEnergo.Infrastructure.Database
 {
 	public class Repository
 	{
-		private OmEnergoContext db { get; set; }
-
+		private readonly OmEnergoContext db;
 		public Repository() => db = new OmEnergoContext();
 
 		public Repository(OmEnergoContext context) => db = context;
