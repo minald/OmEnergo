@@ -16,15 +16,15 @@ namespace OmEnergo.Infrastructure
 		private readonly string senderEmailAddress;
 		private readonly string senderPassword;
 
-		public EmailSender(IStringLocalizer localizer, Repository repository)
+		public EmailSender(IStringLocalizer localizer, ConfigKeyRepository configKeyRepository)
 		{
 			this.localizer = localizer;
 
-			host = repository.GetConfigValue("Email_Host");
-			port = Convert.ToInt32(repository.GetConfigValue("Email_Port"));
-			enableSsl = Convert.ToBoolean(repository.GetConfigValue("Email_EnableSsl"));
-			senderEmailAddress = repository.GetConfigValue("Email_SenderEmailAddress");
-			senderPassword = repository.GetConfigValue("Email_SenderPassword");
+			host = configKeyRepository.GetConfigValue("Email_Host");
+			port = Convert.ToInt32(configKeyRepository.GetConfigValue("Email_Port"));
+			enableSsl = Convert.ToBoolean(configKeyRepository.GetConfigValue("Email_EnableSsl"));
+			senderEmailAddress = configKeyRepository.GetConfigValue("Email_SenderEmailAddress");
+			senderPassword = configKeyRepository.GetConfigValue("Email_SenderPassword");
 		}
 
 		public void SendEmail(string name, string phoneNumber, string email, string text)

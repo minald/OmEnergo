@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using OmEnergo.Infrastructure.Database;
+using OmEnergo.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,17 +13,26 @@ namespace OmEnergo.Infrastructure.Excel
 		public const string XlsxMimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 		private const int ExcelDefaultRowHeight = 15;
 
-		private readonly Repository repository;
+		private readonly SectionRepository sectionRepository;
+		private readonly ProductRepository productRepository;
+		private readonly ProductModelRepository productModelRepository;
+		private readonly ConfigKeyRepository configKeyRepository;
 
-		public ExcelWriter(Repository repository) => this.repository = repository;
+		public ExcelWriter(SectionRepository sectionRepository, ProductRepository productRepository, ProductModelRepository productModelRepository, ConfigKeyRepository configKeyRepository)
+		{
+			this.sectionRepository = sectionRepository;
+			this.productRepository = productRepository;
+			this.productModelRepository = productModelRepository;
+			this.configKeyRepository = configKeyRepository;
+		}
 
 		public MemoryStream CreateExcelStream()
 		{
 			using var workbook = new XLWorkbook();
-			AddWorksheet(workbook, repository.GetAllSections());
-			AddWorksheet(workbook, repository.GetAllProducts());
-			AddWorksheet(workbook, repository.GetAllProductModels());
-			AddWorksheet(workbook, repository.GetAllConfigKeys());
+			AddWorksheet(workbook, sectionRepository.GetAll<Section>());
+			AddWorksheet(workbook, productRepository.GetAll<Product>());
+			AddWorksheet(workbook, productModelRepository.GetAll<ProductModel>());
+			AddWorksheet(workbook, configKeyRepository.GetAll<ConfigKey>());
 			SetCellsWidthAndHeight(workbook);
 			return ToMemoryStream(workbook);
 		}

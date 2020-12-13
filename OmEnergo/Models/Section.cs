@@ -1,7 +1,9 @@
 ﻿using OmEnergo.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace OmEnergo.Models
 {
@@ -23,6 +25,8 @@ namespace OmEnergo.Models
 
 		public Section() {}
 
+		public static Expression<Func<Section, bool>> IsMainSectionPredicate() => s => s.ParentSection == null;
+
 		public override string GetDirectoryPath() => @"\images";
 
 		public override string GetImageNamePrefix() => "s";
@@ -41,7 +45,5 @@ namespace OmEnergo.Models
 		public List<string> GetProductModelPropertyList() => ProductModelProperties?.Split(';')?.ToList() ?? new List<string>();
 
 		public bool IsMainSection() => ParentSection == null;
-
-		public bool HasChildSections() => ChildSections.Count != 0;
 	}
 }

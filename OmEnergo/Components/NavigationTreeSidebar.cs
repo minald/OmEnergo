@@ -8,7 +8,7 @@ namespace OmEnergo.Models
 	{
 		private readonly IEnumerable<Section> sections;
 
-		public NavigationTreeSidebar(Repository repository) => sections = repository.GetFullCatalog();
+		public NavigationTreeSidebar(SectionRepository sectionRepository) => sections = sectionRepository.GetFullCatalog();
 
 		public IViewComponentResult Invoke() => View(sections);
 	}

@@ -15,7 +15,7 @@ namespace OmEnergo.Infrastructure
 	{
 		#region Properties
 
-		private readonly Repository repository;
+		private readonly CompoundRepository compoundRepository;
 		private readonly IStringLocalizer localizer;
 
 		private readonly static Dictionary<string, string> supportedDocumentExtensionsAndMimeTypes = new Dictionary<string, string>
@@ -36,9 +36,9 @@ namespace OmEnergo.Infrastructure
 
 		#endregion
 
-		public FileManager(Repository repository, IHostingEnvironment hostingEnvironment, IStringLocalizer localizer)
+		public FileManager(CompoundRepository compoundRepository, IHostingEnvironment hostingEnvironment, IStringLocalizer localizer)
 		{
-			this.repository = repository;
+			this.compoundRepository = compoundRepository;
 			FileManager.hostingEnvironment = hostingEnvironment;
 			this.localizer = localizer;
 		}
@@ -63,7 +63,7 @@ namespace OmEnergo.Infrastructure
 
 		private string GetTargetPath(string objectEnglishName, IFormFile uploadedFile)
 		{
-			var obj = repository.GetObjectByEnglishName(objectEnglishName);
+			var obj = compoundRepository.GetObjectByEnglishName(objectEnglishName);
 			var uploadedFileExtension = GetExtensionWithoutDot(uploadedFile.FileName);
 			if (supportedDocumentExtensions.Contains(uploadedFileExtension))
 			{
@@ -89,7 +89,7 @@ namespace OmEnergo.Infrastructure
 				File.Delete(deletedFileFullPath);
 			}
 
-			var obj = repository.GetObjectByEnglishName(objectEnglishName);
+			var obj = compoundRepository.GetObjectByEnglishName(objectEnglishName);
 			var mainImageFullPath = hostingEnvironment.WebRootPath + obj.GetMainImagePath();
 			if (deletedFileFullPath == mainImageFullPath)
 			{
@@ -108,7 +108,7 @@ namespace OmEnergo.Infrastructure
 
 		public void MakeImageMain(string newMainImageFullPath, string objectEnglishName)
 		{
-			var obj = repository.GetObjectByEnglishName(objectEnglishName);
+			var obj = compoundRepository.GetObjectByEnglishName(objectEnglishName);
 			var oldMainImageFullPath = hostingEnvironment.WebRootPath + obj.GetMainImagePath();
 			if (newMainImageFullPath != oldMainImageFullPath)
 			{

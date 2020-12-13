@@ -11,12 +11,22 @@ namespace OmEnergo.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly Repository repository;
+		private readonly SectionRepository sectionRepository;
+		private readonly ProductRepository productRepository;
+		private readonly ProductModelRepository productModelRepository;
+		private readonly ConfigKeyRepository configKeyRepository;
 		private readonly IStringLocalizer localizer;
 
-		public HomeController(Repository repository, IStringLocalizer localizer)
+		public HomeController(SectionRepository sectionRepository, 
+			ProductRepository productRepository, 
+			ProductModelRepository productModelRepository, 
+			ConfigKeyRepository configKeyRepository, 
+			IStringLocalizer localizer)
 		{
-			this.repository = repository;
+			this.sectionRepository = sectionRepository;
+			this.productRepository = productRepository;
+			this.productModelRepository = productModelRepository;
+			this.configKeyRepository = configKeyRepository;
 			this.localizer = localizer;
 		}
 
@@ -43,8 +53,8 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult Login(string login, string password)
 		{
-			var correctLogin = repository.GetConfigValue("AdminLogin");
-			var correctPassword = repository.GetConfigValue("AdminPassword");
+			var correctLogin = configKeyRepository.GetConfigValue("AdminLogin");
+			var correctPassword = configKeyRepository.GetConfigValue("AdminPassword");
 			if (login == correctLogin && password == correctPassword)
 			{
 				HttpContext.Session.SetString("isLogin", "true");
@@ -58,8 +68,9 @@ namespace OmEnergo.Controllers
 		}
 
 		public IActionResult Search(string searchString) => View(new SearchViewModel(searchString,
-			repository.GetSearchedSections(searchString), repository.GetSearchedProducts(searchString),
-			repository.GetSearchedProductModels(searchString)));
+			sectionRepository.GetSearchedItems(searchString), 
+			productRepository.GetSearchedItems(searchString),
+			productModelRepository.GetSearchedItems(searchString)));
 
 		public IActionResult Error() => View();
 	}

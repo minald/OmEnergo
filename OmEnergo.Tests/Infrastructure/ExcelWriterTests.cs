@@ -25,12 +25,17 @@ namespace OmEnergo.Tests.Infrastructure
 				new ProductModel() { Id = 1, Name = "ModelA", Section = sections[0] },
 				new ProductModel() { Id = 2, Name = "ModelB", Section = sections[1] }
 			};
-			var repositoryMock = new Mock<Repository>();
-			repositoryMock.Setup(x => x.GetAllSections()).Returns(sections);
-			repositoryMock.Setup(x => x.GetAllProducts()).Returns(new List<Product>());
-			repositoryMock.Setup(x => x.GetAllProductModels()).Returns(productModels);
-			repositoryMock.Setup(x => x.GetAllConfigKeys()).Returns(new List<ConfigKey>());
-			excelWriter = new ExcelWriter(repositoryMock.Object);
+
+			var sectionRepositoryMock = new Mock<SectionRepository>();
+			sectionRepositoryMock.Setup(x => x.GetAll<Section>()).Returns(sections);
+			var productRepositoryMock = new Mock<ProductRepository>();
+			productRepositoryMock.Setup(x => x.GetAll<Product>()).Returns(new List<Product>());
+			var productModelRepositoryMock = new Mock<ProductModelRepository>();
+			productModelRepositoryMock.Setup(x => x.GetAll<ProductModel>()).Returns(productModels);
+			var configKeyRepositoryMock = new Mock<ConfigKeyRepository>();
+			configKeyRepositoryMock.Setup(x => x.GetAll<ConfigKey>()).Returns(new List<ConfigKey>());
+
+			excelWriter = new ExcelWriter(sectionRepositoryMock.Object, productRepositoryMock.Object, productModelRepositoryMock.Object, configKeyRepositoryMock.Object);
 		}
 
 		[Fact]
