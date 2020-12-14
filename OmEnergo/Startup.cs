@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,8 @@ namespace OmEnergo
 
 			string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
+			services.AddIdentity<IdentityUser, IdentityRole>()
+				.AddEntityFrameworkStores<OmEnergoContext>();
 			services.AddScoped<SectionRepository>();
 			services.AddScoped<ProductRepository>();
 			services.AddScoped<ProductModelRepository>();
@@ -62,6 +66,9 @@ namespace OmEnergo
 			app.UseHttpsRedirection();
 			app.UseSession();
 			app.UseStaticFiles();
+
+			app.UseAuthentication();
+
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute("search", "poisk/{searchString?}", new { controller = "Home", action = "Search"});

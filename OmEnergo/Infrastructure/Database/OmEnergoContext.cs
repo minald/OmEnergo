@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OmEnergo.Models;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public class OmEnergoContext : DbContext
+	public class OmEnergoContext : IdentityDbContext<IdentityUser>
 	{
 		public DbSet<Section> Sections { get; set; }
 

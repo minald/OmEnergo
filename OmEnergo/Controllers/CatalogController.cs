@@ -10,7 +10,9 @@ namespace OmEnergo.Controllers
 		private readonly CompoundRepository compoundRepository;
 		private readonly IStringLocalizer localizer;
 
-		public CatalogController(SectionRepository sectionRepository, CompoundRepository compoundRepository, IStringLocalizer localizer)
+		public CatalogController(SectionRepository sectionRepository, 
+			CompoundRepository compoundRepository, 
+			IStringLocalizer localizer)
 		{
 			this.sectionRepository = sectionRepository;
 			this.compoundRepository = compoundRepository;

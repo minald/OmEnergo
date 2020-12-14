@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure;
@@ -16,18 +16,21 @@ namespace OmEnergo.Controllers
 		private readonly ProductModelRepository productModelRepository;
 		private readonly ConfigKeyRepository configKeyRepository;
 		private readonly IStringLocalizer localizer;
+		private readonly SignInManager<IdentityUser> signInManager;
 
 		public HomeController(SectionRepository sectionRepository, 
 			ProductRepository productRepository, 
 			ProductModelRepository productModelRepository, 
 			ConfigKeyRepository configKeyRepository, 
-			IStringLocalizer localizer)
+			IStringLocalizer localizer,
+			SignInManager<IdentityUser> signInManager)
 		{
 			this.sectionRepository = sectionRepository;
 			this.productRepository = productRepository;
 			this.productModelRepository = productModelRepository;
 			this.configKeyRepository = configKeyRepository;
 			this.localizer = localizer;
+			this.signInManager = signInManager;
 		}
 
 		public IActionResult About() => View();
@@ -53,16 +56,14 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult Login(string login, string password)
 		{
-			var correctLogin = configKeyRepository.GetConfigValue("AdminLogin");
-			var correctPassword = configKeyRepository.GetConfigValue("AdminPassword");
-			if (login == correctLogin && password == correctPassword)
+			var result = signInManager.PasswordSignInAsync(login, password, false, false).Result;
+			if (result.Succeeded)
 			{
-				HttpContext.Session.SetString("isLogin", "true");
 				return RedirectToAction("Index", "Admin");
 			}
 			else
 			{
-				TempData["message"] = localizer["TheEnteredDataIsIncorrect"];
+				TempData["message"] = localizer["TheEnteredDataIsIncorrect"].Value;
 				return RedirectToAction(nameof(Login));
 			}
 		}

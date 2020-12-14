@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Localization;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
-	[AdminAuthorization]
+	[Authorize]
 	public class AdminController : Controller
 	{
 		private readonly SectionRepository sectionRepository;
@@ -84,7 +85,7 @@ namespace OmEnergo.Controllers
 
 				using var excelFileStream = uploadedFile.OpenReadStream();
 				excelDbUpdater.ReadExcelAndUpdateDb(excelFileStream);
-				TempData["message"] = localizer["DataWasSuccessfullyUpdated"];
+				TempData["message"] = localizer["DataWasSuccessfullyUpdated"].Value;
 			}
 			catch (Exception ex)
 			{
@@ -104,7 +105,7 @@ namespace OmEnergo.Controllers
 			commonObjects.AddRange(productModelRepository.GetAll<ProductModel>() ?? new List<ProductModel>());
 			var imageThumbnailCreator = new ImageThumbnailCreator(maxSize);
 			imageThumbnailCreator.Create(commonObjects);
-			TempData["message"] = localizer["ImageThumbnailsWereSuccessfullyCreated"];
+			TempData["message"] = localizer["ImageThumbnailsWereSuccessfullyCreated"].Value;
 			return RedirectToAction(nameof(Index));
 		}
 
