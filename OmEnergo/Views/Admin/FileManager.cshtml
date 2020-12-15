@@ -2,7 +2,7 @@
 
 <h2 class="text-center">@Model.Name</h2>
 <div class="row justify-content-center mb-3">
-	@foreach (string imageFullPath in FileManager.GetFullImagePaths(Model))
+	@foreach (string imageFullPath in AdminFileManager.GetFullPathsOfObjectImages(Model))
 	{
 		<div class="col-sm-6 col-lg-4 col-xl-3 common-object-card">
 			<div class="card shadow">
@@ -10,7 +10,7 @@
 					<img class="card-img" src="@FileManager.GetRelativePath(imageFullPath)" asp-append-version="true">
 				</div>
 				<div class="card-footer justify-content-center d-flex">
-					@if (!FileManager.IsTheMainImage(imageFullPath, Model.Id))
+					@if (!AdminFileManager.IsTheMainImage(imageFullPath, Model.Id))
 					{
 						<form asp-action="MakeImageMain" asp-route-path="@imageFullPath"
 							  asp-route-englishName="@Model.EnglishName" method="post">
@@ -27,7 +27,7 @@
 	}
 </div>
 <div class="row justify-content-center mb-3">
-	@foreach (string docFullPath in FileManager.GetFullDocumentPaths(Model))
+	@foreach (string docFullPath in AdminFileManager.GetFullPathsOfObjectDocuments(Model))
 	{
 		<div class="col-sm-6 col-lg-4 col-xl-3">
 			<div class="card shadow">

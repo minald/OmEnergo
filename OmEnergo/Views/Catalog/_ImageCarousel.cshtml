@@ -1,6 +1,5 @@
 ﻿@model CommonObject
-@inject FileManager FileManager
-@{ List<string> fullPaths = FileManager.GetFullImagePaths(Model); }
+@{ List<string> fullPaths = AdminFileManager.GetFullPathsOfObjectImages(Model); }
 
 @if (fullPaths.Count != 0)
 {

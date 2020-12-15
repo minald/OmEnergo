@@ -19,7 +19,7 @@ namespace OmEnergo.Infrastructure
 		{
 			foreach (var commonObject in commonObjects)
 			{
-				var imagePaths = FileManager.GetFullImagePaths(commonObject);
+				var imagePaths = AdminFileManager.GetFullPathsOfObjectImages(commonObject);
 				foreach (var imagePath in imagePaths)
 				{
 					var thumnailPath = GetThumbnailPath(imagePath, commonObject);

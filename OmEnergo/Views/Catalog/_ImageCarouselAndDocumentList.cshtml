@@ -1,6 +1,5 @@
 ﻿@model CommonObject
-@inject FileManager FileManager
-@{ List<string> paths = FileManager.GetFullDocumentPaths(Model); }
+@{ List<string> paths = AdminFileManager.GetFullPathsOfObjectDocuments(Model); }
 
 <div class="float-left mr-3 mb-3">
 	<partial name="_ImageCarousel" model="Model" />

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,8 +26,7 @@ namespace OmEnergo
 
 			string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
-			services.AddIdentity<IdentityUser, IdentityRole>()
-				.AddEntityFrameworkStores<OmEnergoContext>();
+			services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<OmEnergoContext>();
 			services.AddScoped<SectionRepository>();
 			services.AddScoped<ProductRepository>();
 			services.AddScoped<ProductModelRepository>();
@@ -37,8 +35,11 @@ namespace OmEnergo
 
 			services.AddLocalization();
 			services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
-			
-			services.AddScoped<FileManager>();
+
+			services.AddSingleton(sp => new FileManager(
+				sp.GetRequiredService<IHostingEnvironment>().WebRootPath,
+				sp.GetRequiredService<IStringLocalizer>()));
+			services.AddScoped<AdminFileManager>();
 			services.AddScoped<ExcelWriter>();
 			services.AddScoped<ExcelDbUpdater>();
 			services.AddScoped<EmailSender>();

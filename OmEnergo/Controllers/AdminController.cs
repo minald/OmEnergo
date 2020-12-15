@@ -23,7 +23,7 @@ namespace OmEnergo.Controllers
 		private readonly ProductModelRepository productModelRepository;
 		private readonly ConfigKeyRepository configKeyRepository;
 		private readonly CompoundRepository compoundRepository;
-		private readonly FileManager fileManager;
+		private readonly AdminFileManager adminFileManager;
 		private readonly ILogger<AdminController> logger;
 		private readonly IStringLocalizer localizer;
 
@@ -31,8 +31,8 @@ namespace OmEnergo.Controllers
 			ProductRepository productRepository, 
 			ProductModelRepository productModelRepository, 
 			ConfigKeyRepository configKeyRepository, 
-			CompoundRepository compoundRepository, 
-			FileManager fileManager, 
+			CompoundRepository compoundRepository,
+			AdminFileManager adminFileManager, 
 			ILogger<AdminController> logger, 
 			IStringLocalizer localizer)
 		{
@@ -41,7 +41,7 @@ namespace OmEnergo.Controllers
 			this.productModelRepository = productModelRepository;
 			this.configKeyRepository = configKeyRepository;
 			this.compoundRepository = compoundRepository;
-			this.fileManager = fileManager;
+			this.adminFileManager = adminFileManager;
 			this.logger = logger;
 			this.localizer = localizer;
 		}
@@ -270,7 +270,7 @@ namespace OmEnergo.Controllers
 		{
 			try
 			{
-				await fileManager.UploadFileAsync(englishName, uploadedFile);
+				await adminFileManager.UploadFileAsync(englishName, uploadedFile);
 			}
 			catch (Exception ex)
 			{
@@ -284,14 +284,14 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public IActionResult DeleteFile(string path, string englishName)
 		{
-			fileManager.DeleteFile(path, englishName);
+			adminFileManager.DeleteFile(path, englishName);
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
 		[HttpPost]
 		public IActionResult MakeImageMain(string path, string englishName)
 		{
-			fileManager.MakeImageMain(path, englishName);
+			adminFileManager.MakeImageMain(path, englishName);
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
