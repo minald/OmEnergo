@@ -54,9 +54,9 @@ namespace OmEnergo.Infrastructure
 				return new List<string>();
 			}
 
-			var resultPaths = new string[] { };
-			namePatterns.ForEach(p => resultPaths.Union(Directory.GetFiles(directoryPath, p)));
-			return resultPaths.ToList();
+			var resultPaths = new List<string>();
+			namePatterns.ForEach(p => resultPaths = resultPaths.Union(Directory.GetFiles(directoryPath, p)).ToList());
+			return resultPaths;
 		}
 
 		public static string GetExtensionWithoutDot(string path) => Path.GetExtension(path).ToLower().Replace(".", "");

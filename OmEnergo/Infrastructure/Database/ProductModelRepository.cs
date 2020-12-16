@@ -18,8 +18,6 @@ namespace OmEnergo.Infrastructure.Database
 			.Include(x => x.Section)
 			.Include(x => x.Product).ThenInclude(x => x.Section);
 
-		protected override IQueryable<ProductModel> GetAllSearchedItemsQueryable<ProductModel>() => (IQueryable<ProductModel>)db.ProductModels
-			.Include(x => x.Section)
-			.Include(x => x.Product).ThenInclude(x => x.Section);
+		protected override IQueryable<ProductModel> GetAllSearchedItemsQueryable<ProductModel>() => GetAllQueryable<ProductModel>();
 	}
 }

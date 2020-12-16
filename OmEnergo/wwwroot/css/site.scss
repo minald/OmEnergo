@@ -177,3 +177,7 @@ $image-wrapper-size-px: ($image-size + 27 + 1) + unquote("px"); //27 is the lsPa
 .white-space-pre-wrap {
 	white-space: pre-wrap;
 }
+
+.white-space-normal {
+	white-space: normal;
+}

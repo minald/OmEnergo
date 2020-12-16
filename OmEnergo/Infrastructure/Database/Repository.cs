@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public abstract class Repository
+	public class Repository
 	{
 		protected readonly OmEnergoContext db;
 

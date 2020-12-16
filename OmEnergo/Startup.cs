@@ -27,6 +27,7 @@ namespace OmEnergo
 			string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
 			services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<OmEnergoContext>();
+			services.AddScoped<Repository>();
 			services.AddScoped<SectionRepository>();
 			services.AddScoped<ProductRepository>();
 			services.AddScoped<ProductModelRepository>();
@@ -34,7 +35,7 @@ namespace OmEnergo
 			services.AddScoped<CompoundRepository>();
 
 			services.AddLocalization();
-			services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
+			services.AddSingleton<IStringLocalizer, StringLocalizer<SharedResource>>();
 
 			services.AddSingleton(sp => new FileManager(
 				sp.GetRequiredService<IHostingEnvironment>().WebRootPath,

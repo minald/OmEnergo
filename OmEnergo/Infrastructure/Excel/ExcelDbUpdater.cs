@@ -10,12 +10,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Excel
 {
 	public class ExcelDbUpdater
 	{
-		private readonly CompoundRepository compoundRepository;
+		private readonly Repository repository;
 
 		private readonly ILogger<ExcelDbUpdater> logger;
 
@@ -23,45 +24,45 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private DataRow currentDataRow { get; set; }
 
-		public ExcelDbUpdater(CompoundRepository compoundRepository, ILogger<ExcelDbUpdater> logger, IStringLocalizer localizer)
+		public ExcelDbUpdater(Repository repository, ILogger<ExcelDbUpdater> logger, IStringLocalizer localizer)
 		{
-			this.compoundRepository = compoundRepository;
+			this.repository = repository;
 			this.logger = logger;
 			this.localizer = localizer;
 		}
 
-		public void ReadExcelAndUpdateDb(Stream excelFileStream)
+		public async Task ReadExcelAndUpdateDbAsync(Stream excelFileStream)
 		{
 			using var workbook = new XLWorkbook(excelFileStream);
-			UpdateValuesInTable<Section>(workbook);
-			UpdateValuesInTable<Product>(workbook);
-			UpdateValuesInTable<ProductModel>(workbook);
-			UpdateValuesInTable<ConfigKey>(workbook);
+			await UpdateValuesInTableAsync<Section>(workbook);
+			await UpdateValuesInTableAsync<Product>(workbook);
+			await UpdateValuesInTableAsync<ProductModel>(workbook);
+			await UpdateValuesInTableAsync<ConfigKey>(workbook);
 		}
 
-		private void UpdateValuesInTable<T>(XLWorkbook workbook) where T : UniqueObject
+		private async Task UpdateValuesInTableAsync<T>(XLWorkbook workbook) where T : UniqueObject
 		{
 			var worksheet = workbook.Worksheet(typeof(T).Name);
 			using var dataTable = new DataTableCreatorFromXLWorkbook().Create(worksheet);
-			UpdateDbWithValuesFromDataTable<T>(dataTable);
+			await UpdateDbWithValuesFromDataTableAsync<T>(dataTable);
 		}
 
-		private void UpdateDbWithValuesFromDataTable<T>(DataTable dataTable) where T : UniqueObject
+		private async Task UpdateDbWithValuesFromDataTableAsync<T>(DataTable dataTable) where T : UniqueObject
 		{
 			foreach (DataRow dataRow in dataTable.Rows)
 			{
 				currentDataRow = dataRow;
-				UpdateCurrentRow<T>();
+				await UpdateCurrentRowAsync<T>();
 			}
 		}
 
-		private void UpdateCurrentRow<T>() where T : UniqueObject
+		private async Task UpdateCurrentRowAsync<T>() where T : UniqueObject
 		{
 			var primitiveProperties = GetPrimitiveProperties<T>();
 			var id = Convert.ToInt32(currentDataRow["Id"]);
-			var obj = compoundRepository.Get<T>(x => x.Id == id);
+			var obj = repository.Get<T>(x => x.Id == id);
 			primitiveProperties.ForEach(p => ReadAndSetValue(obj, p));
-			compoundRepository.UpdateAsync(obj);
+			await repository.UpdateAsync(obj);
 		}
 
 		private List<PropertyInfo> GetPrimitiveProperties<T>() => typeof(T).GetProperties()

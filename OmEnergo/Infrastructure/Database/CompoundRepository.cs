@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public class CompoundRepository : Repository
+	public class CompoundRepository
 	{
 		private readonly SectionRepository sectionRepository;
 		private readonly ProductRepository productRepository;

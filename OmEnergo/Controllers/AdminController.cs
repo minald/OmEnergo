@@ -56,7 +56,7 @@ namespace OmEnergo.Controllers
 
 		public IActionResult Index() => View();
 
-		public IActionResult Configuration() => View(configKeyRepository.GetAll<ConfigKey>());
+		public IActionResult Configuration() => View(configKeyRepository.GetAll<ConfigKey>().ToList());
 
 		[HttpPost]
 		public async Task<IActionResult> SaveConfiguration(List<ConfigKey> configKeys)
@@ -67,14 +67,14 @@ namespace OmEnergo.Controllers
 
 		public FileStreamResult CreateBackup([FromServices]ExcelWriter excelWriter)
 		{
-			using var excelFileStream = excelWriter.CreateExcelStream();
+			var excelFileStream = excelWriter.CreateExcelStream();
 			var currentDatetime = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
 			var fullFileName = $"OmEnergoDB_{currentDatetime}.xlsx";
 			return File(excelFileStream, ExcelWriter.XlsxMimeType, fullFileName);
 		}
 
 		[HttpPost]
-		public IActionResult UploadExcelWithData([FromServices]ExcelDbUpdater excelDbUpdater, IFormFile uploadedFile)
+		public async Task<IActionResult> UploadExcelWithData([FromServices]ExcelDbUpdater excelDbUpdater, IFormFile uploadedFile)
 		{
 			try
 			{
@@ -84,7 +84,7 @@ namespace OmEnergo.Controllers
 				}
 
 				using var excelFileStream = uploadedFile.OpenReadStream();
-				excelDbUpdater.ReadExcelAndUpdateDb(excelFileStream);
+				await excelDbUpdater.ReadExcelAndUpdateDbAsync(excelFileStream);
 				TempData["message"] = localizer["DataWasSuccessfullyUpdated"].Value;
 			}
 			catch (Exception ex)
