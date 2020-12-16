@@ -54,14 +54,14 @@ namespace OmEnergo.Infrastructure
 
 		public async Task UploadFileAsync(string objectEnglishName, IFormFile uploadedFile)
 		{
-			var obj = compoundRepository.GetObjectByEnglishName(objectEnglishName);
+			var obj = await compoundRepository.GetObjectByEnglishNameAsync(objectEnglishName);
 			var path = GetTargetPath(obj, uploadedFile);
 			await fileManager.UploadFileAsync(path, uploadedFile);
 		}
 
-		public void DeleteFile(string deletedFileFullPath, string objectEnglishName)
+		public async Task DeleteFileAsync(string deletedFileFullPath, string objectEnglishName)
 		{
-			var obj = compoundRepository.GetObjectByEnglishName(objectEnglishName);
+			var obj = await compoundRepository.GetObjectByEnglishNameAsync(objectEnglishName);
 			fileManager.DeleteFile(deletedFileFullPath);
 			var mainImageFullPath = FileManager.MakeFullPathFromRelative(obj.GetMainImagePath());
 			if (deletedFileFullPath == mainImageFullPath)
@@ -70,9 +70,9 @@ namespace OmEnergo.Infrastructure
 			}
 		}
 
-		public void MakeImageMain(string newMainImageFullPath, string objectEnglishName)
+		public async Task MakeImageMainAsync(string newMainImageFullPath, string objectEnglishName)
 		{
-			var obj = compoundRepository.GetObjectByEnglishName(objectEnglishName);
+			var obj = await compoundRepository.GetObjectByEnglishNameAsync(objectEnglishName);
 			var oldMainImageFullPath = FileManager.MakeFullPathFromRelative(obj.GetMainImagePath());
 			if (newMainImageFullPath != oldMainImageFullPath)
 			{

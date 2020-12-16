@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure.Database;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
@@ -19,16 +20,16 @@ namespace OmEnergo.Controllers
 			this.localizer = localizer;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var mainSections = sectionRepository.GetOrderedMainSections();
+			var mainSections = await sectionRepository.GetOrderedMainSectionsAsync();
 			ViewData["Title"] = localizer["Catalog"];
 			return View("_PanelWithCards", mainSections);
 		}
 
-		public IActionResult Products(string name)
+		public async Task<IActionResult> Products(string name)
 		{
-			var commonObject = compoundRepository.GetObjectByEnglishName(name);
+			var commonObject = await compoundRepository.GetObjectByEnglishNameAsync(name);
 			ViewData["Title"] = commonObject.MetatagTitle ?? commonObject.Name;
 			ViewData["MetatagDescription"] = commonObject.MetatagDescription ?? commonObject.Name;
 			return View(commonObject);

@@ -1,7 +1,9 @@
-﻿using OmEnergo.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OmEnergo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
@@ -19,36 +21,42 @@ namespace OmEnergo.Infrastructure.Database
 
 		protected virtual IQueryable<T> GetAllQueryable<T>() where T : UniqueObject => db.Set<T>();
 
-		public T GetItemByEnglishName<T>(string name) where T : CommonObject =>
-			GetAllQueryable<T>().FirstOrDefault(x => x.EnglishName == name);
+		protected virtual IQueryable<T> GetAllSearchedItemsQueryable<T>() where T : UniqueObject => db.Set<T>();
+
+		public async Task<List<T>> GetSearchedItemsAsync<T>(string searchString) where T : CommonObject =>
+			await GetAllSearchedItemsQueryable<T>().Where(x => x.Name.Contains(searchString)).ToListAsync();
+
+		public async Task<T> GetItemByEnglishNameAsync<T>(string name) where T : CommonObject =>
+			await GetAllQueryable<T>().FirstOrDefaultAsync(x => x.EnglishName == name);
 
 		public T GetById<T>(int id) where T : UniqueObject => GetAll<T>().FirstOrDefault(obj => obj.Id == id);
 
-		public void Update<T>(T obj) where T : UniqueObject
+		public async Task UpdateAsync<T>(T obj) where T : UniqueObject
 		{
-			var existingItem = db.Set<T>().Find(obj.Id);
+			var existingItem = await db.Set<T>().FindAsync(obj.Id);
 			if (existingItem == null)
 			{
-				db.Add(obj);
+				await db.AddAsync(obj);
 			}
 			else
 			{
 				db.Entry(existingItem).CurrentValues.SetValues(obj);
 			}
 
-			db.SaveChanges();
+			await db.SaveChangesAsync();
 		}
 
-		public void UpdateRange<T>(IEnumerable<T> obj) where T : UniqueObject
+		public async Task UpdateRangeAsync<T>(IEnumerable<T> obj) where T : UniqueObject
 		{
 			db.Set<T>().UpdateRange(obj);
-			db.SaveChanges();
+			await db.SaveChangesAsync();
 		}
 
-		public void Delete<T>(int id) where T : UniqueObject
+		public async Task DeleteAsync<T>(int id) where T : UniqueObject
 		{
-			db.Set<T>().Remove(db.Set<T>().FirstOrDefault(x => x.Id == id));
-			db.SaveChanges();
+			T item = await db.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+			db.Set<T>().Remove(item);
+			await db.SaveChangesAsync();
 		}
 	}
 }

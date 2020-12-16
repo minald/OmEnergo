@@ -5,20 +5,21 @@ using System.Linq;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public class ProductModelRepository : Repository, ISearchableRepository<ProductModel>
+	public class ProductModelRepository : Repository
 	{
 		public ProductModelRepository() : base() { }
 
 		public ProductModelRepository(OmEnergoContext context) : base(context) { }
 
+		public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
+			GetAll<ProductModel>().Where(x => x.Section?.Id == sectionId || x.Product?.Section?.Id == sectionId);
+
 		protected override IQueryable<ProductModel> GetAllQueryable<ProductModel>() => (IQueryable<ProductModel>)db.ProductModels
 			.Include(x => x.Section)
 			.Include(x => x.Product).ThenInclude(x => x.Section);
 
-		public IEnumerable<ProductModel> GetSearchedItems(string searchString) =>
-			GetAllQueryable<ProductModel>().Where(x => x.Name.Contains(searchString));
-
-		public IEnumerable<ProductModel> GetProductModels(int sectionId) =>
-			GetAll<ProductModel>().Where(x => x.Section?.Id == sectionId || x.Product?.Section?.Id == sectionId);
+		protected override IQueryable<ProductModel> GetAllSearchedItemsQueryable<ProductModel>() => (IQueryable<ProductModel>)db.ProductModels
+			.Include(x => x.Section)
+			.Include(x => x.Product).ThenInclude(x => x.Section);
 	}
 }

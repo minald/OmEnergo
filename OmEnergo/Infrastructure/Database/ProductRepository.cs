@@ -2,21 +2,22 @@
 using OmEnergo.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public class ProductRepository : Repository, ISearchableRepository<Product>
+	public class ProductRepository : Repository
 	{
 		public ProductRepository() : base() { }
 
 		public ProductRepository(OmEnergoContext context) : base(context) { }
 
+		public async Task<List<Product>> GetProducts(int sectionId) => await GetAllQueryable<Product>().Where(x => x.Section.Id == sectionId).ToListAsync();
+
 		protected override IQueryable<Product> GetAllQueryable<Product>() => (IQueryable<Product>)db.Products
 			.Include(x => x.Section).Include(x => x.Models);
 
-		public IEnumerable<Product> GetSearchedItems(string searchString) =>
-			db.Products.Include(x => x.Section).Where(x => x.Name.Contains(searchString));
-
-		public IEnumerable<Product> GetProducts(int sectionId) => GetAllQueryable<Product>().Where(x => x.Section.Id == sectionId);
+		protected override IQueryable<Product> GetAllSearchedItemsQueryable<Product>() => 
+			(IQueryable<Product>)db.Products.Include(x => x.Section);
 	}
 }

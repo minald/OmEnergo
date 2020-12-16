@@ -1,5 +1,6 @@
 ﻿using OmEnergo.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
@@ -18,34 +19,34 @@ namespace OmEnergo.Infrastructure.Database
 			this.productModelRepository = productModelRepository;
 		}
 
-		public void UpdateSectionAndSynchronizeProperties(Section section)
+		public async Task UpdateSectionAndSynchronizePropertiesAsync(Section section)
 		{
-			sectionRepository.Update(section);
+			await sectionRepository.UpdateAsync(section);
 
-			var products = productRepository.GetProducts(section.Id).ToList();
+			var products = await productRepository.GetProducts(section.Id);
 			products.ForEach(x => x.UpdateProperties(section.GetProductPropertyList()));
-			productRepository.UpdateRange(products);
+			await productRepository.UpdateRangeAsync(products);
 
 			var productModels = productModelRepository.GetProductModels(section.Id).ToList();
 			productModels.ForEach(x => x.UpdateProperties(section.GetProductModelPropertyList()));
-			productModelRepository.UpdateRange(productModels);
+			await productModelRepository.UpdateRangeAsync(productModels);
 		}
 
-		public CommonObject GetObjectByEnglishName(string englishName)
+		public async Task<CommonObject> GetObjectByEnglishNameAsync(string englishName)
 		{
-			var section = sectionRepository.GetItemByEnglishName<Section>(englishName);
+			var section = await sectionRepository.GetItemByEnglishNameAsync<Section>(englishName);
 			if (section != null)
 			{
 				return section;
 			}
 
-			var product = productRepository.GetItemByEnglishName<Product>(englishName);
+			var product = await productRepository.GetItemByEnglishNameAsync<Product>(englishName);
 			if (product != null)
 			{
 				return product;
 			}
 
-			var productModel = productModelRepository.GetItemByEnglishName<ProductModel>(englishName);
+			var productModel = await productModelRepository.GetItemByEnglishNameAsync<ProductModel>(englishName);
 			return productModel;
 		}
 	}

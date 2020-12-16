@@ -59,9 +59,9 @@ namespace OmEnergo.Controllers
 		public IActionResult Configuration() => View(configKeyRepository.GetAll<ConfigKey>());
 
 		[HttpPost]
-		public IActionResult SaveConfiguration(List<ConfigKey> configKeys)
+		public async Task<IActionResult> SaveConfiguration(List<ConfigKey> configKeys)
 		{
-			configKeyRepository.UpdateRange(configKeys);
+			await configKeyRepository.UpdateRangeAsync(configKeys);
 			return RedirectToAction(nameof(Configuration));
 		}
 
@@ -113,7 +113,7 @@ namespace OmEnergo.Controllers
 
 		#region Sections
 
-		public IActionResult Sections() => View(sectionRepository.GetOrderedMainSections());
+		public async Task<IActionResult> Sections() => View(await sectionRepository.GetOrderedMainSectionsAsync());
 
 		public IActionResult Section(int id) => View(sectionRepository.GetById<Section>(id));
 
@@ -121,7 +121,7 @@ namespace OmEnergo.Controllers
 			new Section() { ParentSection = sectionRepository.Get<Section>(x => x.Id == parentId) });
 
 		[HttpPost]
-		public IActionResult CreateSection(Section section, int? parentSectionId)
+		public async Task<IActionResult> CreateSection(Section section, int? parentSectionId)
 		{
 			if (parentSectionId != null)
 			{
@@ -130,11 +130,11 @@ namespace OmEnergo.Controllers
 			}
 			else
 			{
-				section.SequenceNumber = sectionRepository.GetOrderedMainSections().Count() + 1;
+				section.SequenceNumber = (await sectionRepository.GetOrderedMainSectionsAsync()).Count + 1;
 			}
 
 			section.SetEnglishNameIfEmpty();
-			sectionRepository.Update(section);
+			await sectionRepository.UpdateAsync(section);
 			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasDeleted_f"]}";
 			return section.IsMainSection() ? RedirectToAction(nameof(Sections))
 				: RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
@@ -143,7 +143,7 @@ namespace OmEnergo.Controllers
 		public IActionResult EditSection(int id) => View("CreateOrEditSection", sectionRepository.Get<Section>(x => x.Id == id));
 
 		[HttpPost]
-		public IActionResult EditSection(Section section, int? parentSectionId)
+		public async Task<IActionResult> EditSection(Section section, int? parentSectionId)
 		{
 			if (parentSectionId != null)
 			{
@@ -151,17 +151,17 @@ namespace OmEnergo.Controllers
 			}
 
 			section.SetEnglishNameIfEmpty();
-			compoundRepository.UpdateSectionAndSynchronizeProperties(section);
+			await compoundRepository.UpdateSectionAndSynchronizePropertiesAsync(section);
 			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasChanged_f"]}";
 			return section.IsMainSection() ? RedirectToAction(nameof(Sections))
 				: RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
 		}
 
 		[HttpPost]
-		public IActionResult DeleteSection(int id)
+		public async Task<IActionResult> DeleteSection(int id)
 		{
 			var section = sectionRepository.GetById<Section>(id);
-			sectionRepository.Delete<Section>(id);
+			await sectionRepository.DeleteAsync<Section>(id);
 			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasDeleted_f"]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
@@ -176,13 +176,13 @@ namespace OmEnergo.Controllers
 			View("CreateOrEditProduct", new Product(sectionRepository.Get<Section>(x => x.Id == sectionId)));
 
 		[HttpPost]
-		public IActionResult CreateProduct(Product product, int? sectionId, params string[] values)
+		public async Task<IActionResult> CreateProduct(Product product, int? sectionId, params string[] values)
 		{
 			product.Section = sectionRepository.GetById<Section>(sectionId.Value);
 			product.SequenceNumber = product.Section.GetOrderedNestedObjects().Count() + 1;
 			product.UpdatePropertyValues(values);
 			product.SetEnglishNameIfEmpty();
-			productRepository.Update(product);
+			await productRepository.UpdateAsync(product);
 			TempData["message"] = $"{localizer["Product"]} {product.Name} {localizer["WasDeleted_m"]}";
 			return RedirectToAction(nameof(Section), new { id = product.Section.Id });
 		}
@@ -190,20 +190,20 @@ namespace OmEnergo.Controllers
 		public IActionResult EditProduct(int id) => View("CreateOrEditProduct", productRepository.GetById<Product>(id));
 
 		[HttpPost]
-		public IActionResult EditProduct(Product product, int? sectionId, params string[] values)
+		public async Task<IActionResult> EditProduct(Product product, int? sectionId, params string[] values)
 		{
 			product.Section = sectionRepository.Get<Section>(x => x.Id == sectionId);
 			product.UpdatePropertyValues(values);
 			product.SetEnglishNameIfEmpty();
-			productRepository.Update(product);
+			await productRepository.UpdateAsync(product);
 			TempData["message"] = $"{localizer["Product"]} {product.Name} {localizer["WasChanged_m"]}";
 			return RedirectToAction(nameof(Section), new { id = product.Section.Id });
 		}
 
 		[HttpPost]
-		public IActionResult DeleteProduct(int id)
+		public async Task<IActionResult> DeleteProduct(int id)
 		{
-			productRepository.Delete<Product>(id);
+			await productRepository.DeleteAsync<Product>(id);
 			TempData["message"] = $"{localizer["Product"]} {localizer["WasDeleted_m"]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
@@ -216,7 +216,7 @@ namespace OmEnergo.Controllers
 			new ProductModel(sectionRepository.Get<Section>(x => x.Id == sectionId), productRepository.GetById<Product>(productId)));
 
 		[HttpPost]
-		public IActionResult CreateProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
+		public async Task<IActionResult> CreateProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
 		{
 			productModel.Section = sectionRepository.GetById<Section>(sectionId.GetValueOrDefault());
 			productModel.Product = productRepository.GetById<Product>(productId.GetValueOrDefault());
@@ -224,7 +224,7 @@ namespace OmEnergo.Controllers
 				(sectionId == null ? productModel.Product.Models : productModel.Section.GetOrderedNestedObjects()).Count() + 1;
 			productModel.UpdatePropertyValues(values);
 			productModel.SetEnglishNameIfEmpty();
-			productModelRepository.Update(productModel);
+			await productModelRepository.UpdateAsync(productModel);
 			TempData["message"] = $"{localizer["Model"]} {productModel.Name} {localizer["WasDeleted_f"]}";
 			return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
 				: RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
@@ -234,22 +234,22 @@ namespace OmEnergo.Controllers
 			View("CreateOrEditProductModel", productModelRepository.GetById<ProductModel>(id));
 
 		[HttpPost]
-		public IActionResult EditProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
+		public async Task<IActionResult> EditProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] values)
 		{
 			productModel.Section = sectionRepository.Get<Section>(x => x.Id == sectionId);
 			productModel.Product = productRepository.Get<Product>(x => x.Id == productId);
 			productModel.UpdatePropertyValues(values);
 			productModel.SetEnglishNameIfEmpty();
-			productModelRepository.Update(productModel);
+			await productModelRepository.UpdateAsync(productModel);
 			TempData["message"] = $"{localizer["Model"]} {productModel.Name} {localizer["WasChanged_f"]}";
 			return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
 				: RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
 		}
 
 		[HttpPost]
-		public IActionResult DeleteProductModel(int id)
+		public async Task<IActionResult> DeleteProductModel(int id)
 		{
-			productModelRepository.Delete<ProductModel>(id);
+			await productModelRepository.DeleteAsync<ProductModel>(id);
 			TempData["message"] = $"{localizer["Model"]} {localizer["WasDeleted_f"]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
@@ -259,9 +259,9 @@ namespace OmEnergo.Controllers
 
 		#region FileManager
 
-		public IActionResult FileManager(string englishName)
+		public async Task<IActionResult> FileManager(string englishName)
 		{
-			var commonObject = compoundRepository.GetObjectByEnglishName(englishName);
+			var commonObject = await compoundRepository.GetObjectByEnglishNameAsync(englishName);
 			return View(commonObject);
 		}
 
@@ -282,25 +282,25 @@ namespace OmEnergo.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult DeleteFile(string path, string englishName)
+		public async Task<IActionResult> DeleteFile(string path, string englishName)
 		{
-			adminFileManager.DeleteFile(path, englishName);
+			await adminFileManager.DeleteFileAsync(path, englishName);
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
 		[HttpPost]
-		public IActionResult MakeImageMain(string path, string englishName)
+		public async Task<IActionResult> MakeImageMain(string path, string englishName)
 		{
-			adminFileManager.MakeImageMain(path, englishName);
+			await adminFileManager.MakeImageMainAsync(path, englishName);
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
 		#endregion
 
 		//Method is necessary for validation of create/edit actions
-		public IActionResult IsNewEnglishName(string englishName, int id)
+		public async Task<IActionResult> IsNewEnglishName(string englishName, int id)
 		{
-			var obj = compoundRepository.GetObjectByEnglishName(englishName);
+			var obj = await compoundRepository.GetObjectByEnglishNameAsync(englishName);
 			var isNew = obj == null || obj?.Id == id;
 			return Json(isNew);
 		}

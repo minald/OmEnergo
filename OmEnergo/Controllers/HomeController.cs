@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
+using OmEnergo.Models;
 using OmEnergo.Models.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -68,10 +69,10 @@ namespace OmEnergo.Controllers
 			}
 		}
 
-		public IActionResult Search(string searchString) => View(new SearchViewModel(searchString,
-			sectionRepository.GetSearchedItems(searchString), 
-			productRepository.GetSearchedItems(searchString),
-			productModelRepository.GetSearchedItems(searchString)));
+		public async Task<IActionResult> Search(string searchString) => View(new SearchViewModel(searchString,
+			await sectionRepository.GetSearchedItemsAsync<Section>(searchString), 
+			await productRepository.GetSearchedItemsAsync<Product>(searchString),
+			await productModelRepository.GetSearchedItemsAsync<ProductModel>(searchString)));
 
 		public IActionResult Error() => View();
 	}
