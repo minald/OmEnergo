@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using OmEnergo.Infrastructure.TagHelpers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -24,31 +25,44 @@ namespace OmEnergo.Tests.Infrastructure.TagHelpers
 		}
 
 		[Fact]
-		public void LinkWithChildren()
+		public void Process_LinkWithChildren_AddsClass()
 		{
 			//Arrange
 			var tagHelper = new SidebarLinkTagHelper() { OmChildrenAmount = 1 };
 
 			//Act
 			tagHelper.Process(tagHelperContext, tagHelperOutput);
+			var actual = tagHelperOutput.Attributes["class"].Value.ToString();
 
 			//Assert
-			var actual = tagHelperOutput.Attributes["class"].Value.ToString();
 			Assert.Equal("fas fa-angle-right", actual);
 		}
 
 		[Fact]
-		public void LinkWithoutChildren()
+		public void Process_LinkWithoutChildren_ClassIsNull()
 		{
 			//Arrange
 			var tagHelper = new SidebarLinkTagHelper() { OmChildrenAmount = 0 };
 
 			//Act
 			tagHelper.Process(tagHelperContext, tagHelperOutput);
+			var actual = tagHelperOutput.Attributes["class"]?.Value;
 
 			//Assert
-			var actual = tagHelperOutput.Attributes["class"]?.Value;
 			Assert.Null(actual);
+		}
+
+		[Fact]
+		public void Process_NegativeChildrenAmount_ThrowsException()
+		{
+			//Arrange
+			var tagHelper = new SidebarLinkTagHelper() { OmChildrenAmount = -1 };
+
+			//Act
+			Action action = () => tagHelper.Process(tagHelperContext, tagHelperOutput);
+
+			//Assert
+			Assert.Throws<ArgumentOutOfRangeException>(action);
 		}
 	}
 }

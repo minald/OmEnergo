@@ -35,7 +35,7 @@ namespace OmEnergo.Models
 		{
 			var result = new Dictionary<string, string>();
 			var propertyKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties ?? "{}").Keys;
-			for (int i = 0; i < propertyKeys.Count; i++)
+			for (int i = 0; i < Math.Min(propertyKeys.Count, propertyValues.Length); i++)
 			{
 				result.Add(propertyKeys.ElementAt(i), propertyValues[i] ?? "");
 			}

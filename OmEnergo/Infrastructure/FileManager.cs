@@ -38,7 +38,16 @@ namespace OmEnergo.Infrastructure
 
 		public static string MakeFullPathFromRelative(string relativePath) => webRootPath + relativePath;
 
-		public static string GetRelativePath(string fullPath) => fullPath.Substring(fullPath.IndexOf(@"\images"));
+		public static string GetRelativePath(string fullPath)
+		{
+			var imagesFolderIndex = fullPath.IndexOf(@"\images");
+			if (imagesFolderIndex == -1)
+			{
+				imagesFolderIndex = 0;
+			}
+
+			return fullPath.Substring(imagesFolderIndex);
+		}
 
 		public static string GetFileName(string fullPath)
 		{

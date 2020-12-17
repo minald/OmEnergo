@@ -29,7 +29,7 @@ namespace OmEnergo.Infrastructure
 			this.localizer = localizer;
 		}
 
-		public static bool IsTheMainImage(string imagePath, int objectId) => imagePath.Contains($@"\{objectId}.");
+		public static bool IsTheMainImage(string imagePath) => !imagePath.Contains("_");
 
 		public static bool IsDocumentCanBePreviewed(string path)
 		{

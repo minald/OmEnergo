@@ -10,7 +10,7 @@
 					<img class="card-img" src="@FileManager.GetRelativePath(imageFullPath)" asp-append-version="true">
 				</div>
 				<div class="card-footer justify-content-center d-flex">
-					@if (!AdminFileManager.IsTheMainImage(imageFullPath, Model.Id))
+					@if (!AdminFileManager.IsTheMainImage(imageFullPath))
 					{
 						<form asp-action="MakeImageMain" asp-route-path="@imageFullPath"
 							  asp-route-englishName="@Model.EnglishName" method="post">

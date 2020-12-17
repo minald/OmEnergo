@@ -3,6 +3,7 @@ using Moq;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
 using OmEnergo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -11,9 +12,38 @@ namespace OmEnergo.Tests.Infrastructure
 {
 	public class ExcelWriterTests
 	{
-		private readonly ExcelWriter excelWriter;
+		[Fact]
+		public void CreateExcelStream_ObjectsAreValid_CreatesFourTables()
+		{
+			//Arrange
+			var excelWriter = GetFilledExcelWriter();
 
-		public ExcelWriterTests()
+			//Act
+			using var actualMemoryStream = excelWriter.CreateExcelStream();
+			using var actualXlWorkbook = new XLWorkbook(actualMemoryStream);
+
+			//Assert
+			Assert.Equal(4, actualXlWorkbook.Worksheets.Count);
+			Assert.Equal(3, actualXlWorkbook.Worksheet("Section").RowsUsed().Count());
+			Assert.Equal(3, actualXlWorkbook.Worksheet("ProductModel").RowsUsed().Count());
+			Assert.Single(actualXlWorkbook.Worksheet("Product").RowsUsed());
+			Assert.Single(actualXlWorkbook.Worksheet("ConfigKey").RowsUsed());
+		}
+
+		[Fact]
+		public void CreateExcelStream_ObjectsAreNull_ThrowsException()
+		{
+			//Arrange
+			var excelWriter = GetEmptyExcelWriter();
+
+			//Act
+			Action action = () => excelWriter.CreateExcelStream();
+
+			//Assert
+			Assert.Throws<NullReferenceException>(action);
+		}
+
+		private ExcelWriter GetFilledExcelWriter()
 		{
 			var sections = new List<Section>()
 			{
@@ -35,22 +65,21 @@ namespace OmEnergo.Tests.Infrastructure
 			var configKeyRepositoryMock = new Mock<ConfigKeyRepository>();
 			configKeyRepositoryMock.Setup(x => x.GetAll<ConfigKey>()).Returns(new List<ConfigKey>());
 
-			excelWriter = new ExcelWriter(sectionRepositoryMock.Object, productRepositoryMock.Object, productModelRepositoryMock.Object, configKeyRepositoryMock.Object);
+			return new ExcelWriter(sectionRepositoryMock.Object, productRepositoryMock.Object, productModelRepositoryMock.Object, configKeyRepositoryMock.Object);
 		}
 
-		[Fact]
-		public void CreateExcelStream()
+		private ExcelWriter GetEmptyExcelWriter()
 		{
-			//Act
-			using var actualMemoryStream = excelWriter.CreateExcelStream();
-			using var actualXlWorkbook = new XLWorkbook(actualMemoryStream);
+			var sectionRepositoryMock = new Mock<SectionRepository>();
+			sectionRepositoryMock.Setup(x => x.GetAll<Section>()).Returns<IEnumerable<Section>>(null);
+			var productRepositoryMock = new Mock<ProductRepository>();
+			productRepositoryMock.Setup(x => x.GetAll<Product>()).Returns<IEnumerable<Product>>(null);
+			var productModelRepositoryMock = new Mock<ProductModelRepository>();
+			productModelRepositoryMock.Setup(x => x.GetAll<ProductModel>()).Returns<IEnumerable<ProductModel>>(null);
+			var configKeyRepositoryMock = new Mock<ConfigKeyRepository>();
+			configKeyRepositoryMock.Setup(x => x.GetAll<ConfigKey>()).Returns<IEnumerable<ConfigKey>>(null);
 
-			//Assert
-			Assert.Equal(4, actualXlWorkbook.Worksheets.Count);
-			Assert.Equal(3, actualXlWorkbook.Worksheet("Section").RowsUsed().Count());
-			Assert.Equal(3, actualXlWorkbook.Worksheet("ProductModel").RowsUsed().Count());
-			Assert.Single(actualXlWorkbook.Worksheet("Product").RowsUsed());
-			Assert.Single(actualXlWorkbook.Worksheet("ConfigKey").RowsUsed());
+			return new ExcelWriter(sectionRepositoryMock.Object, productRepositoryMock.Object, productModelRepositoryMock.Object, configKeyRepositoryMock.Object);
 		}
 	}
 }
