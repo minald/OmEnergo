@@ -266,7 +266,7 @@ namespace OmEnergo.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UploadFileAsync(string englishName, IFormFile uploadedFile)
+		public async Task<IActionResult> UploadFile(string englishName, IFormFile uploadedFile)
 		{
 			try
 			{

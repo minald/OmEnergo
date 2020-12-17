@@ -17,17 +17,17 @@ namespace OmEnergo.Infrastructure.Database
 
 		public T Get<T>(Func<T, bool> predicate) where T : UniqueObject => db.Set<T>().FirstOrDefault(predicate);
 
-		public IEnumerable<T> GetAll<T>() where T : UniqueObject => GetAllQueryable<T>();
+		public virtual IEnumerable<T> GetAll<T>() where T : UniqueObject => GetAllQueryable<T>();
 
 		protected virtual IQueryable<T> GetAllQueryable<T>() where T : UniqueObject => db.Set<T>();
 
 		protected virtual IQueryable<T> GetAllSearchedItemsQueryable<T>() where T : UniqueObject => db.Set<T>();
 
-		public async Task<List<T>> GetSearchedItemsAsync<T>(string searchString) where T : CommonObject =>
-			await GetAllSearchedItemsQueryable<T>().Where(x => x.Name.Contains(searchString)).ToListAsync();
+		public Task<List<T>> GetSearchedItemsAsync<T>(string searchString) where T : CommonObject =>
+			GetAllSearchedItemsQueryable<T>().Where(x => x.Name.Contains(searchString)).ToListAsync();
 
-		public async Task<T> GetItemByEnglishNameAsync<T>(string name) where T : CommonObject =>
-			await GetAllQueryable<T>().FirstOrDefaultAsync(x => x.EnglishName == name);
+		public Task<T> GetItemByEnglishNameAsync<T>(string name) where T : CommonObject =>
+			GetAllQueryable<T>().FirstOrDefaultAsync(x => x.EnglishName == name);
 
 		public T GetById<T>(int id) where T : UniqueObject => GetAll<T>().FirstOrDefault(obj => obj.Id == id);
 
@@ -46,10 +46,10 @@ namespace OmEnergo.Infrastructure.Database
 			await db.SaveChangesAsync();
 		}
 
-		public async Task UpdateRangeAsync<T>(IEnumerable<T> obj) where T : UniqueObject
+		public Task UpdateRangeAsync<T>(IEnumerable<T> obj) where T : UniqueObject
 		{
 			db.Set<T>().UpdateRange(obj);
-			await db.SaveChangesAsync();
+			return db.SaveChangesAsync();
 		}
 
 		public async Task DeleteAsync<T>(int id) where T : UniqueObject

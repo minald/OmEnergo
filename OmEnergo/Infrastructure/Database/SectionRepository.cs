@@ -14,7 +14,7 @@ namespace OmEnergo.Infrastructure.Database
 
 		public IEnumerable<Section> GetFullCatalog() => GetAllQueryable<Section>().Where(Section.IsMainSectionPredicate());
 
-		public async Task<List<Section>> GetOrderedMainSectionsAsync() => await db.Sections.Include(x => x.ParentSection)
+		public Task<List<Section>> GetOrderedMainSectionsAsync() => db.Sections.Include(x => x.ParentSection)
 			.Where(Section.IsMainSectionPredicate())
 			.OrderBy(x => x.SequenceNumber).ToListAsync();
 

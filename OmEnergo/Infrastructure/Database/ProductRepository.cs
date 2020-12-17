@@ -12,7 +12,7 @@ namespace OmEnergo.Infrastructure.Database
 
 		public ProductRepository(OmEnergoContext context) : base(context) { }
 
-		public async Task<List<Product>> GetProducts(int sectionId) => await GetAllQueryable<Product>().Where(x => x.Section.Id == sectionId).ToListAsync();
+		public Task<List<Product>> GetProducts(int sectionId) => GetAllQueryable<Product>().Where(x => x.Section.Id == sectionId).ToListAsync();
 
 		protected override IQueryable<Product> GetAllQueryable<Product>() => (IQueryable<Product>)db.Products
 			.Include(x => x.Section).Include(x => x.Models);
