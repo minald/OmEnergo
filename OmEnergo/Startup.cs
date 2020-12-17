@@ -11,6 +11,7 @@ using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
 using OmEnergo.Resources;
+using OmEnergo.Services;
 
 namespace OmEnergo
 {
@@ -40,10 +41,12 @@ namespace OmEnergo
 			services.AddSingleton(sp => new FileManager(
 				sp.GetRequiredService<IHostingEnvironment>().WebRootPath,
 				sp.GetRequiredService<IStringLocalizer>()));
-			services.AddScoped<AdminFileManager>();
 			services.AddScoped<ExcelWriter>();
 			services.AddScoped<ExcelDbUpdater>();
 			services.AddScoped<EmailSender>();
+
+			services.AddScoped<AdminFileManagerService>();
+			services.AddScoped<EmailSenderService>();
 
 			services.AddSession();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

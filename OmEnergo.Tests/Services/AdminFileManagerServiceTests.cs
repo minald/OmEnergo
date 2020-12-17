@@ -1,9 +1,9 @@
-﻿using OmEnergo.Infrastructure;
+﻿using OmEnergo.Services;
 using Xunit;
 
-namespace OmEnergo.Tests.Infrastructure
+namespace OmEnergo.Tests.Services
 {
-	public class AdminFileManagerTests
+	public class AdminFileManagerServiceTests
 	{
 		[Theory]
 		[InlineData(@"2\4\s135.jpg")]
@@ -13,7 +13,7 @@ namespace OmEnergo.Tests.Infrastructure
 		public void IsTheMainImage_MainImageName_ReturnsTrue(string imagePath)
 		{
 			//Act
-			var actual = AdminFileManager.IsTheMainImage(imagePath);
+			var actual = AdminFileManagerService.IsTheMainImage(imagePath);
 
 			//Assert
 			Assert.True(actual);
@@ -25,7 +25,7 @@ namespace OmEnergo.Tests.Infrastructure
 		public void IsTheMainImage_MainImageName_ReturnsFalse(string imagePath)
 		{
 			//Act
-			var actual = AdminFileManager.IsTheMainImage(imagePath);
+			var actual = AdminFileManagerService.IsTheMainImage(imagePath);
 
 			//Assert
 			Assert.False(actual);
@@ -37,7 +37,7 @@ namespace OmEnergo.Tests.Infrastructure
 		public void IsDocumentCanBePreviewed_SupportedExtension_ReturnsTrue(string path)
 		{
 			//Act
-			var actual = AdminFileManager.IsDocumentCanBePreviewed(path);
+			var actual = AdminFileManagerService.IsDocumentCanBePreviewed(path);
 
 			//Assert
 			Assert.True(actual);
@@ -49,7 +49,7 @@ namespace OmEnergo.Tests.Infrastructure
 		public void IsDocumentCanBePreviewed_UnsupportedExtension_ReturnsFalse(string path)
 		{
 			//Act
-			var actual = AdminFileManager.IsDocumentCanBePreviewed(path);
+			var actual = AdminFileManagerService.IsDocumentCanBePreviewed(path);
 
 			//Assert
 			Assert.False(actual);

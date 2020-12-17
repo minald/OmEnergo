@@ -1,4 +1,5 @@
 ﻿using OmEnergo.Models;
+using OmEnergo.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,7 +20,7 @@ namespace OmEnergo.Infrastructure
 		{
 			foreach (var commonObject in commonObjects)
 			{
-				var imagePaths = AdminFileManager.GetFullPathsOfObjectImages(commonObject);
+				var imagePaths = AdminFileManagerService.GetFullPathsOfObjectImages(commonObject);
 				foreach (var imagePath in imagePaths)
 				{
 					var thumnailPath = GetThumbnailPath(imagePath, commonObject);

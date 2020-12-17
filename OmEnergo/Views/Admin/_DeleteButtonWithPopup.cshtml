@@ -1,6 +1,6 @@
 ﻿@model CommonObject
 
-@if (AdminFileManager.GetFullPathsOfObjectFiles(Model).Count == 0)
+@if (AdminFileManagerService.GetFullPathsOfObjectFiles(Model).Count == 0)
 {
 	<button data-toggle="modal" data-target="#delete@(Model.GetType().Name)@(Model.Id)"
 			class="btn btn-sm btn-danger">@Localizer["Delete"]

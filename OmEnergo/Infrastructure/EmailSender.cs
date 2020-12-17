@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Localization;
-using OmEnergo.Infrastructure.Database;
-using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -10,21 +8,25 @@ namespace OmEnergo.Infrastructure
 	{
 		private readonly IStringLocalizer localizer;
 
-		private readonly string host;
-		private readonly int port;
-		private readonly bool enableSsl;
-		private readonly string senderEmailAddress;
-		private readonly string senderPassword;
+		private string host;
+		private int port;
+		private bool enableSsl;
+		private string senderEmailAddress;
+		private string senderPassword;
 
-		public EmailSender(IStringLocalizer localizer, ConfigKeyRepository configKeyRepository)
+		public EmailSender(IStringLocalizer localizer)
 		{
 			this.localizer = localizer;
+		}
 
-			host = configKeyRepository.GetConfigValue("Email_Host");
-			port = Convert.ToInt32(configKeyRepository.GetConfigValue("Email_Port"));
-			enableSsl = Convert.ToBoolean(configKeyRepository.GetConfigValue("Email_EnableSsl"));
-			senderEmailAddress = configKeyRepository.GetConfigValue("Email_SenderEmailAddress");
-			senderPassword = configKeyRepository.GetConfigValue("Email_SenderPassword");
+		public void InitializeConfiguration(string host, int port, bool enableSsl,
+			string senderEmailAddress, string senderPassword)
+		{
+			this.host = host;
+			this.port = port;
+			this.enableSsl = enableSsl;
+			this.senderEmailAddress = senderEmailAddress;
+			this.senderPassword = senderPassword;
 		}
 
 		public void SendEmail(string name, string phoneNumber, string email, string text)

@@ -1,5 +1,5 @@
 ﻿@model CommonObject
-@{ List<string> fullPaths = AdminFileManager.GetFullPathsOfObjectImages(Model); }
+@{ List<string> fullPaths = AdminFileManagerService.GetFullPathsOfObjectImages(Model); }
 
 @if (fullPaths.Count != 0)
 {

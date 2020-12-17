@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using OmEnergo.Models.ViewModels;
+using OmEnergo.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -41,12 +41,12 @@ namespace OmEnergo.Controllers
 		public IActionResult Contacts() => View();
 
 		[HttpPost]
-		public IActionResult Contacts([FromServices] EmailSender emailSender, 
+		public IActionResult Contacts([FromServices] EmailSenderService emailSenderService, 
 			string name, string text, string email, string phoneNumber = "")
 		{
 			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
 			{
-				Task.Factory.StartNew(() => emailSender.SendEmail(name, phoneNumber, email, text));
+				Task.Factory.StartNew(() => emailSenderService.SendEmail(name, phoneNumber, email, text));
 			}
 
 			return RedirectToAction("Index", "Catalog");

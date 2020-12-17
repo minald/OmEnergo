@@ -8,6 +8,7 @@ using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
 using OmEnergo.Models;
+using OmEnergo.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace OmEnergo.Controllers
 		private readonly ProductModelRepository productModelRepository;
 		private readonly ConfigKeyRepository configKeyRepository;
 		private readonly CompoundRepository compoundRepository;
-		private readonly AdminFileManager adminFileManager;
+		private readonly AdminFileManagerService adminFileManagerService;
 		private readonly ILogger<AdminController> logger;
 		private readonly IStringLocalizer localizer;
 
@@ -32,7 +33,7 @@ namespace OmEnergo.Controllers
 			ProductModelRepository productModelRepository, 
 			ConfigKeyRepository configKeyRepository, 
 			CompoundRepository compoundRepository,
-			AdminFileManager adminFileManager, 
+			AdminFileManagerService adminFileManagerService, 
 			ILogger<AdminController> logger, 
 			IStringLocalizer localizer)
 		{
@@ -41,7 +42,7 @@ namespace OmEnergo.Controllers
 			this.productModelRepository = productModelRepository;
 			this.configKeyRepository = configKeyRepository;
 			this.compoundRepository = compoundRepository;
-			this.adminFileManager = adminFileManager;
+			this.adminFileManagerService = adminFileManagerService;
 			this.logger = logger;
 			this.localizer = localizer;
 		}
@@ -270,7 +271,7 @@ namespace OmEnergo.Controllers
 		{
 			try
 			{
-				await adminFileManager.UploadFileAsync(englishName, uploadedFile);
+				await adminFileManagerService.UploadFileAsync(englishName, uploadedFile);
 			}
 			catch (Exception ex)
 			{
@@ -284,14 +285,14 @@ namespace OmEnergo.Controllers
 		[HttpPost]
 		public async Task<IActionResult> DeleteFile(string path, string englishName)
 		{
-			await adminFileManager.DeleteFileAsync(path, englishName);
+			await adminFileManagerService.DeleteFileAsync(path, englishName);
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> MakeImageMain(string path, string englishName)
 		{
-			await adminFileManager.MakeImageMainAsync(path, englishName);
+			await adminFileManagerService.MakeImageMainAsync(path, englishName);
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 

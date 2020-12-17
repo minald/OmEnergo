@@ -2,7 +2,7 @@
 
 <a asp-controller="Document" asp-action="Download" asp-route-path="@Model"
    class="fas fa-file-download mx-1" title="@Localizer["Download"]"></a>
-@if (AdminFileManager.IsDocumentCanBePreviewed(Model))
+@if (AdminFileManagerService.IsDocumentCanBePreviewed(Model))
 {
 	<a asp-controller="Document" asp-action="Look" asp-route-path="@Model"
 		class="fas fa-eye mx-1" title="@Localizer["Look"]"></a>

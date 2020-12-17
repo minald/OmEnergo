@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
+using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using System;
@@ -8,9 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OmEnergo.Infrastructure
+namespace OmEnergo.Services
 {
-	public class AdminFileManager
+	public class AdminFileManagerService
 	{
 		private readonly FileManager fileManager;
 
@@ -22,7 +23,7 @@ namespace OmEnergo.Infrastructure
 		private readonly static List<string> supportedImageExtensions = new List<string>() { "jpg", "jpeg", "png" };
 		private readonly static List<string> supportedDocumentExtensions = FileManager.SupportedDocumentExtensionsAndMimeTypes.Keys.ToList();
 
-		public AdminFileManager(FileManager fileManager, CompoundRepository compoundRepository, IStringLocalizer localizer)
+		public AdminFileManagerService(FileManager fileManager, CompoundRepository compoundRepository, IStringLocalizer localizer)
 		{
 			this.fileManager = fileManager;
 			this.compoundRepository = compoundRepository;
