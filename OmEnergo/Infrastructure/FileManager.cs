@@ -74,12 +74,12 @@ namespace OmEnergo.Infrastructure
 		{
 			if (uploadedFile == null)
 			{
-				throw new Exception(localizer["PleaseSelectAFile"]);
+				throw new ArgumentNullException(localizer["PleaseSelectAFile"]);
 			}
 
 			if (File.Exists(path))
 			{
-				throw new Exception(localizer["AFileWithThisNameHasAlreadyBeenUploaded"]);
+				throw new ArgumentException(localizer["AFileWithThisNameHasAlreadyBeenUploaded"]);
 			}
 
 			Directory.CreateDirectory(Path.GetDirectoryName(path));

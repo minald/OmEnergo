@@ -103,7 +103,7 @@ namespace OmEnergo.Infrastructure.Excel
 				}
 
 				logger.LogError($"ExcelDbUpdater: {message}");
-				throw new Exception(message, ex);
+				throw new InvalidDataException(message, ex);
 			}
 		}
 	}

@@ -81,7 +81,7 @@ namespace OmEnergo.Controllers
 			{
 				if (uploadedFile == null)
 				{
-					throw new Exception(localizer["PleaseSelectAFile"]);
+					throw new ArgumentNullException(localizer["PleaseSelectAFile"]);
 				}
 
 				using var excelFileStream = uploadedFile.OpenReadStream();
