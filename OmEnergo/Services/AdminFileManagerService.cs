@@ -3,6 +3,7 @@ using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
+using OmEnergo.Resources;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -97,7 +98,7 @@ namespace OmEnergo.Services
 			}
 			else
 			{
-				throw new FormatException(localizer["UploadFileFormatIsNotSupported"].Value
+				throw new FormatException(localizer[nameof(SharedResource.UploadFileFormatIsNotSupported)].Value
 					.Replace("{{supportedDocumentExtensions}}", String.Join(", ", supportedDocumentExtensions))
 					.Replace("{{supportedImageExtensions}}", String.Join(", ", supportedImageExtensions)));
 			}

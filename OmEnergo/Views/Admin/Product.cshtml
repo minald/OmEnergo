@@ -4,10 +4,10 @@
 <table class="table table-bordered table-striped table-hover bg-light">
 	<tr>
 		<th>#</th>
-		<th>@Localizer["Name"]</th>
-		<th>@Localizer["Photo"]</th>
-		<th>@Localizer["Price"]</th>
-		<th>@Localizer["Actions"]</th>
+		<th>@Localizer[nameof(SharedResource.Name)]</th>
+		<th>@Localizer[nameof(SharedResource.Photo)]</th>
+		<th>@Localizer[nameof(SharedResource.Price)]</th>
+		<th>@Localizer[nameof(SharedResource.Actions)]</th>
 	</tr>
 	@foreach (var productModel in Model.Models.OrderBy(x => x.SequenceNumber))
 	{
@@ -17,8 +17,8 @@
 			<td><img class="card-img admin-photo" src="@productModel.GetMainImagePath()"></td>
 			<td>@productModel.Price</td>
 			<td>
-				<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">@Localizer["Change"]</a>
-				<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">@Localizer["FileManager"]</a>
+				<a asp-action="EditProductModel" asp-route-id="@productModel.Id" class="btn btn-info">@Localizer[nameof(SharedResource.Change)]</a>
+				<a asp-action="FileManager" asp-route-englishName="@productModel.EnglishName" class="btn btn-info">@Localizer[nameof(SharedResource.FileManager)]</a>
 				<partial name="_DeleteButtonWithPopup" model="productModel" />
 			</td>
 		</tr>
@@ -26,5 +26,5 @@
 </table>
 <div class="text-center">
 	<a asp-action="CreateProductModel" asp-route-productId="@Model.Id" 
-	   class="btn btn-primary">@Localizer["Create"] @Localizer["Model"].Value.ToLower()</a>
+	   class="btn btn-primary">@Localizer[nameof(SharedResource.Create)] @Localizer[nameof(SharedResource.Model)].Value.ToLower()</a>
 </div>

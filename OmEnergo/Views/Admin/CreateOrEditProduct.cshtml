@@ -22,7 +22,7 @@
 		}
 	</fieldset>
 	<div class="text-center">
-		<button class="btn btn-primary" type="submit">@Localizer["Save"]</button>
-		<a asp-action="Section" asp-route-id="@Model.Section.Id" asp- class="btn btn-secondary">@Localizer["Cancel"]</a>
+		<button class="btn btn-primary" type="submit">@Localizer[nameof(SharedResource.Save)]</button>
+		<a asp-action="Section" asp-route-id="@Model.Section.Id" asp- class="btn btn-secondary">@Localizer[nameof(SharedResource.Cancel)]</a>
 	</div>
 </form>

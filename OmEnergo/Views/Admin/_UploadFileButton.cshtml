@@ -3,10 +3,10 @@
 <form asp-action="@Model.AspAction" asp-route-englishName="@Model.AspRouteEnglishName" method="post"
 	  enctype="multipart/form-data" class="input-group">
 	<div class="input-group-prepend">
-		<button type="submit" class="btn btn-info">@Localizer["Download"]</button>
+		<button type="submit" class="btn btn-info">@Localizer[nameof(SharedResource.Download)]</button>
 	</div>
 	<div class="custom-file">
 		<input id="uploadFile" type="file" name="uploadedFile" class="custom-file-input">
-		<label for="uploadFile" class="custom-file-label" data-browse="@Localizer["ChooseFile"]"></label>
+		<label for="uploadFile" class="custom-file-label" data-browse="@Localizer[nameof(SharedResource.ChooseFile)]"></label>
 	</div>
 </form>

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
+using OmEnergo.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -92,14 +93,14 @@ namespace OmEnergo.Infrastructure.Excel
 			}
 			catch (Exception ex)
 			{
-				var message = localizer["TheValueIsInvalidAndCannotBeUpdated"].Value
+				var message = localizer[nameof(SharedResource.TheValueIsInvalidAndCannotBeUpdated)].Value
 					.Replace("{{tableName}}", currentDataRow.Table.TableName)
 					.Replace("{{rowNumber}}", (currentDataRow.Table.Rows.IndexOf(currentDataRow) + 2).ToString())
 					.Replace("{{propertyName}}", property.Name)
 					.Replace("{{propertyValue}}", stringValue);
 				if (IsNonIntegerNumber(propertyType))
 				{
-					message += Environment.NewLine + localizer["ValidNonIntegerFormat"];
+					message += Environment.NewLine + localizer[nameof(SharedResource.ValidNonIntegerFormat)];
 				}
 
 				logger.LogError($"ExcelDbUpdater: {message}");

@@ -1,24 +1,24 @@
-﻿<h2 class="text-center">@Localizer["MainPage"]</h2>
+﻿<h2 class="text-center">@Localizer[nameof(SharedResource.MainPage)]</h2>
 <div class="row m-3">
-	<a class="btn btn-primary mr-3" asp-action="Sections">@Localizer["ChangeSiteContent"]</a>
-	<a class="btn btn-info" asp-action="Configuration">@Localizer["ChangeConfiguration"]</a>
+	<a class="btn btn-primary mr-3" asp-action="Sections">@Localizer[nameof(SharedResource.ChangeSiteContent)]</a>
+	<a class="btn btn-info" asp-action="Configuration">@Localizer[nameof(SharedResource.ChangeConfiguration)]</a>
 </div>
 <hr>
-<h3>@Localizer["LoadingAndUnloadingDataFromExcel"]</h3>
+<h3>@Localizer[nameof(SharedResource.LoadingAndUnloadingDataFromExcel)]</h3>
 <div class="row m-3">
-	<a class="btn btn-info" asp-action="CreateBackup">@Localizer["DownloadExcelFile"]</a>
+	<a class="btn btn-info" asp-action="CreateBackup">@Localizer[nameof(SharedResource.DownloadExcelFile)]</a>
 	<div class="col ml-3 max-width-600px">
 		<partial name="_UploadFileButton" model="@(new UploadFileFormViewModel("UploadExcelWithData"))" />
 	</div>
 </div>
 <hr>
-<h3>@Localizer["ImagesThumbnails"]</h3>
+<h3>@Localizer[nameof(SharedResource.ImagesThumbnails)]</h3>
 <form asp-action="CreateThumbnails" class="form-inline m-3">
 	<div class="input-group mr-2">
 		<input type="number" name="maxSize" class="form-control">
 		<div class="input-group-append">
-			<span class="input-group-text">@Localizer["Pixels"]</span>
+			<span class="input-group-text">@Localizer[nameof(SharedResource.Pixels)]</span>
 		</div>
 	</div>
-	<button type="submit" class="btn btn-primary my-1">@Localizer["Create"]</button>
+	<button type="submit" class="btn btn-primary my-1">@Localizer[nameof(SharedResource.Create)]</button>
 </form>

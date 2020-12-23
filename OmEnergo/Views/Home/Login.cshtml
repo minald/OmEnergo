@@ -1,10 +1,10 @@
 ﻿@model LoginViewModel
 @{
-	ViewData["Title"] = Localizer["Entrance"];
+	ViewData["Title"] = Localizer[nameof(SharedResource.Entrance)];
 }
 
 <form asp-controller="Home" asp-action="Login" method="post" class="row">
-	<input asp-for="Login" placeholder="@Localizer["Login"]" class="form-control col-10 col-sm-2 mr-3" />
-	<input asp-for="Password" type="password" placeholder="@Localizer["Password"]" class="form-control col-10 col-sm-2 mr-3" />
-	<button type="submit" class="btn btn-success form-control col-3 col-sm-1">@Localizer["ToLogIn"]</button>
+	<input asp-for="Login" placeholder="@Localizer[nameof(SharedResource.Login)]" class="form-control col-10 col-sm-2 mr-3" />
+	<input asp-for="Password" type="password" placeholder="@Localizer[nameof(SharedResource.Password)]" class="form-control col-10 col-sm-2 mr-3" />
+	<button type="submit" class="btn btn-success form-control col-3 col-sm-1">@Localizer[nameof(SharedResource.ToLogIn)]</button>
 </form>

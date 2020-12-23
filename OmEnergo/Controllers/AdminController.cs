@@ -8,6 +8,7 @@ using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Infrastructure.Excel;
 using OmEnergo.Models;
+using OmEnergo.Resources;
 using OmEnergo.Services;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace OmEnergo.Controllers
 
 		public override void OnActionExecuted(ActionExecutedContext context)
 		{
-			ViewData["Title"] = localizer["AdministrativePanel"];
+			ViewData["Title"] = localizer[nameof(SharedResource.AdministrativePanel)];
 			base.OnActionExecuted(context);
 		}
 
@@ -81,12 +82,12 @@ namespace OmEnergo.Controllers
 			{
 				if (uploadedFile == null)
 				{
-					throw new ArgumentNullException(localizer["PleaseSelectAFile"]);
+					throw new ArgumentNullException(localizer[nameof(SharedResource.PleaseSelectAFile)]);
 				}
 
 				using var excelFileStream = uploadedFile.OpenReadStream();
 				await excelDbUpdater.ReadExcelAndUpdateDbAsync(excelFileStream);
-				TempData["message"] = localizer["DataWasSuccessfullyUpdated"].Value;
+				TempData["message"] = localizer[nameof(SharedResource.DataWasSuccessfullyUpdated)].Value;
 			}
 			catch (Exception ex)
 			{
@@ -106,7 +107,7 @@ namespace OmEnergo.Controllers
 			commonObjects.AddRange(productModelRepository.GetAll<ProductModel>() ?? new List<ProductModel>());
 			var imageThumbnailCreator = new ImageThumbnailCreator(maxSize);
 			imageThumbnailCreator.Create(commonObjects);
-			TempData["message"] = localizer["ImageThumbnailsWereSuccessfullyCreated"].Value;
+			TempData["message"] = localizer[nameof(SharedResource.ImageThumbnailsWereSuccessfullyCreated)].Value;
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -136,7 +137,7 @@ namespace OmEnergo.Controllers
 
 			section.SetEnglishNameIfEmpty();
 			await sectionRepository.UpdateAsync(section);
-			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasDeleted_f"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Section)]} {section.Name} {localizer[nameof(SharedResource.WasDeleted_f)]}";
 			return section.IsMainSection() ? RedirectToAction(nameof(Sections))
 				: RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
 		}
@@ -153,7 +154,7 @@ namespace OmEnergo.Controllers
 
 			section.SetEnglishNameIfEmpty();
 			await compoundRepository.UpdateSectionAndSynchronizePropertiesAsync(section);
-			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasChanged_f"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Section)]} {section.Name} {localizer[nameof(SharedResource.WasChanged_f)]}";
 			return section.IsMainSection() ? RedirectToAction(nameof(Sections))
 				: RedirectToAction(nameof(Section), new { id = section.ParentSection.Id });
 		}
@@ -163,7 +164,7 @@ namespace OmEnergo.Controllers
 		{
 			var section = sectionRepository.GetById<Section>(id);
 			await sectionRepository.DeleteAsync<Section>(id);
-			TempData["message"] = $"{localizer["Section"]} {section.Name} {localizer["WasDeleted_f"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Section)]} {section.Name} {localizer[nameof(SharedResource.WasDeleted_f)]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
@@ -184,7 +185,7 @@ namespace OmEnergo.Controllers
 			product.UpdatePropertyValues(values);
 			product.SetEnglishNameIfEmpty();
 			await productRepository.UpdateAsync(product);
-			TempData["message"] = $"{localizer["Product"]} {product.Name} {localizer["WasDeleted_m"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Product)]} {product.Name} {localizer[nameof(SharedResource.WasDeleted_m)]}";
 			return RedirectToAction(nameof(Section), new { id = product.Section.Id });
 		}
 
@@ -197,7 +198,7 @@ namespace OmEnergo.Controllers
 			product.UpdatePropertyValues(values);
 			product.SetEnglishNameIfEmpty();
 			await productRepository.UpdateAsync(product);
-			TempData["message"] = $"{localizer["Product"]} {product.Name} {localizer["WasChanged_m"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Product)]} {product.Name} {localizer[nameof(SharedResource.WasChanged_m)]}";
 			return RedirectToAction(nameof(Section), new { id = product.Section.Id });
 		}
 
@@ -205,7 +206,7 @@ namespace OmEnergo.Controllers
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
 			await productRepository.DeleteAsync<Product>(id);
-			TempData["message"] = $"{localizer["Product"]} {localizer["WasDeleted_m"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Product)]} {localizer[nameof(SharedResource.WasDeleted_m)]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
@@ -226,7 +227,7 @@ namespace OmEnergo.Controllers
 			productModel.UpdatePropertyValues(values);
 			productModel.SetEnglishNameIfEmpty();
 			await productModelRepository.UpdateAsync(productModel);
-			TempData["message"] = $"{localizer["Model"]} {productModel.Name} {localizer["WasDeleted_f"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Model)]} {productModel.Name} {localizer[nameof(SharedResource.WasDeleted_f)]}";
 			return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
 				: RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
 		}
@@ -242,7 +243,7 @@ namespace OmEnergo.Controllers
 			productModel.UpdatePropertyValues(values);
 			productModel.SetEnglishNameIfEmpty();
 			await productModelRepository.UpdateAsync(productModel);
-			TempData["message"] = $"{localizer["Model"]} {productModel.Name} {localizer["WasChanged_f"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Model)]} {productModel.Name} {localizer[nameof(SharedResource.WasChanged_f)]}";
 			return sectionId == null ? RedirectToAction(nameof(Product), new { id = productModel.Product.Id })
 				: RedirectToAction(nameof(Section), new { id = productModel.Section.Id });
 		}
@@ -251,7 +252,7 @@ namespace OmEnergo.Controllers
 		public async Task<IActionResult> DeleteProductModel(int id)
 		{
 			await productModelRepository.DeleteAsync<ProductModel>(id);
-			TempData["message"] = $"{localizer["Model"]} {localizer["WasDeleted_f"]}";
+			TempData["message"] = $"{localizer[nameof(SharedResource.Model)]} {localizer[nameof(SharedResource.WasDeleted_f)]}";
 			return Redirect(Request.Headers["Referer"].ToString());
 		}
 

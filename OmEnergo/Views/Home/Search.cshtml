@@ -1,9 +1,9 @@
 ﻿@model SearchViewModel
 @{
-	ViewData["Title"] = Localizer["Search"];
+	ViewData["Title"] = Localizer[nameof(SharedResource.Search)];
 }
 
-<h3 class="text-center">@Localizer["Search"] "@Model.SearchString"</h3>
+<h3 class="text-center">@Localizer[nameof(SharedResource.Search)] "@Model.SearchString"</h3>
 @if (Model.Sections.Any() || Model.Products.Any() || Model.ProductModels.Any())
 {
 	<div id="sectionsAndProducts" class="row justify-content-center">
@@ -25,5 +25,5 @@
 }
 else
 {
-	<h4 class="text-center mt-4 font-weight-light">@Localizer["RequestReturnedNoResults"]</h4>
+	<h4 class="text-center mt-4 font-weight-light">@Localizer[nameof(SharedResource.RequestReturnedNoResults)]</h4>
 }

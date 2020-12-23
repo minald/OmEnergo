@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using OmEnergo.Models.ViewModels;
+using OmEnergo.Resources;
 using OmEnergo.Services;
 using System;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace OmEnergo.Controllers
 			}
 			else
 			{
-				TempData["message"] = localizer["TheEnteredDataIsIncorrect"].Value;
+				TempData["message"] = localizer[nameof(SharedResource.TheEnteredDataIsIncorrect)].Value;
 				return RedirectToAction(nameof(Login));
 			}
 		}

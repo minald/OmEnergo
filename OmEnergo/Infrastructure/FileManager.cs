@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
+using OmEnergo.Resources;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,12 +75,12 @@ namespace OmEnergo.Infrastructure
 		{
 			if (uploadedFile == null)
 			{
-				throw new ArgumentNullException(localizer["PleaseSelectAFile"]);
+				throw new ArgumentNullException(localizer[nameof(SharedResource.PleaseSelectAFile)]);
 			}
 
 			if (File.Exists(path))
 			{
-				throw new ArgumentException(localizer["AFileWithThisNameHasAlreadyBeenUploaded"]);
+				throw new ArgumentException(localizer[nameof(SharedResource.AFileWithThisNameHasAlreadyBeenUploaded)]);
 			}
 
 			Directory.CreateDirectory(Path.GetDirectoryName(path));

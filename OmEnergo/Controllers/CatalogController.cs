@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure.Database;
+using OmEnergo.Resources;
 using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
@@ -23,7 +24,7 @@ namespace OmEnergo.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var mainSections = await sectionRepository.GetOrderedMainSectionsAsync();
-			ViewData["Title"] = localizer["Catalog"];
+			ViewData["Title"] = localizer[nameof(SharedResource.Catalog)];
 			return View("_PanelWithCards", mainSections);
 		}
 

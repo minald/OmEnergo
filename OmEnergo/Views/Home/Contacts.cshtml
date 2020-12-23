@@ -1,25 +1,25 @@
 ﻿@model EmailMessageViewModel
 @{
-	ViewData["Title"] = Localizer["Contacts"];
+	ViewData["Title"] = Localizer[nameof(SharedResource.Contacts)];
 }
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }
 
-<h1 class="text-center">@Localizer["Contacts"]</h1>
+<h1 class="text-center">@Localizer[nameof(SharedResource.Contacts)]</h1>
 <div class="row">
 	<div class="col-lg-6">
-		<h3>@Localizer["OOO_OmEnergo"]</h3>
-		<p class="white-space-pre-wrap">@Localizer["WorkingHours"]</p>
-		<h4>@Localizer["CoordinateTimeOfArrival"]</h4>
-		<p class="white-space-pre-wrap">@Localizer["ContactInformation"]</p>
+		<h3>@Localizer[nameof(SharedResource.OOO_OmEnergo)]</h3>
+		<p class="white-space-pre-wrap">@Localizer[nameof(SharedResource.WorkingHours)]</p>
+		<h4>@Localizer[nameof(SharedResource.CoordinateTimeOfArrival)]</h4>
+		<p class="white-space-pre-wrap">@Localizer[nameof(SharedResource.ContactInformation)]</p>
 	</div>
 	<div class="col-lg-6 col-12">
 		<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af7cc1bc8fa1165565789e8adc8c7dae2d652d2d6bfcb93676d654d7d81d4bca7&amp;source=constructor"></iframe>
 	</div>
 </div>
 <hr />
-<h2 id="feedback" class="text-center">@Localizer["Feedback"]</h2>
+<h2 id="feedback" class="text-center">@Localizer[nameof(SharedResource.Feedback)]</h2>
 <form asp-action="Contacts" method="post" class="row">
 	<div class="col-lg-5">
 		<div class="form-group">
@@ -51,5 +51,5 @@
 		</div>
 		<textarea asp-for="Text" rows="8" class="form-control"></textarea>
 	</div>
-	<button class="btn btn-primary mx-auto" type="submit">@Localizer["Send"]</button>
+	<button class="btn btn-primary mx-auto" type="submit">@Localizer[nameof(SharedResource.Send)]</button>
 </form>

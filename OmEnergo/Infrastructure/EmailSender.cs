@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Localization;
+using OmEnergo.Resources;
 using System.Net;
 using System.Net.Mail;
 
@@ -46,8 +47,8 @@ namespace OmEnergo.Infrastructure
 			var mailMessage = new MailMessage
 			{
 				From = new MailAddress(senderEmailAddress),
-				Subject = localizer["FeedbackFromTheOmenergoBySite"],
-				Body = localizer["FeedbackEmailBody"].Value
+				Subject = localizer[nameof(SharedResource.FeedbackFromTheOmenergoBySite)],
+				Body = localizer[nameof(SharedResource.FeedbackEmailBody)].Value
 					.Replace("{{name}}", name)
 					.Replace("{{phoneNumber}}", phoneNumber)
 					.Replace("{{email}}", email)

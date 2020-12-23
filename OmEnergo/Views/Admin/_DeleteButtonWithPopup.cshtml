@@ -3,7 +3,7 @@
 @if (AdminFileManagerService.GetFullPathsOfObjectFiles(Model).Count == 0)
 {
 	<button data-toggle="modal" data-target="#delete@(Model.GetType().Name)@(Model.Id)"
-			class="btn btn-sm btn-danger">@Localizer["Delete"]
+			class="btn btn-sm btn-danger">@Localizer[nameof(SharedResource.Delete)]
 	</button>
 	<div id="delete@(Model.GetType().Name)@(Model.Id)" class="modal fade">
 		<div class="modal-dialog">
@@ -12,12 +12,12 @@
 					<h5 class="modal-title">@Model.Name</h5>
 				</div>
 				<div class="modal-body">
-					<p>@Localizer["AreYouSure_OnDeleting"]</p>
+					<p>@Localizer[nameof(SharedResource.AreYouSure_OnDeleting)]</p>
 				</div>
 				<div class="modal-footer">
-					<button data-dismiss="modal" class="btn btn-secondary">@Localizer["Close"]</button>
+					<button data-dismiss="modal" class="btn btn-secondary">@Localizer[nameof(SharedResource.Close)]</button>
 					<form asp-action="Delete@(Model.GetType().Name)" asp-route-id="@Model.Id" method="post">
-						<button class="btn btn-danger" type="submit">@Localizer["DeleteExactly"]</button>
+						<button class="btn btn-danger" type="submit">@Localizer[nameof(SharedResource.DeleteExactly)]</button>
 					</form>
 				</div>
 			</div>
