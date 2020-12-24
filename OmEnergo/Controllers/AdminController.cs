@@ -174,8 +174,8 @@ namespace OmEnergo.Controllers
 
 		#region ProductModels
 
-		public IActionResult CreateProductModel(int sectionId, int productId) => View("CreateOrEditProductModel",
-			new ProductModel(repositoryService.GetSectionById(sectionId), repositoryService.GetProductById(productId)));
+		public async Task<IActionResult> CreateProductModel(int sectionId, int productId) => View("CreateOrEditProductModel",
+			new ProductModel(repositoryService.GetSectionById(sectionId), await repositoryService.GetProductById(productId)));
 
 		[HttpPost]
 		public async Task<IActionResult> CreateProductModel(ProductModel productModel, int? sectionId, int? productId, params string[] propertyValues)

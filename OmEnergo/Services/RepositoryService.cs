@@ -31,13 +31,13 @@ namespace OmEnergo.Services
 
 		public async Task<List<Section>> GetOrderedMainSectionsAsync() => await sectionRepository.GetOrderedMainSectionsAsync();
 
-		public Section GetFullSectionById(int id) => sectionRepository.GetById(id);
+		public async Task<Section> GetFullSectionById(int id) => await sectionRepository.GetById(id);
 
 		public Section GetSectionById(int id) => sectionRepository.Get(x => x.Id == id);
 
-		public Product GetProductById(int id) => productRepository.GetById(id);
+		public async Task<Product> GetProductById(int id) => await productRepository.GetById(id);
 
-		public ProductModel GetProductModelById(int id) => productModelRepository.GetById(id);
+		public async Task<ProductModel> GetProductModelById(int id) => await productModelRepository.GetById(id);
 
 		public async Task UpdateSectionAndSynchronizePropertiesAsync(Section section)
 		{

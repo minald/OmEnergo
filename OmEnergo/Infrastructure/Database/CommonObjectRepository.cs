@@ -13,7 +13,7 @@ namespace OmEnergo.Infrastructure.Database
 		public CommonObjectRepository(OmEnergoContext context) : base(context) { }
 
 		public Task<List<T>> GetSearchedItemsAsync(string searchString) =>
-			GetAllSearchedItemsQueryable().Where(x => x.Name.Contains(searchString)).ToListAsync<T>();
+			GetAllSearchedItemsQueryable().Where(x => x.Name.Contains(searchString)).ToListAsync();
 
 		public Task<T> GetItemByEnglishNameAsync(string name) =>
 			GetAllQueryable().FirstOrDefaultAsync(x => x.EnglishName == name);

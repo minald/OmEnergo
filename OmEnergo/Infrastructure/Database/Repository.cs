@@ -23,7 +23,7 @@ namespace OmEnergo.Infrastructure.Database
 
 		protected virtual IQueryable<T> GetAllSearchedItemsQueryable() => db.Set<T>();
 
-		public T GetById(int id) => GetAllQueryable().FirstOrDefault(obj => obj.Id == id);
+		public Task<T> GetById(int id) => GetAllQueryable().FirstOrDefaultAsync(obj => obj.Id == id);
 
 		public async Task CreateOrUpdateAsync(T obj)
 		{

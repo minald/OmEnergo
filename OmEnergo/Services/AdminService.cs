@@ -29,7 +29,7 @@ namespace OmEnergo.Services
 		{
 			if (parentSectionId != null)
 			{
-				section.ParentSection = sectionRepository.GetById(parentSectionId.Value);
+				section.ParentSection = await sectionRepository.GetById(parentSectionId.Value);
 				section.SequenceNumber = section.ParentSection.GetOrderedNestedObjects().Count() + 1;
 			}
 			else
@@ -45,7 +45,7 @@ namespace OmEnergo.Services
 		{
 			if (parentSectionId != null)
 			{
-				section.ParentSection = sectionRepository.GetById(parentSectionId.Value);
+				section.ParentSection = await sectionRepository.GetById(parentSectionId.Value);
 			}
 
 			section.SetEnglishNameIfItsEmpty();
@@ -54,14 +54,14 @@ namespace OmEnergo.Services
 
 		public async Task<string> DeleteSectionAsync(int id)
 		{
-			var section = sectionRepository.GetById(id);
+			var section = await sectionRepository.GetById(id);
 			await sectionRepository.DeleteAsync(id);
 			return section.Name;
 		}
 
 		public async Task CreateProductAsync(Product product, int? sectionId, params string[] propertyValues)
 		{
-			product.Section = sectionRepository.GetById(sectionId.Value);
+			product.Section = await sectionRepository.GetById(sectionId.Value);
 			product.SequenceNumber = product.Section.GetOrderedNestedObjects().Count() + 1;
 			product.UpdatePropertyValues(propertyValues);
 			product.SetEnglishNameIfItsEmpty();
@@ -83,8 +83,8 @@ namespace OmEnergo.Services
 
 		public async Task CreateProductModelAsync(ProductModel productModel, int? sectionId, int? productId, params string[] propertyValues)
 		{
-			productModel.Section = sectionRepository.GetById(sectionId.GetValueOrDefault());
-			productModel.Product = productRepository.GetById(productId.GetValueOrDefault());
+			productModel.Section = await sectionRepository.GetById(sectionId.GetValueOrDefault());
+			productModel.Product = await productRepository.GetById(productId.GetValueOrDefault());
 			productModel.SequenceNumber =
 				(sectionId == null ? productModel.Product.Models : productModel.Section.GetOrderedNestedObjects()).Count() + 1;
 			productModel.UpdatePropertyValues(propertyValues);
