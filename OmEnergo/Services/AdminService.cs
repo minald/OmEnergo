@@ -29,7 +29,7 @@ namespace OmEnergo.Services
 		{
 			if (parentSectionId != null)
 			{
-				section.ParentSection = sectionRepository.GetById<Section>(parentSectionId.Value);
+				section.ParentSection = sectionRepository.GetById(parentSectionId.Value);
 				section.SequenceNumber = section.ParentSection.GetOrderedNestedObjects().Count() + 1;
 			}
 			else
@@ -45,7 +45,7 @@ namespace OmEnergo.Services
 		{
 			if (parentSectionId != null)
 			{
-				section.ParentSection = sectionRepository.GetById<Section>(parentSectionId.Value);
+				section.ParentSection = sectionRepository.GetById(parentSectionId.Value);
 			}
 
 			section.SetEnglishNameIfItsEmpty();
@@ -54,14 +54,14 @@ namespace OmEnergo.Services
 
 		public async Task<string> DeleteSectionAsync(int id)
 		{
-			var section = sectionRepository.GetById<Section>(id);
-			await sectionRepository.DeleteAsync<Section>(id);
+			var section = sectionRepository.GetById(id);
+			await sectionRepository.DeleteAsync(id);
 			return section.Name;
 		}
 
 		public async Task CreateProductAsync(Product product, int? sectionId, params string[] propertyValues)
 		{
-			product.Section = sectionRepository.GetById<Section>(sectionId.Value);
+			product.Section = sectionRepository.GetById(sectionId.Value);
 			product.SequenceNumber = product.Section.GetOrderedNestedObjects().Count() + 1;
 			product.UpdatePropertyValues(propertyValues);
 			product.SetEnglishNameIfItsEmpty();
@@ -70,7 +70,7 @@ namespace OmEnergo.Services
 
 		public async Task EditProductAsync(Product product, int? sectionId, params string[] propertyValues)
 		{
-			product.Section = sectionRepository.Get<Section>(x => x.Id == sectionId);
+			product.Section = sectionRepository.Get(x => x.Id == sectionId);
 			product.UpdatePropertyValues(propertyValues);
 			product.SetEnglishNameIfItsEmpty();
 			await productRepository.CreateOrUpdateAsync(product);
@@ -78,13 +78,13 @@ namespace OmEnergo.Services
 
 		public async Task DeleteProductAsync(int id)
 		{
-			await productRepository.DeleteAsync<Product>(id);
+			await productRepository.DeleteAsync(id);
 		}
 
 		public async Task CreateProductModelAsync(ProductModel productModel, int? sectionId, int? productId, params string[] propertyValues)
 		{
-			productModel.Section = sectionRepository.GetById<Section>(sectionId.GetValueOrDefault());
-			productModel.Product = productRepository.GetById<Product>(productId.GetValueOrDefault());
+			productModel.Section = sectionRepository.GetById(sectionId.GetValueOrDefault());
+			productModel.Product = productRepository.GetById(productId.GetValueOrDefault());
 			productModel.SequenceNumber =
 				(sectionId == null ? productModel.Product.Models : productModel.Section.GetOrderedNestedObjects()).Count() + 1;
 			productModel.UpdatePropertyValues(propertyValues);
@@ -94,8 +94,8 @@ namespace OmEnergo.Services
 
 		public async Task EditProductModelAsync(ProductModel productModel, int? sectionId, int? productId, params string[] propertyValues)
 		{
-			productModel.Section = sectionRepository.Get<Section>(x => x.Id == sectionId);
-			productModel.Product = productRepository.Get<Product>(x => x.Id == productId);
+			productModel.Section = sectionRepository.Get(x => x.Id == sectionId);
+			productModel.Product = productRepository.Get(x => x.Id == productId);
 			productModel.UpdatePropertyValues(propertyValues);
 			productModel.SetEnglishNameIfItsEmpty();
 			await productModelRepository.CreateOrUpdateAsync(productModel);
@@ -103,15 +103,15 @@ namespace OmEnergo.Services
 
 		public async Task DeleteProductModelAsync(int id)
 		{
-			await productModelRepository.DeleteAsync<ProductModel>(id);
+			await productModelRepository.DeleteAsync(id);
 		}
 
 		public void CreateThumbnails(int maxSize)
 		{
 			var commonObjects = new List<CommonObject>();
-			commonObjects.AddRange(sectionRepository.GetAll<Section>() ?? new List<Section>());
-			commonObjects.AddRange(productRepository.GetAll<Product>() ?? new List<Product>());
-			commonObjects.AddRange(productModelRepository.GetAll<ProductModel>() ?? new List<ProductModel>());
+			commonObjects.AddRange(sectionRepository.GetAll() ?? new List<Section>());
+			commonObjects.AddRange(productRepository.GetAll() ?? new List<Product>());
+			commonObjects.AddRange(productModelRepository.GetAll() ?? new List<ProductModel>());
 			var imageThumbnailCreator = new ImageThumbnailCreator(maxSize);
 			imageThumbnailCreator.Create(commonObjects);
 		}

@@ -28,11 +28,11 @@ namespace OmEnergo
 			string connectionString = Configuration.GetConnectionString("OmEnergoConnection");
 			services.AddDbContext<OmEnergoContext>(options => options.UseSqlServer(connectionString));
 			services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<OmEnergoContext>();
-			services.AddScoped<Repository>();
 			services.AddScoped<SectionRepository>();
 			services.AddScoped<ProductRepository>();
 			services.AddScoped<ProductModelRepository>();
 			services.AddScoped<ConfigKeyRepository>();
+			services.AddScoped<GenericRepository>();
 
 			services.AddLocalization();
 			services.AddSingleton<IStringLocalizer, StringLocalizer<SharedResource>>();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public class Repository
+	public abstract class Repository<T> where T : UniqueObject
 	{
 		protected readonly OmEnergoContext db;
 
@@ -15,23 +15,17 @@ namespace OmEnergo.Infrastructure.Database
 
 		public Repository(OmEnergoContext context) => db = context;
 
-		public T Get<T>(Func<T, bool> predicate) where T : UniqueObject => db.Set<T>().FirstOrDefault(predicate);
+		public T Get(Func<T, bool> predicate) => db.Set<T>().FirstOrDefault(predicate);
 
-		public virtual IEnumerable<T> GetAll<T>() where T : UniqueObject => GetAllQueryable<T>();
+		public virtual IEnumerable<T> GetAll() => GetAllQueryable();
 
-		protected virtual IQueryable<T> GetAllQueryable<T>() where T : UniqueObject => db.Set<T>();
+		protected virtual IQueryable<T> GetAllQueryable() => db.Set<T>();
 
-		protected virtual IQueryable<T> GetAllSearchedItemsQueryable<T>() where T : UniqueObject => db.Set<T>();
+		protected virtual IQueryable<T> GetAllSearchedItemsQueryable() => db.Set<T>();
 
-		public Task<List<T>> GetSearchedItemsAsync<T>(string searchString) where T : CommonObject =>
-			GetAllSearchedItemsQueryable<T>().Where(x => x.Name.Contains(searchString)).ToListAsync();
+		public T GetById(int id) => GetAllQueryable().FirstOrDefault(obj => obj.Id == id);
 
-		public Task<T> GetItemByEnglishNameAsync<T>(string name) where T : CommonObject =>
-			GetAllQueryable<T>().FirstOrDefaultAsync(x => x.EnglishName == name);
-
-		public T GetById<T>(int id) where T : UniqueObject => GetAllQueryable<T>().FirstOrDefault(obj => obj.Id == id);
-
-		public async Task CreateOrUpdateAsync<T>(T obj) where T : UniqueObject
+		public async Task CreateOrUpdateAsync(T obj)
 		{
 			var existingItem = await db.Set<T>().FindAsync(obj.Id);
 			if (existingItem == null)
@@ -46,13 +40,13 @@ namespace OmEnergo.Infrastructure.Database
 			await db.SaveChangesAsync();
 		}
 
-		public Task UpdateRangeAsync<T>(IEnumerable<T> obj) where T : UniqueObject
+		public Task UpdateRangeAsync(IEnumerable<T> obj)
 		{
 			db.Set<T>().UpdateRange(obj);
 			return db.SaveChangesAsync();
 		}
 
-		public async Task DeleteAsync<T>(int id) where T : UniqueObject
+		public async Task DeleteAsync(int id)
 		{
 			T item = await db.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
 			db.Set<T>().Remove(item);

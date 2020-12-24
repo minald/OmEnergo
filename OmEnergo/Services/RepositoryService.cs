@@ -25,19 +25,19 @@ namespace OmEnergo.Services
 			this.configKeyRepository = configKeyRepository;
 		}
 
-		public List<ConfigKey> GetAllConfigKeys() => configKeyRepository.GetAll<ConfigKey>().ToList();
+		public List<ConfigKey> GetAllConfigKeys() => configKeyRepository.GetAll().ToList();
 
 		public async Task UpdateConfigKeysAsync(List<ConfigKey> configKeys) => await configKeyRepository.UpdateRangeAsync(configKeys);
 
 		public async Task<List<Section>> GetOrderedMainSectionsAsync() => await sectionRepository.GetOrderedMainSectionsAsync();
 
-		public Section GetFullSectionById(int id) => sectionRepository.GetById<Section>(id);
+		public Section GetFullSectionById(int id) => sectionRepository.GetById(id);
 
-		public Section GetSectionById(int id) => sectionRepository.Get<Section>(x => x.Id == id);
+		public Section GetSectionById(int id) => sectionRepository.Get(x => x.Id == id);
 
-		public Product GetProductById(int id) => productRepository.GetById<Product>(id);
+		public Product GetProductById(int id) => productRepository.GetById(id);
 
-		public ProductModel GetProductModelById(int id) => productModelRepository.GetById<ProductModel>(id);
+		public ProductModel GetProductModelById(int id) => productModelRepository.GetById(id);
 
 		public async Task UpdateSectionAndSynchronizePropertiesAsync(Section section)
 		{
@@ -54,28 +54,28 @@ namespace OmEnergo.Services
 
 		public async Task<CommonObject> GetObjectByEnglishNameAsync(string englishName)
 		{
-			var section = await sectionRepository.GetItemByEnglishNameAsync<Section>(englishName);
+			var section = await sectionRepository.GetItemByEnglishNameAsync(englishName);
 			if (section != null)
 			{
 				return section;
 			}
 
-			var product = await productRepository.GetItemByEnglishNameAsync<Product>(englishName);
+			var product = await productRepository.GetItemByEnglishNameAsync(englishName);
 			if (product != null)
 			{
 				return product;
 			}
 
-			var productModel = await productModelRepository.GetItemByEnglishNameAsync<ProductModel>(englishName);
+			var productModel = await productModelRepository.GetItemByEnglishNameAsync(englishName);
 			return productModel;
 		}
 
 		public async Task<SearchViewModel> CreateSearchViewModelAsync(string searchString)
 		{
 			return new SearchViewModel(searchString,
-				await sectionRepository.GetSearchedItemsAsync<Section>(searchString),
-				await productRepository.GetSearchedItemsAsync<Product>(searchString),
-				await productModelRepository.GetSearchedItemsAsync<ProductModel>(searchString));
+				await sectionRepository.GetSearchedItemsAsync(searchString),
+				await productRepository.GetSearchedItemsAsync(searchString),
+				await productModelRepository.GetSearchedItemsAsync(searchString));
 		}
 	}
 }

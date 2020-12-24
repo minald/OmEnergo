@@ -17,7 +17,7 @@ namespace OmEnergo.Infrastructure.Excel
 {
 	public class ExcelDbUpdater
 	{
-		private readonly Repository repository;
+		private readonly GenericRepository genericRepository;
 
 		private readonly ILogger<ExcelDbUpdater> logger;
 
@@ -25,9 +25,9 @@ namespace OmEnergo.Infrastructure.Excel
 
 		private DataRow currentDataRow { get; set; }
 
-		public ExcelDbUpdater(Repository repository, ILogger<ExcelDbUpdater> logger, IStringLocalizer localizer)
+		public ExcelDbUpdater(GenericRepository genericRepository, ILogger<ExcelDbUpdater> logger, IStringLocalizer localizer)
 		{
-			this.repository = repository;
+			this.genericRepository = genericRepository;
 			this.logger = logger;
 			this.localizer = localizer;
 		}
@@ -61,9 +61,9 @@ namespace OmEnergo.Infrastructure.Excel
 		{
 			var primitiveProperties = GetPrimitiveProperties<T>();
 			var id = Convert.ToInt32(currentDataRow["Id"]);
-			var obj = repository.Get<T>(x => x.Id == id);
+			var obj = genericRepository.Get<T>(x => x.Id == id);
 			primitiveProperties.ForEach(p => ReadAndSetValue(obj, p));
-			await repository.CreateOrUpdateAsync(obj);
+			await genericRepository.CreateOrUpdateAsync(obj);
 		}
 
 		private List<PropertyInfo> GetPrimitiveProperties<T>() => typeof(T).GetProperties()

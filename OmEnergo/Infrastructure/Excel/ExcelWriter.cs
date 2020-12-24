@@ -29,10 +29,10 @@ namespace OmEnergo.Infrastructure.Excel
 		public MemoryStream CreateExcelStream()
 		{
 			using var workbook = new XLWorkbook();
-			AddWorksheet(workbook, sectionRepository.GetAll<Section>());
-			AddWorksheet(workbook, productRepository.GetAll<Product>());
-			AddWorksheet(workbook, productModelRepository.GetAll<ProductModel>());
-			AddWorksheet(workbook, configKeyRepository.GetAll<ConfigKey>());
+			AddWorksheet(workbook, sectionRepository.GetAll());
+			AddWorksheet(workbook, productRepository.GetAll());
+			AddWorksheet(workbook, productModelRepository.GetAll());
+			AddWorksheet(workbook, configKeyRepository.GetAll());
 			SetCellsWidthAndHeight(workbook);
 			return ToMemoryStream(workbook);
 		}

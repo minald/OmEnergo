@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace OmEnergo.Infrastructure.Database
 {
-	public class ProductRepository : Repository
+	public class ProductRepository : CommonObjectRepository<Product>
 	{
 		public ProductRepository() : base() { }
 
 		public ProductRepository(OmEnergoContext context) : base(context) { }
 
-		public Task<List<Product>> GetProducts(int sectionId) => GetAllQueryable<Product>().Where(x => x.Section.Id == sectionId).ToListAsync();
+		public Task<List<Product>> GetProducts(int sectionId) => GetAllQueryable()
+			.Where(x => x.Section.Id == sectionId).ToListAsync();
 
-		protected override IQueryable<Product> GetAllQueryable<Product>() => (IQueryable<Product>)db.Products
+		protected override IQueryable<Product> GetAllQueryable() => db.Products
 			.Include(x => x.Section).Include(x => x.Models);
 
-		protected override IQueryable<Product> GetAllSearchedItemsQueryable<Product>() => 
-			(IQueryable<Product>)db.Products.Include(x => x.Section);
+		protected override IQueryable<Product> GetAllSearchedItemsQueryable() => db.Products.Include(x => x.Section);
 	}
 }
