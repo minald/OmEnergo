@@ -33,7 +33,6 @@ namespace OmEnergo
 			services.AddScoped<ProductRepository>();
 			services.AddScoped<ProductModelRepository>();
 			services.AddScoped<ConfigKeyRepository>();
-			services.AddScoped<CompoundRepository>();
 
 			services.AddLocalization();
 			services.AddSingleton<IStringLocalizer, StringLocalizer<SharedResource>>();
@@ -45,8 +44,11 @@ namespace OmEnergo
 			services.AddScoped<ExcelDbUpdater>();
 			services.AddScoped<EmailSender>();
 
+			services.AddScoped<AdminService>();
 			services.AddScoped<AdminFileManagerService>();
 			services.AddScoped<EmailSenderService>();
+			services.AddScoped<ExcelService>();
+			services.AddScoped<RepositoryService>();
 
 			services.AddSession();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

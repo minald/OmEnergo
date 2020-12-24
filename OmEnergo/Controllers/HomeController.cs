@@ -1,38 +1,25 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using OmEnergo.Infrastructure.Database;
-using OmEnergo.Models;
-using OmEnergo.Models.ViewModels;
 using OmEnergo.Resources;
 using OmEnergo.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace OmEnergo.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly SectionRepository sectionRepository;
-		private readonly ProductRepository productRepository;
-		private readonly ProductModelRepository productModelRepository;
-		private readonly ConfigKeyRepository configKeyRepository;
-		private readonly IStringLocalizer localizer;
+		private readonly RepositoryService repositoryService;
 		private readonly SignInManager<IdentityUser> signInManager;
+		private readonly IStringLocalizer localizer;
 
-		public HomeController(SectionRepository sectionRepository, 
-			ProductRepository productRepository, 
-			ProductModelRepository productModelRepository, 
-			ConfigKeyRepository configKeyRepository, 
-			IStringLocalizer localizer,
-			SignInManager<IdentityUser> signInManager)
+		public HomeController(RepositoryService repositoryService,
+			SignInManager<IdentityUser> signInManager,
+			IStringLocalizer localizer)
 		{
-			this.sectionRepository = sectionRepository;
-			this.productRepository = productRepository;
-			this.productModelRepository = productModelRepository;
-			this.configKeyRepository = configKeyRepository;
-			this.localizer = localizer;
+			this.repositoryService = repositoryService;
 			this.signInManager = signInManager;
+			this.localizer = localizer;
 		}
 
 		public IActionResult About() => View();
@@ -45,12 +32,8 @@ namespace OmEnergo.Controllers
 		public IActionResult Contacts([FromServices] EmailSenderService emailSenderService, 
 			string name, string text, string email, string phoneNumber = "")
 		{
-			if (!String.IsNullOrEmpty(name) || !String.IsNullOrEmpty(text) || !String.IsNullOrEmpty(email))
-			{
-				Task.Factory.StartNew(() => emailSenderService.SendEmail(name, phoneNumber, email, text));
-			}
-
-			return RedirectToAction("Index", "Catalog");
+			emailSenderService.SendEmail(name, phoneNumber, email, text);
+			return RedirectToAction(nameof(CatalogController.Index), "Catalog");
 		}
 
 		public IActionResult Login() => View();
@@ -61,7 +44,7 @@ namespace OmEnergo.Controllers
 			var result = signInManager.PasswordSignInAsync(login, password, false, false).Result;
 			if (result.Succeeded)
 			{
-				return RedirectToAction("Index", "Admin");
+				return RedirectToAction(nameof(AdminController.Index), "Admin");
 			}
 			else
 			{
@@ -70,10 +53,8 @@ namespace OmEnergo.Controllers
 			}
 		}
 
-		public async Task<IActionResult> Search(string searchString) => View(new SearchViewModel(searchString,
-			await sectionRepository.GetSearchedItemsAsync<Section>(searchString), 
-			await productRepository.GetSearchedItemsAsync<Product>(searchString),
-			await productModelRepository.GetSearchedItemsAsync<ProductModel>(searchString)));
+		public async Task<IActionResult> Search(string searchString) => 
+			View(await repositoryService.CreateSearchViewModelAsync(searchString));
 
 		public IActionResult Error() => View();
 	}

@@ -29,9 +29,9 @@ namespace OmEnergo.Infrastructure.Database
 		public Task<T> GetItemByEnglishNameAsync<T>(string name) where T : CommonObject =>
 			GetAllQueryable<T>().FirstOrDefaultAsync(x => x.EnglishName == name);
 
-		public T GetById<T>(int id) where T : UniqueObject => GetAll<T>().FirstOrDefault(obj => obj.Id == id);
+		public T GetById<T>(int id) where T : UniqueObject => GetAllQueryable<T>().FirstOrDefault(obj => obj.Id == id);
 
-		public async Task UpdateAsync<T>(T obj) where T : UniqueObject
+		public async Task CreateOrUpdateAsync<T>(T obj) where T : UniqueObject
 		{
 			var existingItem = await db.Set<T>().FindAsync(obj.Id);
 			if (existingItem == null)

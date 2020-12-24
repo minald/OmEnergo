@@ -1,6 +1,7 @@
 ﻿using OmEnergo.Infrastructure;
 using OmEnergo.Infrastructure.Database;
 using System;
+using System.Threading.Tasks;
 
 namespace OmEnergo.Services
 {
@@ -22,7 +23,12 @@ namespace OmEnergo.Services
 
 		public void SendEmail(string name, string phoneNumber, string email, string text)
 		{
-			emailSender.SendEmail(name, phoneNumber, email, text);
+			if (String.IsNullOrEmpty(name) && String.IsNullOrEmpty(text) && String.IsNullOrEmpty(email))
+			{
+				throw new ArgumentNullException();
+			}
+
+			Task.Factory.StartNew(() => emailSender.SendEmail(name, phoneNumber, email, text));
 		}
 	}
 }

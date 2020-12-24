@@ -63,7 +63,7 @@ namespace OmEnergo.Infrastructure.Excel
 			var id = Convert.ToInt32(currentDataRow["Id"]);
 			var obj = repository.Get<T>(x => x.Id == id);
 			primitiveProperties.ForEach(p => ReadAndSetValue(obj, p));
-			await repository.UpdateAsync(obj);
+			await repository.CreateOrUpdateAsync(obj);
 		}
 
 		private List<PropertyInfo> GetPrimitiveProperties<T>() => typeof(T).GetProperties()

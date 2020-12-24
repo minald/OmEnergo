@@ -23,12 +23,12 @@ namespace OmEnergo.Infrastructure
 				var imagePaths = AdminFileManagerService.GetFullPathsOfObjectImages(commonObject);
 				foreach (var imagePath in imagePaths)
 				{
-					var thumnailPath = GetThumbnailPath(imagePath, commonObject);
-					if (!File.Exists(thumnailPath))
+					var thumbnailPath = GetThumbnailPath(imagePath, commonObject);
+					if (!File.Exists(thumbnailPath))
 					{
 						var image = Image.FromFile(imagePath);
 						var thumbnail = GetThumbnailFrom(image);
-						thumbnail.Save(thumnailPath);
+						thumbnail.Save(thumbnailPath);
 					}
 				}
 			}

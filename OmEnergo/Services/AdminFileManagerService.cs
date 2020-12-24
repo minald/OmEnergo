@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using OmEnergo.Infrastructure;
-using OmEnergo.Infrastructure.Database;
 using OmEnergo.Models;
 using OmEnergo.Resources;
 using System;
@@ -16,7 +15,7 @@ namespace OmEnergo.Services
 	{
 		private readonly FileManager fileManager;
 
-		private readonly CompoundRepository compoundRepository;
+		private readonly RepositoryService repositoryService;
 
 		private readonly IStringLocalizer localizer;
 
@@ -24,10 +23,10 @@ namespace OmEnergo.Services
 		private readonly static List<string> supportedImageExtensions = new List<string>() { "jpg", "jpeg", "png" };
 		private readonly static List<string> supportedDocumentExtensions = FileManager.SupportedDocumentExtensionsAndMimeTypes.Keys.ToList();
 
-		public AdminFileManagerService(FileManager fileManager, CompoundRepository compoundRepository, IStringLocalizer localizer)
+		public AdminFileManagerService(FileManager fileManager, RepositoryService repositoryService, IStringLocalizer localizer)
 		{
 			this.fileManager = fileManager;
-			this.compoundRepository = compoundRepository;
+			this.repositoryService = repositoryService;
 			this.localizer = localizer;
 		}
 
@@ -56,14 +55,14 @@ namespace OmEnergo.Services
 
 		public async Task UploadFileAsync(string objectEnglishName, IFormFile uploadedFile)
 		{
-			var obj = await compoundRepository.GetObjectByEnglishNameAsync(objectEnglishName);
+			var obj = await repositoryService.GetObjectByEnglishNameAsync(objectEnglishName);
 			var path = GetTargetPath(obj, uploadedFile);
 			await fileManager.UploadFileAsync(path, uploadedFile);
 		}
 
 		public async Task DeleteFileAsync(string deletedFileFullPath, string objectEnglishName)
 		{
-			var obj = await compoundRepository.GetObjectByEnglishNameAsync(objectEnglishName);
+			var obj = await repositoryService.GetObjectByEnglishNameAsync(objectEnglishName);
 			fileManager.DeleteFile(deletedFileFullPath);
 			var mainImageFullPath = FileManager.MakeFullPathFromRelative(obj.GetMainImagePath());
 			if (deletedFileFullPath == mainImageFullPath)
@@ -74,7 +73,7 @@ namespace OmEnergo.Services
 
 		public async Task MakeImageMainAsync(string newMainImageFullPath, string objectEnglishName)
 		{
-			var obj = await compoundRepository.GetObjectByEnglishNameAsync(objectEnglishName);
+			var obj = await repositoryService.GetObjectByEnglishNameAsync(objectEnglishName);
 			var oldMainImageFullPath = FileManager.MakeFullPathFromRelative(obj.GetMainImagePath());
 			if (newMainImageFullPath != oldMainImageFullPath)
 			{

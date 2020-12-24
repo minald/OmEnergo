@@ -57,7 +57,7 @@ namespace OmEnergo.Models
 
 		public string GetNamePatternOfAllFilesExceptMainImage() => $"{GetImageNamePrefix()}{Id}_*";
 
-		public void SetEnglishNameIfEmpty()
+		public void SetEnglishNameIfItsEmpty()
 		{
 			if (String.IsNullOrEmpty(EnglishName))
 			{
